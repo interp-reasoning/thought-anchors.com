@@ -1,0 +1,163 @@
+{
+  "problem_idx": 1591,
+  "num_chunks": 160,
+  "avg_importance": 0.00035872932804883697,
+  "max_importance": 0.702211108742928,
+  "min_importance": -0.58,
+  "top_influential_steps": [
+    {
+      "step_idx": 149,
+      "step_text": {
+        "chunk": "Wait, but just to make sure, let me think about this another way.",
+        "chunk_idx": 149,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "148"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.211992561575286
+    },
+    {
+      "step_idx": 145,
+      "step_text": {
+        "chunk": "1.005^12 \u2248 1.056607285 * 1.005 \u2248 1.061677904",
+        "chunk_idx": 145,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "144"
+        ],
+        "importance": 0.16140789336665629,
+        "accuracy": 0.8282828282828283
+      },
+      "avg_outgoing_importance": 0.12920919509004053
+    },
+    {
+      "step_idx": 153,
+      "step_text": {
+        "chunk": "After 2 months: $100.50 * 1.005 = $101.0025",
+        "chunk_idx": 153,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "152"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.08195947122739615
+    },
+    {
+      "step_idx": 131,
+      "step_text": {
+        "chunk": "If I compute (1.005)^12, what's the exact value?",
+        "chunk_idx": 131,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "130"
+        ],
+        "importance": -0.05102040816326525,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.0711602576514889
+    },
+    {
+      "step_idx": 120,
+      "step_text": {
+        "chunk": "Correct. Fifth term: (12*11*10*9)/24 = (11880)/24 = 495, and 0.005^4 is 0.0000000625, so 495 * 0.0000000625 = 0.0000309375.",
+        "chunk_idx": 120,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "119"
+        ],
+        "importance": -0.003775228691738075,
+        "accuracy": 0.9896907216494846
+      },
+      "avg_outgoing_importance": 0.0679143494426234
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Let me try to figure it out step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "importance": 0.05246913580246915,
+        "accuracy": 0.75
+      },
+      "avg_incoming_importance": 0.2827343046278148
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Hmm, okay.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "importance": -0.10999999999999999,
+        "accuracy": 0.88
+      },
+      "avg_incoming_importance": 0.047305849746040914
+    },
+    {
+      "step_idx": 11,
+      "step_text": {
+        "chunk": "Let me write down the formulas I remember.",
+        "chunk_idx": 11,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "importance": -0.06060606060606055,
+        "accuracy": 0.8383838383838383
+      },
+      "avg_incoming_importance": 0.03947914273395136
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "First, the problem says Dr.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "importance": -0.018963981163293897,
+        "accuracy": 0.8024691358024691
+      },
+      "avg_incoming_importance": 0.03792818782190796
+    },
+    {
+      "step_idx": 19,
+      "step_text": {
+        "chunk": "In this problem, we're dealing with one year, so t = 1.",
+        "chunk_idx": 19,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "18"
+        ],
+        "importance": -0.1200000000000001,
+        "accuracy": 0.81
+      },
+      "avg_incoming_importance": 0.016960624687946596
+    }
+  ]
+}

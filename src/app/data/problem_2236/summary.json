@@ -1,0 +1,167 @@
+{
+  "problem_idx": 2236,
+  "num_chunks": 87,
+  "avg_importance": 0.0009939305113117346,
+  "max_importance": 0.5343288712125075,
+  "min_importance": -0.51,
+  "top_influential_steps": [
+    {
+      "step_idx": 82,
+      "step_text": {
+        "chunk": "Wait, but let me think again about the tens place for 8's.",
+        "chunk_idx": 82,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "81"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.27167754737502087
+    },
+    {
+      "step_idx": 59,
+      "step_text": {
+        "chunk": "Wait, that seems a bit high.",
+        "chunk_idx": 59,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "58"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.23725029764476263
+    },
+    {
+      "step_idx": 85,
+      "step_text": {
+        "chunk": "So, 10+10+10+10+9=49.",
+        "chunk_idx": 85,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "84"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.10160811276950926
+    },
+    {
+      "step_idx": 84,
+      "step_text": {
+        "chunk": "So, 9 eights in the tens place for that set.",
+        "chunk_idx": 84,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "83"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.08583881921688355
+    },
+    {
+      "step_idx": 80,
+      "step_text": {
+        "chunk": "So, that seems correct.",
+        "chunk_idx": 80,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "79"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.08229928387472175
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 15,
+      "step_text": {
+        "chunk": "Since we can't have a fraction of a number, we take the integer part, which is 48.",
+        "chunk_idx": 15,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "14"
+        ],
+        "importance": 0.0,
+        "accuracy": 0.64
+      },
+      "avg_incoming_importance": 0.035278966596557035
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "First, I think I should consider how page numbers are structured.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "importance": -0.020000000000000018,
+        "accuracy": 0.76
+      },
+      "avg_incoming_importance": 0.031216686648342484
+    },
+    {
+      "step_idx": 12,
+      "step_text": {
+        "chunk": "How many such numbers are there?",
+        "chunk_idx": 12,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "11"
+        ],
+        "importance": -0.08999999999999997,
+        "accuracy": 0.72
+      },
+      "avg_incoming_importance": 0.026790227151959556
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let me break this down step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "importance": 0.07000000000000006,
+        "accuracy": 0.69
+      },
+      "avg_incoming_importance": 0.02397204975120154
+    },
+    {
+      "step_idx": 16,
+      "step_text": {
+        "chunk": "But wait, does 484 count as the 49th occurrence?",
+        "chunk_idx": 16,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "15"
+        ],
+        "importance": 0.24,
+        "accuracy": 0.64
+      },
+      "avg_incoming_importance": 0.02334318079869474
+    }
+  ]
+}

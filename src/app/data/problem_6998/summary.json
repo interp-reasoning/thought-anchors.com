@@ -1,0 +1,170 @@
+{
+  "problem_idx": 6998,
+  "num_chunks": 125,
+  "avg_importance": 0.0006961252238002784,
+  "max_importance": 0.5149999403953552,
+  "min_importance": -0.5099999403953552,
+  "top_influential_steps": [
+    {
+      "step_idx": 72,
+      "step_text": {
+        "chunk": "Wait, but let me check the endpoints.",
+        "chunk_idx": 72,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "71"
+        ],
+        "importance": -0.37,
+        "accuracy": 0.88
+      },
+      "avg_outgoing_importance": 0.26514355314258764
+    },
+    {
+      "step_idx": 100,
+      "step_text": {
+        "chunk": "Wait, perhaps I should compute 1/(3183\u03c0) more accurately.",
+        "chunk_idx": 100,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "99"
+        ],
+        "importance": 0.010000000000000009,
+        "accuracy": 0.98
+      },
+      "avg_outgoing_importance": 0.17676182215611283
+    },
+    {
+      "step_idx": 121,
+      "step_text": {
+        "chunk": "Alternatively, I can think of it as the number of integers from 319 to 3183 is equal to (3183 - 319) +1.",
+        "chunk_idx": 121,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "120"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.13677670903381203
+    },
+    {
+      "step_idx": 118,
+      "step_text": {
+        "chunk": "Wait, but let me just make sure that I didn't make any miscalculations in the subtraction.",
+        "chunk_idx": 118,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "117"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.0902121827633972
+    },
+    {
+      "step_idx": 111,
+      "step_text": {
+        "chunk": "Similarly, n=319: 319\u03c0 \u2248 319 * 3.1415926535 \u2248",
+        "chunk_idx": 111,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "110"
+        ],
+        "importance": -0.010000000000000009,
+        "accuracy": 0.99
+      },
+      "avg_outgoing_importance": 0.047038414056060095
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, x-intercepts are where the function crosses the x-axis, which means y = 0.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "importance": 0.13,
+        "accuracy": 0.65
+      },
+      "avg_incoming_importance": 0.12230071094301015
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "So, I need to find how many times sin(1/x) equals zero in that interval.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "1"
+        ],
+        "importance": -0.07000000000000006,
+        "accuracy": 0.78
+      },
+      "avg_incoming_importance": 0.08385847186693896
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "I can rewrite these inequalities to solve for n.",
+        "chunk_idx": 13,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "importance": -0.029999999999999916,
+        "accuracy": 0.82
+      },
+      "avg_incoming_importance": 0.020289767379896215
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Since x is positive and between 0.0001 and 0.001, I can substitute x with 1/(n\u03c0) to find the range of n.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "9",
+          "7"
+        ],
+        "importance": 0.08999999999999997,
+        "accuracy": 0.8
+      },
+      "avg_incoming_importance": 0.019550541707447598
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "Applying that to the function here, sin(1/x) = 0 when 1/x = n\u03c0.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "4"
+        ],
+        "importance": -0.10999999999999999,
+        "accuracy": 0.79
+      },
+      "avg_incoming_importance": 0.019030081147100874
+    }
+  ]
+}

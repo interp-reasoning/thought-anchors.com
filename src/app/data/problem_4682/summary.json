@@ -1,0 +1,165 @@
+{
+  "problem_idx": 4682,
+  "num_chunks": 145,
+  "avg_importance": 0.00016075641853263148,
+  "max_importance": 0.6767676495198391,
+  "min_importance": -0.5298508356756239,
+  "top_influential_steps": [
+    {
+      "step_idx": 128,
+      "step_text": {
+        "chunk": "Therefore, the number of bits is 19.",
+        "chunk_idx": 128,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "127"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.16650632113747077
+    },
+    {
+      "step_idx": 131,
+      "step_text": {
+        "chunk": "So, I think the answer is 19 bits.",
+        "chunk_idx": 131,
+        "function_tags": [
+          "final_answer_emission"
+        ],
+        "depends_on": [
+          "130"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.1339314358833066
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "Alternatively, maybe I can calculate the value of 66666\u2081\u2086 in decimal and then find out how many bits that number would require.",
+        "chunk_idx": 13,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "importance": 0.4063917525773196,
+        "accuracy": 0.4536082474226804
+      },
+      "avg_outgoing_importance": 0.12162002630799032
+    },
+    {
+      "step_idx": 98,
+      "step_text": {
+        "chunk": "Wait, but let me confirm this by actually converting 66666\u2081\u2086 to binary and counting the bits.",
+        "chunk_idx": 98,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "97"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.10369068444733406
+    },
+    {
+      "step_idx": 132,
+      "step_text": {
+        "chunk": "Wait, but let me make sure by actually writing out the binary number.",
+        "chunk_idx": 132,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "131"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.08602534404878283
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let's see.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "importance": -0.010000000000000009,
+        "accuracy": 0.9
+      },
+      "avg_incoming_importance": 0.06779342788916368
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "That's five digits in total.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "6"
+        ],
+        "importance": 0.00583151098615009,
+        "accuracy": 0.711340206185567
+      },
+      "avg_incoming_importance": 0.049472761866192316
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "First, the number given is 66666 in base 16.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "importance": -0.07222222222222219,
+        "accuracy": 0.85
+      },
+      "avg_incoming_importance": 0.030543282124034142
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Let me count the digits: 6, 6, 6, 6, 6.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "importance": -0.06643757159221075,
+        "accuracy": 0.7777777777777778
+      },
+      "avg_incoming_importance": 0.03016598434250038
+    },
+    {
+      "step_idx": 9,
+      "step_text": {
+        "chunk": "Wait, is that always the case?",
+        "chunk_idx": 9,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "importance": 0.06000000000000005,
+        "accuracy": 0.69
+      },
+      "avg_incoming_importance": 0.020777872192171254
+    }
+  ]
+}

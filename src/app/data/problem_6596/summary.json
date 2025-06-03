@@ -1,0 +1,163 @@
+{
+  "problem_idx": 6596,
+  "num_chunks": 233,
+  "avg_importance": 0.00032884740710803723,
+  "max_importance": 0.5100000596046448,
+  "min_importance": -0.5319400163310947,
+  "top_influential_steps": [
+    {
+      "step_idx": 226,
+      "step_text": {
+        "chunk": "Wait, but let me double-check.",
+        "chunk_idx": 226,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "225"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.37446838611441025
+    },
+    {
+      "step_idx": 213,
+      "step_text": {
+        "chunk": "But considering the Asymptote code, which shows a diagonal line from (0,2) to (12,10), it seems like points A and B are not directly aligned horizontally or vertically but are connected by a diagonal.",
+        "chunk_idx": 213,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "45"
+        ],
+        "importance": 0.020707070707070674,
+        "accuracy": 0.9292929292929293
+      },
+      "avg_outgoing_importance": 0.06476554831428975
+    },
+    {
+      "step_idx": 191,
+      "step_text": {
+        "chunk": "But wait, another way to think about it is that the figure might have the smaller square on top of the larger square, but that would make the vertical distance larger.",
+        "chunk_idx": 191,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "190"
+        ],
+        "importance": 0.0,
+        "accuracy": 0.97
+      },
+      "avg_outgoing_importance": 0.06395606415011845
+    },
+    {
+      "step_idx": 225,
+      "step_text": {
+        "chunk": "Therefore, considering both scaling factors, the distance from A to B is approximately 5.8 cm.",
+        "chunk_idx": 225,
+        "function_tags": [
+          "final_answer_emission"
+        ],
+        "depends_on": [
+          "224"
+        ],
+        "importance": 0.0,
+        "accuracy": 1.0
+      },
+      "avg_outgoing_importance": 0.0455298439543493
+    },
+    {
+      "step_idx": 97,
+      "step_text": {
+        "chunk": "Wait, but that would make the distance from B to A sqrt(5\u00b2 + 3\u00b2) = sqrt(25 + 9) = sqrt(34) \u2248 5.83 cm.",
+        "chunk_idx": 97,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "96"
+        ],
+        "importance": -0.04999999999999993,
+        "accuracy": 0.95
+      },
+      "avg_outgoing_importance": 0.045491619874909094
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "I need to find the distance from point A to point B, and express it as a decimal to the nearest tenth.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "importance": 0.0,
+        "accuracy": 0.21
+      },
+      "avg_incoming_importance": 0.15533902770708158
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Let me calculate that first.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "importance": -0.03,
+        "accuracy": 0.21
+      },
+      "avg_incoming_importance": 0.025278996443426283
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "It also labels points B at (0,2) and A at (12,10).",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "importance": -0.060000000000000026,
+        "accuracy": 0.27
+      },
+      "avg_incoming_importance": 0.022506098053236123
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "Wait, let me think.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "importance": 0.05000000000000002,
+        "accuracy": 0.21
+      },
+      "avg_incoming_importance": 0.015509871891073073
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Hmm, so it seems like the figure is made up of two squares connected in some way, maybe side by side or overlapping?",
+        "chunk_idx": 6,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "importance": 0.0,
+        "accuracy": 0.21
+      },
+      "avg_incoming_importance": 0.015163100714138308
+    }
+  ]
+}
