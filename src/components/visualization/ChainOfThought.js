@@ -1,0 +1,319 @@
+'use client'
+import { useState, useEffect, useRef } from 'react'
+import { functionTagColors, formatFunctionTag } from '@/constants/visualization'
+import { processMathText } from '@/utils/textProcessing'
+import styled from 'styled-components'
+
+const ChainContainer = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isCollapsed',
+})`
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    transition: all 0.3s ease;
+    
+    ${props => props.isCollapsed && `
+        flex: 0;
+        min-width: 75px;
+        max-width: 75px;
+    `}
+`
+
+const ChainHeader = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isCollapsed',
+})`
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    ${props => props.isCollapsed && `
+        flex-direction: column;
+        writing-mode: vertical-lr;
+        text-orientation: mixed;
+        padding: 1rem 0.5rem;
+        border-bottom: none;
+        height: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        
+        h3 {
+            margin: 0;
+            font-size: 0.75rem;
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+        }
+    `}
+`
+
+const ToggleButton = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isCollapsed',
+})`
+    padding: 0.25rem 0.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    
+    &:hover {
+        background: #0056b3;
+    }
+    
+    ${props => props.isCollapsed && `
+        writing-mode: horizontal-tb;
+        padding: 0.5rem 0.25rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `}
+`
+
+const ChainList = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isCollapsed',
+})`
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+    
+    ${props => props.isCollapsed && `
+        display: none;
+    `}
+`
+
+const ChainStep = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['color', 'importance', 'isSelected', 'isHighlighted'].includes(prop),
+})`
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    border-left: 4px solid ${props => props.color};
+    background: ${props => {
+        const opacity = Math.min(0.8, Math.max(0.1, props.importance * 2));
+        return `${props.color}${Math.round(opacity * 255).toString(16).padStart(2, '0')}`;
+    }};
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    
+    &:hover {
+        transform: translateX(4px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        background: ${props => {
+            const opacity = Math.min(0.9, Math.max(0.2, props.importance * 2 + 0.1));
+            return `${props.color}${Math.round(opacity * 255).toString(16).padStart(2, '0')}`;
+        }};
+    }
+    
+    ${props => props.isSelected && `
+        background: ${props.color}AA !important;
+        box-shadow: 0 0 0 2px ${props.color};
+        transform: translateX(4px);
+    `}
+    
+    ${props => props.isHighlighted && `
+        background: ${props.color}DD !important;
+        box-shadow: 0 0 0 2px ${props.color}, 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateX(6px);
+    `}
+`
+
+const StepNumber = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'color',
+})`
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    background: ${props => props.color};
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+`
+
+const StepHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+`
+
+const StepFunction = styled.span`
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #444;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+`
+
+const ImportanceScore = styled.span`
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+`
+
+const StepText = styled.div`
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+`
+
+const CollapsedView = styled.div`
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+`
+
+const ChainOfThought = ({ 
+    chunksData, 
+    stepImportanceData, 
+    selectedNode, 
+    hoveredNode,
+    onStepHover, 
+    onStepClick,
+    onStepLeave,
+    causalLinksCount = 3
+}) => {
+    const [isCollapsed, setIsCollapsed] = useState(false)
+    const [hoveredStep, setHoveredStep] = useState(null)
+    const chainListRef = useRef(null)
+
+    // Auto-scroll to selected or hovered node
+    useEffect(() => {
+        const targetNode = selectedNode || hoveredNode
+        if (targetNode && chainListRef.current && !isCollapsed) {
+            const stepElement = chainListRef.current.querySelector(`[data-step-id="${targetNode.id}"]`)
+            if (stepElement) {
+                stepElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                })
+            }
+        }
+    }, [selectedNode, hoveredNode, isCollapsed])
+
+    // Get causal relationships for a step
+    const getCausalRelationships = (stepId) => {
+        const affects = []
+        const affectedBy = []
+        
+        // Find what this step affects
+        const stepData = stepImportanceData.find(step => step.source_chunk_idx === stepId)
+        if (stepData?.target_impacts) {
+            affects.push(...stepData.target_impacts
+                .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                .slice(0, causalLinksCount)
+                .map(impact => impact.target_chunk_idx)
+            )
+        }
+        
+        // Find what affects this step
+        stepImportanceData.forEach(step => {
+            const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === stepId)
+            if (impact) {
+                affectedBy.push(step.source_chunk_idx)
+            }
+        })
+        
+        return { affects, affectedBy }
+    }
+
+    const handleStepHover = (chunk) => {
+        setHoveredStep(chunk.chunk_idx)
+        onStepHover?.(chunk)
+    }
+
+    const handleStepLeave = () => {
+        setHoveredStep(null)
+        onStepLeave?.()
+    }
+
+    const handleStepClick = (chunk) => {
+        onStepClick?.(chunk)
+    }
+
+    return (
+        <ChainContainer isCollapsed={isCollapsed}>
+            <ChainHeader isCollapsed={isCollapsed}>
+                <h3>Chain-of-thought</h3>
+                <ToggleButton 
+                    isCollapsed={isCollapsed}
+                    onClick={() => setIsCollapsed(!isCollapsed)}
+                >
+                    {isCollapsed ? '→' : '←'}
+                </ToggleButton>
+            </ChainHeader>
+            <ChainList ref={chainListRef} isCollapsed={isCollapsed}>
+                {chunksData
+                    .sort((a, b) => a.chunk_idx - b.chunk_idx)
+                    .map((chunk) => {
+                        const color = functionTagColors[chunk.function_tags[0]] || '#999'
+                        const importance = Math.abs(chunk.importance) || 0.01
+                        const isSelected = selectedNode?.id === chunk.chunk_idx
+                        const isHighlighted = hoveredNode?.id === chunk.chunk_idx || hoveredStep === chunk.chunk_idx
+                        const { affects, affectedBy } = getCausalRelationships(chunk.chunk_idx)
+                        
+                        return (
+                            <ChainStep
+                                key={chunk.chunk_idx}
+                                data-step-id={chunk.chunk_idx}
+                                color={color}
+                                importance={importance}
+                                isSelected={isSelected}
+                                isHighlighted={isHighlighted}
+                                onMouseEnter={() => handleStepHover(chunk)}
+                                onMouseLeave={handleStepLeave}
+                                onClick={() => handleStepClick(chunk)}
+                            >
+                                <StepNumber color={color}>
+                                    {chunk.chunk_idx}
+                                </StepNumber>
+                                
+                                <StepHeader>
+                                    <StepFunction>
+                                        {formatFunctionTag(chunk.function_tags[0])}
+                                    </StepFunction>
+                                    <ImportanceScore>
+                                        Importance: {importance.toFixed(4)}
+                                    </ImportanceScore>
+                                </StepHeader>
+                                
+                                <StepText>
+                                    {processMathText(chunk.chunk)}
+                                </StepText>
+                            </ChainStep>
+                        )
+                    })}
+            </ChainList>
+        </ChainContainer>
+    )
+}
+
+export default ChainOfThought 
