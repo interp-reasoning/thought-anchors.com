@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const VisualizerContainer = styled.div`
     padding: 2rem 0rem 2rem 0rem;
-    max-width: 1600px;
+    max-width: 100%;
     margin: 0 auto;
 `
 
@@ -116,16 +116,6 @@ export const HoverTooltip = styled.div`
     z-index: 1000;
     max-width: 200px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    
-    &::after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        border: 4px solid transparent;
-        border-top-color: rgba(0, 0, 0, 0.9);
-    }
 `
 
 export const NavigationControls = styled.div`

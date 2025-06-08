@@ -71,53 +71,53 @@ export default function HomeScreen() {
                     <>
                         <ControlsContainer>
                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                                <SelectContainer>
+                            <SelectContainer>
                                     <label htmlFor='problem-select' style={{ fontWeight: '600' }}>
                                         Problem:
                                     </label>
-                                    <select
-                                        id='problem-select'
-                                        value={selectedProblem}
-                                        onChange={handleProblemChange}
-                                        style={{
-                                            padding: '0.5rem',
-                                            borderRadius: '4px',
-                                            border: '1px solid #ccc',
+                                <select
+                                    id='problem-select'
+                                    value={selectedProblem}
+                                    onChange={handleProblemChange}
+                                    style={{
+                                        padding: '0.5rem',
+                                        borderRadius: '4px',
+                                        border: '1px solid #ccc',
                                             fontSize: '1rem',
                                             minWidth: '120px'
-                                        }}
-                                    >
-                                        {problems.map((problem) => (
-                                            <option key={problem} value={problem}>
-                                                {problem.split('_')[1]}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </SelectContainer>
+                                    }}
+                                >
+                                    {problems.map((problem) => (
+                                        <option key={problem} value={problem}>
+                                            {problem.split('_')[1]}
+                                        </option>
+                                    ))}
+                                </select>
+                            </SelectContainer>
 
-                                <SelectContainer>
+                            <SelectContainer>
                                     <label htmlFor='causal-links-select' style={{ fontWeight: '600' }}>
                                         Causal Links:
                                     </label>
-                                    <select
-                                        id='causal-links-select'
-                                        value={causalLinksCount}
-                                        onChange={(e) => setCausalLinksCount(Number(e.target.value))}
-                                        style={{
-                                            padding: '0.5rem',
-                                            borderRadius: '4px',
-                                            border: '1px solid #ccc',
+                                <select
+                                    id='causal-links-select'
+                                    value={causalLinksCount}
+                                    onChange={(e) => setCausalLinksCount(Number(e.target.value))}
+                                    style={{
+                                        padding: '0.5rem',
+                                        borderRadius: '4px',
+                                        border: '1px solid #ccc',
                                             fontSize: '1rem',
                                             minWidth: '80px'
-                                        }}
-                                    >
-                                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                                            <option key={num} value={num}>
-                                                {num}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </SelectContainer>
+                                    }}
+                                >
+                                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                        <option key={num} value={num}>
+                                            {num}
+                                        </option>
+                                    ))}
+                                </select>
+                            </SelectContainer>
                             </div>
 
                             <div style={{ 

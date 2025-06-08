@@ -199,25 +199,34 @@ const ChainOfThought = ({
     onStepHover, 
     onStepClick,
     onStepLeave,
-    causalLinksCount = 3
+    causalLinksCount = 3,
+    hoveredFromCentralGraph = false
 }) => {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [hoveredStep, setHoveredStep] = useState(null)
     const chainListRef = useRef(null)
 
-    // Auto-scroll to selected or hovered node
+    // Auto-scroll only for hovered nodes from central graph (not selected nodes)
     useEffect(() => {
-        const targetNode = selectedNode || hoveredNode
-        if (targetNode && chainListRef.current && !isCollapsed) {
-            const stepElement = chainListRef.current.querySelector(`[data-step-id="${targetNode.id}"]`)
+        if (hoveredNode && hoveredFromCentralGraph && chainListRef.current && !isCollapsed) {
+            const stepElement = chainListRef.current.querySelector(`[data-step-id="${hoveredNode.id}"]`)
             if (stepElement) {
-                stepElement.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center' 
+                // Calculate scroll position to center the element within the container
+                const container = chainListRef.current
+                const containerRect = container.getBoundingClientRect()
+                const elementRect = stepElement.getBoundingClientRect()
+                
+                // Calculate the scroll position to center the element
+                const scrollTop = container.scrollTop + elementRect.top - containerRect.top - (containerRect.height / 2) + (elementRect.height / 2)
+                
+                // Smooth scroll within the container only
+                container.scrollTo({
+                    top: scrollTop,
+                    behavior: 'smooth'
                 })
             }
         }
-    }, [selectedNode, hoveredNode, isCollapsed])
+    }, [hoveredNode, hoveredFromCentralGraph, isCollapsed])
 
     // Get causal relationships for a step
     const getCausalRelationships = (stepId) => {

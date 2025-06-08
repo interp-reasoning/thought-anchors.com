@@ -16,7 +16,7 @@ export const theme = {
     border: '#D9D9D9',
     border_light: '#F3F3F3',
     white: '#FFFFFF',
-    black: '#000000',
+    black: '#222222',
     error: '#F95C5C',
     soft_silver: '#FAF9F7',
     link: '#3B82F6',

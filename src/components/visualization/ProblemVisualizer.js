@@ -50,7 +50,7 @@ const CollapsibleSection = ({ title, children, content, defaultOpen = false }) =
     )
 }
 
-const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
+const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '#333', nodeHighlightWidth = 2.5 }) => {
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
     const [stepImportanceData, setStepImportanceData] = useState([])
@@ -58,6 +58,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
     const [loading, setLoading] = useState(true)
     const [selectedNode, setSelectedNode] = useState(null)
     const [hoveredNode, setHoveredNode] = useState(null)
+    const [hoveredFromCentralGraph, setHoveredFromCentralGraph] = useState(false)
     const [resampledChunks, setResampledChunks] = useState({})
     const [isPanelOpen, setIsPanelOpen] = useState(false)
     const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, content: '' })
@@ -137,27 +138,74 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
             const svg = d3.select(svgRef.current)
             const links = svg.selectAll('.links line')
             
+            // Get top-k incoming and outgoing connections
+            const getTopOutgoingConnections = (nodeId, k) => {
+                const stepData = stepImportanceData.find(step => step.source_chunk_idx === nodeId)
+                if (!stepData?.target_impacts) return []
+                
+                return stepData.target_impacts
+                    .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                    .slice(0, k)
+                    .map(impact => impact.target_chunk_idx)
+            }
+
+            const getTopIncomingConnections = (nodeId, k) => {
+                const incomingConnections = []
+                
+                stepImportanceData.forEach(step => {
+                    const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
+                    if (impact) {
+                        incomingConnections.push({
+                            sourceId: step.source_chunk_idx,
+                            importance: impact.importance_score
+                        })
+                    }
+                })
+                
+                return incomingConnections
+                    .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+                    .slice(0, k)
+                    .map(conn => conn.sourceId)
+            }
+            
+            const topOutgoing = getTopOutgoingConnections(selectedNode.id, causalLinksCount)
+            const topIncoming = getTopIncomingConnections(selectedNode.id, causalLinksCount)
+            
             // Apply connection highlighting for selected node
             links.attr('opacity', (d) => {
-                const isConnected = d.source.id === selectedNode.id || d.target.id === selectedNode.id
-                if (isConnected) return 1
-                return 0.2
-            })
-            .attr('stroke-width', (d) => {
-                const isConnected = d.source.id === selectedNode.id || d.target.id === selectedNode.id
-                if (isConnected) {
-                    if (d.type === 'sequential') return 4
-                    return Math.max(2, d.weight * 12)
+                if (d.type === 'sequential') {
+                    // Show sequential connections if they involve the selected node
+                    if (d.source.id === selectedNode.id || d.target.id === selectedNode.id) return 0.9
+                    return 0.1
                 }
-                if (d.type === 'sequential') return 2
-                return Math.max(1, d.weight * 8)
+                
+                // For causal connections, check if it's in top-k incoming or outgoing
+                const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
+                
+                if (isOutgoing || isIncoming) {
+                    return Math.min(1, Math.max(0.7, d.weight * 3))
+                }
+                return 0.1
+            })
+            .attr('stroke', (d) => {
+                if (d.type === 'sequential') return '#333'
+                
+                // Make highlighted causal connections more visible
+                const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
+                
+                if (isOutgoing || isIncoming) {
+                    return '#444' // Darker for highlighted connections
+                }
+                return '#999' // Default causal color
             })
             
             // Also highlight the selected node with red circle
             svg.selectAll('.nodes g')
                 .selectAll('circle')
-                .attr('stroke', (d) => d.id === selectedNode.id ? '#ff6b35' : '#fff')
-                .attr('stroke-width', (d) => d.id === selectedNode.id ? 4 : 2)
+                .attr('stroke', (d) => d.id === selectedNode.id ? nodeHighlightColor : '#fff')
+                .attr('stroke-width', (d) => d.id === selectedNode.id ? nodeHighlightWidth : 2)
         } else if (svgRef.current) {
             // Reset highlighting when no node is selected
             const svg = d3.select(svgRef.current)
@@ -167,17 +215,107 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                 if (d.type === 'sequential') return 0.8
                 return Math.min(0.8, Math.max(0.2, d.weight * 2))
             })
-            .attr('stroke-width', (d) => {
-                if (d.type === 'sequential') return 2
-                return Math.max(1, d.weight * 8)
-            })
+            .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
             
             svg.selectAll('.nodes g')
                 .selectAll('circle')
                 .attr('stroke', '#fff')
                 .attr('stroke-width', 2)
         }
-    }, [selectedNode, normalizedWeights])
+    }, [selectedNode, normalizedWeights, causalLinksCount, stepImportanceData])
+
+    // Add useEffect to handle connection highlighting for hoveredNode (when no node is selected)
+    useEffect(() => {
+        if (hoveredNode && !selectedNode && svgRef.current) {
+            const svg = d3.select(svgRef.current)
+            const links = svg.selectAll('.links line')
+            
+            // Get top-k incoming and outgoing connections
+            const getTopOutgoingConnections = (nodeId, k) => {
+                const stepData = stepImportanceData.find(step => step.source_chunk_idx === nodeId)
+                if (!stepData?.target_impacts) return []
+                
+                return stepData.target_impacts
+                    .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                    .slice(0, k)
+                    .map(impact => impact.target_chunk_idx)
+            }
+
+            const getTopIncomingConnections = (nodeId, k) => {
+                const incomingConnections = []
+                
+                stepImportanceData.forEach(step => {
+                    const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
+                    if (impact) {
+                        incomingConnections.push({
+                            sourceId: step.source_chunk_idx,
+                            importance: impact.importance_score
+                        })
+                    }
+                })
+                
+                return incomingConnections
+                    .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+                    .slice(0, k)
+                    .map(conn => conn.sourceId)
+            }
+            
+            const topOutgoing = getTopOutgoingConnections(hoveredNode.id, causalLinksCount)
+            const topIncoming = getTopIncomingConnections(hoveredNode.id, causalLinksCount)
+            
+            // Apply connection highlighting for hovered node
+            links.attr('opacity', (d) => {
+                if (d.type === 'sequential') {
+                    // Show sequential connections if they involve the hovered node
+                    if (d.source.id === hoveredNode.id || d.target.id === hoveredNode.id) return 0.9
+                    return 0.1
+                }
+                
+                // For causal connections, check if it's in top-k incoming or outgoing
+                const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === hoveredNode.id && topIncoming.includes(d.source.id)
+                
+                if (isOutgoing || isIncoming) {
+                    return Math.min(1, Math.max(0.6, d.weight * 2))
+                }
+                return 0.1
+            })
+            .attr('stroke', (d) => {
+                if (d.type === 'sequential') return '#333'
+                
+                // Make highlighted causal connections more visible
+                const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === hoveredNode.id && topIncoming.includes(d.source.id)
+                
+                if (isOutgoing || isIncoming) {
+                    return '#444' // Darker for highlighted connections
+                }
+                return '#999' // Default causal color
+            })
+            
+            // Also highlight the hovered node with red circle
+            svg.selectAll('.nodes g')
+                .selectAll('circle')
+                .attr('stroke', (d) => d.id === hoveredNode.id ? nodeHighlightColor : '#fff')
+                .attr('stroke-width', (d) => d.id === hoveredNode.id ? nodeHighlightWidth : 2)
+        } else if (!selectedNode && svgRef.current) {
+            // Reset highlighting when no node is hovered and no node is selected
+            const svg = d3.select(svgRef.current)
+            const links = svg.selectAll('.links line')
+            
+            links.attr('opacity', (d) => {
+                if (d.type === 'sequential') return 0.8
+                return Math.min(0.8, Math.max(0.2, d.weight * 2))
+            })
+            .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
+            
+            // Reset node highlighting
+            svg.selectAll('.nodes g')
+                .selectAll('circle')
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 2)
+        }
+    }, [hoveredNode, selectedNode, normalizedWeights, causalLinksCount, stepImportanceData])
 
     // Add click-outside handler
     useEffect(() => {
@@ -267,9 +405,9 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                 importance: importance,
                 dependsOn: chunk.depends_on,
                 // Dynamic radius based on importance (more significant variation)
-                radius: Math.max(8, Math.min(25, 8 + importance * 40)),
+                radius: Math.max(10, Math.min(25, 8 + importance * 40)),
                 // Color intensity based on importance
-                colorIntensity: Math.min(1, Math.max(0.3, importance * 3))
+                colorIntensity: Math.min(1, Math.max(0.6, importance * 3))
             }
         })
 
@@ -338,9 +476,9 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
         // Add definitions for arrows and gradients
         const defs = svg.append('defs')
         
-        // Arrow markers
+        // Arrow markers for sequential connections
         defs.append('marker')
-            .attr('id', 'arrow')
+            .attr('id', 'arrow-sequential')
             .attr('viewBox', '0 -5 10 10')
             .attr('refX', 8)
             .attr('refY', 0)
@@ -349,7 +487,20 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
             .attr('orient', 'auto')
             .append('path')
             .attr('d', 'M0,-5L10,0L0,5')
-            .attr('fill', '#000')
+            .attr('fill', '#333')
+
+        // Arrow markers for causal connections
+        defs.append('marker')
+            .attr('id', 'arrow-causal')
+            .attr('viewBox', '0 -5 10 10')
+            .attr('refX', 8)
+            .attr('refY', 0)
+            .attr('markerWidth', 5)
+            .attr('markerHeight', 5)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-5L10,0L0,5')
+            .attr('fill', '#999')
 
         // Create links with improved styling
         const link = g
@@ -359,18 +510,46 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
             .data(links)
             .enter()
             .append('line')
-            .attr('stroke-width', (d) => {
-                if (d.type === 'sequential') return 2
-                return Math.max(1, d.weight * 8) // Use normalized weight
-            })
+            .attr('stroke-width', 2) // Constant stroke width for all links
             .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
             .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
             .attr('opacity', (d) => {
                 if (d.type === 'sequential') return 0.8
                 return Math.min(0.8, Math.max(0.2, d.weight * 2))
             })
-            .attr('marker-end', (d) => (d.type === 'sequential' ? 'url(#arrow)' : ''))
+            .attr('marker-end', (d) => d.type === 'sequential' ? 'url(#arrow-sequential)' : 'url(#arrow-causal)')
             .style('cursor', 'pointer')
+
+        // Function to get top-k outgoing connections for a node
+        const getTopOutgoingConnections = (nodeId, k) => {
+            const stepData = stepImportanceData.find(step => step.source_chunk_idx === nodeId)
+            if (!stepData?.target_impacts) return []
+            
+            return stepData.target_impacts
+                .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                .slice(0, k)
+                .map(impact => impact.target_chunk_idx)
+        }
+
+        // Function to get top-k incoming connections for a node
+        const getTopIncomingConnections = (nodeId, k) => {
+            const incomingConnections = []
+            
+            stepImportanceData.forEach(step => {
+                const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
+                if (impact) {
+                    incomingConnections.push({
+                        sourceId: step.source_chunk_idx,
+                        importance: impact.importance_score
+                    })
+                }
+            })
+            
+            return incomingConnections
+                .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+                .slice(0, k)
+                .map(conn => conn.sourceId)
+        }
 
         // Create nodes with improved styling
         const node = g
@@ -400,11 +579,9 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
             .style('cursor', 'pointer')
             .on('mouseover', (event, d) => {
                 handleNodeHover(event, d)
-                highlightConnections(d.id, true)
             })
             .on('mouseout', (event, d) => {
                 handleNodeLeave()
-                highlightConnections(d.id, false)
             })
             .on('click', (event, d) => {
                 handleNodeClick(d)
@@ -425,37 +602,6 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
         svg.selectAll('.nodes').data(nodes)
         svg.selectAll('.links').data(links)
 
-        // Function to highlight connections
-        const highlightConnections = (nodeId, highlight) => {
-            // Reset all links
-            link.attr('opacity', (d) => {
-                if (d.type === 'sequential') return 0.8
-                return Math.min(0.8, Math.max(0.2, d.weight * 2))
-            })
-            .attr('stroke-width', (d) => {
-                if (d.type === 'sequential') return 2
-                return Math.max(1, d.weight * 8)
-            })
-
-            if (highlight) {
-                // Highlight connected links
-                link.attr('opacity', (d) => {
-                    const isConnected = d.source.id === nodeId || d.target.id === nodeId
-                    if (isConnected) return 1
-                    return 0.2
-                })
-                .attr('stroke-width', (d) => {
-                    const isConnected = d.source.id === nodeId || d.target.id === nodeId
-                    if (isConnected) {
-                        if (d.type === 'sequential') return 4
-                        return Math.max(2, d.weight * 12)
-                    }
-                    if (d.type === 'sequential') return 2
-                    return Math.max(1, d.weight * 8)
-                })
-            }
-        }
-
         // Update link positions
         simulation.on('tick', () => {
             link.attr('x1', (d) => d.source.fx)
@@ -470,25 +616,29 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
 
     const handleNodeHover = (event, node) => {
         setHoveredNode(node)
+        setHoveredFromCentralGraph(true)
+        /* NOTE: Do not show tooltip here, the step is already visible on the left panel
         setTooltip({
             visible: true,
             x: event.pageX + 10,
             y: event.pageY - 10,
             content: `Step ${node.id}: ${formatFunctionTag(node.functionTag)} (${node.importance.toFixed(4)})`
         })
+        */
         
         // Add red circle overlay to the hovered node
         if (svgRef.current) {
             d3.select(svgRef.current)
                 .selectAll('.nodes g')
                 .selectAll('circle')
-                .attr('stroke', (d) => d.id === node.id ? '#ff6b35' : '#fff')
-                .attr('stroke-width', (d) => d.id === node.id ? 4 : 2)
+                .attr('stroke', (d) => d.id === node.id ? nodeHighlightColor : '#fff')
+                .attr('stroke-width', (d) => d.id === node.id ? nodeHighlightWidth : 2)
         }
     }
 
     const handleNodeLeave = () => {
         setHoveredNode(null)
+        setHoveredFromCentralGraph(false)
         setTooltip({ visible: false, x: 0, y: 0, content: '' })
         
         // Only reset node highlighting if no node is selected
@@ -514,70 +664,11 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
             dependsOn: chunk.depends_on,
         }
         setHoveredNode(nodeData)
-        
-        // Use the same connection highlighting logic as the central graph
-        if (svgRef.current) {
-            const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links line')
-            
-            // Reset all links first
-            links.attr('opacity', (d) => {
-                if (d.type === 'sequential') return 0.8
-                return Math.min(0.8, Math.max(0.2, d.weight * 2))
-            })
-            .attr('stroke-width', (d) => {
-                if (d.type === 'sequential') return 2
-                return Math.max(1, d.weight * 8)
-            })
-            
-            // Highlight connected links
-            links.attr('opacity', (d) => {
-                const isConnected = d.source.id === chunk.chunk_idx || d.target.id === chunk.chunk_idx
-                if (isConnected) return 1
-                return 0.2
-            })
-            .attr('stroke-width', (d) => {
-                const isConnected = d.source.id === chunk.chunk_idx || d.target.id === chunk.chunk_idx
-                if (isConnected) {
-                    if (d.type === 'sequential') return 4
-                    return Math.max(2, d.weight * 12)
-                }
-                if (d.type === 'sequential') return 2
-                return Math.max(1, d.weight * 8)
-            })
-            
-            // Also highlight the specific node being hovered with red circle
-            svg.selectAll('.nodes g')
-                .selectAll('circle')
-                .attr('stroke', (d) => d.id === chunk.chunk_idx ? '#ff6b35' : '#fff')
-                .attr('stroke-width', (d) => d.id === chunk.chunk_idx ? 4 : 2)
-        }
+        setHoveredFromCentralGraph(false)
     }
 
     const handleStepLeave = () => {
         setHoveredNode(null)
-        
-        // Only reset connection highlighting and node highlighting if no node is selected
-        if (!selectedNode && svgRef.current) {
-            const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links line')
-            
-            // Reset all links to default state
-            links.attr('opacity', (d) => {
-                if (d.type === 'sequential') return 0.8
-                return Math.min(0.8, Math.max(0.2, d.weight * 2))
-            })
-            .attr('stroke-width', (d) => {
-                if (d.type === 'sequential') return 2
-                return Math.max(1, d.weight * 8)
-            })
-            
-            // Reset node highlighting
-            svg.selectAll('.nodes g')
-                .selectAll('circle')
-                .attr('stroke', '#fff')
-                .attr('stroke-width', 2)
-        }
     }
 
     const handleStepClick = (chunk) => {
@@ -866,6 +957,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                             onStepClick={handleStepClick}
                             onStepLeave={handleStepLeave}
                             causalLinksCount={causalLinksCount}
+                            hoveredFromCentralGraph={hoveredFromCentralGraph}
                         />
 
                         <GraphContainer 
@@ -888,14 +980,18 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                                             disabled={selectedNode.id <= Math.min(...chunksData.map(c => c.chunk_idx))}
                                             onClick={() => navigateToNode('prev')}
                                         >
-                                            ← Prev
+                                            <p style={{ textAlign: 'center', fontSize: '0.9rem' }}>←&nbsp;&nbsp;Prev</p>
                                         </NavButton>
-                                        <div style={{ flex: 1 }}></div>
+                                        <div style={{ flex: 1 }}>
+                                            <p style={{ textAlign: 'center', fontSize: '1rem', fontWeight: 600, color: '#444' }}>
+                                                Step {selectedNode.id}
+                                            </p>
+                                        </div>
                                         <NavButton
                                             disabled={selectedNode.id >= Math.max(...chunksData.map(c => c.chunk_idx))}
                                             onClick={() => navigateToNode('next')}
                                         >
-                                            Next →
+                                           <p style={{ textAlign: 'center', fontSize: '0.9rem' }}>Next&nbsp;&nbsp;→</p>
                                         </NavButton>
                                     </NavigationControls>
 
@@ -903,6 +999,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                                     <div
                                         style={{
                                             padding: '0.75rem',
+                                            marginTop: '-0.5rem',
                                             borderRadius: '6px',
                                             borderLeft: `4px solid ${functionTagColors[selectedNode.functionTag] || '#999'}`,
                                             background: (() => {
@@ -1040,8 +1137,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                                                             onMouseEnter={(e) => {
                                                                 setTooltip({
                                                                     visible: true,
-                                                                    x: e.pageX + 10,
-                                                                    y: e.pageY - 10,
+                                                                    x: e.pageX + 20,
+                                                                    y: e.pageY - 20,
                                                                     content: processMathText(affector.text)
                                                                 })
                                                             }}
@@ -1100,8 +1197,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                                                                 onMouseEnter={(e) => {
                                                                     setTooltip({
                                                                         visible: true,
-                                                                        x: e.pageX + 10,
-                                                                        y: e.pageY - 10,
+                                                                        x: e.pageX + 20,
+                                                                        y: e.pageY - 20,
                                                                         content: processMathText(effect.text)
                                                                     })
                                                                 }}
@@ -1132,6 +1229,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount }) => {
                                             border: '1px solid #ccc',
                                             borderRadius: '4px',
                                             marginTop: '1rem',
+                                            fontSize: '0.9rem',
                                             cursor: 'pointer',
                                         }}
                                     >
