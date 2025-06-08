@@ -21,7 +21,7 @@ const Footer = ({ showImage = false }) => {
             <div>
                 <Link href='/' title='Home'>
                     <Image
-                        style={{ opacity: showImage ? 1 : 0, width: '60px', height: '60px' }}
+                        style={{ borderRadius: '45%', opacity: showImage ? 1 : 0, width: '60px', height: '60px' }}
                         src={'/images/logo.webp'}
                         width={500}
                         height={500}
