@@ -11,7 +11,13 @@ export const functionTagColors = {
 }
 
 // Format function tag for display
-export const formatFunctionTag = (tag) => {
+export const formatFunctionTag = (tag, abbrev = false) => {
+    if (abbrev) {
+        return tag
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase())
+            .join('')
+    }
     return tag
         .split('_')
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))

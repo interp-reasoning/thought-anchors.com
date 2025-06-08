@@ -60,9 +60,9 @@ export default function HomeScreen() {
                     textAlign: 'left',
                     alignSelf: 'flex-start',
                 }}>
-                    Interactive visualization tool for analyzing causal relationships and importance 
-                    attribution in reasoning chains. Explore how different reasoning steps 
-                    influence the final answer through normalized connection weights and enhanced visual feedback.
+                    Interactive visualization tool for analyzing causal relationships and <strong>counterfactual importance attribution  </strong> 
+                    in reasoning chains. Explore how different reasoning steps 
+                    influence the final answer and downstream reasoning.
                 </p>
 
                 {loading ? (

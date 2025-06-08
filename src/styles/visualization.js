@@ -73,6 +73,7 @@ export const Legend = styled.div`
     background: white;
     border: 1px solid #ddd;
     border-radius: 8px;
+        font-size: 0.95rem;
 `
 
 export const LegendRow = styled.div`

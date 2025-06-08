@@ -136,7 +136,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
     useEffect(() => {
         if (selectedNode && svgRef.current) {
             const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links line')
+            const links = svg.selectAll('.links path')
             
             // Get top-k incoming and outgoing connections
             const getTopOutgoingConnections = (nodeId, k) => {
@@ -183,8 +183,18 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
                 const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
                 
-                if (isOutgoing || isIncoming) {
-                    return Math.min(1, Math.max(0.7, d.weight * 3))
+                if (isOutgoing) {
+                    // Get the raw importance score for this specific connection
+                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
+                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
+                } else if (isIncoming) {
+                    // Get the raw importance score for this specific connection
+                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === d.source.id)
+                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === selectedNode.id)
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
                 }
                 return 0.1
             })
@@ -195,8 +205,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
                 const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
                 
-                if (isOutgoing || isIncoming) {
-                    return '#444' // Darker for highlighted connections
+                if (isOutgoing) {
+                    return '#dc3545' // Red for outgoing connections
+                } else if (isIncoming) {
+                    return '#28a745' // Green for incoming connections
                 }
                 return '#999' // Default causal color
             })
@@ -209,7 +221,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         } else if (svgRef.current) {
             // Reset highlighting when no node is selected
             const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links line')
+            const links = svg.selectAll('.links path')
             
             links.attr('opacity', (d) => {
                 if (d.type === 'sequential') return 0.8
@@ -228,7 +240,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
     useEffect(() => {
         if (hoveredNode && !selectedNode && svgRef.current) {
             const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links line')
+            const links = svg.selectAll('.links path')
             
             // Get top-k incoming and outgoing connections
             const getTopOutgoingConnections = (nodeId, k) => {
@@ -275,8 +287,18 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
                 const isIncoming = d.target.id === hoveredNode.id && topIncoming.includes(d.source.id)
                 
-                if (isOutgoing || isIncoming) {
-                    return Math.min(1, Math.max(0.6, d.weight * 2))
+                if (isOutgoing) {
+                    // Get the raw importance score for this specific connection
+                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === hoveredNode.id)
+                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
+                } else if (isIncoming) {
+                    // Get the raw importance score for this specific connection
+                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === d.source.id)
+                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === hoveredNode.id)
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
                 }
                 return 0.1
             })
@@ -287,8 +309,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
                 const isIncoming = d.target.id === hoveredNode.id && topIncoming.includes(d.source.id)
                 
-                if (isOutgoing || isIncoming) {
-                    return '#444' // Darker for highlighted connections
+                if (isOutgoing) {
+                    return '#dc3545' // Red for outgoing connections
+                } else if (isIncoming) {
+                    return '#28a745' // Green for incoming connections
                 }
                 return '#999' // Default causal color
             })
@@ -301,7 +325,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         } else if (!selectedNode && svgRef.current) {
             // Reset highlighting when no node is hovered and no node is selected
             const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links line')
+            const links = svg.selectAll('.links path')
             
             links.attr('opacity', (d) => {
                 if (d.type === 'sequential') return 0.8
@@ -427,6 +451,9 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
 
         // Create links data for causal influences with normalized weights
         const causalLinks = []
+        const existingLinks = new Set() // Track existing links to avoid duplicates
+        
+        // Add outgoing connections for all nodes
         stepImportanceData.forEach((step) => {
             const sourceIdx = step.source_chunk_idx
 
@@ -437,15 +464,55 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
 
             topTargets.forEach((target) => {
                 const key = `${sourceIdx}-${target.target_chunk_idx}`
-                const normalizedWeight = normalizedWeights.get(key) || 0
+                const linkKey = `${sourceIdx}-${target.target_chunk_idx}`
                 
-                causalLinks.push({
-                    source: sourceIdx,
-                    target: target.target_chunk_idx,
-                    weight: normalizedWeight,
-                    rawWeight: Math.abs(target.importance_score),
-                    type: 'causal',
-                })
+                if (!existingLinks.has(linkKey)) {
+                    const normalizedWeight = normalizedWeights.get(key) || 0
+                    
+                    causalLinks.push({
+                        source: sourceIdx,
+                        target: target.target_chunk_idx,
+                        weight: normalizedWeight,
+                        rawWeight: Math.abs(target.importance_score),
+                        type: 'causal',
+                    })
+                    existingLinks.add(linkKey)
+                }
+            })
+        })
+        
+        // Add top-k incoming connections for all nodes
+        nodes.forEach(node => {
+            const topIncoming = []
+            stepImportanceData.forEach(step => {
+                const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === node.id)
+                if (impact) {
+                    topIncoming.push({
+                        sourceId: step.source_chunk_idx,
+                        importance: impact.importance_score
+                    })
+                }
+            })
+            
+            const topIncomingConnections = topIncoming
+                .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+                .slice(0, causalLinksCount)
+            
+            topIncomingConnections.forEach(conn => {
+                const linkKey = `${conn.sourceId}-${node.id}`
+                if (!existingLinks.has(linkKey)) {
+                    const key = `${conn.sourceId}-${node.id}`
+                    const normalizedWeight = normalizedWeights.get(key) || 0
+                    
+                    causalLinks.push({
+                        source: conn.sourceId,
+                        target: node.id,
+                        weight: normalizedWeight,
+                        rawWeight: Math.abs(conn.importance),
+                        type: 'causal',
+                    })
+                    existingLinks.add(linkKey)
+                }
             })
         })
 
@@ -506,22 +573,50 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             .attr('d', 'M0,-5L10,0L0,5')
             .attr('fill', '#999')
 
+        // Middle arrow markers for sequential connections
+        defs.append('marker')
+            .attr('id', 'arrow-sequential-mid')
+            .attr('viewBox', '0 -5 10 10')
+            .attr('refX', 5)
+            .attr('refY', 0)
+            .attr('markerWidth', 8)
+            .attr('markerHeight', 8)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-5L10,0L0,5')
+            .attr('fill', '#333')
+
+        // Middle arrow markers for causal connections
+        defs.append('marker')
+            .attr('id', 'arrow-causal-mid')
+            .attr('viewBox', '0 -5 10 10')
+            .attr('refX', 5)
+            .attr('refY', 0)
+            .attr('markerWidth', 8)
+            .attr('markerHeight', 8)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-5L10,0L0,5')
+            .attr('fill', '#999')
+
         // Create links with improved styling
         const link = g
             .append('g')
             .attr('class', 'links')
-            .selectAll('line')
+            .selectAll('path')
             .data(links)
             .enter()
-            .append('line')
+            .append('path')
             .attr('stroke-width', 2) // Constant stroke width for all links
             .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
             .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
+            .attr('fill', 'none')
             .attr('opacity', (d) => {
                 if (d.type === 'sequential') return 0.8
                 return Math.min(0.8, Math.max(0.2, d.weight * 2))
             })
             .attr('marker-end', (d) => d.type === 'sequential' ? 'url(#arrow-sequential)' : 'url(#arrow-causal)')
+            .attr('marker-mid', (d) => d.type === 'sequential' ? 'url(#arrow-sequential-mid)' : 'url(#arrow-causal-mid)')
             .style('cursor', 'pointer')
 
         // Function to get top-k outgoing connections for a node
@@ -608,14 +703,64 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
 
         // Update link positions
         simulation.on('tick', () => {
-            link.attr('x1', (d) => d.source.fx)
-                .attr('y1', (d) => d.source.fy)
-                .attr('x2', (d) => d.target.fx)
-                .attr('y2', (d) => d.target.fy)
+            link.attr('d', (d) => `M${d.source.fx},${d.source.fy}L${d.target.fx},${d.target.fy}`)
         })
 
         // Run simulation briefly to stabilize
         simulation.tick(10)
+        
+        // Apply selectedNode highlighting immediately if a node is selected
+        if (selectedNode) {
+            const topOutgoing = getTopOutgoingConnections(selectedNode.id, causalLinksCount)
+            const topIncoming = getTopIncomingConnections(selectedNode.id, causalLinksCount)
+            
+            // Apply connection highlighting for selected node
+            link.attr('opacity', (d) => {
+                if (d.type === 'sequential') {
+                    // Show sequential connections if they involve the selected node
+                    if (d.source.id === selectedNode.id || d.target.id === selectedNode.id) return 0.9
+                    return 0.1
+                }
+                
+                // For causal connections, check if it's in top-k incoming or outgoing
+                const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
+                
+                if (isOutgoing) {
+                    // Get the raw importance score for this specific connection
+                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
+                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
+                } else if (isIncoming) {
+                    // Get the raw importance score for this specific connection
+                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === d.source.id)
+                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === selectedNode.id)
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
+                }
+                return 0.1
+            })
+            .attr('stroke', (d) => {
+                if (d.type === 'sequential') return '#333'
+                
+                // Make highlighted causal connections more visible
+                const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
+                
+                if (isOutgoing) {
+                    return '#dc3545' // Red for outgoing connections
+                } else if (isIncoming) {
+                    return '#28a745' // Green for incoming connections
+                }
+                return '#999' // Default causal color
+            })
+            
+            // Also highlight the selected node with red circle
+            node.selectAll('circle')
+                .attr('stroke', (d) => d.id === selectedNode.id ? nodeHighlightColor : '#fff')
+                .attr('stroke-width', (d) => d.id === selectedNode.id ? nodeHighlightWidth : 2)
+        }
     }
 
     const handleNodeHover = (event, node) => {
@@ -876,7 +1021,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                     )}
 
                     <Legend>
-                        <h3>Visualization Legend</h3>
+                        <h3 style={{ marginBottom: '0.25rem' }}>Visualization Legend</h3>
                         <LegendRow>
                             <LegendItem>
                                 <svg width='30' height='10'>
@@ -903,7 +1048,35 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                         strokeDasharray='3,3'
                                     />
                                 </svg>
-                                <span>Causal influence (normalized weights)</span>
+                                <span>Causal influence</span>
+                            </LegendItem>
+                            <LegendItem>
+                                <svg width='30' height='10'>
+                                    <line
+                                        x1='0'
+                                        y1='5'
+                                        x2='30'
+                                        y2='5'
+                                        stroke='#dc3545'
+                                        strokeWidth='2'
+                                        strokeDasharray='3,3'
+                                    />
+                                </svg>
+                                <span>Outgoing connections (on hover)</span>
+                            </LegendItem>
+                            <LegendItem>
+                                <svg width='30' height='10'>
+                                    <line
+                                        x1='0'
+                                        y1='5'
+                                        x2='30'
+                                        y2='5'
+                                        stroke='#28a745'
+                                        strokeWidth='2'
+                                        strokeDasharray='3,3'
+                                    />
+                                </svg>
+                                <span>Incoming connections (on hover)</span>
                             </LegendItem>
                             <LegendItem>
                                 <svg width='60' height='20'>
@@ -917,7 +1090,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                             </LegendItem>
                         </LegendRow>
                         <LegendRow>
-                            <div style={{ marginTop: '0.5rem' }}>
+                            <div style={{ marginTop: '0.25rem' }}>
                                 <div
                                     style={{
                                         display: 'flex',
@@ -943,7 +1116,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                     borderRadius: '50%',
                                                 }}
                                             ></div>
-                                            <span>{formatFunctionTag(tag)}</span>
+                                            <span>{formatFunctionTag(tag)} ({formatFunctionTag(tag, true)})</span>
                                         </div>
                                     ))}
                                 </div>
@@ -1152,7 +1325,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                         >
                                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                                                 <span style={{ fontWeight: 'bold', color: '#0066cc' }}>
-                                                                    Step {affector.id} ({formatFunctionTag(affector.functionTag)})
+                                                                    Step {affector.id} ({formatFunctionTag(affector.functionTag, true)})
                                                                 </span>
                                                                 <span style={{ fontSize: '0.75rem', color: '#666' }}>
                                                                     Importance: {affector.importance.toFixed(4)}
@@ -1212,7 +1385,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                             >
                                                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                                                     <span style={{ fontWeight: 'bold', color: '#0066cc' }}>
-                                                                        Step {effect.id} ({formatFunctionTag(effect.functionTag)})
+                                                                        Step {effect.id} ({formatFunctionTag(effect.functionTag, true)})
                                                                     </span>
                                                                     <span style={{ fontSize: '0.75rem', color: '#666' }}>
                                                                         Importance: {effect.importance.toFixed(4)}
