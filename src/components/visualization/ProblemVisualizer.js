@@ -345,7 +345,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         if (!loading && chunksData.length > 0 && stepImportanceData.length > 0) {
             renderGraph()
         }
-    }, [loading, chunksData, stepImportanceData, causalLinksCount, normalizedWeights])
+    }, [loading, chunksData, stepImportanceData, causalLinksCount, normalizedWeights, selectedNode])
 
     // Add a new useEffect to fetch resampled chunks
     useEffect(() => {
@@ -460,9 +460,13 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         nodes.forEach((node, i) => {
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
 
+            // Shift center left by 30% when detail panel is open
+            const centerX = selectedNode ? width / 2 - width * 0.15 : width / 2
+            const centerY = height / 2
+
             // Set fixed positions in a circle
-            node.fx = width / 2 + radius * Math.cos(angle)
-            node.fy = height / 2 + radius * Math.sin(angle)
+            node.fx = centerX + radius * Math.cos(angle)
+            node.fy = centerY + radius * Math.sin(angle)
             node.angle = angle
         })
 
