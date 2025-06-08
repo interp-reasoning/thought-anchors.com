@@ -14,10 +14,10 @@ const Navbar = ({ showImage = true }) => {
         <StyledNavContainer $showImage={showImage}>
             <Link href='/' title='Home'>
                 <Image
-                    style={{ borderRadius: '45%', opacity: showImage ? 1 : 0, width: '60px', height: '60px' }}
+                    style={{ borderRadius: '45%', opacity: showImage ? 1 : 0, width: '70px', height: '70px' }}
                     src={'/images/logo.webp'}
-                    width={500}
-                    height={500}
+                    width={1000}
+                    height={1000}
                     alt='Uzay Macar'
                 />
             </Link>
