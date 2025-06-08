@@ -21,10 +21,10 @@ const Footer = ({ showImage = false }) => {
             <div>
                 <Link href='/' title='Home'>
                     <Image
-                        style={{ borderRadius: '50%', opacity: showImage ? 1 : 0 }}
+                        style={{ opacity: showImage ? 1 : 0, width: '60px', height: '60px' }}
                         src={'/images/logo.webp'}
-                        width={60}
-                        height={60}
+                        width={500}
+                        height={500}
                         alt='Uzay Macar'
                     />
                 </Link>
