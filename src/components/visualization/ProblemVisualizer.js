@@ -18,6 +18,22 @@ import {
     NavButton,
 } from '@/styles/visualization'
 
+// Function to create intermediate points for polyline
+const createPolylinePoints = (x1, y1, x2, y2, spacing = 60) => {
+    const dx = x2 - x1
+    const dy = y2 - y1
+    const distance = Math.sqrt(dx * dx + dy * dy)
+    const numPoints = Math.max(1, Math.floor(distance / spacing))
+    const stepX = dx / numPoints
+    const stepY = dy / numPoints
+
+    const points = []
+    for (let i = 0; i <= numPoints; i++) {
+        points.push([x1 + stepX * i, y1 + stepY * i])
+    }
+    return points
+}
+
 // Collapsible section component for the detail panel
 const CollapsibleSection = ({ title, children, content, defaultOpen = false }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen)
@@ -63,8 +79,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
     const [isPanelOpen, setIsPanelOpen] = useState(false)
     const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, content: '' })
     const [normalizedWeights, setNormalizedWeights] = useState(new Map())
+    const [scrollToNode, setScrollToNode] = useState(null)
     const svgRef = useRef(null)
     const graphContainerRef = useRef(null)
+    const hoverTimerRef = useRef(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -198,22 +216,50 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 }
                 return 0.1
             })
-            .attr('stroke', (d) => {
-                if (d.type === 'sequential') return '#333'
-                
-                // Make highlighted causal connections more visible
+            .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
+            .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
+            
+            // Remove existing polylines for arrows
+            svg.selectAll('.arrow-polylines').remove()
+            
+            // Add polylines with arrows for highlighted causal connections
+            const highlightedCausal = links.data().filter(d => {
+                if (d.type === 'sequential') return false
                 const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
                 const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
-                
-                if (isOutgoing) {
-                    return '#dc3545' // Red for outgoing connections
-                } else if (isIncoming) {
-                    return '#28a745' // Green for incoming connections
-                }
-                return '#999' // Default causal color
+                return isOutgoing || isIncoming
             })
             
-            // Also highlight the selected node with red circle
+            svg.select('.links').selectAll('.arrow-polylines')
+                .data(highlightedCausal)
+                .enter()
+                .append('polyline')
+                .attr('class', 'arrow-polylines')
+                .attr('points', (d) => {
+                    const points = createPolylinePoints(d.source.fx, d.source.fy, d.target.fx, d.target.fy)
+                    return points.map(p => `${p[0]},${p[1]}`).join(' ')
+                })
+                .attr('stroke', '#999')
+                .attr('stroke-width', 2)
+                .attr('stroke-dasharray', '3,3')
+                .attr('fill', 'none')
+                .attr('opacity', (d) => {
+                    const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                    const stepData = stepImportanceData.find(step => 
+                        step.source_chunk_idx === (isOutgoing ? selectedNode.id : d.source.id))
+                    const impact = stepData?.target_impacts?.find(impact => 
+                        impact.target_chunk_idx === (isOutgoing ? d.target.id : selectedNode.id))
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
+                })
+                .attr('marker-mid', (d) => {
+                    const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                    return isOutgoing ? 'url(#arrow-outgoing-mid)' : 'url(#arrow-incoming-mid)'
+                })
+                .attr('marker-end', 'url(#arrow-causal)')
+                .style('cursor', 'pointer')
+            
+            // Also highlight the selected node with circle
             svg.selectAll('.nodes g')
                 .selectAll('circle')
                 .attr('stroke', (d) => d.id === selectedNode.id ? nodeHighlightColor : '#fff')
@@ -228,6 +274,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 return Math.min(0.8, Math.max(0.2, d.weight * 2))
             })
             .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
+            .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
+            
+            // Remove arrow polylines
+            svg.selectAll('.arrow-polylines').remove()
             
             svg.selectAll('.nodes g')
                 .selectAll('circle')
@@ -302,22 +352,50 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 }
                 return 0.1
             })
-            .attr('stroke', (d) => {
-                if (d.type === 'sequential') return '#333'
-                
-                // Make highlighted causal connections more visible
+            .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
+            .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
+            
+            // Remove existing polylines for arrows
+            svg.selectAll('.arrow-polylines').remove()
+            
+            // Add polylines with arrows for highlighted causal connections
+            const highlightedCausal = links.data().filter(d => {
+                if (d.type === 'sequential') return false
                 const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
                 const isIncoming = d.target.id === hoveredNode.id && topIncoming.includes(d.source.id)
-                
-                if (isOutgoing) {
-                    return '#dc3545' // Red for outgoing connections
-                } else if (isIncoming) {
-                    return '#28a745' // Green for incoming connections
-                }
-                return '#999' // Default causal color
+                return isOutgoing || isIncoming
             })
             
-            // Also highlight the hovered node with red circle
+            svg.select('.links').selectAll('.arrow-polylines')
+                .data(highlightedCausal)
+                .enter()
+                .append('polyline')
+                .attr('class', 'arrow-polylines')
+                .attr('points', (d) => {
+                    const points = createPolylinePoints(d.source.fx, d.source.fy, d.target.fx, d.target.fy)
+                    return points.map(p => `${p[0]},${p[1]}`).join(' ')
+                })
+                .attr('stroke', '#999')
+                .attr('stroke-width', 2)
+                .attr('stroke-dasharray', '3,3')
+                .attr('fill', 'none')
+                .attr('opacity', (d) => {
+                    const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
+                    const stepData = stepImportanceData.find(step => 
+                        step.source_chunk_idx === (isOutgoing ? hoveredNode.id : d.source.id))
+                    const impact = stepData?.target_impacts?.find(impact => 
+                        impact.target_chunk_idx === (isOutgoing ? d.target.id : hoveredNode.id))
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
+                })
+                .attr('marker-mid', (d) => {
+                    const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
+                    return isOutgoing ? 'url(#arrow-outgoing-mid)' : 'url(#arrow-incoming-mid)'
+                })
+                .attr('marker-end', 'url(#arrow-causal)')
+                .style('cursor', 'pointer')
+            
+            // Also highlight the hovered node with circle
             svg.selectAll('.nodes g')
                 .selectAll('circle')
                 .attr('stroke', (d) => d.id === hoveredNode.id ? nodeHighlightColor : '#fff')
@@ -332,6 +410,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 return Math.min(0.8, Math.max(0.2, d.weight * 2))
             })
             .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
+            .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
+            
+            // Remove arrow polylines
+            svg.selectAll('.arrow-polylines').remove()
             
             // Reset node highlighting
             svg.selectAll('.nodes g')
@@ -393,6 +475,26 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
     useEffect(() => {
         setIsPanelOpen(selectedNode !== null)
     }, [selectedNode])
+
+    // Cleanup hover timer on unmount
+    useEffect(() => {
+        return () => {
+            if (hoverTimerRef.current) {
+                clearTimeout(hoverTimerRef.current)
+            }
+        }
+    }, [])
+
+    // Clear scrollToNode after scrolling is complete
+    useEffect(() => {
+        if (scrollToNode) {
+            const timer = setTimeout(() => {
+                setScrollToNode(null)
+            }, 500) // Clear after scroll animation completes
+            
+            return () => clearTimeout(timer)
+        }
+    }, [scrollToNode])
 
     const renderGraph = () => {
         if (!svgRef.current) return
@@ -599,6 +701,32 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             .attr('d', 'M0,-5L10,0L0,5')
             .attr('fill', '#999')
 
+        // Forward arrow markers for outgoing connections (pointing right)
+        defs.append('marker')
+            .attr('id', 'arrow-outgoing-mid')
+            .attr('viewBox', '0 -4 8 8')
+            .attr('refX', 4)
+            .attr('refY', 0)
+            .attr('markerWidth', 5)
+            .attr('markerHeight', 5)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-4L8,0L0,4')
+            .attr('fill', '#999')
+
+        // Backward arrow markers for incoming connections (pointing left)
+        defs.append('marker')
+            .attr('id', 'arrow-incoming-mid')
+            .attr('viewBox', '0 -4 8 8')
+            .attr('refX', 4)
+            .attr('refY', 0)
+            .attr('markerWidth', 5)
+            .attr('markerHeight', 5)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-4L8,0L0,4')
+            .attr('fill', '#999')
+
         // Create links with improved styling
         const link = g
             .append('g')
@@ -741,51 +869,86 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 }
                 return 0.1
             })
-            .attr('stroke', (d) => {
-                if (d.type === 'sequential') return '#333'
-                
-                // Make highlighted causal connections more visible
+            .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
+            .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
+            
+            // Remove existing polylines for arrows
+            svg.selectAll('.arrow-polylines').remove()
+            
+            // Add polylines with arrows for highlighted causal connections
+            const highlightedCausal = links.filter(d => {
+                if (d.type === 'sequential') return false
                 const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
                 const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
-                
-                if (isOutgoing) {
-                    return '#dc3545' // Red for outgoing connections
-                } else if (isIncoming) {
-                    return '#28a745' // Green for incoming connections
-                }
-                return '#999' // Default causal color
+                return isOutgoing || isIncoming
             })
             
-            // Also highlight the selected node with red circle
-            node.selectAll('circle')
+            svg.select('.links').selectAll('.arrow-polylines')
+                .data(highlightedCausal)
+                .enter()
+                .append('polyline')
+                .attr('class', 'arrow-polylines')
+                .attr('points', (d) => {
+                    const points = createPolylinePoints(d.source.fx, d.source.fy, d.target.fx, d.target.fy)
+                    return points.map(p => `${p[0]},${p[1]}`).join(' ')
+                })
+                .attr('stroke', '#999')
+                .attr('stroke-width', 2)
+                .attr('stroke-dasharray', '3,3')
+                .attr('fill', 'none')
+                .attr('opacity', (d) => {
+                    const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                    const stepData = stepImportanceData.find(step => 
+                        step.source_chunk_idx === (isOutgoing ? selectedNode.id : d.source.id))
+                    const impact = stepData?.target_impacts?.find(impact => 
+                        impact.target_chunk_idx === (isOutgoing ? d.target.id : selectedNode.id))
+                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    return Math.max(0.3, rawImportance * 4)
+                })
+                .attr('marker-mid', (d) => {
+                    const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                    return isOutgoing ? 'url(#arrow-outgoing-mid)' : 'url(#arrow-incoming-mid)'
+                })
+                .attr('marker-end', 'url(#arrow-causal)')
+                .style('cursor', 'pointer')
+            
+            // Also highlight the selected node with circle
+            svg.selectAll('.nodes g')
+                .selectAll('circle')
                 .attr('stroke', (d) => d.id === selectedNode.id ? nodeHighlightColor : '#fff')
                 .attr('stroke-width', (d) => d.id === selectedNode.id ? nodeHighlightWidth : 2)
         }
     }
 
     const handleNodeHover = (event, node) => {
-        setHoveredNode(node)
-        setHoveredFromCentralGraph(true)
-        /* NOTE: Do not show tooltip here, the step is already visible on the left panel
-        setTooltip({
-            visible: true,
-            x: event.pageX + 10,
-            y: event.pageY - 10,
-            content: `Step ${node.id}: ${formatFunctionTag(node.functionTag)} (${node.importance.toFixed(4)})`
-        })
-        */
-        
-        // Add red circle overlay to the hovered node
-        if (svgRef.current) {
-            d3.select(svgRef.current)
-                .selectAll('.nodes g')
-                .selectAll('circle')
-                .attr('stroke', (d) => d.id === node.id ? nodeHighlightColor : '#fff')
-                .attr('stroke-width', (d) => d.id === node.id ? nodeHighlightWidth : 2)
+        // Clear any existing timer
+        if (hoverTimerRef.current) {
+            clearTimeout(hoverTimerRef.current)
         }
+        
+        // Set a delay of 1 second before triggering hover effect
+        hoverTimerRef.current = setTimeout(() => {
+            setHoveredNode(node)
+            setHoveredFromCentralGraph(true)
+            
+            // Add red circle overlay to the hovered node
+            if (svgRef.current) {
+                d3.select(svgRef.current)
+                    .selectAll('.nodes g')
+                    .selectAll('circle')
+                    .attr('stroke', (d) => d.id === node.id ? nodeHighlightColor : '#fff')
+                    .attr('stroke-width', (d) => d.id === node.id ? nodeHighlightWidth : 2)
+            }
+        }, 350) // 0.35 second delay
     }
 
     const handleNodeLeave = () => {
+        // Clear the hover timer if user leaves before delay completes
+        if (hoverTimerRef.current) {
+            clearTimeout(hoverTimerRef.current)
+            hoverTimerRef.current = null
+        }
+        
         setHoveredNode(null)
         setHoveredFromCentralGraph(false)
         setTooltip({ visible: false, x: 0, y: 0, content: '' })
@@ -896,6 +1059,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 importance: Math.abs(nextNode.importance) || 0.01,
                 dependsOn: nextNode.depends_on,
             })
+            // Trigger scroll to the node in the left column
+            setScrollToNode(nextNode.chunk_idx)
         } else if (direction === 'prev' && currentIndex > 0) {
             const prevNodeId = nodeIds[currentIndex - 1]
             const prevNode = chunksData.find((chunk) => chunk.chunk_idx === prevNodeId)
@@ -906,6 +1071,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 importance: Math.abs(prevNode.importance) || 0.01,
                 dependsOn: prevNode.depends_on,
             })
+            // Trigger scroll to the node in the left column
+            setScrollToNode(prevNode.chunk_idx)
         }
     }
 
@@ -940,15 +1107,21 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
 
     // In the DetailPanel component, add a useEffect to trigger MathJax typesetting
     useEffect(() => {
-        if (selectedNode && window.MathJax) {
+        if (selectedNode && window.MathJax && window.MathJax.typesetPromise) {
             // Use a small timeout to ensure the DOM has updated
             const timer = setTimeout(() => {
                 try {
-                    window.MathJax.typesetPromise && window.MathJax.typesetPromise()
+                    // Target only the detail panel to avoid conflicts with other parts
+                    const detailPanel = document.querySelector('[class*="DetailPanel"]')
+                    if (detailPanel && detailPanel.contains && document.body.contains(detailPanel)) {
+                        window.MathJax.typesetPromise([detailPanel]).catch(err => {
+                            console.warn('MathJax typesetting warning:', err)
+                        })
+                    }
                 } catch (e) {
-                    console.error('MathJax typesetting error:', e)
+                    console.warn('MathJax typesetting error:', e)
                 }
-            }, 100)
+            }, 150)
 
             return () => clearTimeout(timer)
         }
@@ -1052,28 +1225,36 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                             </LegendItem>
                             <LegendItem>
                                 <svg width='30' height='10'>
-                                    <line
-                                        x1='0'
-                                        y1='5'
-                                        x2='30'
-                                        y2='5'
-                                        stroke='#dc3545'
+                                    <defs>
+                                        <marker id='legend-arrow-outgoing' viewBox='0 -4 8 8' refX='4' refY='0' markerWidth='4' markerHeight='4' orient='auto'>
+                                            <path d='M0,-4L8,0L0,4' fill='#999'/>
+                                        </marker>
+                                    </defs>
+                                    <polyline
+                                        points='0,5 15,5 30,5'
+                                        stroke='#999'
                                         strokeWidth='2'
                                         strokeDasharray='3,3'
+                                        fill='none'
+                                        markerMid='url(#legend-arrow-outgoing)'
                                     />
                                 </svg>
                                 <span>Outgoing connections (on hover)</span>
                             </LegendItem>
                             <LegendItem>
                                 <svg width='30' height='10'>
-                                    <line
-                                        x1='0'
-                                        y1='5'
-                                        x2='30'
-                                        y2='5'
-                                        stroke='#28a745'
+                                    <defs>
+                                        <marker id='legend-arrow-incoming' viewBox='0 -4 8 8' refX='4' refY='0' markerWidth='4' markerHeight='4' orient='auto'>
+                                            <path d='M8,-4L0,0L8,4' fill='#999'/>
+                                        </marker>
+                                    </defs>
+                                    <polyline
+                                        points='0,5 15,5 30,5'
+                                        stroke='#999'
                                         strokeWidth='2'
                                         strokeDasharray='3,3'
+                                        fill='none'
+                                        markerMid='url(#legend-arrow-incoming)'
                                     />
                                 </svg>
                                 <span>Incoming connections (on hover)</span>
@@ -1135,6 +1316,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                             onStepLeave={handleStepLeave}
                             causalLinksCount={causalLinksCount}
                             hoveredFromCentralGraph={hoveredFromCentralGraph}
+                            scrollToNode={scrollToNode}
                         />
 
                         <GraphContainer 
@@ -1309,6 +1491,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                                         importance: Math.abs(targetNode.importance) || 0.01,
                                                                         dependsOn: targetNode.depends_on,
                                                                     })
+                                                                    // Trigger scroll to the node in the left column
+                                                                    setScrollToNode(targetNode.chunk_idx)
                                                                 }
                                                             }}
                                                             onMouseEnter={(e) => {
@@ -1328,7 +1512,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                                     Step {affector.id} ({formatFunctionTag(affector.functionTag, true)})
                                                                 </span>
                                                                 <span style={{ fontSize: '0.75rem', color: '#666' }}>
-                                                                    Importance: {affector.importance.toFixed(4)}
+                                                                    Influence: {affector.importance.toFixed(4)}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1369,6 +1553,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                                             importance: Math.abs(targetNode.importance) || 0.01,
                                                                             dependsOn: targetNode.depends_on,
                                                                         })
+                                                                        // Trigger scroll to the node in the left column
+                                                                        setScrollToNode(targetNode.chunk_idx)
                                                                     }
                                                                 }}
                                                                 onMouseEnter={(e) => {
@@ -1388,7 +1574,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                                         Step {effect.id} ({formatFunctionTag(effect.functionTag, true)})
                                                                     </span>
                                                                     <span style={{ fontSize: '0.75rem', color: '#666' }}>
-                                                                        Importance: {effect.importance.toFixed(4)}
+                                                                        Influence: {effect.importance.toFixed(4)}
                                                                     </span>
                                                                 </div>
                                                             </div>

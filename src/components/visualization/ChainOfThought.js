@@ -200,7 +200,8 @@ const ChainOfThought = ({
     onStepClick,
     onStepLeave,
     causalLinksCount = 3,
-    hoveredFromCentralGraph = false
+    hoveredFromCentralGraph = false,
+    scrollToNode = null
 }) => {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [hoveredStep, setHoveredStep] = useState(null)
@@ -227,6 +228,28 @@ const ChainOfThought = ({
             }
         }
     }, [hoveredNode, hoveredFromCentralGraph, isCollapsed])
+
+    // Scroll to a specific node when requested (for detail panel clicks)
+    useEffect(() => {
+        if (scrollToNode && chainListRef.current && !isCollapsed) {
+            const stepElement = chainListRef.current.querySelector(`[data-step-id="${scrollToNode}"]`)
+            if (stepElement) {
+                // Calculate scroll position to center the element within the container
+                const container = chainListRef.current
+                const containerRect = container.getBoundingClientRect()
+                const elementRect = stepElement.getBoundingClientRect()
+                
+                // Calculate the scroll position to center the element
+                const scrollTop = container.scrollTop + elementRect.top - containerRect.top - (containerRect.height / 2) + (elementRect.height / 2)
+                
+                // Smooth scroll within the container only
+                container.scrollTo({
+                    top: scrollTop,
+                    behavior: 'smooth'
+                })
+            }
+        }
+    }, [scrollToNode, isCollapsed])
 
     // Get causal relationships for a step
     const getCausalRelationships = (stepId) => {
