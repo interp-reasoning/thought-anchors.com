@@ -82,6 +82,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
     const [scrollToNode, setScrollToNode] = useState(null)
     const svgRef = useRef(null)
     const graphContainerRef = useRef(null)
+    const detailPanelRef = useRef(null)
     const hoverTimerRef = useRef(null)
 
     useEffect(() => {
@@ -431,8 +432,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                event.target.tagName === 'circle' ||
                                event.target.tagName === 'text'
             
-            // Also check if click is inside the detail panel (right column)
-            const detailPanel = event.target.closest('[class*="DetailPanel"]')
+            // Check if click is inside the detail panel using ref
+            const detailPanel = detailPanelRef.current && detailPanelRef?.current?.contains(event.target)
             
             // Only close if it's not a node click and not in the detail panel
             if (!isNodeClick && !detailPanel && selectedNode) {
@@ -1113,7 +1114,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 try {
                     // Target only the detail panel to avoid conflicts with other parts
                     const detailPanel = document.querySelector('[class*="DetailPanel"]')
-                    if (detailPanel && detailPanel.contains && document.body.contains(detailPanel)) {
+                    if (detailPanel && detailPanel?.contains && document?.body?.contains(detailPanel)) {
                         window.MathJax.typesetPromise([detailPanel]).catch(err => {
                             console.warn('MathJax typesetting warning:', err)
                         })
@@ -1325,7 +1326,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                             <svg ref={svgRef} width='100%' height='100%'></svg>
                         </GraphContainer>
 
-                        <DetailPanel visible={selectedNode !== null ? 'true' : undefined}>
+                        <DetailPanel visible={selectedNode !== null ? 'true' : undefined} ref={detailPanelRef}>
                             {selectedNode && (
                                 <div
                                     style={{
@@ -1337,7 +1338,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                     <NavigationControls>
                                         <NavButton
                                             disabled={selectedNode.id <= Math.min(...chunksData.map(c => c.chunk_idx))}
-                                            onClick={() => navigateToNode('prev')}
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                navigateToNode('prev')
+                                            }}
                                         >
                                             <p style={{ textAlign: 'center', fontSize: '0.9rem' }}>←&nbsp;&nbsp;Prev</p>
                                         </NavButton>
@@ -1348,7 +1352,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                         </div>
                                         <NavButton
                                             disabled={selectedNode.id >= Math.max(...chunksData.map(c => c.chunk_idx))}
-                                            onClick={() => navigateToNode('next')}
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                navigateToNode('next')
+                                            }}
                                         >
                                            <p style={{ textAlign: 'center', fontSize: '0.9rem' }}>Next&nbsp;&nbsp;→</p>
                                         </NavButton>
@@ -1479,7 +1486,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                                 background: `${functionTagColors[affector.functionTag] || '#999'}20`,
                                                                 cursor: 'pointer'
                                                             }}
-                                                            onClick={() => {
+                                                            onClick={(e) => {
+                                                                e.stopPropagation()
                                                                 const targetNode = chunksData.find(
                                                                     (chunk) => chunk.chunk_idx === affector.id,
                                                                 )
@@ -1541,7 +1549,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                                                     background: `${functionTagColors[effect.functionTag] || '#999'}20`,
                                                                     cursor: 'pointer'
                                                                 }}
-                                                                onClick={() => {
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
                                                                     const targetNode = chunksData.find(
                                                                         (chunk) => chunk.chunk_idx === effect.id,
                                                                     )
@@ -1585,7 +1594,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                     )}
 
                                     <button
-                                        onClick={() => setSelectedNode(null)}
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            setSelectedNode(null)
+                                        }}
                                         style={{
                                             padding: '0.5rem 1rem',
                                             background: '#f0f0f0',
