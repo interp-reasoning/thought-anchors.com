@@ -131,6 +131,7 @@ export default function HomeScreen() {
                                 <div>💡 <strong>Hover</strong> over steps for quick preview</div>
                                 <div>🔗 <strong>Click</strong> to lock selection and see details</div>
                                 <div>📊 Weights are <strong>normalized</strong> for easier comparison</div>
+                                <div>🎯 The <strong>most important step</strong> is highlighted by default</div>
                             </div>
                         </ControlsContainer>
 

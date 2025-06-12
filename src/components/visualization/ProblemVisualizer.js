@@ -151,6 +151,28 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         }
     }, [stepImportanceData])
 
+    // Auto-select the most important step when data loads by simulating a click
+    useEffect(() => {
+        if (chunksData.length > 0 && !selectedNode) {
+            // Find the chunk with the highest importance score
+            const mostImportantChunk = chunksData.reduce((max, chunk) => {
+                const currentImportance = Math.abs(chunk.importance) || 0
+                const maxImportance = Math.abs(max.importance) || 0
+                return currentImportance > maxImportance ? chunk : max
+            })
+
+            if (mostImportantChunk) {
+                // Simulate clicking on the most important step
+                // This will trigger all the existing logic (scrolling, panel opening, etc.)
+                const timer = setTimeout(() => {
+                    handleStepClick(mostImportantChunk)
+                    setScrollToNode(mostImportantChunk.chunk_idx)
+                }, 100)
+                return () => clearTimeout(timer)
+            }
+        }
+    }, [chunksData])
+
     // Add useEffect to handle connection highlighting for selected node
     useEffect(() => {
         if (selectedNode && svgRef.current) {
@@ -631,7 +653,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
 
             // Shift center left by 30% when detail panel is open
-            const centerX = selectedNode ? width / 2 - width * 0.15 : width / 2
+            const centerX = selectedNode ? width / 2 - width * 0.135 : width / 2
             const centerY = height / 2
 
             // Set fixed positions in a circle
