@@ -17,6 +17,96 @@ import {
     NavigationControls,
     NavButton,
 } from '@/styles/visualization'
+import styled from 'styled-components'
+
+const GraphControls = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+    z-index: 10;
+`
+
+const ControlRow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+
+    label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #444;
+        min-width: 100px;
+    }
+
+    select {
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 0.875rem;
+        min-width: 80px;
+    }
+`
+
+const ControlButton = styled.button`
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+
+    &:hover {
+        background: #e5e5e5;
+    }
+`
+
+const ImportanceSlider = styled.input`
+    -webkit-appearance: none;
+    width: 120px;
+    height: 4px;
+    border-radius: 2px;
+    background: #ddd;
+    outline: none;
+    margin: 0;
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #666;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #555;
+        }
+    }
+
+    &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #666;
+        cursor: pointer;
+        transition: background 0.2s;
+        border: none;
+
+        &:hover {
+            background: #555;
+        }
+    }
+`
 
 // Function to create intermediate points for polyline
 const createPolylinePoints = (x1, y1, x2, y2, spacing = 60) => {
@@ -66,7 +156,7 @@ const CollapsibleSection = ({ title, children, content, defaultOpen = false }) =
     )
 }
 
-const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '#333', nodeHighlightWidth = 2.5 }) => {
+const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCount = 3, nodeHighlightColor = '#333', nodeHighlightWidth = 2.5, importanceFilter: initialImportanceFilter = 4 }) => {
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
     const [stepImportanceData, setStepImportanceData] = useState([])
@@ -84,6 +174,11 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
     const graphContainerRef = useRef(null)
     const detailPanelRef = useRef(null)
     const hoverTimerRef = useRef(null)
+    const zoomRef = useRef(null)
+
+    // Add state for controls
+    const [localCausalLinksCount, setLocalCausalLinksCount] = useState(initialCausalLinksCount)
+    const [localImportanceFilter, setLocalImportanceFilter] = useState(initialImportanceFilter)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -209,8 +304,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                     .map(conn => conn.sourceId)
             }
             
-            const topOutgoing = getTopOutgoingConnections(selectedNode.id, causalLinksCount)
-            const topIncoming = getTopIncomingConnections(selectedNode.id, causalLinksCount)
+            const topOutgoing = getTopOutgoingConnections(selectedNode.id, localCausalLinksCount)
+            const topIncoming = getTopIncomingConnections(selectedNode.id, localCausalLinksCount)
             
             // Apply connection highlighting for selected node
             links.attr('opacity', (d) => {
@@ -307,7 +402,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 .attr('stroke', '#fff')
                 .attr('stroke-width', 2)
         }
-    }, [selectedNode, normalizedWeights, causalLinksCount, stepImportanceData])
+    }, [selectedNode, normalizedWeights, localCausalLinksCount, stepImportanceData])
 
     // Add useEffect to handle connection highlighting for hoveredNode (when no node is selected)
     useEffect(() => {
@@ -345,8 +440,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                     .map(conn => conn.sourceId)
             }
             
-            const topOutgoing = getTopOutgoingConnections(hoveredNode.id, causalLinksCount)
-            const topIncoming = getTopIncomingConnections(hoveredNode.id, causalLinksCount)
+            const topOutgoing = getTopOutgoingConnections(hoveredNode.id, localCausalLinksCount)
+            const topIncoming = getTopIncomingConnections(hoveredNode.id, localCausalLinksCount)
             
             // Apply connection highlighting for hovered node
             links.attr('opacity', (d) => {
@@ -444,7 +539,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                 .attr('stroke', '#fff')
                 .attr('stroke-width', 2)
         }
-    }, [hoveredNode, selectedNode, normalizedWeights, causalLinksCount, stepImportanceData])
+    }, [hoveredNode, selectedNode, normalizedWeights, localCausalLinksCount, stepImportanceData])
 
     // Add click-outside handler
     useEffect(() => {
@@ -456,9 +551,15 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             
             // Check if click is inside the detail panel using ref
             const detailPanel = detailPanelRef.current && detailPanelRef?.current?.contains(event.target)
+
+            // Check if click is inside the controls container
+            const controlsContainer = event.target.closest('.ControlsContainer') ||
+                                    event.target.closest('select') ||
+                                    event.target.closest('input') ||
+                                    event.target.closest('button')
             
-            // Only close if it's not a node click and not in the detail panel
-            if (!isNodeClick && !detailPanel && selectedNode) {
+            // Only close if it's not a node click, not in the detail panel, and not in controls
+            if (!isNodeClick && !detailPanel && !controlsContainer && selectedNode) {
                 setSelectedNode(null)
             }
         }
@@ -474,7 +575,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         if (!loading && chunksData.length > 0 && stepImportanceData.length > 0) {
             renderGraph()
         }
-    }, [loading, chunksData, stepImportanceData, causalLinksCount, normalizedWeights, selectedNode])
+    }, [loading, chunksData, stepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter])
 
     // Add a new useEffect to fetch resampled chunks
     useEffect(() => {
@@ -519,6 +620,12 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         }
     }, [scrollToNode])
 
+    // Reset selectedNode and hoveredNode when problemId changes
+    useEffect(() => {
+        setSelectedNode(null)
+        setHoveredNode(null)
+    }, [problemId])
+
     const renderGraph = () => {
         if (!svgRef.current) return
 
@@ -538,8 +645,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             .on('zoom', (event) => {
                 g.attr('transform', event.transform)
             })
-
         svg.call(zoom)
+        zoomRef.current = zoom
 
         // Create a group for the graph
         const g = svg.append('g')
@@ -560,15 +667,20 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             }
         })
 
+        // Filter nodes based on importance threshold
+        const filteredNodes = localImportanceFilter === 4 ? nodes : nodes
+            .sort((a, b) => b.importance - a.importance)
+            .slice(0, Math.max(1, Math.ceil(((localImportanceFilter + 1) / 5) * nodes.length)))
+
         // Sort nodes by ID to ensure proper ordering
-        nodes.sort((a, b) => a.id - b.id)
+        filteredNodes.sort((a, b) => a.id - b.id)
 
         // Create links data for sequential connections
         const sequentialLinks = []
-        for (let i = 0; i < nodes.length - 1; i++) {
+        for (let i = 0; i < filteredNodes.length - 1; i++) {
             sequentialLinks.push({
-                source: nodes[i].id,
-                target: nodes[i + 1].id,
+                source: filteredNodes[i].id,
+                target: filteredNodes[i + 1].id,
                 type: 'sequential',
                 weight: 1
             })
@@ -581,13 +693,18 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         // Add outgoing connections for all nodes
         stepImportanceData.forEach((step) => {
             const sourceIdx = step.source_chunk_idx
+            // Only include links if source node is in filtered nodes
+            if (!filteredNodes.find(n => n.id === sourceIdx)) return
 
             // Sort target impacts by importance score and take top-N based on user selection
             const topTargets = [...(step.target_impacts || [])]
                 .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
-                .slice(0, causalLinksCount)
+                .slice(0, localCausalLinksCount)
 
             topTargets.forEach((target) => {
+                // Only include links if target node is in filtered nodes
+                if (!filteredNodes.find(n => n.id === target.target_chunk_idx)) return
+                
                 const key = `${sourceIdx}-${target.target_chunk_idx}`
                 const linkKey = `${sourceIdx}-${target.target_chunk_idx}`
                 
@@ -607,7 +724,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         })
         
         // Add top-k incoming connections for all nodes
-        nodes.forEach(node => {
+        filteredNodes.forEach(node => {
             const topIncoming = []
             stepImportanceData.forEach(step => {
                 const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === node.id)
@@ -621,9 +738,12 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             
             const topIncomingConnections = topIncoming
                 .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
-                .slice(0, causalLinksCount)
+                .slice(0, localCausalLinksCount)
             
             topIncomingConnections.forEach(conn => {
+                // Only include links if source node is in filtered nodes
+                if (!filteredNodes.find(n => n.id === conn.sourceId)) return
+                
                 const linkKey = `${conn.sourceId}-${node.id}`
                 if (!existingLinks.has(linkKey)) {
                     const key = `${conn.sourceId}-${node.id}`
@@ -645,16 +765,16 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         const links = [...sequentialLinks, ...causalLinks]
 
         // Position nodes in a circle
-        const nodeCount = nodes.length
+        const nodeCount = filteredNodes.length
         const radius = Math.min(width, height) * 0.35
 
         // Position nodes in a circle starting from the top (0 degrees)
-        nodes.forEach((node, i) => {
+        filteredNodes.forEach((node, i) => {
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
 
             // Shift center left by 30% when detail panel is open
             const centerX = selectedNode ? width / 2 - width * 0.135 : width / 2
-            const centerY = height / 2
+            const centerY = height / 2.3
 
             // Set fixed positions in a circle
             node.fx = centerX + radius * Math.cos(angle)
@@ -664,7 +784,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
 
         // Create force simulation with minimal forces since we're using fixed positions
         const simulation = d3
-            .forceSimulation(nodes)
+            .forceSimulation(filteredNodes)
             .force('link', d3.forceLink(links).id((d) => d.id))
             .force('charge', d3.forceManyBody().strength(-5))
             .alphaDecay(0.1)
@@ -806,7 +926,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             .append('g')
             .attr('class', 'nodes')
             .selectAll('g')
-            .data(nodes)
+            .data(filteredNodes)
             .enter()
             .append('g')
             .attr('transform', (d) => `translate(${d.fx},${d.fy})`)
@@ -849,7 +969,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
             .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.5)')
 
         // Store references for highlighting
-        svg.selectAll('.nodes').data(nodes)
+        svg.selectAll('.nodes').data(filteredNodes)
         svg.selectAll('.links').data(links)
 
         // Update link positions
@@ -862,8 +982,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         
         // Apply selectedNode highlighting immediately if a node is selected
         if (selectedNode) {
-            const topOutgoing = getTopOutgoingConnections(selectedNode.id, causalLinksCount)
-            const topIncoming = getTopIncomingConnections(selectedNode.id, causalLinksCount)
+            const topOutgoing = getTopOutgoingConnections(selectedNode.id, localCausalLinksCount)
+            const topIncoming = getTopIncomingConnections(selectedNode.id, localCausalLinksCount)
             
             // Apply connection highlighting for selected node
             link.attr('opacity', (d) => {
@@ -1042,7 +1162,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
     }
 
     // Get what affects this node (causally affected by)
-    const getCausallyAffectedBy = (nodeId, limit = causalLinksCount) => {
+    const getCausallyAffectedBy = (nodeId, limit = localCausalLinksCount) => {
         const affectedBy = []
         
         stepImportanceData.forEach((step) => {
@@ -1150,6 +1270,14 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
         }
     }, [selectedNode])
 
+    // Add reset view function
+    const resetGraphView = () => {
+        if (svgRef.current && zoomRef.current) {
+            const svg = d3.select(svgRef.current)
+            svg.transition().duration(350).call(zoomRef.current.transform, d3.zoomIdentity)
+        }
+    }
+
     return (
         <div>
             {tooltip.visible && (
@@ -1217,7 +1345,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                     )}
 
                     <Legend>
-                        <h3 style={{ marginBottom: '0.25rem' }}>Visualization Legend</h3>
+                        <h3 style={{ marginBottom: '0.25rem' }}>Visualization legend</h3>
                         <LegendRow>
                             <LegendItem>
                                 <svg width='30' height='10'>
@@ -1337,14 +1465,45 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                             onStepHover={handleStepHover}
                             onStepClick={handleStepClick}
                             onStepLeave={handleStepLeave}
-                            causalLinksCount={causalLinksCount}
+                            causalLinksCount={localCausalLinksCount}
                             hoveredFromCentralGraph={hoveredFromCentralGraph}
                             scrollToNode={scrollToNode}
                         />
 
-                        <GraphContainer 
-                            ref={graphContainerRef}
-                        >
+                        <GraphContainer ref={graphContainerRef}>
+                            <GraphControls>
+                                <ControlRow>
+                                    <label>Causal links:</label>
+                                    <select
+                                        value={localCausalLinksCount}
+                                        onChange={(e) => setLocalCausalLinksCount(Number(e.target.value))}
+                                    >
+                                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                            <option key={num} value={num}>
+                                                {num}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </ControlRow>
+                                <ControlRow>
+                                    <label>Node filter:</label>
+                                    <ImportanceSlider
+                                        type="range"
+                                        min="0"
+                                        max="4"
+                                        value={localImportanceFilter}
+                                        onChange={e => setLocalImportanceFilter(Number(e.target.value))}
+                                    />
+                                    <span style={{ fontSize: '0.875rem', color: '#666', marginLeft: '0.5rem', minWidth: '48px' }}>
+                                        {localImportanceFilter === 4 ? 'All nodes' : `Top ${Math.ceil(((localImportanceFilter + 1) / 5) * 100)}%`}
+                                    </span>
+                                </ControlRow>
+                                <ControlRow>
+                                    <ControlButton onClick={resetGraphView}>
+                                        Reset view
+                                    </ControlButton>
+                                </ControlRow>
+                            </GraphControls>
                             <svg ref={svgRef} width='100%' height='100%'></svg>
                         </GraphContainer>
 
@@ -1494,7 +1653,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                     {/* Causally affected by section - collapsible, open by default */}
                                     {getCausallyAffectedBy(selectedNode.id).length > 0 && (
                                         <CollapsibleSection 
-                                            title={`← Affected by (top-${causalLinksCount})`}
+                                            title={`← Affected by (top-${localCausalLinksCount})`}
                                             defaultOpen={true}
                                             content={
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -1553,14 +1712,14 @@ const ProblemVisualizer = ({ problemId, causalLinksCount, nodeHighlightColor = '
                                     )}
 
                                     {/* Causal effects section - collapsible, open by default */}
-                                    {getCausalEffects(selectedNode.id).slice(0, causalLinksCount).length > 0 && (
+                                    {getCausalEffects(selectedNode.id).slice(0, localCausalLinksCount).length > 0 && (
                                         <CollapsibleSection 
-                                            title={`→ Affects (top-${causalLinksCount})`}
+                                            title={`→ Affects (top-${localCausalLinksCount})`}
                                             defaultOpen={true}
                                             content={
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                                     {getCausalEffects(selectedNode.id)
-                                                        .slice(0, causalLinksCount)
+                                                        .slice(0, localCausalLinksCount)
                                                         .map((effect) => (
                                                             <div
                                                                 key={effect.id}

@@ -10,11 +10,52 @@ import {
     ControlsContainer,
     SelectContainer,
 } from '@/styles/visualization'
+import styled from 'styled-components'
+
+const ImportanceSlider = styled.input`
+  -webkit-appearance: none;
+  width: 200px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ddd;
+  outline: none;
+  margin: 0 0.5rem;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #666;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #555;
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #666;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+
+    &:hover {
+      background: #555;
+    }
+  }
+`
 
 export default function HomeScreen() {
     const [problems, setProblems] = useState([])
     const [selectedProblem, setSelectedProblem] = useState('problem_2238')
     const [causalLinksCount, setCausalLinksCount] = useState(3)
+    const [importanceFilter, setImportanceFilter] = useState(4)  // 0-4 range, default to show all
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -94,30 +135,6 @@ export default function HomeScreen() {
                                     ))}
                                 </select>
                             </SelectContainer>
-
-                            <SelectContainer>
-                                    <label htmlFor='causal-links-select' style={{ fontWeight: '600' }}>
-                                        Causal Links:
-                                    </label>
-                                <select
-                                    id='causal-links-select'
-                                    value={causalLinksCount}
-                                    onChange={(e) => setCausalLinksCount(Number(e.target.value))}
-                                    style={{
-                                        padding: '0.5rem',
-                                        borderRadius: '4px',
-                                        border: '1px solid #ccc',
-                                            fontSize: '1rem',
-                                            minWidth: '80px'
-                                    }}
-                                >
-                                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                                        <option key={num} value={num}>
-                                            {num}
-                                        </option>
-                                    ))}
-                                </select>
-                            </SelectContainer>
                             </div>
 
                             <div style={{ 
@@ -138,6 +155,7 @@ export default function HomeScreen() {
                         <ProblemVisualizer
                             problemId={selectedProblem}
                             causalLinksCount={causalLinksCount}
+                            importanceFilter={importanceFilter}
                         />
                     </>
                 )}
