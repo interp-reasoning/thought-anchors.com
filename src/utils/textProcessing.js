@@ -14,6 +14,9 @@ export const processMathText = (text) => {
     // First, handle the basic text processing
     let processedText = processText(text)
 
+    // Convert \boxed{...} to \boxed{...} with proper LaTeX delimiters
+    processedText = processedText.replace(/\\boxed{([^}]+)}/g, '$$$1$$')
+
     // Check if the text contains LaTeX delimiters
     if (
         processedText.includes('$') ||
