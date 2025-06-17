@@ -629,10 +629,16 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
 
     // Update layout ref when panel state changes
     useEffect(() => {
+        const wasPanelOpen = layoutRef.current.isPanelOpen
         layoutRef.current.isPanelOpen = selectedNode !== null
         if (graphContainerRef.current) {
             layoutRef.current.width = graphContainerRef.current.clientWidth
             layoutRef.current.height = graphContainerRef.current.clientHeight
+        }
+        
+        // If panel state changed, trigger a re-render of the graph
+        if (wasPanelOpen !== layoutRef.current.isPanelOpen && selectedNode === null) {
+            renderGraph()
         }
     }, [selectedNode])
 
