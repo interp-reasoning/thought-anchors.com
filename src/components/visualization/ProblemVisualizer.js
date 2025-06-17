@@ -805,8 +805,8 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
 
         // Position nodes in a circle
         const nodeCount = filteredNodes.length
-        const radius = Math.min(containerWidth, containerHeight) * 0.35
-        const verticalOffset = containerHeight * 0.42 // Move circle higher
+        const radius = Math.min(containerWidth, containerHeight) * 0.45
+        const verticalOffset = containerHeight * 0.5 // Move circle higher
 
         filteredNodes.forEach((node, i) => {
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
