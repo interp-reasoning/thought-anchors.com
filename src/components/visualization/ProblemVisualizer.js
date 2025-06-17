@@ -175,6 +175,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
     const detailPanelRef = useRef(null)
     const hoverTimerRef = useRef(null)
     const zoomRef = useRef(null)
+    const layoutRef = useRef({ width: 0, height: 0, isPanelOpen: false })
 
     // Add state for controls
     const [localCausalLinksCount, setLocalCausalLinksCount] = useState(initialCausalLinksCount)
@@ -626,17 +627,49 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
         setHoveredNode(null)
     }, [problemId])
 
+    // Update layout ref when panel state changes
+    useEffect(() => {
+        layoutRef.current.isPanelOpen = selectedNode !== null
+        if (graphContainerRef.current) {
+            layoutRef.current.width = graphContainerRef.current.clientWidth
+            layoutRef.current.height = graphContainerRef.current.clientHeight
+        }
+    }, [selectedNode])
+
+    // Update layout ref when container size changes
+    useEffect(() => {
+        const updateLayout = () => {
+            if (graphContainerRef.current) {
+                layoutRef.current.width = graphContainerRef.current.clientWidth
+                layoutRef.current.height = graphContainerRef.current.clientHeight
+            }
+        }
+
+        const resizeObserver = new ResizeObserver(updateLayout)
+        if (graphContainerRef.current) {
+            resizeObserver.observe(graphContainerRef.current)
+        }
+
+        return () => resizeObserver.disconnect()
+    }, [])
+
     const renderGraph = () => {
-        if (!svgRef.current) return
+        if (!svgRef.current || !graphContainerRef.current) return
 
         // Clear previous graph
         d3.select(svgRef.current).selectAll('*').remove()
 
-        const width = svgRef.current.clientWidth
-        const height = svgRef.current.clientHeight
+        const containerWidth = graphContainerRef.current.clientWidth
+        const containerHeight = graphContainerRef.current.clientHeight
+
+        // Update layout ref
+        layoutRef.current.width = containerWidth
+        layoutRef.current.height = containerHeight
 
         // Create SVG
-        const svg = d3.select(svgRef.current).attr('width', width).attr('height', height)
+        const svg = d3.select(svgRef.current)
+            .attr('width', containerWidth)
+            .attr('height', containerHeight)
 
         // Add zoom functionality
         const zoom = d3
@@ -766,19 +799,22 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
 
         // Position nodes in a circle
         const nodeCount = filteredNodes.length
-        const radius = Math.min(width, height) * 0.35
+        const radius = Math.min(containerWidth, containerHeight) * 0.35
+        const verticalOffset = containerHeight * 0.42 // Move circle higher
 
-        // Position nodes in a circle starting from the top (0 degrees)
         filteredNodes.forEach((node, i) => {
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
 
-            // Shift center left by 30% when detail panel is open
-            const centerX = selectedNode ? width / 2 - width * 0.135 : width / 2
-            const centerY = height / 2.3
+            // Calculate center position
+            // If panel is open, shift left by 13.5% of container width
+            // Use layoutRef to ensure consistent state
+            const centerX = layoutRef.current.isPanelOpen ? 
+                containerWidth / 2 - containerWidth * 0.135 : 
+                containerWidth / 2
 
             // Set fixed positions in a circle
             node.fx = centerX + radius * Math.cos(angle)
-            node.fy = centerY + radius * Math.sin(angle)
+            node.fy = verticalOffset + radius * Math.sin(angle)
             node.angle = angle
         })
 
