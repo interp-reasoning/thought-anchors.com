@@ -805,8 +805,10 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
 
         // Position nodes in a circle
         const nodeCount = filteredNodes.length
-        const radius = Math.min(containerWidth, containerHeight) * 0.45
-        const verticalOffset = containerHeight * 0.5 // Move circle higher
+        const radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.45 : 0.425)
+        
+        // Use a lower vertical offset when the right panel is open
+        const verticalOffset = containerHeight * (selectedNode ? 0.425 : 0.475)
 
         filteredNodes.forEach((node, i) => {
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
@@ -814,7 +816,6 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
             // Calculate center position
             const centerX = containerWidth / 2
 
-            // Set fixed positions in a circle
             node.fx = centerX + radius * Math.cos(angle)
             node.fy = verticalOffset + radius * Math.sin(angle)
             node.angle = angle
