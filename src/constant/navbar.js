@@ -1,7 +1,11 @@
 export const navbarItems = [
     {
-        name: 'GitHub',
+        name: 'Paper Code',
         href: 'https://github.com/uzaymacar/principled-attribution',
+    },
+    {
+        name: 'Interface Code',
+        href: 'https://github.com/uzaymacar/principled-attribution.com',
     },
     {
         name: 'Paper',
