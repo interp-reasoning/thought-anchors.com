@@ -812,11 +812,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
 
             // Calculate center position
-            // If panel is open, shift left by 13.5% of container width
-            // Use layoutRef to ensure consistent state
-            const centerX = layoutRef.current.isPanelOpen ? 
-                containerWidth / 2 - containerWidth * 0.135 : 
-                containerWidth / 2
+            const centerX = containerWidth / 2
 
             // Set fixed positions in a circle
             node.fx = centerX + radius * Math.cos(angle)
