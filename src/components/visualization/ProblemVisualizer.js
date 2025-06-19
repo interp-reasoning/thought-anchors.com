@@ -23,7 +23,9 @@ const GraphControls = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 1rem;
     background: white;
     padding: 16px;
     border-radius: 8px;
@@ -808,7 +810,7 @@ const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCoun
         const radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.45 : 0.425)
         
         // Use a lower vertical offset when the right panel is open
-        const verticalOffset = containerHeight * (selectedNode ? 0.425 : 0.475)
+        const verticalOffset = containerHeight * (selectedNode ? 0.45 : 0.475)
 
         filteredNodes.forEach((node, i) => {
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
