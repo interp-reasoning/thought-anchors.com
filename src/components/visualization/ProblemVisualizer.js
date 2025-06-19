@@ -158,7 +158,7 @@ const CollapsibleSection = ({ title, children, content, defaultOpen = false }) =
     )
 }
 
-const ProblemVisualizer = ({ problemId, causalLinksCount: initialCausalLinksCount = 3, nodeHighlightColor = '#333', nodeHighlightWidth = 2.5, importanceFilter: initialImportanceFilter = 4 }) => {
+const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlightColor = '#333', nodeHighlightWidth = 2.5, initialImportanceFilter = 4 }) => {
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
     const [stepImportanceData, setStepImportanceData] = useState([])

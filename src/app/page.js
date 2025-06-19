@@ -10,53 +10,11 @@ import {
     ControlsContainer,
     SelectContainer,
 } from '@/styles/visualization'
-import styled from 'styled-components'
-
-const ImportanceSlider = styled.input`
-  -webkit-appearance: none;
-  width: 200px;
-  height: 4px;
-  border-radius: 2px;
-  background: #ddd;
-  outline: none;
-  margin: 0 0.5rem;
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #666;
-    cursor: pointer;
-    transition: background 0.2s;
-
-    &:hover {
-      background: #555;
-    }
-  }
-
-  &::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #666;
-    cursor: pointer;
-    transition: background 0.2s;
-    border: none;
-
-    &:hover {
-      background: #555;
-    }
-  }
-`
 
 export default function HomeScreen() {
     const [problems, setProblems] = useState([])
     const [selectedProblem, setSelectedProblem] = useState('problem_2238')
-    const [causalLinksCount, setCausalLinksCount] = useState(3)
-    const [importanceFilter, setImportanceFilter] = useState(4)  // 0-4 range, default to show all
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true) 
 
     useEffect(() => {
         // Get list of available problems
@@ -154,8 +112,8 @@ export default function HomeScreen() {
 
                         <ProblemVisualizer
                             problemId={selectedProblem}
-                            causalLinksCount={causalLinksCount}
-                            importanceFilter={importanceFilter}
+                            initialCausalLinksCount={3}
+                            initialImportanceFilter={4}
                         />
                     </>
                 )}

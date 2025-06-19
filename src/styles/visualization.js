@@ -4,6 +4,14 @@ export const VisualizerContainer = styled.div`
     padding: 2rem 0rem 2rem 0rem;
     max-width: 100%;
     margin: 0 auto;
+    overflow-y: auto;
+
+    /* Hide scrollbar by default */
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
+    }
 `
 
 export const Title = styled.h1`
@@ -48,11 +56,18 @@ export const DetailPanel = styled.div.withConfig({
     border-radius: 8px;
     padding: 1rem;
     background: white;
-    overflow-y: auto;
     max-width: 400px;
+    overflow-y: auto;
     min-width: 300px;
     display: ${(props) => (props.visible ? 'block' : 'none')};
     transition: all 0.3s ease;
+
+    /* Hide scrollbar by default */
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
+    }
 `
 
 export const LoadingIndicator = styled.div`

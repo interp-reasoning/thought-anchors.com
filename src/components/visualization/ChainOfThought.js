@@ -85,6 +85,13 @@ const ChainList = styled.div.withConfig({
     flex: 1;
     overflow-y: auto;
     padding: 0.5rem;
+
+    /* Hide scrollbar by default */
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    &::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
+    }
     
     ${props => props.isCollapsed && `
         display: none;
