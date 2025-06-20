@@ -298,9 +298,25 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
   )
   
   // Calculate positions with horizontal arrangement for same-level nodes
-  const width = 1200
+  // Calculate actual width needed based on nodes instead of fixed width
+  const calculateRequiredWidth = () => {
+    let maxNodesAtLevel = 0
+    for (const [level, nodes] of nodesByLevel.entries()) {
+      maxNodesAtLevel = Math.max(maxNodesAtLevel, nodes.length)
+    }
+    
+    // Calculate width needed: left margin + nodes + gaps + right margin
+    const leftMargin = 100
+    const rightMargin = 100
+    const totalNodeWidth = maxNodesAtLevel * nodeW
+    const totalGapWidth = Math.max(0, maxNodesAtLevel - 1) * nodeGapX
+    
+    return leftMargin + totalNodeWidth + totalGapWidth + rightMargin
+  }
+  
+  const width = Math.max(400, calculateRequiredWidth()) // Minimum 400px width
   const height = Math.max(600, (maxLevel - minLevel + 2) * levelGapY)
-  const centerX = width / 2
+  const startX = 150 // Start from left with some padding instead of centering
   
   // Find level for each node - improved to handle the new layout
   const findNodeLevel = (nodeIdx) => {
@@ -326,15 +342,15 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
     
     let x
     if (totalNodes === 1) {
-      x = centerX
+      x = startX
     } else {
       // Sort nodes at this level by step number for consistent positioning
       const sortedNodes = [...nodesAtLevel].sort((a, b) => a.idx - b.idx)
       
       const nodeIndex = sortedNodes.findIndex(n => n.idx === nodeIdx)
       const totalWidth = (totalNodes - 1) * nodeGapX
-      const startX = centerX - totalWidth / 2
-      x = startX + nodeIndex * nodeGapX
+      const levelStartX = startX
+      x = levelStartX + nodeIndex * nodeGapX
     }
     
     // Adjust y position to account for negative levels
@@ -396,7 +412,7 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
   
   // Helper function to get final position
   const getFinalNodePosition = (nodeIdx) => {
-    return nodePositions.get(nodeIdx) || { x: centerX, y: 100 }
+    return nodePositions.get(nodeIdx) || { x: startX, y: 100 }
   }
 
   // Get unique connections to avoid duplicates
@@ -439,9 +455,22 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
   const uniqueConnections = getUniqueConnections()
 
   return (
-    <div ref={containerRef} style={{ width: '100%', height: '100%', overflow: 'auto', position: 'relative' }}>
-      <div style={{ width: width, height: height, position: 'relative', margin: '0 auto' }}>
-        <svg width={width} height={height} style={{ width: '100%', height: '100%' }}>
+    <div 
+      ref={containerRef} 
+      style={{ 
+        width: '100%', 
+        height: '100%', 
+        overflow: 'auto',
+        position: 'relative' 
+      }}
+    >
+      <div style={{ 
+        width: width, 
+        height: height, 
+        position: 'relative',
+        minWidth: '100%' // Ensure it takes at least full width of container
+      }}>
+        <svg width={width} height={height} style={{ width: '100%', height: '100%', display: 'block' }}>
           <defs>
             <marker
               id="arrow"
