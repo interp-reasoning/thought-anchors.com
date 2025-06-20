@@ -161,7 +161,7 @@ const CollapsibleSection = ({ title, children, content, defaultOpen = false }) =
 const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlightColor = '#333', nodeHighlightWidth = 2.5, initialImportanceFilter = 4 }) => {
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
-    const [stepImportanceData, setStepImportanceData] = useState([])
+    const [resStepImportanceData, setResStepImportanceData] = useState([])
     const [summaryData, setSummaryData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [selectedNode, setSelectedNode] = useState(null)
@@ -183,6 +183,13 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
     const [localCausalLinksCount, setLocalCausalLinksCount] = useState(initialCausalLinksCount)
     const [localImportanceFilter, setLocalImportanceFilter] = useState(initialImportanceFilter)
 
+    // Add state for supplementary data
+    const [suppStepImportanceData, setSuppStepImportanceData] = useState(null)
+    const [selectedMetric, setSelectedMetric] = useState('resampling')
+
+    const hasSuppStepImportanceData = !!suppStepImportanceData
+    const currentStepImportanceData = selectedMetric === 'resampling' ? resStepImportanceData : suppStepImportanceData
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true)
@@ -199,7 +206,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 const stepImportanceResponse = await import(
                     `../../app/data/${problemId}/step_importance.json`
                 )
-                setStepImportanceData(stepImportanceResponse.default)
+                setResStepImportanceData(stepImportanceResponse.default)
 
                 // Fetch summary data
                 const summaryResponse = await import(`../../app/data/${problemId}/summary.json`)
@@ -211,6 +218,15 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                     setProblemData(problemResponse.default)
                 } catch (e) {
                     console.warn(`Problem data not found for ${problemId}`)
+                }
+
+                // Fetch supplementary data if exists
+                try {
+                    const suppResponse = await import(`../../app/data/${problemId}/step_importance_supp.json`)
+                    setSuppStepImportanceData(suppResponse.default)
+                } catch (e) {
+                    console.warn(`Attention suppression data not found for ${problemId}`)
+                    setSuppStepImportanceData(null)
                 }
 
                 setLoading(false)
@@ -225,10 +241,10 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
 
     // Normalize connection weights
     useEffect(() => {
-        if (stepImportanceData.length > 0) {
+        if (currentStepImportanceData.length > 0) {
             const weightMap = new Map()
             
-            stepImportanceData.forEach((step) => {
+            currentStepImportanceData.forEach((step) => {
                 const sourceIdx = step.source_chunk_idx
                 const impacts = step.target_impacts || []
                 
@@ -247,7 +263,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
             
             setNormalizedWeights(weightMap)
         }
-    }, [stepImportanceData])
+    }, [currentStepImportanceData])
 
     // Auto-select the most important step when data loads by simulating a click
     useEffect(() => {
@@ -279,7 +295,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
             
             // Get top-k incoming and outgoing connections
             const getTopOutgoingConnections = (nodeId, k) => {
-                const stepData = stepImportanceData.find(step => step.source_chunk_idx === nodeId)
+                const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === nodeId)
                 if (!stepData?.target_impacts) return []
                 
                 return stepData.target_impacts
@@ -291,7 +307,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
             const getTopIncomingConnections = (nodeId, k) => {
                 const incomingConnections = []
                 
-                stepImportanceData.forEach(step => {
+                currentStepImportanceData.forEach(step => {
                     const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
                     if (impact) {
                         incomingConnections.push({
@@ -324,13 +340,13 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 
                 if (isOutgoing) {
                     // Get the raw importance score for this specific connection
-                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
+                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 } else if (isIncoming) {
                     // Get the raw importance score for this specific connection
-                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === d.source.id)
+                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === d.source.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === selectedNode.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
@@ -366,7 +382,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 .attr('fill', 'none')
                 .attr('opacity', (d) => {
                     const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
-                    const stepData = stepImportanceData.find(step => 
+                    const stepData = currentStepImportanceData.find(step => 
                         step.source_chunk_idx === (isOutgoing ? selectedNode.id : d.source.id))
                     const impact = stepData?.target_impacts?.find(impact => 
                         impact.target_chunk_idx === (isOutgoing ? d.target.id : selectedNode.id))
@@ -405,7 +421,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 .attr('stroke', '#fff')
                 .attr('stroke-width', 2)
         }
-    }, [selectedNode, normalizedWeights, localCausalLinksCount, stepImportanceData])
+    }, [selectedNode, normalizedWeights, localCausalLinksCount, currentStepImportanceData])
 
     // Add useEffect to handle connection highlighting for hoveredNode (when no node is selected)
     useEffect(() => {
@@ -415,7 +431,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
             
             // Get top-k incoming and outgoing connections
             const getTopOutgoingConnections = (nodeId, k) => {
-                const stepData = stepImportanceData.find(step => step.source_chunk_idx === nodeId)
+                const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === nodeId)
                 if (!stepData?.target_impacts) return []
                 
                 return stepData.target_impacts
@@ -427,7 +443,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
             const getTopIncomingConnections = (nodeId, k) => {
                 const incomingConnections = []
                 
-                stepImportanceData.forEach(step => {
+                currentStepImportanceData.forEach(step => {
                     const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
                     if (impact) {
                         incomingConnections.push({
@@ -460,13 +476,13 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 
                 if (isOutgoing) {
                     // Get the raw importance score for this specific connection
-                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === hoveredNode.id)
+                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === hoveredNode.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 } else if (isIncoming) {
                     // Get the raw importance score for this specific connection
-                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === d.source.id)
+                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === d.source.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === hoveredNode.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
@@ -502,7 +518,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 .attr('fill', 'none')
                 .attr('opacity', (d) => {
                     const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
-                    const stepData = stepImportanceData.find(step => 
+                    const stepData = currentStepImportanceData.find(step => 
                         step.source_chunk_idx === (isOutgoing ? hoveredNode.id : d.source.id))
                     const impact = stepData?.target_impacts?.find(impact => 
                         impact.target_chunk_idx === (isOutgoing ? d.target.id : hoveredNode.id))
@@ -542,7 +558,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 .attr('stroke', '#fff')
                 .attr('stroke-width', 2)
         }
-    }, [hoveredNode, selectedNode, normalizedWeights, localCausalLinksCount, stepImportanceData])
+    }, [hoveredNode, selectedNode, normalizedWeights, localCausalLinksCount, currentStepImportanceData])
 
     // Add click-outside handler
     useEffect(() => {
@@ -575,10 +591,10 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
 
     // Create a separate useEffect for initial graph rendering
     useEffect(() => {
-        if (!loading && chunksData.length > 0 && stepImportanceData.length > 0) {
+        if (!loading && chunksData.length > 0 && currentStepImportanceData.length > 0) {
             renderGraph()
         }
-    }, [loading, chunksData, stepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter])
+    }, [loading, chunksData, currentStepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter])
 
     // Add a new useEffect to fetch resampled chunks
     useEffect(() => {
@@ -732,7 +748,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         const existingLinks = new Set() // Track existing links to avoid duplicates
         
         // Add outgoing connections for all nodes
-        stepImportanceData.forEach((step) => {
+        currentStepImportanceData.forEach((step) => {
             const sourceIdx = step.source_chunk_idx
             // Only include links if source node is in filtered nodes
             if (!filteredNodes.find(n => n.id === sourceIdx)) return
@@ -767,7 +783,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         // Add top-k incoming connections for all nodes
         filteredNodes.forEach(node => {
             const topIncoming = []
-            stepImportanceData.forEach(step => {
+            currentStepImportanceData.forEach(step => {
                 const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === node.id)
                 if (impact) {
                     topIncoming.push({
@@ -933,7 +949,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
 
         // Function to get top-k outgoing connections for a node
         const getTopOutgoingConnections = (nodeId, k) => {
-            const stepData = stepImportanceData.find(step => step.source_chunk_idx === nodeId)
+            const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === nodeId)
             if (!stepData?.target_impacts) return []
             
             return stepData.target_impacts
@@ -946,7 +962,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         const getTopIncomingConnections = (nodeId, k) => {
             const incomingConnections = []
             
-            stepImportanceData.forEach(step => {
+            currentStepImportanceData.forEach(step => {
                 const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
                 if (impact) {
                     incomingConnections.push({
@@ -1040,13 +1056,13 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 
                 if (isOutgoing) {
                     // Get the raw importance score for this specific connection
-                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
+                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 } else if (isIncoming) {
                     // Get the raw importance score for this specific connection
-                    const stepData = stepImportanceData.find(step => step.source_chunk_idx === d.source.id)
+                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === d.source.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === selectedNode.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
@@ -1082,7 +1098,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 .attr('fill', 'none')
                 .attr('opacity', (d) => {
                     const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
-                    const stepData = stepImportanceData.find(step => 
+                    const stepData = currentStepImportanceData.find(step => 
                         step.source_chunk_idx === (isOutgoing ? selectedNode.id : d.source.id))
                     const impact = stepData?.target_impacts?.find(impact => 
                         impact.target_chunk_idx === (isOutgoing ? d.target.id : selectedNode.id))
@@ -1181,7 +1197,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
     // Get causal effects for a node
     const getCausalEffects = (nodeId) => {
         const effects = []
-        const stepData = stepImportanceData.find((step) => step.source_chunk_idx === nodeId)
+        const stepData = currentStepImportanceData.find((step) => step.source_chunk_idx === nodeId)
 
         if (stepData && stepData.target_impacts) {
             stepData.target_impacts.forEach((impact) => {
@@ -1206,7 +1222,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
     const getCausallyAffectedBy = (nodeId, limit = localCausalLinksCount) => {
         const affectedBy = []
         
-        stepImportanceData.forEach((step) => {
+        currentStepImportanceData.forEach((step) => {
             const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
             if (impact) {
                 const sourceNode = chunksData.find(chunk => chunk.chunk_idx === step.source_chunk_idx)
@@ -1382,6 +1398,34 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                                 </p>
                                 <p>{summaryData.num_chunks}</p>
                             </div>
+                            {hasSuppStepImportanceData && (
+                                <div
+                                    style={{
+                                        marginBottom: '0.5rem',
+                                        flexDirection: 'row',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                    }}
+                                >
+                                    <p>
+                                        <strong>Sentence-to-sentence metric:</strong>
+                                    </p>
+                                    <select
+                                        value={selectedMetric}
+                                        onChange={(e) => setSelectedMetric(e.target.value)}
+                                        style={{
+                                            padding: '4px 8px',
+                                            borderRadius: '4px',
+                                            border: '1px solid #ccc',
+                                            fontSize: '0.875rem',
+                                        }}
+                                    >
+                                        <option value="resampling">Resampling</option>
+                                        <option value="attention suppression">Attention suppression</option>
+                                    </select>
+                                </div>
+                            )}
                         </ProblemBox>
                     )}
 
@@ -1500,7 +1544,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                     <VisualizerWrapper>
                         <ChainOfThought
                             chunksData={chunksData}
-                            stepImportanceData={stepImportanceData}
+                            stepImportanceData={currentStepImportanceData}
                             selectedNode={selectedNode}
                             hoveredNode={hoveredNode}
                             onStepHover={handleStepHover}
