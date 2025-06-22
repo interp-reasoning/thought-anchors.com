@@ -1,7 +1,7 @@
 import { GITHUB_URL, LINKEDIN_URL, TWITTER_URL } from '../constant/links'
 
 export const footerItems = {
-    copyright: '© 2025 Principled Attribution',
+    copyright: '© 2025 ⚓️ Thought Anchors',
     socials: [
         {
             title: 'GitHub',

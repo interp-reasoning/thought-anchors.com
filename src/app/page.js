@@ -51,7 +51,7 @@ export default function HomeScreen() {
         <Layout>
             <Navbar />
             <VisualizerContainer>
-                <Title>Interpreting Reasoning Models with Principled Attribution to Important Steps</Title>
+                <Title>⚓️ Thought Anchors: Which LLM Reasoning Steps Matter?</Title>
                 <p style={{ 
                     fontSize: '1rem', 
                     color: '#666', 

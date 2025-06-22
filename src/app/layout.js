@@ -8,8 +8,8 @@ const raleway = Raleway({ subsets: ['latin'], variable: '--font-raleway' })
 
 export const metadata = {
     robots: { index: true, follow: true },
-    title: 'Principled Attribution',
-    description: 'Interpreting Reasoning Models with Principled Attribution to Important Steps',
+    title: '⚓️ Thought Anchors',
+    description: 'Thought Anchors: Which LLM Reasoning Steps Matter?',
 }
 
 // Configure MathJax options
