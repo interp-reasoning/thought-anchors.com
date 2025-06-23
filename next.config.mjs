@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'principled-attribution.com',
+                hostname: 'thought-anchors.com',
                 port: '',
             },
         ],
