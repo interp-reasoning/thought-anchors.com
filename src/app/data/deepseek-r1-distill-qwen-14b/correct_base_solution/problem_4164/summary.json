@@ -1,0 +1,250 @@
+{
+  "problem_idx": 4164,
+  "num_chunks": 251,
+  "avg_importance": 0.000737166429457028,
+  "max_importance": 0.97,
+  "min_importance": -0.84,
+  "top_influential_steps": [
+    {
+      "step_idx": 248,
+      "step_text": {
+        "chunk": "So, after verifying with two different methods\u2014expanding the polynomial and using Lagrange interpolation\u2014I get the same result.",
+        "chunk_idx": 248,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "247",
+          "232"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": -0.010000000000000009,
+        "forced_importance_kl": 0.02121018121465102,
+        "different_trajectories_fraction": 0.99,
+        "overdeterminedness": 0.87,
+        "summary": "verify result consistency"
+      },
+      "avg_outgoing_importance": 0.255
+    },
+    {
+      "step_idx": 240,
+      "step_text": {
+        "chunk": "So, 5k + m = 5*(-25/288) + (-1/24) = (-125/288) + (-12/288) = (-137)/288",
+        "chunk_idx": 240,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "239"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.029999999999999916,
+        "forced_importance_kl": 0.06412137511916129,
+        "different_trajectories_fraction": 0.46,
+        "overdeterminedness": 0.050000000000000044,
+        "summary": "calculate m=-137/288"
+      },
+      "avg_outgoing_importance": 0.168
+    },
+    {
+      "step_idx": 241,
+      "step_text": {
+        "chunk": "Thus, q(5) = 24*(-137)/288 = (-137)/12",
+        "chunk_idx": 241,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "240"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": -0.06999999999999995,
+        "forced_importance_kl": 0.029289741723101476,
+        "different_trajectories_fraction": 0.01,
+        "overdeterminedness": 0.050000000000000044,
+        "summary": "calculate q(5)=-137/12"
+      },
+      "avg_outgoing_importance": 0.13666666666666666
+    },
+    {
+      "step_idx": 235,
+      "step_text": {
+        "chunk": "Alternatively, maybe I can check using another method.",
+        "chunk_idx": 235,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "234"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.010000000000000009,
+        "forced_importance_kl": 0.04786139191545071,
+        "different_trajectories_fraction": 0.88,
+        "overdeterminedness": 0.37,
+        "summary": "check using another method"
+      },
+      "avg_outgoing_importance": 0.10266666666666664
+    },
+    {
+      "step_idx": 236,
+      "step_text": {
+        "chunk": "Wait, another approach: since q(x) = x\u00b2p(x) - 1, and q(x) = (x-1)(x-2)(x-3)(x-4)(kx + m), and we found k = -25/288 and m = -1/24.",
+        "chunk_idx": 236,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "235"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.04999999999999993,
+        "forced_importance_kl": 0.8062553044185543,
+        "different_trajectories_fraction": 0.81,
+        "overdeterminedness": 0.17000000000000004,
+        "summary": "substitute k, m"
+      },
+      "avg_outgoing_importance": 0.08445165945165947
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "I need to find p(5).",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.8314606741573034,
+        "resampling_importance_accuracy": 0.02409488139825211,
+        "resampling_importance_kl": 0.2824161340255166,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.6772408014268034,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9887640449438202,
+        "summary": "find p(5)"
+      },
+      "avg_incoming_importance": 0.09999999999999998
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Since it's a cubic, it can be uniquely determined by four points, which is exactly what we have here: four values of n where p(n) is given.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "0"
+        ],
+        "accuracy": 0.9111111111111111,
+        "resampling_importance_accuracy": -0.03199023199023199,
+        "resampling_importance_kl": 1.183215845696608,
+        "counterfactual_importance_accuracy": 0.003232062055591456,
+        "counterfactual_importance_kl": 1.471801900375667,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.4753709932141723,
+        "different_trajectories_fraction": 0.18888888888888888,
+        "overdeterminedness": 0.4444444444444444,
+        "summary": "determine cubic p(n)"
+      },
+      "avg_incoming_importance": 0.08250000000000002
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "So, I can set up a system of equations using these points and solve for the coefficients a, b, c, d.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "4"
+        ],
+        "accuracy": 0.8791208791208791,
+        "resampling_importance_accuracy": 0.07964200747705907,
+        "resampling_importance_kl": 2.297192343390994,
+        "counterfactual_importance_accuracy": -0.13117667970138647,
+        "counterfactual_importance_kl": 1.6616603540245065,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.7227524669464044,
+        "different_trajectories_fraction": 0.31868131868131866,
+        "overdeterminedness": 0.6043956043956045,
+        "summary": "solve for a, b, c,"
+      },
+      "avg_incoming_importance": 0.05199999999999999
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Since p(x) is a cubic polynomial passing through four points, I can construct it using Lagrange interpolation or Newton's divided differences.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "accuracy": 0.9361702127659575,
+        "resampling_importance_accuracy": -0.0927967187900538,
+        "resampling_importance_kl": 0.2831993421816292,
+        "counterfactual_importance_accuracy": 0.08519793459552494,
+        "counterfactual_importance_kl": 0.06406576499619619,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.9565386180639553,
+        "different_trajectories_fraction": 0.2978723404255319,
+        "overdeterminedness": 0.19148936170212771,
+        "summary": "construct p(x)"
+      },
+      "avg_incoming_importance": 0.043
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Then, once I have the polynomial, I can plug in x = 5 to find p(5).",
+        "chunk_idx": 6,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.9587628865979382,
+        "resampling_importance_accuracy": -0.043869269576661596,
+        "resampling_importance_kl": 0.8981767692633504,
+        "counterfactual_importance_accuracy": 0.08510638297872342,
+        "counterfactual_importance_kl": 0.06820823312846162,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.1733499426273353,
+        "different_trajectories_fraction": 0.09278350515463918,
+        "overdeterminedness": 0.845360824742268,
+        "summary": "plug in x=5"
+      },
+      "avg_incoming_importance": 0.041666666666666664
+    }
+  ]
+}

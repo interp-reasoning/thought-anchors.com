@@ -1,0 +1,247 @@
+{
+  "problem_idx": 6596,
+  "num_chunks": 134,
+  "avg_importance": 0.0028969889765117036,
+  "max_importance": 0.78375,
+  "min_importance": -0.43,
+  "top_influential_steps": [
+    {
+      "step_idx": 123,
+      "step_text": {
+        "chunk": "Just to make sure I didn't make a mistake, let me recap:",
+        "chunk_idx": 123,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "122"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.1972828260877841,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.1972828260877841,
+        "forced_importance_accuracy": -0.012987012987012988,
+        "forced_importance_kl": 2.650531177040857,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.8200000000000001,
+        "summary": "check for mistakes"
+      },
+      "avg_outgoing_importance": 0.32899999999999996
+    },
+    {
+      "step_idx": 0,
+      "step_text": {
+        "chunk": "Alright, so I have this math problem here about two squares: a smaller one and a larger one.",
+        "chunk_idx": 0,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.022727272727272728,
+        "resampling_importance_kl": 2.4647114161564487,
+        "counterfactual_importance_accuracy": -0.022727272727272728,
+        "counterfactual_importance_kl": 2.5905503026686545,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 4.4532123973488345,
+        "different_trajectories_fraction": 0.84,
+        "overdeterminedness": 0.45999999999999996,
+        "summary": "compare two squares"
+      },
+      "avg_outgoing_importance": 0.30337320574162674
+    },
+    {
+      "step_idx": 107,
+      "step_text": {
+        "chunk": "So, perhaps another approach: the figure is a composite figure made up of two squares: a smaller one and a larger one.",
+        "chunk_idx": 107,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "106"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.010152371256581246,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.010152371256581246,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2485923526582523,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.4,
+        "summary": "identify composite figure"
+      },
+      "avg_outgoing_importance": 0.1058702408702409
+    },
+    {
+      "step_idx": 132,
+      "step_text": {
+        "chunk": "I think I'm confident that the answer is 7.2 cm.",
+        "chunk_idx": 132,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "131"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.52,
+        "overdeterminedness": 0.64,
+        "summary": "confirm answer=7.2 cm"
+      },
+      "avg_outgoing_importance": 0.09999999999999998
+    },
+    {
+      "step_idx": 47,
+      "step_text": {
+        "chunk": "Wait, let me verify.",
+        "chunk_idx": 47,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "46"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.02736298417030193,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.02736298417030193,
+        "forced_importance_accuracy": -0.22146484897086338,
+        "forced_importance_kl": 2.149310695656318,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.797979797979798,
+        "summary": "check answer"
+      },
+      "avg_outgoing_importance": 0.09605404318902283
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "I need to find the distance from point A to point B, and express it as a decimal to the nearest tenth.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [
+          "1"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.02197802197802198,
+        "resampling_importance_kl": 0.12218326886788008,
+        "counterfactual_importance_accuracy": -0.02197802197802198,
+        "counterfactual_importance_kl": 0.08716324435449789,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.1934795593453194,
+        "different_trajectories_fraction": 0.5698924731182796,
+        "overdeterminedness": 0.8279569892473118,
+        "summary": "calculate distance as decimal"
+      },
+      "avg_incoming_importance": 0.16005376344086022
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "The problem says the smaller square has a perimeter of 4 cm, and the larger square has an area of 16 cm\u00b2.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [
+          "0"
+        ],
+        "accuracy": 0.022727272727272728,
+        "resampling_importance_accuracy": -0.022727272727272728,
+        "resampling_importance_kl": 0.53089642663875,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 1.7138977271089673,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.5967464438028545,
+        "different_trajectories_fraction": 0.022727272727272728,
+        "overdeterminedness": 0.9318181818181819,
+        "summary": "calculate perimeter=4 cm"
+      },
+      "avg_incoming_importance": 0.15000000000000002
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "Hmm, okay.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "accuracy": 0.02197802197802198,
+        "resampling_importance_accuracy": 0.010630673674151932,
+        "resampling_importance_kl": 0.507294451573203,
+        "counterfactual_importance_accuracy": -0.01673567977915804,
+        "counterfactual_importance_kl": 0.43643054510031565,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.53687739055771,
+        "different_trajectories_fraction": 0.6923076923076923,
+        "overdeterminedness": 0.8351648351648352,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.08956043956043956
+    },
+    {
+      "step_idx": 14,
+      "step_text": {
+        "chunk": "Solving for 's,' I get s = 1 cm.",
+        "chunk_idx": 14,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "13"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.02,
+        "resampling_importance_kl": 0.8171674884811673,
+        "counterfactual_importance_accuracy": -0.02,
+        "counterfactual_importance_kl": 2.015093441296175,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.3508609727059237,
+        "different_trajectories_fraction": 0.13,
+        "overdeterminedness": 0.8200000000000001,
+        "summary": "solve s=1 cm"
+      },
+      "avg_incoming_importance": 0.05857142857142857
+    },
+    {
+      "step_idx": 18,
+      "step_text": {
+        "chunk": "Taking the square root of both sides, I get l = 4 cm.",
+        "chunk_idx": 18,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "17"
+        ],
+        "accuracy": 0.03,
+        "resampling_importance_accuracy": -0.03,
+        "resampling_importance_kl": 1.6288516870106315,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.6333263070200429,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.97,
+        "summary": "take square root l=4 cm"
+      },
+      "avg_incoming_importance": 0.052777777777777785
+    }
+  ]
+}

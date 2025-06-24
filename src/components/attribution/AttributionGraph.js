@@ -1,273 +1,27 @@
 'use client'
 import { useRef, useEffect } from 'react'
 import Node from './Node'
+import * as d3 from 'd3'
 
-export default function AttributionGraph({ selectedIdx, chunksData, selectedPaths }) {
+export default function AttributionGraph({ 
+  selectedIdx, 
+  chunksData, 
+  selectedPaths,
+  onNodeHover,
+  onNodeLeave,
+  onNodeClick
+}) {
   // Layout constants
-  const nodeW = 100
-  const nodeH = 50
+  const nodeW = 110
+  const nodeH = 70
   const levelGapY = 120  // Vertical spacing between levels
   const nodeGapX = 150  // Horizontal spacing between nodes at same level
   const arrowOffset = 5
   
-  // Create ref for container - moved before conditional return
+  // Create ref for container and zoom
   const containerRef = useRef(null)
-
-  // Build layout tree with smart positioning to avoid diagonals
-  const buildLayoutTree = (paths, maxNodes = 10) => {
-    console.log('Building layout tree with paths:', paths)
-    const nodesByLevel = new Map()
-    const allNodes = new Map()
-    const nodeLevels = new Map()
-    
-    // First, collect all unique nodes from paths with their importance scores
-    const nodeImportanceMap = new Map()
-    paths.forEach(path => {
-      path.forEach(node => {
-        if (!allNodes.has(node.idx)) {
-          allNodes.set(node.idx, node)
-          // Calculate total importance for this node (sum of all its source scores)
-          const totalImportance = node.sources ? 
-            node.sources.reduce((sum, source) => sum + source.score, 0) : 0
-          nodeImportanceMap.set(node.idx, totalImportance)
-        }
-      })
-    })
-    
-    // Always include the selected target node
-    const sortedNodesByImportance = Array.from(allNodes.keys())
-      .filter(nodeIdx => nodeIdx !== selectedIdx) // Remove target from sorting
-      .sort((a, b) => nodeImportanceMap.get(b) - nodeImportanceMap.get(a)) // Sort by importance desc
-      .slice(0, maxNodes - 1) // Take top N-1 (leaving room for target)
-    
-    // Add the target back
-    sortedNodesByImportance.push(selectedIdx)
-    
-    console.log('Node importance scores:', Object.fromEntries(nodeImportanceMap))
-    console.log('Selected nodes (limited):', sortedNodesByImportance)
-    
-    // Filter allNodes to only include the most important ones
-    const filteredNodes = new Map()
-    sortedNodesByImportance.forEach(nodeIdx => {
-      if (allNodes.has(nodeIdx)) {
-        const node = allNodes.get(nodeIdx)
-        // Filter the node's sources to only include other selected nodes
-        const filteredSources = node.sources ? 
-          node.sources.filter(source => sortedNodesByImportance.includes(source.idx)) : []
-        filteredNodes.set(nodeIdx, { ...node, sources: filteredSources })
-      }
-    })
-    
-    // Replace allNodes with filtered set
-    allNodes.clear()
-    filteredNodes.forEach((node, nodeIdx) => {
-      allNodes.set(nodeIdx, node)
-    })
-    
-    // Build connection maps to understand the flow
-    const sourceToTargets = new Map() // what each node points to
-    const targetToSources = new Map() // what points to each node
-    
-    Array.from(allNodes.values()).forEach(node => {
-      if (node.sources && node.sources.length > 0) {
-        targetToSources.set(node.idx, node.sources.map(s => s.idx))
-        node.sources.forEach(source => {
-          if (!sourceToTargets.has(source.idx)) {
-            sourceToTargets.set(source.idx, [])
-          }
-          sourceToTargets.get(source.idx).push(node.idx)
-        })
-      }
-    })
-    
-    console.log('Source to targets:', Object.fromEntries(sourceToTargets))
-    console.log('Target to sources:', Object.fromEntries(targetToSources))
-    
-    // Detect chains: sequences where each node has exactly one target and one source
-    const findChains = () => {
-      const chains = []
-      const visited = new Set()
-      
-      // Find all potential chain starts (nodes that are not part of existing chains)
-      Array.from(allNodes.keys()).forEach(nodeIdx => {
-        if (visited.has(nodeIdx)) return
-        
-        const sources = targetToSources.get(nodeIdx) || []
-        const targets = sourceToTargets.get(nodeIdx) || []
-        
-        // Start building a chain from this node
-        const chain = [nodeIdx]
-        visited.add(nodeIdx)
-        
-        // Extend backwards (find sources)
-        let currentIdx = nodeIdx
-        while (true) {
-          const currentSources = targetToSources.get(currentIdx) || []
-          if (currentSources.length === 1) {
-            const sourceIdx = currentSources[0]
-            const sourceTargets = sourceToTargets.get(sourceIdx) || []
-            
-            // Only add to chain if the source has exactly one target (this node)
-            if (sourceTargets.length === 1 && sourceTargets[0] === currentIdx && !visited.has(sourceIdx)) {
-              chain.unshift(sourceIdx)
-              visited.add(sourceIdx)
-              currentIdx = sourceIdx
-            } else {
-              break
-            }
-          } else {
-            break
-          }
-        }
-        
-        // Extend forwards (find targets)
-        currentIdx = nodeIdx
-        while (true) {
-          const currentTargets = sourceToTargets.get(currentIdx) || []
-          if (currentTargets.length === 1) {
-            const targetIdx = currentTargets[0]
-            const targetSources = targetToSources.get(targetIdx) || []
-            
-            // Only add to chain if the target has exactly one source (this node)
-            if (targetSources.length === 1 && targetSources[0] === currentIdx && !visited.has(targetIdx)) {
-              chain.push(targetIdx)
-              visited.add(targetIdx)
-              currentIdx = targetIdx
-            } else {
-              break
-            }
-          } else {
-            break
-          }
-        }
-        
-        if (chain.length > 1) {
-          chains.push(chain)
-          console.log('Found chain:', chain)
-        }
-      })
-      
-      return chains
-    }
-    
-    const chains = findChains()
-    
-    // Assign levels
-    const assignNodeToLevel = (nodeIdx, level) => {
-      if (nodeLevels.has(nodeIdx)) {
-        return nodeLevels.get(nodeIdx)
-      }
-      
-      nodeLevels.set(nodeIdx, level)
-      
-      if (!nodesByLevel.has(level)) {
-        nodesByLevel.set(level, [])
-      }
-      
-      const node = allNodes.get(nodeIdx)
-      if (node && !nodesByLevel.get(level).some(n => n.idx === nodeIdx)) {
-        nodesByLevel.get(level).push(node)
-      }
-      
-      return level
-    }
-    
-    // Start with target at level 0
-    assignNodeToLevel(selectedIdx, 0)
-    
-    // Place chains at the same level as their connection to the target
-    chains.forEach(chain => {
-      console.log('Processing chain:', chain)
-      
-      // Find if any node in the chain connects to the target
-      const chainConnectionToTarget = chain.find(nodeIdx => {
-        const targets = sourceToTargets.get(nodeIdx) || []
-        return targets.includes(selectedIdx)
-      })
-      
-      if (chainConnectionToTarget) {
-        // Check if this is a simple linear chain (each node has exactly one source and one target)
-        const isSimpleLinearChain = chain.every(nodeIdx => {
-          const sources = targetToSources.get(nodeIdx) || []
-          const targets = sourceToTargets.get(nodeIdx) || []
-          // Allow 0 sources for start of chain, 0 targets for end of chain
-          return sources.length <= 1 && targets.length <= 1
-        })
-        
-        console.log(`Chain ${chain}: isSimpleLinearChain = ${isSimpleLinearChain}`)
-        console.log(`ChainConnectionToTarget: ${chainConnectionToTarget}`)
-        console.log(`Target (selectedIdx): ${selectedIdx}`)
-        
-        if (isSimpleLinearChain) {
-          console.log(`Simple linear chain detected: ${chain}, arranging vertically`)
-          // For simple linear chains, arrange vertically
-          // The node that connects to target gets level -1, others get successive levels
-          const targetConnectionIndex = chain.indexOf(chainConnectionToTarget)
-          console.log(`Target connection index: ${targetConnectionIndex}`)
-          
-          chain.forEach((nodeIdx, index) => {
-            // Calculate level relative to the connection point
-            // We want the chain to flow downward, so earlier nodes get higher (more negative) levels
-            const levelOffset = targetConnectionIndex - index
-            const level = -1 - levelOffset
-            console.log(`  Assigning node ${nodeIdx} (index ${index}) to level ${level} (offset: ${levelOffset})`)
-            assignNodeToLevel(nodeIdx, level)
-          })
-        } else {
-          console.log(`Complex chain detected: ${chain}, arranging horizontally`)
-          // For complex chains, place the entire chain at level -1 (horizontal)
-          chain.forEach(nodeIdx => {
-            assignNodeToLevel(nodeIdx, -1)
-          })
-        }
-      } else {
-        console.log(`Chain ${chain} does not connect to target ${selectedIdx}`)
-      }
-    })
-    
-    // Handle remaining nodes with the original algorithm
-    const processRemainingNodes = () => {
-      const processLevel = (currentLevel) => {
-        const nodesAtLevel = nodesByLevel.get(currentLevel) || []
-        const allSourcesForThisLevel = new Set()
-        
-        console.log(`Processing remaining nodes at level ${currentLevel}, nodes:`, nodesAtLevel.map(n => n.idx))
-        
-        nodesAtLevel.forEach(node => {
-          if (node.sources) {
-            node.sources.forEach(source => {
-              if (!nodeLevels.has(source.idx)) {
-                allSourcesForThisLevel.add(source.idx)
-              }
-            })
-          }
-        })
-        
-        if (allSourcesForThisLevel.size > 0) {
-          const sourceLevel = currentLevel - 1
-          console.log(`  Assigning remaining sources to level ${sourceLevel}:`, Array.from(allSourcesForThisLevel))
-          allSourcesForThisLevel.forEach(sourceIdx => {
-            assignNodeToLevel(sourceIdx, sourceLevel)
-          })
-          
-          processLevel(sourceLevel)
-        }
-      }
-      
-      processLevel(0)
-    }
-    
-    processRemainingNodes()
-    
-    // Debug: Print final level assignments
-    console.log('=== FINAL LEVEL ASSIGNMENTS ===')
-    for (const [level, nodes] of nodesByLevel.entries()) {
-      console.log(`Level ${level}:`, nodes.map(n => n.idx))
-    }
-    console.log('Node levels map:', Object.fromEntries(nodeLevels))
-    
-    return nodesByLevel
-  }
+  const svgRef = useRef(null)
+  const zoomRef = useRef(null)
 
   // useEffect for scrolling - moved before conditional return
   useEffect(() => {
@@ -279,12 +33,137 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
     }
   }, [selectedIdx, selectedPaths])
 
-  const nodesByLevel = buildLayoutTree(selectedPaths)
-  const minLevel = Math.min(...nodesByLevel.keys())
-  const maxLevel = Math.max(...nodesByLevel.keys())
+  // Add reset function that can be called from parent
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.resetAttributionGraphView = () => {
+        if (svgRef.current && zoomRef.current) {
+          const svg = d3.select(svgRef.current)
+          svg.transition().duration(350).call(zoomRef.current.transform, d3.zoomIdentity)
+        }
+      }
+    }
+    
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.resetAttributionGraphView = null
+      }
+    }
+  }, [])
+
+  // Initialize zoom behavior
+  useEffect(() => {
+    if (svgRef.current) {
+      const svg = d3.select(svgRef.current)
+      
+      // Create zoom behavior
+      const zoom = d3.zoom()
+        .scaleExtent([0.1, 4])
+        .on('zoom', (event) => {
+          svg.select('.zoom-group').attr('transform', event.transform)
+        })
+      
+      // Apply zoom behavior to SVG
+      svg.call(zoom)
+      zoomRef.current = zoom
+    }
+  }, [selectedPaths]) // Re-initialize when paths change
+
+  // Build tree layout with selected node at bottom
+  const buildTreeLayout = (paths, maxNodes = 10) => {
+    console.log('Building tree layout with paths:', paths)
+    const allNodes = new Map()
+    const nodesByLevel = new Map()
+    
+    // First, collect all unique nodes from paths
+    paths.forEach(path => {
+      path.forEach(node => {
+        if (!allNodes.has(node.idx)) {
+          allNodes.set(node.idx, node)
+        }
+      })
+    })
+    
+    // Filter to most important nodes if we have too many
+    const nodeImportanceMap = new Map()
+    Array.from(allNodes.values()).forEach(node => {
+      const totalImportance = node.sources ? 
+        node.sources.reduce((sum, source) => sum + source.score, 0) : 0
+      nodeImportanceMap.set(node.idx, totalImportance)
+    })
+    
+    const sortedNodesByImportance = Array.from(allNodes.keys())
+      .filter(nodeIdx => nodeIdx !== selectedIdx)
+      .sort((a, b) => nodeImportanceMap.get(b) - nodeImportanceMap.get(a))
+      .slice(0, maxNodes - 1)
+    
+    sortedNodesByImportance.push(selectedIdx) // Always include target
+    
+    // Filter nodes
+    const filteredNodes = new Map()
+    sortedNodesByImportance.forEach(nodeIdx => {
+      if (allNodes.has(nodeIdx)) {
+        const node = allNodes.get(nodeIdx)
+        const filteredSources = node.sources ? 
+          node.sources.filter(source => sortedNodesByImportance.includes(source.idx)) : []
+        filteredNodes.set(nodeIdx, { ...node, sources: filteredSources })
+      }
+    })
+    
+    // Build tree levels: selected node at bottom (level 0)
+    nodesByLevel.set(0, [filteredNodes.get(selectedIdx)])
+    
+    // Level 1: Direct influences on selected node
+    const level1Nodes = []
+    const selectedNode = filteredNodes.get(selectedIdx)
+    if (selectedNode && selectedNode.sources) {
+      // Sort sources by normalized score and take top 3 (matching detail panel)
+      const topSources = selectedNode.sources
+        .sort((a, b) => b.score - a.score) // Sort by normalized score descending
+        .slice(0, 3) // Take top 3
+      
+      topSources.forEach(source => {
+        if (filteredNodes.has(source.idx)) {
+          // Keep the original node with all its sources for level 2 building
+          level1Nodes.push(filteredNodes.get(source.idx))
+        }
+      })
+    }
+    if (level1Nodes.length > 0) {
+      nodesByLevel.set(1, level1Nodes)
+    }
+    
+    // Level 2: Influences on level 1 nodes
+    const level2Nodes = []
+    const level2NodeIds = new Set()
+    level1Nodes.forEach(node => {
+      if (node.sources) {
+        // Sort sources by normalized score and take top 3 for each level 1 node
+        const topSources = node.sources
+          .sort((a, b) => b.score - a.score) // Sort by normalized score descending
+          .slice(0, 3) // Take top 3
+        
+        topSources.forEach(source => {
+          if (filteredNodes.has(source.idx) && !level2NodeIds.has(source.idx)) {
+            level2NodeIds.add(source.idx)
+            // Keep the original node with all its sources
+            level2Nodes.push(filteredNodes.get(source.idx))
+          }
+        })
+      }
+    })
+    if (level2Nodes.length > 0) {
+      nodesByLevel.set(2, level2Nodes)
+    }
+    
+    console.log('Tree levels:', Object.fromEntries(nodesByLevel))
+    return nodesByLevel
+  }
+
+  const treeLayout = buildTreeLayout(selectedPaths)
 
   // NOW we can do conditional returns after all hooks
-  if (!selectedPaths.length) return (
+  if (!selectedPaths.length || treeLayout.size === 0) return (
     <div style={{ 
       height: '100%', 
       display: 'flex', 
@@ -292,127 +171,108 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
       justifyContent: 'center' 
     }}>
       <span style={{ color: '#aaa', fontSize: '1.2rem' }}>
-        Select a step to see its attribution graph
+        No significant connections found. Select a different step.
       </span>
     </div>
   )
-  
-  // Calculate positions with horizontal arrangement for same-level nodes
-  // Calculate actual width needed based on nodes instead of fixed width
-  const calculateRequiredWidth = () => {
-    let maxNodesAtLevel = 0
-    for (const [level, nodes] of nodesByLevel.entries()) {
-      maxNodesAtLevel = Math.max(maxNodesAtLevel, nodes.length)
-    }
+
+  // Calculate normalized importance scores for connections
+  const normalizeConnectionWeights = () => {
+    const connectionWeights = []
     
-    // Calculate width needed: left margin + nodes + gaps + right margin
-    const leftMargin = 100
-    const rightMargin = 100
-    const totalNodeWidth = maxNodesAtLevel * nodeW
-    const totalGapWidth = Math.max(0, maxNodesAtLevel - 1) * nodeGapX
-    
-    return leftMargin + totalNodeWidth + totalGapWidth + rightMargin
-  }
-  
-  const width = Math.max(400, calculateRequiredWidth()) // Minimum 400px width
-  const height = Math.max(600, (maxLevel - minLevel + 2) * levelGapY)
-  const startX = 150 // Start from left with some padding instead of centering
-  
-  // Find level for each node - improved to handle the new layout
-  const findNodeLevel = (nodeIdx) => {
-    for (const [level, nodes] of nodesByLevel.entries()) {
-      if (nodes.some(n => n.idx === nodeIdx)) {
-        return level
+    // Collect all connection weights
+    treeLayout.forEach((level, levelIndex) => {
+      if (level && Array.isArray(level)) {
+        level.forEach(node => {
+          if (node && node.sources && node.sources.length > 0) {
+            node.sources.forEach(source => {
+              if (source && source.score !== undefined) {
+                connectionWeights.push(Math.abs(source.score))
+              }
+            })
+          }
+        })
       }
-    }
-    return 0
-  }
-  
-  // First pass: calculate base positions
-  const nodePositions = new Map()
-  
-  const getNodePosition = (nodeIdx, level) => {
-    // Check if position is already calculated
-    if (nodePositions.has(nodeIdx)) {
-      return nodePositions.get(nodeIdx)
-    }
+    })
     
-    const nodesAtLevel = nodesByLevel.get(level) || []
-    const totalNodes = nodesAtLevel.length
+    // Find min and max weights for normalization
+    const maxWeight = Math.max(...connectionWeights, 0.001)
+    const minWeight = Math.min(...connectionWeights, 0)
     
-    let x
-    if (totalNodes === 1) {
-      x = startX
-    } else {
-      // Sort nodes at this level by step number for consistent positioning
-      const sortedNodes = [...nodesAtLevel].sort((a, b) => a.idx - b.idx)
-      
-      const nodeIndex = sortedNodes.findIndex(n => n.idx === nodeIdx)
-      const totalWidth = (totalNodes - 1) * nodeGapX
-      const levelStartX = startX
-      x = levelStartX + nodeIndex * nodeGapX
-    }
-    
-    // Adjust y position to account for negative levels
-    const adjustedLevel = level - minLevel
-    const position = {
-      x,
-      y: 100 + adjustedLevel * levelGapY
-    }
-    
-    nodePositions.set(nodeIdx, position)
-    return position
+    return { maxWeight, minWeight }
   }
 
-  // Second pass: adjust positions for vertical alignment
-  const adjustPositionsForVerticalAlignment = () => {
-    // For single-source connections, try to align them vertically when possible
-    Array.from(nodesByLevel.entries()).forEach(([level, nodes]) => {
-      nodes.forEach(node => {
-        if (node.sources && node.sources.length === 1) {
-          const sourceIdx = node.sources[0].idx
-          const sourceLevel = findNodeLevel(sourceIdx)
-          
-          // Only align if they are at different levels (vertical connection)
-          if (sourceLevel !== level) {
-            const targetPos = getNodePosition(node.idx, level)
-            const sourcePos = getNodePosition(sourceIdx, sourceLevel)
-            
-            // Check if we can align without overlapping other nodes
-            const sourceNodesAtLevel = nodesByLevel.get(sourceLevel) || []
-            const canAlign = sourceNodesAtLevel.length === 1 || 
-                           !sourceNodesAtLevel.some(n => 
-                             n.idx !== sourceIdx && 
-                             Math.abs(getNodePosition(n.idx, sourceLevel).x - targetPos.x) < nodeW + 20
-                           )
-            
-            if (canAlign) {
-              // Align source directly above target
-              const alignedSourcePos = {
-                x: targetPos.x,
-                y: sourcePos.y
-              }
-              nodePositions.set(sourceIdx, alignedSourcePos)
+  // Calculate normalized importance scores for nodes
+  const normalizeNodeImportance = () => {
+    const nodeImportances = []
+    
+    // Collect all node importance scores
+    treeLayout.forEach((level, levelIndex) => {
+      if (level && Array.isArray(level)) {
+        level.forEach(node => {
+          if (node && node.idx !== undefined) {
+            const chunk = chunksData[node.idx]
+            if (chunk && chunk.importance !== undefined) {
+              nodeImportances.push(Math.abs(chunk.importance))
             }
           }
-        }
-      })
+        })
+      }
     })
+    
+    // Find min and max importance for normalization
+    const maxImportance = Math.max(...nodeImportances, 0.001)
+    const minImportance = Math.min(...nodeImportances, 0)
+    
+    return { maxImportance, minImportance }
+  }
+
+  const { maxWeight: maxConnectionWeight, minWeight: minConnectionWeight } = normalizeConnectionWeights()
+  const { maxImportance: maxNodeImportance, minImportance: minNodeImportance } = normalizeNodeImportance()
+  
+  // Calculate actual width needed for tree layout
+  const calculateRequiredWidth = () => {
+    let maxNodesInLevel = 0
+    treeLayout.forEach((level, levelIndex) => {
+      maxNodesInLevel = Math.max(maxNodesInLevel, level.length)
+    })
+    const minWidth = Math.max(600, maxNodesInLevel * nodeGapX + 200) // Space for widest level plus padding
+    return minWidth
   }
   
-  // Calculate all base positions first
-  Array.from(nodesByLevel.entries()).forEach(([level, nodes]) => {
-    nodes.forEach(node => {
-      getNodePosition(node.idx, level)
-    })
+  const width = Math.max(600, calculateRequiredWidth())
+  const height = Math.max(400, treeLayout.size * levelGapY + 200) // Height based on number of levels
+  
+  // Position nodes in a tree layout
+  const nodePositions = new Map()
+  const centerX = width / 2
+  const startY = 100 // Start from top with padding
+  
+  // Reverse the tree layout - higher levels at top, selected node at bottom
+  const numLevels = treeLayout.size
+  
+  treeLayout.forEach((level, levelIndex) => {
+    if (level && Array.isArray(level)) {
+      // Invert the level position: level 2 -> y=100, level 1 -> y=220, level 0 -> y=340
+      const levelY = startY + (numLevels - 1 - levelIndex) * levelGapY
+      const numNodesInLevel = level.length
+      
+      level.forEach((node, nodeIndex) => {
+        if (node && node.idx !== undefined) {
+          // Center the nodes in this level horizontally
+          const totalWidth = (numNodesInLevel - 1) * nodeGapX
+          const startX = centerX - totalWidth / 2
+          const x = startX + nodeIndex * nodeGapX
+          
+          nodePositions.set(node.idx, { x, y: levelY })
+        }
+      })
+    }
   })
   
-  // Then adjust for vertical alignment
-  adjustPositionsForVerticalAlignment()
-  
-  // Helper function to get final position
+  // Helper function to get node position
   const getFinalNodePosition = (nodeIdx) => {
-    return nodePositions.get(nodeIdx) || { x: startX, y: 100 }
+    return nodePositions.get(nodeIdx) || { x: centerX, y: startY }
   }
 
   // Get unique connections to avoid duplicates
@@ -420,33 +280,35 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
     const connections = []
     const processedConnections = new Set()
     
-    // Get all nodes that are actually in the layout
-    const nodesInLayout = new Set()
-    Array.from(nodesByLevel.entries()).forEach(([level, nodes]) => {
-      nodes.forEach(node => {
-        nodesInLayout.add(node.idx)
-      })
-    })
-    
-    Array.from(nodesByLevel.entries()).forEach(([level, nodes]) => {
-      nodes.forEach(node => {
-        if (node.sources && node.sources.length > 0) {
-          // Only include sources that are actually in the layout
-          const visibleSources = node.sources.filter(source => nodesInLayout.has(source.idx))
-          
-          if (visibleSources.length > 0) {
-            const connectionKey = `target-${node.idx}`
-            if (!processedConnections.has(connectionKey)) {
-              processedConnections.add(connectionKey)
-              connections.push({
-                target: node,
-                targetLevel: level,
-                sources: visibleSources
-              })
+    treeLayout.forEach((level, levelIndex) => {
+      if (level && Array.isArray(level)) {
+        level.forEach(node => {
+          if (node && node.sources && node.sources.length > 0) {
+            // Only include sources that are actually in the tree layout
+            const visibleSources = node.sources.filter(source => {
+              if (!source || source.idx === undefined) return false
+              // Check if source exists in any level of the tree
+              for (const [_, levelNodes] of treeLayout) {
+                if (levelNodes && Array.isArray(levelNodes) && levelNodes.some(n => n && n.idx === source.idx)) {
+                  return true
+                }
+              }
+              return false
+            })
+            
+            if (visibleSources.length > 0) {
+              const connectionKey = `target-${node.idx}`
+              if (!processedConnections.has(connectionKey)) {
+                processedConnections.add(connectionKey)
+                connections.push({
+                  target: node,
+                  sources: visibleSources
+                })
+              }
             }
           }
-        }
-      })
+        })
+      }
     })
     
     return connections
@@ -460,7 +322,7 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
       style={{ 
         width: '100%', 
         height: '100%', 
-        overflow: 'auto',
+        overflow: 'hidden',
         position: 'relative' 
       }}
     >
@@ -470,208 +332,122 @@ export default function AttributionGraph({ selectedIdx, chunksData, selectedPath
         position: 'relative',
         minWidth: '100%' // Ensure it takes at least full width of container
       }}>
-        <svg width={width} height={height} style={{ width: '100%', height: '100%', display: 'block' }}>
+        <svg ref={svgRef} width={width} height={height} style={{ width: '100%', height: '100%', display: 'block' }}>
           <defs>
+            {/* Arrow marker with better visibility */}
             <marker
               id="arrow"
               markerWidth="10"
-              markerHeight="7"
-              refX="10"
-              refY="3.5"
+              markerHeight="8"
+              refX="9"
+              refY="4"
               orient="auto"
+              markerUnits="strokeWidth"
             >
               <polygon
-                points="0 0, 10 3.5, 0 7"
+                points="0 0, 10 4, 0 8"
                 fill="#666"
               />
             </marker>
           </defs>
 
-          {/* Connections - render before nodes so they appear behind */}
-          <g className="connections">
-            {uniqueConnections.map((connection) => {
-              const targetPos = getFinalNodePosition(connection.target.idx)
-              
-              if (connection.sources.length === 1) {
-                // Single source - check if horizontal, vertical, or corner connection
-                const sourcePos = getFinalNodePosition(connection.sources[0].idx)
-                
-                const isHorizontal = Math.abs(sourcePos.y - targetPos.y) < 10 // Same level
-                const isVerticallyAligned = Math.abs(sourcePos.x - targetPos.x) < 10 // Same x position
-                
-                if (isHorizontal) {
-                  // Horizontal connection
-                  return (
-                    <g key={`connection-${connection.target.idx}`}>
-                      <line
-                        x1={sourcePos.x + nodeW/2}
-                        y1={sourcePos.y}
-                        x2={targetPos.x - nodeW/2}
-                        y2={targetPos.y}
-                        stroke="#666"
-                        strokeWidth={2}
-                        markerEnd="url(#arrow)"
-                      />
-                      <text
-                        x={(sourcePos.x + targetPos.x) / 2}
-                        y={sourcePos.y - 15}
-                        textAnchor="middle"
-                        fontSize="0.9em"
-                        fill="#666"
-                      >
-                        {/*connection.sources[0].score.toFixed(2)*/}
-                      </text>
-                    </g>
-                  )
-                } else if (isVerticallyAligned) {
-                  // Vertical connection (aligned)
-                  return (
-                    <g key={`connection-${connection.target.idx}`}>
-                      <line
-                        x1={sourcePos.x}
-                        y1={sourcePos.y + nodeH/2}
-                        x2={targetPos.x}
-                        y2={targetPos.y - nodeH/2 + arrowOffset}
-                        stroke="#666"
-                        strokeWidth={2}
-                        markerEnd="url(#arrow)"
-                      />
-                      <text
-                        x={sourcePos.x + 15}
-                        y={(sourcePos.y + targetPos.y) / 2}
-                        textAnchor="start"
-                        fontSize="0.9em"
-                        fill="#666"
-                      >
-                        {/*connection.sources[0].score.toFixed(2)*/}
-                      </text>
-                    </g>
-                  )
-                } else {
-                  // Corner connection (up then right) - simple L-shape
-                  return (
-                    <g key={`connection-${connection.target.idx}`}>
-                      {/* Vertical line up from source to target's level */}
-                      <line
-                        x1={sourcePos.x}
-                        y1={sourcePos.y - nodeH/2}
-                        x2={sourcePos.x}
-                        y2={targetPos.y}
-                        stroke="#666"
-                        strokeWidth={2}
-                      />
-                      {/* Horizontal line right to target's left side */}
-                      <line
-                        x1={sourcePos.x}
-                        y1={targetPos.y}
-                        x2={targetPos.x - nodeW/2}
-                        y2={targetPos.y}
-                        stroke="#666"
-                        strokeWidth={2}
-                        markerEnd="url(#arrow)"
-                      />
-                      {/* Score label */}
-                      <text
-                        x={(sourcePos.x + targetPos.x) / 2}
-                        y={targetPos.y - 15}
-                        textAnchor="middle"
-                        fontSize="0.9em"
-                        fill="#666"
-                      >
-                        {/*connection.sources[0].score.toFixed(2)*/}
-                      </text>
-                    </g>
-                  )
-                }
-              } else {
-                // Multiple sources - bus connection
-                const busY = targetPos.y - levelGapY / 2
+          <g className="zoom-group">
+            {/* Connections - render before nodes so they appear behind */}
+            <g className="connections">
+              {uniqueConnections.map((connection) => {
+                const targetPos = getFinalNodePosition(connection.target.idx)
                 
                 return (
-                  <g key={`bus-${connection.target.idx}`}>
-                    {/* Individual lines from each source to bus */}
+                  <g key={`connection-${connection.target.idx}`}>
                     {connection.sources.map((source) => {
                       const sourcePos = getFinalNodePosition(source.idx)
                       
+                      // Calculate normalized opacity based on connection importance
+                      const normalizedWeight = maxConnectionWeight > minConnectionWeight ? 
+                        (Math.abs(source.score) - minConnectionWeight) / (maxConnectionWeight - minConnectionWeight) : 0.5
+                      const opacity = Math.max(0.3, Math.min(0.9, normalizedWeight * 0.8 + 0.3))
+                      
+                      // Calculate connection points on node edges
+                      const dx = targetPos.x - sourcePos.x
+                      const dy = targetPos.y - sourcePos.y
+                      const distance = Math.sqrt(dx * dx + dy * dy)
+                      
+                      // Normalize direction vector
+                      const unitX = dx / distance
+                      const unitY = dy / distance
+                      
+                      // Check if this is a diagonal arrow (not primarily horizontal or vertical)
+                      const absX = Math.abs(unitX)
+                      const absY = Math.abs(unitY)
+                      const isDiagonal = absX > 0.3 && absY > 0.3 // Both components are significant
+                      
+                      // Start point (edge of source node)
+                      const startX = sourcePos.x + unitX * (nodeW / 2)
+                      const startY = sourcePos.y + unitY * (nodeH / 2)
+                      
+                      // End point (edge of target node, with small offset for diagonal arrows only)
+                      const endOffset = isDiagonal ? (absX >= absY ? 16 : 8) : 0
+                      const endX = targetPos.x - unitX * (nodeW / 2 + endOffset)
+                      const endY = targetPos.y - unitY * (nodeH / 2 + endOffset)
+                      
+                      // Always use straight lines - clean and simple
+                      const pathData = `M ${startX} ${startY} L ${endX} ${endY}`
+                      
                       return (
-                        <g key={`source-${source.idx}-to-${connection.target.idx}`}>
-                          <line
-                            x1={sourcePos.x}
-                            y1={sourcePos.y + nodeH/2}
-                            x2={sourcePos.x}
-                            y2={busY}
-                            stroke="#666"
-                            strokeWidth={2}
-                          />
-                          <text
-                            x={sourcePos.x + 15}
-                            y={sourcePos.y + nodeH/2 + 20}
-                            textAnchor="start"
-                            fontSize="0.9em"
-                            fill="#666"
-                          >
-                            {/*source.score.toFixed(2)*/}
-                          </text>
-                        </g>
+                        <path
+                          key={`source-${source.idx}-to-${connection.target.idx}`}
+                          d={pathData}
+                          stroke="#666"
+                          strokeWidth={2}
+                          fill="none"
+                          opacity={opacity}
+                          markerEnd="url(#arrow)"
+                          style={{ pointerEvents: 'none' }}
+                        />
                       )
                     })}
-                    
-                    {/* Horizontal bus line */}
-                    {connection.sources.length > 1 && (
-                      <line
-                        x1={Math.min(...connection.sources.map(s => getFinalNodePosition(s.idx).x))}
-                        y1={busY}
-                        x2={Math.max(...connection.sources.map(s => getFinalNodePosition(s.idx).x))}
-                        y2={busY}
-                        stroke="#666"
-                        strokeWidth={3}
-                      />
-                    )}
-                    
-                    {/* Line from bus to target */}
-                    <line
-                      x1={targetPos.x}
-                      y1={busY}
-                      x2={targetPos.x}
-                      y2={targetPos.y - nodeH/2 + arrowOffset}
-                      stroke="#666"
-                      strokeWidth={3}
-                      markerEnd="url(#arrow)"
-                    />
-                    
-                    {/* Bus junction point */}
-                    <circle
-                      cx={targetPos.x}
-                      cy={busY}
-                      r={4}
-                      fill="#666"
-                    />
                   </g>
                 )
-              }
-            })}
-          </g>
+              })}
+            </g>
 
-          {/* Nodes - render after connections so they appear on top */}
-          <g className="nodes">
-            {Array.from(nodesByLevel.entries()).map(([level, nodes]) =>
-              nodes.map((node) => {
-                const pos = getFinalNodePosition(node.idx)
-                const chunk = chunksData[node.idx]
-
+            {/* Nodes - render after connections so they appear on top */}
+            <g className="nodes">
+              {Array.from(treeLayout.entries()).map(([levelIndex, level]) => {
+                if (!level || !Array.isArray(level)) return null
+                
                 return (
-                  <Node
-                    key={`node-${node.idx}`}
-                    node={node}
-                    pos={pos}
-                    chunk={chunk}
-                    isSelected={node.idx === selectedIdx}
-                    nodeW={nodeW}
-                    nodeH={nodeH}
-                  />
+                  <g key={`level-${levelIndex}`}>
+                    {level.filter(node => node && node.idx !== undefined).map((node) => {
+                      const pos = getFinalNodePosition(node.idx)
+                      const chunk = chunksData[node.idx]
+
+                      // Calculate node opacity based on importance
+                      const nodeImportance = chunk && chunk.importance !== undefined ? Math.abs(chunk.importance) : 0.5
+                      const normalizedImportance = maxNodeImportance > minNodeImportance ? 
+                        (nodeImportance - minNodeImportance) / (maxNodeImportance - minNodeImportance) : 0.5
+                      const nodeOpacity = Math.max(0.4, Math.min(1.0, normalizedImportance * 0.7 + 0.3))
+
+                      return (
+                        <Node
+                          key={`node-${node.idx}`}
+                          node={node}
+                          pos={pos}
+                          chunk={chunk}
+                          isSelected={node.idx === selectedIdx}
+                          nodeW={nodeW}
+                          nodeH={nodeH}
+                          opacity={nodeOpacity}
+                          onNodeHover={onNodeHover}
+                          onNodeLeave={onNodeLeave}
+                          onNodeClick={onNodeClick}
+                        />
+                      )
+                    })}
+                  </g>
                 )
-              })
-            )}
+              })}
+            </g>
           </g>
         </svg>
       </div>

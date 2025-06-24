@@ -1,0 +1,255 @@
+{
+  "problem_idx": 2236,
+  "num_chunks": 26,
+  "avg_importance": 0.01878698224852071,
+  "max_importance": 0.8999999999999999,
+  "min_importance": -0.94,
+  "top_influential_steps": [
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "1. **Units Place:** The digit 4 appears every 10 numbers (4, 14, 24, ..., 484).",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "absolute_importance_accuracy": 0.0714141414141414,
+        "absolute_importance_kl": 2.9135001476024804,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.98989898989899,
+        "counterfactual_importance_accuracy": -0.0714141414141414,
+        "counterfactual_importance_kl": 2.9135001476024804,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2102038183084065,
+        "accuracy": 0.1414141414141414,
+        "summary": "list occurrences of 4"
+      },
+      "avg_outgoing_importance": 0.1933333333333333
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "There are \\( \\frac{488}{10} = 48.8 \\), so 48 full cycles where 4 appears once.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "4"
+        ],
+        "absolute_importance_accuracy": -0.008571428571428577,
+        "absolute_importance_kl": 3.5310993815661686,
+        "different_trajectories_fraction": 0.98,
+        "overdeterminedness": 0.21999999999999997,
+        "counterfactual_importance_accuracy": 0.009999999999999995,
+        "counterfactual_importance_kl": 3.659512268765897,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.6347773255755345,
+        "accuracy": 0.07,
+        "summary": "calculate cycles=48"
+      },
+      "avg_outgoing_importance": 0.18600000000000003
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "This gives a total of 49 occurrences in the units place.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "5",
+          "6"
+        ],
+        "absolute_importance_accuracy": 0.057526881720430106,
+        "absolute_importance_kl": 2.169563193580089,
+        "different_trajectories_fraction": 0.93,
+        "overdeterminedness": 0.7,
+        "counterfactual_importance_accuracy": -0.05,
+        "counterfactual_importance_kl": 2.4905757681038323,
+        "forced_importance_accuracy": 0.01,
+        "forced_importance_kl": 4.31075012067623,
+        "accuracy": 0.1,
+        "summary": "count occurrences=49"
+      },
+      "avg_outgoing_importance": 0.11444444444444445
+    },
+    {
+      "step_idx": 9,
+      "step_text": {
+        "chunk": "There are \\( \\frac{488}{100} = 4.88 \\), so 4 full cycles where 4 appears 10 times each.",
+        "chunk_idx": 9,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "8"
+        ],
+        "absolute_importance_accuracy": 0.044626865671641786,
+        "absolute_importance_kl": 1.050883489938358,
+        "different_trajectories_fraction": 0.67,
+        "overdeterminedness": 0.38,
+        "counterfactual_importance_accuracy": -0.03,
+        "counterfactual_importance_kl": 1.5549264074860918,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.0747721769102547,
+        "accuracy": 0.06,
+        "summary": "calculate cycles=4"
+      },
+      "avg_outgoing_importance": 0.0875
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "Adding these together, the digit 4 appears 49 + 49 + 89 = 187 times.",
+        "chunk_idx": 13,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "7",
+          "11",
+          "12"
+        ],
+        "absolute_importance_accuracy": 0.014444444444444447,
+        "absolute_importance_kl": 1.620662446618185,
+        "different_trajectories_fraction": 0.9,
+        "overdeterminedness": 0.17000000000000004,
+        "counterfactual_importance_accuracy": -0.020000000000000004,
+        "counterfactual_importance_kl": 1.467635776133618,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.029356023519489,
+        "accuracy": 0.05,
+        "summary": "count digit=187"
+      },
+      "avg_outgoing_importance": 0.08749999999999998
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "This will simplify counting the occurrences of each digit in the units, tens, and hundreds places.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "1"
+        ],
+        "absolute_importance_accuracy": 0.07307692307692308,
+        "absolute_importance_kl": 3.218393951615359,
+        "different_trajectories_fraction": 0.65,
+        "overdeterminedness": 0.18000000000000005,
+        "counterfactual_importance_accuracy": -0.039999999999999994,
+        "counterfactual_importance_kl": 3.269163978610907,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.066761415127397,
+        "accuracy": 0.09,
+        "summary": "count digit occurrences"
+      },
+      "avg_incoming_importance": 0.135
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "Next, I'll count the number of times the digit 4 appears in each place:",
+        "chunk_idx": 3,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "2"
+        ],
+        "absolute_importance_accuracy": -0.12355699855699856,
+        "absolute_importance_kl": 7.512773287149225,
+        "different_trajectories_fraction": 0.56,
+        "overdeterminedness": 0.37,
+        "counterfactual_importance_accuracy": 0.0914141414141414,
+        "counterfactual_importance_kl": 5.694053218817601,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.676878009361566,
+        "accuracy": 0.05,
+        "summary": "count occurrences of 4"
+      },
+      "avg_incoming_importance": 0.13333333333333333
+    },
+    {
+      "step_idx": 9,
+      "step_text": {
+        "chunk": "There are \\( \\frac{488}{100} = 4.88 \\), so 4 full cycles where 4 appears 10 times each.",
+        "chunk_idx": 9,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "8"
+        ],
+        "absolute_importance_accuracy": 0.044626865671641786,
+        "absolute_importance_kl": 1.050883489938358,
+        "different_trajectories_fraction": 0.67,
+        "overdeterminedness": 0.38,
+        "counterfactual_importance_accuracy": -0.03,
+        "counterfactual_importance_kl": 1.5549264074860918,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.0747721769102547,
+        "accuracy": 0.06,
+        "summary": "calculate cycles=4"
+      },
+      "avg_incoming_importance": 0.09888888888888889
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Additionally, in the incomplete cycle from 480 to 488, 4 appears 9 more times.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "absolute_importance_accuracy": -0.029591836734693882,
+        "absolute_importance_kl": 1.590744389942294,
+        "different_trajectories_fraction": 0.49,
+        "overdeterminedness": 0.5800000000000001,
+        "counterfactual_importance_accuracy": 0.020000000000000004,
+        "counterfactual_importance_kl": 2.4815016221487354,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.755768028245325,
+        "accuracy": 0.03,
+        "summary": "count occurrences=9"
+      },
+      "avg_incoming_importance": 0.094
+    },
+    {
+      "step_idx": 11,
+      "step_text": {
+        "chunk": "This gives a total of 49 occurrences in the tens place.",
+        "chunk_idx": 11,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "9",
+          "10"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.99,
+        "counterfactual_importance_accuracy": -0.020000000000000004,
+        "counterfactual_importance_kl": 1.0478459760505898,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.126532976193768,
+        "accuracy": 0.05,
+        "summary": "count occurrences=49"
+      },
+      "avg_incoming_importance": 0.08636363636363636
+    }
+  ]
+}

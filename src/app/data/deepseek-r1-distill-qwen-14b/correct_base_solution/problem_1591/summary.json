@@ -1,0 +1,241 @@
+{
+  "problem_idx": 1591,
+  "num_chunks": 160,
+  "avg_importance": 0.0007100482453079423,
+  "max_importance": 1.0,
+  "min_importance": -0.94875,
+  "top_influential_steps": [
+    {
+      "step_idx": 149,
+      "step_text": {
+        "chunk": "Wait, but just to make sure, let me think about this another way.",
+        "chunk_idx": 149,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "148"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.9387755102040817,
+        "summary": "reconsider approach"
+      },
+      "avg_outgoing_importance": 0.3955547736335913
+    },
+    {
+      "step_idx": 131,
+      "step_text": {
+        "chunk": "If I compute (1.005)^12, what's the exact value?",
+        "chunk_idx": 131,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "130"
+        ],
+        "counterfactual_importance_accuracy": -0.05102040816326525,
+        "counterfactual_importance_kl": 0.052367984869568326,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.05102040816326525,
+        "absolute_importance_kl": 0.03922071220101352,
+        "different_trajectories_fraction": 0.673469387755102,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.3877551020408163,
+        "summary": "compute value=1.061677"
+      },
+      "avg_outgoing_importance": 0.15670553935860054
+    },
+    {
+      "step_idx": 151,
+      "step_text": {
+        "chunk": "Each month, the interest is 0.5%, so:",
+        "chunk_idx": 151,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "150"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.845360824742268,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.6804123711340206,
+        "summary": "calculate interest=0.5%"
+      },
+      "avg_outgoing_importance": 0.1519172101830423
+    },
+    {
+      "step_idx": 154,
+      "step_text": {
+        "chunk": "After 3 months: $101.0025 * 1.005 \u2248 $101.5075125",
+        "chunk_idx": 154,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "153"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.44329896907216493,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.5876288659793815,
+        "summary": "calculate amount \u2248 $101.51"
+      },
+      "avg_outgoing_importance": 0.11898625429553267
+    },
+    {
+      "step_idx": 157,
+      "step_text": {
+        "chunk": "So, the effective annual rate is 6.16779%, which is approximately 6.17% when rounded to the nearest hundredth.",
+        "chunk_idx": 157,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "156"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.010869565217391304,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.8043478260869565,
+        "summary": "calculate effective annual rate"
+      },
+      "avg_outgoing_importance": 0.08862318840579711
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Let me try to figure it out step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.05246913580246915,
+        "counterfactual_importance_kl": 1.0384987206045113,
+        "accuracy": 0.75,
+        "absolute_importance_accuracy": -0.02198133092442034,
+        "absolute_importance_kl": 1.063183378183606,
+        "different_trajectories_fraction": 0.5125,
+        "forced_importance_accuracy": 0.009999999999999995,
+        "forced_importance_kl": 0.0007069544931039701,
+        "overdeterminedness": 0.8375,
+        "summary": "figure it out"
+      },
+      "avg_incoming_importance": 0.3625
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "They want to find the equivalent annual interest rate, r percent, if it were compounded annually instead.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.06649484536082473,
+        "counterfactual_importance_kl": 0.2169151195961781,
+        "accuracy": 0.7835051546391752,
+        "absolute_importance_accuracy": -0.07222222222222219,
+        "absolute_importance_kl": 0.057978065926584305,
+        "different_trajectories_fraction": 0.27835051546391754,
+        "forced_importance_accuracy": -0.06,
+        "forced_importance_kl": 0.02245360127611233,
+        "overdeterminedness": 0.24742268041237114,
+        "summary": "find r percent"
+      },
+      "avg_incoming_importance": 0.11747448979591837
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Hmm, okay.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.10999999999999999,
+        "counterfactual_importance_kl": 0.09803261902905927,
+        "accuracy": 0.88,
+        "absolute_importance_accuracy": 0.11372093023255814,
+        "absolute_importance_kl": 0.07997169906052204,
+        "different_trajectories_fraction": 0.43,
+        "forced_importance_accuracy": 0.08999999999999997,
+        "forced_importance_kl": 0.018676193145789402,
+        "overdeterminedness": 0.92,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.08666666666666667
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "First, the problem says Dr.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.010802469135802517,
+        "counterfactual_importance_kl": 0.30327491503433796,
+        "accuracy": 0.8024691358024691,
+        "absolute_importance_accuracy": 0.06547619047619047,
+        "absolute_importance_kl": 0.07777495594361725,
+        "different_trajectories_fraction": 0.25925925925925924,
+        "forced_importance_accuracy": -0.08,
+        "forced_importance_kl": 1.7475055102692159,
+        "overdeterminedness": 0.7407407407407407,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.0756944444444444
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "Fu Manchu has a bank account with an annual interest rate of 6 percent, but it compounds monthly.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.00816151202749138,
+        "counterfactual_importance_kl": 0.6371862937225281,
+        "accuracy": 0.7916666666666666,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "forced_importance_accuracy": 0.13,
+        "forced_importance_kl": 0.13926206709773858,
+        "overdeterminedness": 0.9895833333333334,
+        "summary": "calculate interest rate"
+      },
+      "avg_incoming_importance": 0.06666666666666665
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "problem_idx": 1591,
+  "num_chunks": 101,
+  "avg_importance": 0.0016436110243214853,
+  "max_importance": 0.86,
+  "min_importance": -0.7291919191919192,
+  "top_influential_steps": [
+    {
+      "step_idx": 98,
+      "step_text": {
+        "chunk": "I think that's correct.",
+        "chunk_idx": 98,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "97"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.98,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.64,
+        "summary": "confirm correctness"
+      },
+      "avg_outgoing_importance": 0.265
+    },
+    {
+      "step_idx": 99,
+      "step_text": {
+        "chunk": "So, the answer should be 6.17%.",
+        "chunk_idx": 99,
+        "function_tags": [
+          "final_answer_emission"
+        ],
+        "depends_on": [
+          "98"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.12,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.7,
+        "summary": "state answer=6.17%"
+      },
+      "avg_outgoing_importance": 0.17000000000000004
+    },
+    {
+      "step_idx": 96,
+      "step_text": {
+        "chunk": "So, after one year, both accounts should have the same amount.",
+        "chunk_idx": 96,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "95"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.24242424242424243,
+        "summary": "equal account balances"
+      },
+      "avg_outgoing_importance": 0.1484343434343434
+    },
+    {
+      "step_idx": 80,
+      "step_text": {
+        "chunk": "1.005^6 \u2248 1.0252512534375 * 1.005 \u2248 1.0252512534375 + 1.0252512534375*0.005 \u2248 1.0252512534375 + 0.00512625671875 \u2248 1.03037751015625",
+        "chunk_idx": 80,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "79"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.0,
+        "summary": "calculate approximation=1.03037751015625"
+      },
+      "avg_outgoing_importance": 0.10799999999999998
+    },
+    {
+      "step_idx": 70,
+      "step_text": {
+        "chunk": "So, rounding to the nearest hundredth, that would be 6.17%",
+        "chunk_idx": 70,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "69"
+        ],
+        "counterfactual_importance_accuracy": 0.19565217391304346,
+        "counterfactual_importance_kl": 3.7333989378370784,
+        "absolute_importance_accuracy": -0.19999999999999996,
+        "absolute_importance_kl": 0.022923214301056784,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.5434782608695652,
+        "accuracy": 0.8043478260869565,
+        "overdeterminedness": 0.8478260869565217,
+        "summary": "round to 6.17%"
+      },
+      "avg_outgoing_importance": 0.10610766045548653
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Fu Manchu's bank account.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.101010101010101,
+        "counterfactual_importance_kl": 2.1252461139504377,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": -0.050000000000000044,
+        "forced_importance_kl": 2.648250804544426,
+        "different_trajectories_fraction": 0.0,
+        "accuracy": 0.7070707070707071,
+        "overdeterminedness": 0.98989898989899,
+        "summary": "check balance"
+      },
+      "avg_incoming_importance": 0.25
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "It says that the account has an annual interest rate of 6 percent, but it compounds monthly.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.03808080808080805,
+        "counterfactual_importance_kl": 2.376478783083245,
+        "absolute_importance_accuracy": 0.09363636363636363,
+        "absolute_importance_kl": 0.24129584864149317,
+        "forced_importance_accuracy": 0.5,
+        "forced_importance_kl": 5.179417674982469,
+        "different_trajectories_fraction": 0.2222222222222222,
+        "accuracy": 0.8080808080808081,
+        "overdeterminedness": 0.8787878787878788,
+        "summary": "identify interest rate=6%"
+      },
+      "avg_incoming_importance": 0.09489898989898987
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "- \\( P \\) is the principal amount (the initial amount of money).",
+        "chunk_idx": 6,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.08000000000000007,
+        "counterfactual_importance_kl": 1.5354581648947352,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": -0.08915687487116064,
+        "forced_importance_kl": 0.49886803824796977,
+        "different_trajectories_fraction": 0.0,
+        "accuracy": 0.77,
+        "overdeterminedness": 0.98,
+        "summary": "define P as principal"
+      },
+      "avg_incoming_importance": 0.041666666666666664
+    },
+    {
+      "step_idx": 18,
+      "step_text": {
+        "chunk": "Since these two amounts are supposed to be equal, I can set them equal to each other:\n\\[ P \\left(1 + \\frac{0.06}{12}\\right)^{12 t} = P \\left(1 + r\\right)^t \\]",
+        "chunk_idx": 18,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "16",
+          "17"
+        ],
+        "counterfactual_importance_accuracy": -0.06000000000000005,
+        "counterfactual_importance_kl": 1.4945241415143213,
+        "absolute_importance_accuracy": 0.38,
+        "absolute_importance_kl": 0.4334921202336915,
+        "forced_importance_accuracy": -0.21656565656565663,
+        "forced_importance_kl": 3.9495027182853173,
+        "different_trajectories_fraction": 0.01,
+        "accuracy": 0.68,
+        "overdeterminedness": 0.0,
+        "summary": "set equations equal"
+      },
+      "avg_incoming_importance": 0.04111111111111111
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Hmm, let me think about how to approach this.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "counterfactual_importance_accuracy": -0.08000000000000007,
+        "counterfactual_importance_kl": 0.6695039370366229,
+        "absolute_importance_accuracy": 0.08205128205128209,
+        "absolute_importance_kl": 0.8566837085950668,
+        "forced_importance_accuracy": -0.08000000000000007,
+        "forced_importance_kl": 2.8277052418372675,
+        "different_trajectories_fraction": 0.78,
+        "accuracy": 0.78,
+        "overdeterminedness": 0.49,
+        "summary": "consider approach"
+      },
+      "avg_incoming_importance": 0.037500000000000006
+    }
+  ]
+}

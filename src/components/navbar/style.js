@@ -31,7 +31,7 @@ export const StyledNav = styled.nav`
         padding: 0;
         list-style: none;
         position: relative;
-        @media (min-width: ${theme.deviceSizes.desktop}px) {
+        @media (min-width: ${theme.deviceSizes.tablet}px) {
             flex-direction: row;
         }
     `};
@@ -42,7 +42,7 @@ export const StyledNavButton = styled(Button)`
         display: none;
         margin-left: 1rem;
         padding: 0;
-        @media (max-width: ${theme.deviceSizes.desktop}px) {
+        @media (max-width: ${theme.deviceSizes.tablet}px) {
             display: flex;
         }
     `};
@@ -66,7 +66,7 @@ export const StyledNavItems = styled.div`
         ${$showNavbar ? 'right: 0%;' : 'right:-100vh;'}
         transition: all 0.3s;
 
-        @media (min-width: ${theme.deviceSizes.desktop}px) {
+        @media (min-width: ${theme.deviceSizes.tablet}px) {
             position: relative;
             flex-direction: row;
             position: relative;
@@ -89,7 +89,7 @@ export const StyledLink = styled(Link)`
     &:hover {
         opacity: 0.8;
     }
-    @media (min-width: ${({ theme }) => theme.deviceSizes.desktop}px) {
+    @media (min-width: ${({ theme }) => theme.deviceSizes.tablet}px) {
         margin: 0 1rem;
     }
 `

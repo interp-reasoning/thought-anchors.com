@@ -14,7 +14,8 @@ const ChainContainer = styled.div.withConfig({
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    max-height: 80vh;
+    max-height: 90vh;
+    min-width: 275px;
     transition: all 0.3s ease;
     
     ${props => props.isCollapsed && `
@@ -160,9 +161,11 @@ const StepHeader = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 0.5rem;
+    gap: 0.75rem;
 `
 
 const StepFunction = styled.span`
+    display: flex;
     font-size: 0.75rem;
     font-weight: 600;
     color: #444;
@@ -340,7 +343,7 @@ const ChainOfThought = ({
                                         {formatFunctionTag(chunk.function_tags[0])}
                                     </StepFunction>
                                     <ImportanceScore>
-                                        Importance: {importance.toFixed(4)}
+                                        Importance: {importance.toFixed(3)}
                                     </ImportanceScore>
                                 </StepHeader>
                                 

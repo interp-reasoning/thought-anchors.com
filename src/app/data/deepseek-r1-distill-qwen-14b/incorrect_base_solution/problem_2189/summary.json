@@ -1,0 +1,245 @@
+{
+  "problem_idx": 2189,
+  "num_chunks": 60,
+  "avg_importance": 0.0022777777777777774,
+  "max_importance": 0.72,
+  "min_importance": -0.7000000000000001,
+  "top_influential_steps": [
+    {
+      "step_idx": 53,
+      "step_text": {
+        "chunk": "Then I divided by the factorials of the counts of each type, which are 5!",
+        "chunk_idx": 53,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "52"
+        ],
+        "accuracy": 0.04,
+        "counterfactual_importance_accuracy": -0.04,
+        "counterfactual_importance_kl": 0.8451932933973907,
+        "absolute_importance_accuracy": 0.05,
+        "absolute_importance_kl": 0.05537694277657632,
+        "different_trajectories_fraction": 0.6,
+        "overdeterminedness": 0.33999999999999997,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "divide by 5!"
+      },
+      "avg_outgoing_importance": 0.25166666666666665
+    },
+    {
+      "step_idx": 58,
+      "step_text": {
+        "chunk": "I think that makes sense.",
+        "chunk_idx": 58,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "57"
+        ],
+        "accuracy": 0.02,
+        "counterfactual_importance_accuracy": -0.02,
+        "counterfactual_importance_kl": 0.40852960739494965,
+        "absolute_importance_accuracy": 0.023529411764705882,
+        "absolute_importance_kl": 0.48777769363124474,
+        "different_trajectories_fraction": 0.85,
+        "overdeterminedness": 0.52,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "no action taken"
+      },
+      "avg_outgoing_importance": 0.17999999999999994
+    },
+    {
+      "step_idx": 51,
+      "step_text": {
+        "chunk": "arrangements, but since it's circular, it's (9-1)!",
+        "chunk_idx": 51,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "50"
+        ],
+        "accuracy": 0.06,
+        "counterfactual_importance_accuracy": -0.039999999999999994,
+        "counterfactual_importance_kl": 0.026744402693995334,
+        "absolute_importance_accuracy": 0.04451612903225806,
+        "absolute_importance_kl": 0.03518772399986864,
+        "different_trajectories_fraction": 0.93,
+        "overdeterminedness": 0.62,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate arrangements=8!"
+      },
+      "avg_outgoing_importance": 0.155
+    },
+    {
+      "step_idx": 44,
+      "step_text": {
+        "chunk": "* 1! * 1!) = 40320 / (120 * 2 * 1 * 1) = 40320 / 240 = 168.",
+        "chunk_idx": 44,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "43"
+        ],
+        "accuracy": 0.88,
+        "counterfactual_importance_accuracy": -0.26383838383838387,
+        "counterfactual_importance_kl": 0.17411551921327265,
+        "absolute_importance_accuracy": 0.26383838383838387,
+        "absolute_importance_kl": 0.17411551921327265,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.99,
+        "forced_importance_accuracy": 0.04,
+        "forced_importance_kl": 23.872270175838214,
+        "summary": "calculate result=168"
+      },
+      "avg_outgoing_importance": 0.08466666666666667
+    },
+    {
+      "step_idx": 37,
+      "step_text": {
+        "chunk": "The two green plates are now a single unit, so we have 1 \"double green\" plate, 5 blue, 2 red, and 1 orange.",
+        "chunk_idx": 37,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "36"
+        ],
+        "accuracy": 0.98,
+        "counterfactual_importance_accuracy": -0.09999999999999998,
+        "counterfactual_importance_kl": 0.0696428615129199,
+        "absolute_importance_accuracy": 0.09872340425531911,
+        "absolute_importance_kl": 0.06097314354577095,
+        "different_trajectories_fraction": 0.94,
+        "overdeterminedness": 0.5700000000000001,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2158615642293447,
+        "summary": "combine plates=1 double green"
+      },
+      "avg_outgoing_importance": 0.07772727272727274
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Let me try to figure this out step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.8144329896907216,
+        "counterfactual_importance_accuracy": -0.05154639175257736,
+        "counterfactual_importance_kl": 0.22170524701707672,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.979381443298969,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.9778503655061455,
+        "summary": "figure out step"
+      },
+      "avg_incoming_importance": 0.26
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "First, let's list out all the plates she has.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.7628865979381443,
+        "counterfactual_importance_accuracy": 0.02499218994064356,
+        "counterfactual_importance_kl": 0.2044405203332786,
+        "absolute_importance_accuracy": -0.028619528619528545,
+        "absolute_importance_kl": 0.3835099681215083,
+        "different_trajectories_fraction": 0.5567010309278351,
+        "overdeterminedness": 0.7216494845360825,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.4647675974523837,
+        "summary": "list plates"
+      },
+      "avg_incoming_importance": 0.09000000000000002
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "because one position can be fixed to account for rotations.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "6"
+        ],
+        "accuracy": 0.77,
+        "counterfactual_importance_accuracy": -0.0046938775510204644,
+        "counterfactual_importance_kl": 6.162008685758284e-05,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.94,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.6576217811346017,
+        "summary": "fix position for rotations"
+      },
+      "avg_incoming_importance": 0.06999999999999999
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "But in this case, the plates aren't all distinct; there are repetitions.",
+        "chunk_idx": 8,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "accuracy": 0.7653061224489796,
+        "counterfactual_importance_accuracy": 0.0446938775510205,
+        "counterfactual_importance_kl": 0.0188326912841964,
+        "absolute_importance_accuracy": 0.18999999999999995,
+        "absolute_importance_kl": 0.23977857475426548,
+        "different_trajectories_fraction": 0.01020408163265306,
+        "overdeterminedness": 0.7857142857142857,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.7428336932403528,
+        "summary": "identify repetitions"
+      },
+      "avg_incoming_importance": 0.05
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "Since the table is circular, the arrangement is a circular permutation problem.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.81,
+        "counterfactual_importance_accuracy": -0.0726262626262627,
+        "counterfactual_importance_kl": 0.014586395917728312,
+        "absolute_importance_accuracy": 0.11788942052099949,
+        "absolute_importance_kl": 0.04935484061549461,
+        "different_trajectories_fraction": 0.76,
+        "overdeterminedness": 0.5,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.1640011192633635,
+        "summary": "circular permutation problem"
+      },
+      "avg_incoming_importance": 0.032
+    }
+  ]
+}

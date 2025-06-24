@@ -1,0 +1,252 @@
+{
+  "problem_idx": 2238,
+  "num_chunks": 104,
+  "avg_importance": 0.0008166166098858407,
+  "max_importance": 0.79,
+  "min_importance": -0.73,
+  "top_influential_steps": [
+    {
+      "step_idx": 99,
+      "step_text": {
+        "chunk": "Wait, but another way to think about it is that each term in the product is a combination of a term from the first polynomial and a term from the second.",
+        "chunk_idx": 99,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "98"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.8,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "combine polynomial terms"
+      },
+      "avg_outgoing_importance": 0.3225
+    },
+    {
+      "step_idx": 102,
+      "step_text": {
+        "chunk": "I think that makes sense.",
+        "chunk_idx": 102,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "101"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.91,
+        "overdeterminedness": 0.84,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "no action taken"
+      },
+      "avg_outgoing_importance": 0.16999999999999998
+    },
+    {
+      "step_idx": 78,
+      "step_text": {
+        "chunk": "Alternatively, maybe I'm overcomplicating this.",
+        "chunk_idx": 78,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "77"
+        ],
+        "accuracy": 0.01,
+        "counterfactual_importance_accuracy": 0.060000000000000005,
+        "counterfactual_importance_kl": 0.04243605190921096,
+        "absolute_importance_accuracy": -0.059473684210526324,
+        "absolute_importance_kl": 0.03836615737945226,
+        "different_trajectories_fraction": 0.95,
+        "overdeterminedness": 0.63,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "reconsider approach"
+      },
+      "avg_outgoing_importance": 0.1604
+    },
+    {
+      "step_idx": 26,
+      "step_text": {
+        "chunk": "But the original problem is just asking for the coefficient of \\( a^2b^2 \\), regardless of the powers of \\( c \\).",
+        "chunk_idx": 26,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [
+          "25"
+        ],
+        "accuracy": 0.91,
+        "counterfactual_importance_accuracy": -0.43000000000000005,
+        "counterfactual_importance_kl": 0.42422750827176703,
+        "absolute_importance_accuracy": 0.44000000000000006,
+        "absolute_importance_kl": 0.18651063076740776,
+        "different_trajectories_fraction": 0.25,
+        "overdeterminedness": 0.13,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "find coefficient of \\( a^2b^2"
+      },
+      "avg_outgoing_importance": 0.13116883116883113
+    },
+    {
+      "step_idx": 91,
+      "step_text": {
+        "chunk": "Wait, but I'm a bit unsure because sometimes when you multiply polynomials, the coefficients don't just add up like that.",
+        "chunk_idx": 91,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "90"
+        ],
+        "accuracy": 0.05,
+        "counterfactual_importance_accuracy": -0.009595959595959595,
+        "counterfactual_importance_kl": 0.0011068417119194044,
+        "absolute_importance_accuracy": 0.011679292929292928,
+        "absolute_importance_kl": 0.002131072671455698,
+        "different_trajectories_fraction": 0.96,
+        "overdeterminedness": 0.15000000000000002,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "multiply polynomials"
+      },
+      "avg_outgoing_importance": 0.12166666666666666
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "So, maybe I can apply that here.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "accuracy": 0.68,
+        "counterfactual_importance_accuracy": -0.06383838383838392,
+        "counterfactual_importance_kl": 0.026130104202720477,
+        "absolute_importance_accuracy": 0.08972073677956038,
+        "absolute_importance_kl": 0.018105606046503863,
+        "different_trajectories_fraction": 0.17,
+        "overdeterminedness": 0.86,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.4430249236356767,
+        "summary": "apply concept"
+      },
+      "avg_incoming_importance": 0.1275
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "Let me focus on \\( (a + b)^4 \\) first.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "4"
+        ],
+        "accuracy": 0.6161616161616161,
+        "counterfactual_importance_accuracy": 0.03383838383838389,
+        "counterfactual_importance_kl": 0.39981160390882586,
+        "absolute_importance_accuracy": -0.22142857142857147,
+        "absolute_importance_kl": 0.10954104150020968,
+        "different_trajectories_fraction": 0.0707070707070707,
+        "overdeterminedness": 0.6666666666666667,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.9270947754397751,
+        "summary": "expand (a+b)^4"
+      },
+      "avg_incoming_importance": 0.076
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "So, in this expansion, the general term is \\( \\binom{4}{k} a^{4 - k} b^k \\).",
+        "chunk_idx": 7,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "accuracy": 0.59,
+        "counterfactual_importance_accuracy": 0.07000000000000006,
+        "counterfactual_importance_kl": 0.011002834006852244,
+        "absolute_importance_accuracy": 0.26857142857142857,
+        "absolute_importance_kl": 0.2835008480699282,
+        "different_trajectories_fraction": 0.14,
+        "overdeterminedness": 0.6699999999999999,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2378157184032959,
+        "summary": "identify general term"
+      },
+      "avg_incoming_importance": 0.06857142857142857
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "I want \\( a^2b^2 \\), which means \\( 4 - k = 2 \\) and \\( k = 2 \\).",
+        "chunk_idx": 8,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "6",
+          "7"
+        ],
+        "accuracy": 0.66,
+        "counterfactual_importance_accuracy": -0.09999999999999998,
+        "counterfactual_importance_kl": 0.023171133817495793,
+        "absolute_importance_accuracy": -0.014545454545454639,
+        "absolute_importance_kl": 0.013035922133592972,
+        "different_trajectories_fraction": 0.22,
+        "overdeterminedness": 0.6599999999999999,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.9919668496387717,
+        "summary": "derive k=2"
+      },
+      "avg_incoming_importance": 0.05750000000000001
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Calculating that, \\( \\binom{4}{2} = \\frac{4!}{2!2!} = 6 \\).",
+        "chunk_idx": 10,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "accuracy": 0.64,
+        "counterfactual_importance_accuracy": -0.08999999999999997,
+        "counterfactual_importance_kl": 0.016730185898153074,
+        "absolute_importance_accuracy": -0.050000000000000044,
+        "absolute_importance_kl": 0.06657594105704517,
+        "different_trajectories_fraction": 0.06,
+        "overdeterminedness": 0.91,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate binom(4,2)=6"
+      },
+      "avg_incoming_importance": 0.039
+    }
+  ]
+}

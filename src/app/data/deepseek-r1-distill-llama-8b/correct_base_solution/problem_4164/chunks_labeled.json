@@ -1,0 +1,4865 @@
+[
+  {
+    "chunk": "Okay, so I have this problem where I need to find p(5) for a cubic polynomial p(x).",
+    "chunk_idx": 0,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.9444444444444444,
+    "resampling_importance_accuracy": -0.12529550827423164,
+    "resampling_importance_kl": 1.0127057820468652,
+    "counterfactual_importance_accuracy": 0.18085106382978722,
+    "counterfactual_importance_kl": 0.1508228688282303,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.6803173929546082,
+    "different_trajectories_fraction": 0.2222222222222222,
+    "overdeterminedness": 0.6666666666666667,
+    "summary": "find p(5)"
+  },
+  {
+    "chunk": "The polynomial satisfies p(n) = 1/n\u00b2 for n = 1, 2, 3, and 4.",
+    "chunk_idx": 1,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.8191489361702128,
+    "resampling_importance_accuracy": 0.11266924564796899,
+    "resampling_importance_kl": 3.4523066387682837,
+    "counterfactual_importance_accuracy": -0.26515151515151514,
+    "counterfactual_importance_kl": 0.9489919348997622,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 13.594241028296743,
+    "different_trajectories_fraction": 0.031914893617021274,
+    "overdeterminedness": 0.9361702127659575,
+    "summary": "satisfy p(n)=1/n\u00b2"
+  },
+  {
+    "chunk": "Hmm, let's see how I can approach this.",
+    "chunk_idx": 2,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [],
+    "accuracy": 0.9318181818181818,
+    "resampling_importance_accuracy": -0.07954545454545447,
+    "resampling_importance_kl": 0.805375508460132,
+    "counterfactual_importance_accuracy": 0.11874176548089588,
+    "counterfactual_importance_kl": 0.7528337658669245,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.3452365186294237,
+    "different_trajectories_fraction": 0.7840909090909091,
+    "overdeterminedness": 0.7386363636363636,
+    "summary": "no concrete action"
+  },
+  {
+    "chunk": "First, I know that a cubic polynomial has the form p(x) = ax\u00b3 + bx\u00b2 + cx + d.",
+    "chunk_idx": 3,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.8522727272727273,
+    "resampling_importance_accuracy": 0.01729249011857703,
+    "resampling_importance_kl": 1.895079945414978,
+    "counterfactual_importance_accuracy": -0.04603580562659848,
+    "counterfactual_importance_kl": 2.7556867619746925,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.2217687956416006,
+    "different_trajectories_fraction": 0.19318181818181818,
+    "overdeterminedness": 0.34090909090909094,
+    "summary": "define cubic polynomial"
+  },
+  {
+    "chunk": "Since it's a cubic, it has three coefficients to determine.",
+    "chunk_idx": 4,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "3"
+    ],
+    "accuracy": 0.8695652173913043,
+    "resampling_importance_accuracy": -0.02432712215320909,
+    "resampling_importance_kl": 1.6020861539611277,
+    "counterfactual_importance_accuracy": 0.04112554112554112,
+    "counterfactual_importance_kl": 1.0859062308604563,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.522104857479077,
+    "different_trajectories_fraction": 0.4782608695652174,
+    "overdeterminedness": 0.3913043478260869,
+    "summary": "determine coefficients"
+  },
+  {
+    "chunk": "But I have four points given: p(1) = 1, p(2) = 1/4, p(3) = 1/9, and p(4) = 1/16.",
+    "chunk_idx": 5,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "1"
+    ],
+    "accuracy": 0.8452380952380952,
+    "resampling_importance_accuracy": 0.0025879917184264967,
+    "resampling_importance_kl": 1.2760070566405315,
+    "counterfactual_importance_accuracy": -0.01970108695652173,
+    "counterfactual_importance_kl": 1.67399729071637,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 10.692983709331077,
+    "different_trajectories_fraction": 0.7619047619047619,
+    "overdeterminedness": 0.22619047619047616,
+    "summary": "list probabilities"
+  },
+  {
+    "chunk": "Wait, actually, each p(n) is 1/n\u00b2, so p(1)=1, p(2)=1/4, p(3)=1/9, p(4)=1/16.",
+    "chunk_idx": 6,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "5"
+    ],
+    "accuracy": 0.8478260869565217,
+    "resampling_importance_accuracy": 0.05642923219241447,
+    "resampling_importance_kl": 3.168143572582699,
+    "counterfactual_importance_accuracy": -0.09869976359338062,
+    "counterfactual_importance_kl": 4.095228740615918,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.4650351697146061,
+    "different_trajectories_fraction": 0.782608695652174,
+    "overdeterminedness": 0.08695652173913049,
+    "summary": "calculate p(n)=1/n\u00b2"
+  },
+  {
+    "chunk": "So, if I plug in these values into the polynomial, I can set up a system of equations to solve for a, b, c, d.",
+    "chunk_idx": 7,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "6"
+    ],
+    "accuracy": 0.9042553191489362,
+    "resampling_importance_accuracy": 0.002721425037110259,
+    "resampling_importance_kl": 1.5614839616029124,
+    "counterfactual_importance_accuracy": -0.00810033969166446,
+    "counterfactual_importance_kl": 1.650204391750557,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9160282681298115,
+    "different_trajectories_fraction": 0.9468085106382979,
+    "overdeterminedness": 0.15957446808510634,
+    "summary": "set up equations"
+  },
+  {
+    "chunk": "Let's do that.",
+    "chunk_idx": 8,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "7"
+    ],
+    "accuracy": 0.9069767441860465,
+    "resampling_importance_accuracy": 0.05047006432459189,
+    "resampling_importance_kl": 1.6459358014215026,
+    "counterfactual_importance_accuracy": -0.05047006432459189,
+    "counterfactual_importance_kl": 1.6459358014215026,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.4864468900957446,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.41860465116279066,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "For n=1: a(1)^3 + b(1)^2 + c(1) + d = 1\nWhich simplifies to: a + b + c + d = 1.",
+    "chunk_idx": 9,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "3",
+      "6"
+    ],
+    "accuracy": 0.9574468085106383,
+    "resampling_importance_accuracy": 0.0008865248226950229,
+    "resampling_importance_kl": 0.8818508745080552,
+    "counterfactual_importance_accuracy": 0.010897435897435859,
+    "counterfactual_importance_kl": 0.6751455333291807,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.36306894377658805,
+    "different_trajectories_fraction": 0.6914893617021277,
+    "overdeterminedness": 0.5425531914893618,
+    "summary": "simplify to a+b+c+d=1"
+  },
+  {
+    "chunk": "Let's call this equation (1).",
+    "chunk_idx": 10,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "9"
+    ],
+    "accuracy": 0.9583333333333334,
+    "resampling_importance_accuracy": -0.008838383838383868,
+    "resampling_importance_kl": 0.6577636024883311,
+    "counterfactual_importance_accuracy": 0.0005050505050504528,
+    "counterfactual_importance_kl": 0.7887682880396302,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.001106153952530442,
+    "different_trajectories_fraction": 0.8333333333333334,
+    "overdeterminedness": 0.8854166666666666,
+    "summary": "label equation (1)"
+  },
+  {
+    "chunk": "For n=2: a(8) + b(4) + c(2) + d = 1/4\nWhich is: 8a + 4b + 2c + d = 1/4.",
+    "chunk_idx": 11,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "3",
+      "6"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": -0.031969176299073254,
+    "resampling_importance_kl": 0.8576955913180384,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.00026731194314556783,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.898989898989899,
+    "summary": "form equation 8a+4b+2c+d=1/4"
+  },
+  {
+    "chunk": "Let's call this equation (2).",
+    "chunk_idx": 12,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "11"
+    ],
+    "accuracy": 0.9175257731958762,
+    "resampling_importance_accuracy": -0.0026321561745996647,
+    "resampling_importance_kl": 1.095086343996809,
+    "counterfactual_importance_accuracy": 0.008183306055646544,
+    "counterfactual_importance_kl": 1.742926873387725,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.005071187952056487,
+    "different_trajectories_fraction": 0.4020618556701031,
+    "overdeterminedness": 0.979381443298969,
+    "summary": "label equation (2)"
+  },
+  {
+    "chunk": "For n=3: a(27) + b(9) + c(3) + d = 1/9\nSo: 27a + 9b + 3c + d = 1/9.",
+    "chunk_idx": 13,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "3",
+      "6"
+    ],
+    "accuracy": 0.9148936170212766,
+    "resampling_importance_accuracy": 0.024500322372662864,
+    "resampling_importance_kl": 0.9118836382315156,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.253110368093887,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9361702127659575,
+    "summary": "derive equation: 27a + 9b"
+  },
+  {
+    "chunk": "Equation (3).",
+    "chunk_idx": 14,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "13"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": 0.010606060606060508,
+    "resampling_importance_kl": 1.03669206478806,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.9241700084501648,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.4821752589016177,
+    "different_trajectories_fraction": 0.25252525252525254,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "reference equation (3)"
+  },
+  {
+    "chunk": "For n=4: a(64) + b(16) + c(4) + d = 1/16\nThus: 64a + 16b + 4c + d = 1/16.",
+    "chunk_idx": 15,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "3",
+      "6"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.01382978723404249,
+    "resampling_importance_kl": 0.6394671162288583,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.6910179018936273,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.95,
+    "summary": "form equation 64a + 16b"
+  },
+  {
+    "chunk": "Equation (4).",
+    "chunk_idx": 16,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "15"
+    ],
+    "accuracy": 0.9361702127659575,
+    "resampling_importance_accuracy": 0.022592673831980714,
+    "resampling_importance_kl": 1.096730109628301,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.3914233613692901,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9893617021276596,
+    "summary": "reference equation (4)"
+  },
+  {
+    "chunk": "Now, I have four equations with four variables.",
+    "chunk_idx": 17,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "10",
+      "12",
+      "14",
+      "16"
+    ],
+    "accuracy": 0.9587628865979382,
+    "resampling_importance_accuracy": -0.10309278350515472,
+    "resampling_importance_kl": 0.30720375906829767,
+    "counterfactual_importance_accuracy": 0.14432989690721654,
+    "counterfactual_importance_kl": 0.09790402949335958,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.0653684146613864,
+    "different_trajectories_fraction": 0.010309278350515464,
+    "overdeterminedness": 0.7835051546391752,
+    "summary": "set equations for variables"
+  },
+  {
+    "chunk": "I need to solve this system.",
+    "chunk_idx": 18,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "17"
+    ],
+    "accuracy": 0.8556701030927835,
+    "resampling_importance_accuracy": 0.06906107970291542,
+    "resampling_importance_kl": 1.6777653774192247,
+    "counterfactual_importance_accuracy": -0.04753820033955858,
+    "counterfactual_importance_kl": 1.1865613897915577,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9313696807157832,
+    "different_trajectories_fraction": 0.5876288659793815,
+    "overdeterminedness": 0.8144329896907216,
+    "summary": "solve system"
+  },
+  {
+    "chunk": "Hmm, solving four equations can be a bit tedious, but I can use elimination or substitution.",
+    "chunk_idx": 19,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "18"
+    ],
+    "accuracy": 0.9247311827956989,
+    "resampling_importance_accuracy": -0.05239075726378395,
+    "resampling_importance_kl": 0.9609680827502018,
+    "counterfactual_importance_accuracy": 0.05239075726378395,
+    "counterfactual_importance_kl": 0.9609680827502018,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.45220551345724724,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8494623655913979,
+    "summary": "use elimination method"
+  },
+  {
+    "chunk": "Let me try elimination.",
+    "chunk_idx": 20,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "19"
+    ],
+    "accuracy": 0.8723404255319149,
+    "resampling_importance_accuracy": 0.009380004575611944,
+    "resampling_importance_kl": 1.9795680799592523,
+    "counterfactual_importance_accuracy": -0.036650007572315624,
+    "counterfactual_importance_kl": 2.652975276356524,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.6713830176101143,
+    "different_trajectories_fraction": 0.7553191489361702,
+    "overdeterminedness": 0.6063829787234043,
+    "summary": "perform elimination"
+  },
+  {
+    "chunk": "First, let's subtract equation (1) from equation (2):",
+    "chunk_idx": 21,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "20"
+    ],
+    "accuracy": 0.8817204301075269,
+    "resampling_importance_accuracy": 0.027370478983382185,
+    "resampling_importance_kl": 1.108649290287491,
+    "counterfactual_importance_accuracy": -0.042424242424242364,
+    "counterfactual_importance_kl": 1.3882263442831506,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.1219576501354593,
+    "different_trajectories_fraction": 0.8064516129032258,
+    "overdeterminedness": 0.4731182795698925,
+    "summary": "subtract equation (1) from (2)"
+  },
+  {
+    "chunk": "Equation (2) - Equation (1):",
+    "chunk_idx": 22,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "21"
+    ],
+    "accuracy": 0.9090909090909091,
+    "resampling_importance_accuracy": 0.007575757575757569,
+    "resampling_importance_kl": 0.9580857326159674,
+    "counterfactual_importance_accuracy": -0.011904761904761862,
+    "counterfactual_importance_kl": 1.0048195738711625,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.22121157520646603,
+    "different_trajectories_fraction": 0.9545454545454546,
+    "overdeterminedness": 0.4204545454545454,
+    "summary": "subtract equations"
+  },
+  {
+    "chunk": "(8a - a) + (4b - b) + (2c - c) + (d - d) = 1/4 - 1",
+    "chunk_idx": 23,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "22",
+      "10",
+      "12"
+    ],
+    "accuracy": 0.9166666666666666,
+    "resampling_importance_accuracy": 0.03014184397163122,
+    "resampling_importance_kl": 1.2637927805140345,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.4249054305975537,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.8229166666666666,
+    "summary": "simplify expression = -3/4"
+  },
+  {
+    "chunk": "Which simplifies to: 7a + 3b + c = -3/4.",
+    "chunk_idx": 24,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "23"
+    ],
+    "accuracy": 0.9468085106382979,
+    "resampling_importance_accuracy": -0.03864524533217539,
+    "resampling_importance_kl": 0.9235137948683916,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.140856282056426,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.8829787234042553,
+    "summary": "simplify to 7a + 3b"
+  },
+  {
+    "chunk": "Let's call this equation (5).",
+    "chunk_idx": 25,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "24"
+    ],
+    "accuracy": 0.9081632653061225,
+    "resampling_importance_accuracy": -0.030612244897959218,
+    "resampling_importance_kl": 1.7086893871303543,
+    "counterfactual_importance_accuracy": 0.12244897959183676,
+    "counterfactual_importance_kl": 0.1226023040294144,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.8080655552132705,
+    "different_trajectories_fraction": 0.14285714285714285,
+    "overdeterminedness": 0.9387755102040817,
+    "summary": "label equation (5)"
+  },
+  {
+    "chunk": "Similarly, subtract equation (2) from equation (3):",
+    "chunk_idx": 26,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "20"
+    ],
+    "accuracy": 0.8775510204081632,
+    "resampling_importance_accuracy": 0.038238453276047246,
+    "resampling_importance_kl": 1.7325735508844362,
+    "counterfactual_importance_accuracy": -0.038238453276047246,
+    "counterfactual_importance_kl": 1.7325735508844362,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.518852794879664,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.7857142857142857,
+    "summary": "subtract equations (3)-(2)"
+  },
+  {
+    "chunk": "Equation (3) - Equation (2):",
+    "chunk_idx": 27,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "26"
+    ],
+    "accuracy": 0.9157894736842105,
+    "resampling_importance_accuracy": -0.0018109790605546072,
+    "resampling_importance_kl": 1.57807247603322,
+    "counterfactual_importance_accuracy": 0.0018109790605546072,
+    "counterfactual_importance_kl": 1.57807247603322,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.3511314598694741,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.7789473684210526,
+    "summary": "subtract equations"
+  },
+  {
+    "chunk": "(27a - 8a) + (9b - 4b) + (3c - 2c) + (d - d) = 1/9 - 1/4",
+    "chunk_idx": 28,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "27",
+      "12",
+      "14"
+    ],
+    "accuracy": 0.9139784946236559,
+    "resampling_importance_accuracy": -0.014988595633756874,
+    "resampling_importance_kl": 0.9267206048651866,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.6970904407776946,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.7526881720430108,
+    "summary": "simplify expression = 1/36"
+  },
+  {
+    "chunk": "Compute the left side: 19a + 5b + c.",
+    "chunk_idx": 29,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "28"
+    ],
+    "accuracy": 0.898989898989899,
+    "resampling_importance_accuracy": 0.04040404040404044,
+    "resampling_importance_kl": 1.870700649285232,
+    "counterfactual_importance_accuracy": -0.033988533988534075,
+    "counterfactual_importance_kl": 1.1566240855841907,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.4621696619436417,
+    "different_trajectories_fraction": 0.7474747474747475,
+    "overdeterminedness": 0.5252525252525253,
+    "summary": "compute 19a + 5b +"
+  },
+  {
+    "chunk": "Compute the right side: 1/9 - 1/4 = (4 - 9)/36 = -5/36.",
+    "chunk_idx": 30,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "28"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": -0.030303030303030387,
+    "resampling_importance_kl": 0.6505890989107687,
+    "counterfactual_importance_accuracy": 0.03685503685503688,
+    "counterfactual_importance_kl": 0.6045645383447982,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.5471557470759802,
+    "different_trajectories_fraction": 0.7474747474747475,
+    "overdeterminedness": 0.9191919191919192,
+    "summary": "compute result=-5/36"
+  },
+  {
+    "chunk": "So equation (6): 19a + 5b + c = -5/36.",
+    "chunk_idx": 31,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "29",
+      "30"
+    ],
+    "accuracy": 0.9090909090909091,
+    "resampling_importance_accuracy": 0.010101010101010166,
+    "resampling_importance_kl": 0.8272583651459197,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.2907712637596216,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9696969696969697,
+    "summary": "derive c=-5/36-19a-5b"
+  },
+  {
+    "chunk": "Similarly, subtract equation (3) from equation (4):",
+    "chunk_idx": 32,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "20"
+    ],
+    "accuracy": 0.9191919191919192,
+    "resampling_importance_accuracy": 0.05080808080808075,
+    "resampling_importance_kl": 0.6459188945545967,
+    "counterfactual_importance_accuracy": -0.05080808080808075,
+    "counterfactual_importance_kl": 0.6459188945545967,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 4.158268702932992,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8686868686868687,
+    "summary": "subtract equations (4)-(3)"
+  },
+  {
+    "chunk": "Equation (4) - Equation (3):",
+    "chunk_idx": 33,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "32"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.08999999999999997,
+    "resampling_importance_kl": 0.7300138560842687,
+    "counterfactual_importance_accuracy": 0.08999999999999997,
+    "counterfactual_importance_kl": 0.7300138560842687,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.8459359115285113,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.94,
+    "summary": "subtract equations"
+  },
+  {
+    "chunk": "(64a - 27a) + (16b - 9b) + (4c - 3c) + (d - d) = 1/16 - 1/9",
+    "chunk_idx": 34,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "33",
+      "14",
+      "16"
+    ],
+    "accuracy": 0.88,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 1.8789568688813416,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.15503578112672517,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.95,
+    "summary": "simplify expression"
+  },
+  {
+    "chunk": "Left side: 37a + 7b + c.",
+    "chunk_idx": 35,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "34"
+    ],
+    "accuracy": 0.88,
+    "resampling_importance_accuracy": 0.07789473684210524,
+    "resampling_importance_kl": 1.6169578451714572,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.623031237748652,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.95,
+    "summary": "express polynomial 37a + 7b"
+  },
+  {
+    "chunk": "Right side: 1/16 - 1/9 = (9 - 16)/144 = -7/144.",
+    "chunk_idx": 36,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "34"
+    ],
+    "accuracy": 0.9578947368421052,
+    "resampling_importance_accuracy": -0.02932330827067664,
+    "resampling_importance_kl": 0.24923022679410048,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.784700033124276,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "calculate result=-7/144"
+  },
+  {
+    "chunk": "So equation (7): 37a + 7b + c = -7/144.",
+    "chunk_idx": 37,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "35",
+      "36"
+    ],
+    "accuracy": 0.9285714285714286,
+    "resampling_importance_accuracy": 0.0007215007215006786,
+    "resampling_importance_kl": 1.07145929083683,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.174413820553574,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "derive c=-7/144-37a-7b"
+  },
+  {
+    "chunk": "Now, I have three equations: (5), (6), (7):",
+    "chunk_idx": 38,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "25",
+      "31",
+      "37"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": 0.02020202020202022,
+    "resampling_importance_kl": 1.2359699413659655,
+    "counterfactual_importance_accuracy": 0.0028860028860028253,
+    "counterfactual_importance_kl": 0.11614584380207567,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2746800807218766,
+    "different_trajectories_fraction": 0.21212121212121213,
+    "overdeterminedness": 0.6161616161616161,
+    "summary": "list equations (5, 6, 7)"
+  },
+  {
+    "chunk": "(5): 7a + 3b + c = -3/4",
+    "chunk_idx": 39,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": -0.06173984745413319,
+    "resampling_importance_kl": 0.6913036267392175,
+    "counterfactual_importance_accuracy": 0.11224489795918369,
+    "counterfactual_importance_kl": 0.09201888568324537,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.010350868467446,
+    "different_trajectories_fraction": 0.15151515151515152,
+    "overdeterminedness": 0.6868686868686869,
+    "summary": "solve for c"
+  },
+  {
+    "chunk": "(6): 19a + 5b + c = -5/36",
+    "chunk_idx": 40,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "31"
+    ],
+    "accuracy": 0.8877551020408163,
+    "resampling_importance_accuracy": 0.029770671155059936,
+    "resampling_importance_kl": 0.8490449527361305,
+    "counterfactual_importance_accuracy": 0.08247422680412375,
+    "counterfactual_importance_kl": 0.10899026609748719,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.8394417919566781,
+    "different_trajectories_fraction": 0.11224489795918367,
+    "overdeterminedness": 0.6836734693877551,
+    "summary": "derive equation: 19a + 5b"
+  },
+  {
+    "chunk": "(7): 37a + 7b + c = -7/144",
+    "chunk_idx": 41,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "37"
+    ],
+    "accuracy": 0.9175257731958762,
+    "resampling_importance_accuracy": 0.021249737008205427,
+    "resampling_importance_kl": 0.8486978535035893,
+    "counterfactual_importance_accuracy": 0.061224489795918324,
+    "counterfactual_importance_kl": 0.07913730484781015,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.4851351738650602,
+    "different_trajectories_fraction": 0.1134020618556701,
+    "overdeterminedness": 0.6185567010309279,
+    "summary": "solve for c"
+  },
+  {
+    "chunk": "Now, let's subtract equation (5) from equation (6):",
+    "chunk_idx": 42,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "38"
+    ],
+    "accuracy": 0.9387755102040817,
+    "resampling_importance_accuracy": -0.018775510204081636,
+    "resampling_importance_kl": 0.6687342563426227,
+    "counterfactual_importance_accuracy": 0.018775510204081636,
+    "counterfactual_importance_kl": 0.6687342563426227,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 8.9295466325832,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.33673469387755106,
+    "summary": "subtract equation(5) from equation(6)"
+  },
+  {
+    "chunk": "Equation (6) - Equation (5):",
+    "chunk_idx": 43,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "42"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.019999999999999907,
+    "resampling_importance_kl": 1.0094461117971598,
+    "counterfactual_importance_accuracy": -0.019999999999999907,
+    "counterfactual_importance_kl": 1.0094461117971598,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.1870841127234755,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.5800000000000001,
+    "summary": "subtract equations"
+  },
+  {
+    "chunk": "(19a - 7a) + (5b - 3b) + (c - c) = (-5/36 - (-3/4))",
+    "chunk_idx": 44,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "43",
+      "25",
+      "31"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.6019077708647596,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.188306317759443,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.72,
+    "summary": "simplify expression"
+  },
+  {
+    "chunk": "Left side: 12a + 2b.",
+    "chunk_idx": 45,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "44"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.02185567010309275,
+    "resampling_importance_kl": 0.8636835066951243,
+    "counterfactual_importance_accuracy": -0.009572901325478611,
+    "counterfactual_importance_kl": 1.6418494280696294,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.4068992076829352,
+    "different_trajectories_fraction": 0.14,
+    "overdeterminedness": 0.88,
+    "summary": "simplify expression 12a + 2b"
+  },
+  {
+    "chunk": "Right side: (-5/36 + 3/4) = (-5/36 + 27/36) = 22/36 = 11/18.",
+    "chunk_idx": 46,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "44"
+    ],
+    "accuracy": 0.9381443298969072,
+    "resampling_importance_accuracy": 0.041653649901072565,
+    "resampling_importance_kl": 1.2566501653408284,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.8952306043618443,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.8969072164948454,
+    "summary": "calculate value=11/18"
+  },
+  {
+    "chunk": "So equation (8): 12a + 2b = 11/18.",
+    "chunk_idx": 47,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "45",
+      "46"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": -0.05979797979797974,
+    "resampling_importance_kl": 0.4805554321024549,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.415613015316497,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9696969696969697,
+    "summary": "derive 12a + 2b ="
+  },
+  {
+    "chunk": "Similarly, subtract equation (6) from equation (7):",
+    "chunk_idx": 48,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "38"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.009292929292929242,
+    "resampling_importance_kl": 1.0174824943930865,
+    "counterfactual_importance_accuracy": -0.009292929292929242,
+    "counterfactual_importance_kl": 1.0174824943930865,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.5466519128707503,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "subtract equations (6) and (7)"
+  },
+  {
+    "chunk": "Equation (7) - Equation (6):",
+    "chunk_idx": 49,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "48"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": -0.01929292929292925,
+    "resampling_importance_kl": 0.2715414811566312,
+    "counterfactual_importance_accuracy": 0.01929292929292925,
+    "counterfactual_importance_kl": 0.2715414811566312,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.3998072136319062,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "subtract equations"
+  },
+  {
+    "chunk": "(37a - 19a) + (7b - 5b) + (c - c) = (-7/144 - (-5/36))",
+    "chunk_idx": 50,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "49",
+      "31",
+      "37"
+    ],
+    "accuracy": 0.91,
+    "resampling_importance_accuracy": 0.029999999999999916,
+    "resampling_importance_kl": 0.23316833185875752,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.0000720591181844,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "simplify expression"
+  },
+  {
+    "chunk": "Left side: 18a + 2b.",
+    "chunk_idx": 51,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "50"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.0006060606060604989,
+    "resampling_importance_kl": 0.8439746435431926,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.007978294624253,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "simplify expression 18a + 2b"
+  },
+  {
+    "chunk": "Right side: (-7/144 + 5/36) = (-7/144 + 20/144) = 13/144.",
+    "chunk_idx": 52,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "50"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": -0.021026592455163917,
+    "resampling_importance_kl": 0.2299761064898005,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 4.929586563270515,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98989898989899,
+    "summary": "calculate sum=-13/144"
+  },
+  {
+    "chunk": "So equation (9): 18a + 2b = 13/144.",
+    "chunk_idx": 53,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "51",
+      "52"
+    ],
+    "accuracy": 0.9183673469387755,
+    "resampling_importance_accuracy": 0.010925582354153751,
+    "resampling_importance_kl": 0.23799607726408656,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.6989269649506062,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "derive 18a + 2b ="
+  },
+  {
+    "chunk": "Now, I have equations (8) and (9):",
+    "chunk_idx": 54,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "47",
+      "53"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": 0.030303030303030276,
+    "resampling_importance_kl": 0.6034436442134008,
+    "counterfactual_importance_accuracy": -0.03554532668456711,
+    "counterfactual_importance_kl": 0.7657107374263152,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.6197827597377635,
+    "different_trajectories_fraction": 0.797979797979798,
+    "overdeterminedness": 0.595959595959596,
+    "summary": "reference equations (8) and (9)"
+  },
+  {
+    "chunk": "(8): 12a + 2b = 11/18",
+    "chunk_idx": 55,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "47"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": -0.07070707070707072,
+    "resampling_importance_kl": 0.057065119090595855,
+    "counterfactual_importance_accuracy": 0.11111111111111116,
+    "counterfactual_importance_kl": 0.0804723210896997,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.0854178067293538,
+    "different_trajectories_fraction": 0.04040404040404041,
+    "overdeterminedness": 0.7171717171717171,
+    "summary": "solve 12a + 2b ="
+  },
+  {
+    "chunk": "(9): 18a + 2b = 13/144",
+    "chunk_idx": 56,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "53"
+    ],
+    "accuracy": 0.8888888888888888,
+    "resampling_importance_accuracy": 0.05111111111111111,
+    "resampling_importance_kl": 1.6856094480952664,
+    "counterfactual_importance_accuracy": 0.06000000000000005,
+    "counterfactual_importance_kl": 0.08976984606864086,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2081273895430888,
+    "different_trajectories_fraction": 0.010101010101010102,
+    "overdeterminedness": 0.7575757575757576,
+    "summary": "solve for a"
+  },
+  {
+    "chunk": "Let's subtract equation (8) from equation (9):",
+    "chunk_idx": 57,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "54"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.032783505154639125,
+    "resampling_importance_kl": 0.8604719158664531,
+    "counterfactual_importance_accuracy": 0.032783505154639125,
+    "counterfactual_importance_kl": 0.8604719158664531,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 4.805155928900038,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "subtract equations (8) and (9)"
+  },
+  {
+    "chunk": "Equation (9) - Equation (8):",
+    "chunk_idx": 58,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "57"
+    ],
+    "accuracy": 0.9072164948453608,
+    "resampling_importance_accuracy": 0.042783505154639134,
+    "resampling_importance_kl": 1.5422643642759357,
+    "counterfactual_importance_accuracy": -0.042783505154639134,
+    "counterfactual_importance_kl": 1.5422643642759357,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.121449189072591,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9175257731958762,
+    "summary": "subtract equations"
+  },
+  {
+    "chunk": "(18a - 12a) + (2b - 2b) = (13/144 - 11/18)",
+    "chunk_idx": 59,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "58",
+      "47",
+      "53"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 1.0361632919940054,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 6.008053570469875,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.96,
+    "summary": "simplify expression"
+  },
+  {
+    "chunk": "Left side: 6a.",
+    "chunk_idx": 60,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "59"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.0005050505050504528,
+    "resampling_importance_kl": 0.4213994565405415,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.6514601903153303,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "simplify to 6a"
+  },
+  {
+    "chunk": "Right side: 13/144 - 11/18 = 13/144 - 88/144 = (-75)/144 = -25/48.",
+    "chunk_idx": 61,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "59"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": -0.029494949494949463,
+    "resampling_importance_kl": 0.4491222037371564,
+    "counterfactual_importance_accuracy": 0.07999999999999996,
+    "counterfactual_importance_kl": 0.06973331316422894,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 4.823103857808321,
+    "different_trajectories_fraction": 0.06060606060606061,
+    "overdeterminedness": 0.9292929292929293,
+    "summary": "simplify fraction = -25/48"
+  },
+  {
+    "chunk": "So, 6a = -25/48",
+    "chunk_idx": 62,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "60",
+      "61"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.019999999999999907,
+    "resampling_importance_kl": 1.03717199881695,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.4383767368936886,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.86,
+    "summary": "solve for a = -25/288"
+  },
+  {
+    "chunk": "Therefore, a = (-25/48)/6 = (-25)/288.",
+    "chunk_idx": 63,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "62"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.009999999999999898,
+    "resampling_importance_kl": 0.2311491733243797,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 18.825135417928976,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.84,
+    "summary": "calculate a=-25/288"
+  },
+  {
+    "chunk": "So a = -25/288.",
+    "chunk_idx": 64,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "63"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": -0.040000000000000036,
+    "resampling_importance_kl": 0.6487207358126468,
+    "counterfactual_importance_accuracy": 0.10999999999999999,
+    "counterfactual_importance_kl": 0.09790418544757501,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2877929256051854,
+    "different_trajectories_fraction": 0.07,
+    "overdeterminedness": 0.85,
+    "summary": "assign a=-25/288"
+  },
+  {
+    "chunk": "Now, plug a back into equation (8) to find b.",
+    "chunk_idx": 65,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "64"
+    ],
+    "accuracy": 0.89,
+    "resampling_importance_accuracy": 0.04999999999999993,
+    "resampling_importance_kl": 1.830310882694423,
+    "counterfactual_importance_accuracy": -0.06820512820512814,
+    "counterfactual_importance_kl": 2.132486068386069,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.8913199922123471,
+    "different_trajectories_fraction": 0.78,
+    "overdeterminedness": 0.6799999999999999,
+    "summary": "find b from equation"
+  },
+  {
+    "chunk": "Equation (8): 12a + 2b = 11/18",
+    "chunk_idx": 66,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "47"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.010707070707070665,
+    "resampling_importance_kl": 0.4800825875699565,
+    "counterfactual_importance_accuracy": -0.05429292929292928,
+    "counterfactual_importance_kl": 1.4505756374878886,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.854669225340585,
+    "different_trajectories_fraction": 0.16,
+    "overdeterminedness": 0.89,
+    "summary": "solve 12a + 2b ="
+  },
+  {
+    "chunk": "12*(-25/288) + 2b = 11/18",
+    "chunk_idx": 67,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "66",
+      "64"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": 0.0007070707070707671,
+    "resampling_importance_kl": 1.0536349022839526,
+    "counterfactual_importance_accuracy": 0.06999999999999995,
+    "counterfactual_importance_kl": 0.07654005606510618,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.5172965246709165,
+    "different_trajectories_fraction": 0.09090909090909091,
+    "overdeterminedness": 0.8080808080808081,
+    "summary": "solve for b"
+  },
+  {
+    "chunk": "Compute 12*(-25/288): 12 divides into 288 24 times, so 12*(-25)/288 = (-25)/24.",
+    "chunk_idx": 68,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "67"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": 0.039696969696969675,
+    "resampling_importance_kl": 0.8032169523973653,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.283888429753854,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.64,
+    "summary": "compute result=-25/24"
+  },
+  {
+    "chunk": "So: (-25)/24 + 2b = 11/18",
+    "chunk_idx": 69,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "68"
+    ],
+    "accuracy": 0.9696969696969697,
+    "resampling_importance_accuracy": -0.04112554112554112,
+    "resampling_importance_kl": 0.45336579221948475,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.3395755476490756,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9393939393939394,
+    "summary": "solve for b"
+  },
+  {
+    "chunk": "Add 25/24 to both sides:",
+    "chunk_idx": 70,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "69"
+    ],
+    "accuracy": 0.9285714285714286,
+    "resampling_importance_accuracy": 0.010822510822510845,
+    "resampling_importance_kl": 0.6384967909095451,
+    "counterfactual_importance_accuracy": -0.010822510822510845,
+    "counterfactual_importance_kl": 0.6384967909095451,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.7786291086927336,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9081632653061225,
+    "summary": "add 25/24"
+  },
+  {
+    "chunk": "2b = 11/18 + 25/24",
+    "chunk_idx": 71,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "70"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": -0.049393939393939434,
+    "resampling_importance_kl": 0.8804614831631299,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2760729380554088,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "solve for b"
+  },
+  {
+    "chunk": "Find a common denominator for 18 and 24, which is 72.",
+    "chunk_idx": 72,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "71"
+    ],
+    "accuracy": 0.89,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.74306648613934,
+    "counterfactual_importance_accuracy": 0.007058823529411784,
+    "counterfactual_importance_kl": 1.01022394387456,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.963076817982903,
+    "different_trajectories_fraction": 0.68,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "find common denominator=72"
+  },
+  {
+    "chunk": "11/18 = 44/72",
+    "chunk_idx": 73,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "72"
+    ],
+    "accuracy": 0.89,
+    "resampling_importance_accuracy": 0.04999999999999993,
+    "resampling_importance_kl": 1.8632692506878634,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 6.177909864409062,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.92,
+    "summary": "simplify fraction 11/18"
+  },
+  {
+    "chunk": "25/24 = 75/72",
+    "chunk_idx": 74,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "72"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 1.223605746123226,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.3329607789327702,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "verify fraction equality"
+  },
+  {
+    "chunk": "So, 44/72 + 75/72 = 119/72.",
+    "chunk_idx": 75,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "73",
+      "74"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.0016666666666665941,
+    "resampling_importance_kl": 0.6286646822231023,
+    "counterfactual_importance_accuracy": 0.0016666666666665941,
+    "counterfactual_importance_kl": 0.6286646822231023,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.5939150421775221,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.89,
+    "summary": "add fractions = 119/72"
+  },
+  {
+    "chunk": "Thus, 2b = 119/72",
+    "chunk_idx": 76,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "75"
+    ],
+    "accuracy": 0.9583333333333334,
+    "resampling_importance_accuracy": -0.008333333333333415,
+    "resampling_importance_kl": 0.6553483389108656,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.7817396757192445,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.71875,
+    "summary": "derive b=119/144"
+  },
+  {
+    "chunk": "So, b = (119/72)/2 = 119/144.",
+    "chunk_idx": 77,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "76"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.07052416029965045,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.302735539334541,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "calculate b=119/144"
+  },
+  {
+    "chunk": "So, b = 119/144.",
+    "chunk_idx": 78,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "77"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.039999999999999925,
+    "resampling_importance_kl": 0.234226944382651,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.273568814957824,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "derive b=119/144"
+  },
+  {
+    "chunk": "Now, we can use equation (5) to find c.",
+    "chunk_idx": 79,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "78"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.05999999999999994,
+    "resampling_importance_kl": 0.840120762426875,
+    "counterfactual_importance_accuracy": -0.10765957446808505,
+    "counterfactual_importance_kl": 1.8305686967088763,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.7904622670364234,
+    "different_trajectories_fraction": 0.47,
+    "overdeterminedness": 0.61,
+    "summary": "find c using (5)"
+  },
+  {
+    "chunk": "Equation (5): 7a + 3b + c = -3/4",
+    "chunk_idx": 80,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.0507070707070707,
+    "resampling_importance_kl": 0.2590976454613491,
+    "counterfactual_importance_accuracy": 0.043680043680043745,
+    "counterfactual_importance_kl": 0.0625267468134924,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.342164523068516,
+    "different_trajectories_fraction": 0.37,
+    "overdeterminedness": 0.73,
+    "summary": "solve 7a + 3b +"
+  },
+  {
+    "chunk": "Plug in a = -25/288 and b = 119/144.",
+    "chunk_idx": 81,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "80",
+      "64",
+      "78"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": 0.030707070707070683,
+    "resampling_importance_kl": 1.0451355216837093,
+    "counterfactual_importance_accuracy": -0.06909090909090909,
+    "counterfactual_importance_kl": 1.5911278220951015,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9803619992604682,
+    "different_trajectories_fraction": 0.5555555555555556,
+    "overdeterminedness": 0.6868686868686869,
+    "summary": "plug in a=-25/288, b=119/144"
+  },
+  {
+    "chunk": "Compute 7a: 7*(-25/288) = -175/288",
+    "chunk_idx": 82,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "81"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.6317504227469053,
+    "counterfactual_importance_accuracy": -0.021428571428571352,
+    "counterfactual_importance_kl": 1.6370051444301745,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9340538042290227,
+    "different_trajectories_fraction": 0.14,
+    "overdeterminedness": 0.6699999999999999,
+    "summary": "compute 7a=-175/288"
+  },
+  {
+    "chunk": "Compute 3b: 3*(119/144) = 357/144",
+    "chunk_idx": 83,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "81"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 0.7993945763670627,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.8606116705408744,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "compute 3b=357/144"
+  },
+  {
+    "chunk": "So: -175/288 + 357/144 + c = -3/4",
+    "chunk_idx": 84,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "82",
+      "83"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.41446531673820497,
+    "counterfactual_importance_accuracy": -0.009850746268656674,
+    "counterfactual_importance_kl": 0.6243711089600807,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.657920728958414,
+    "different_trajectories_fraction": 0.67,
+    "overdeterminedness": 0.64,
+    "summary": "solve for c"
+  },
+  {
+    "chunk": "Convert 357/144 to 714/288.",
+    "chunk_idx": 85,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "84"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.00020202020202020332,
+    "resampling_importance_kl": 0.4144663510485508,
+    "counterfactual_importance_accuracy": 0.008707767328457017,
+    "counterfactual_importance_kl": 0.256512768748942,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.075928671188406,
+    "different_trajectories_fraction": 0.87,
+    "overdeterminedness": 0.4,
+    "summary": "convert 357/144 to 714/288"
+  },
+  {
+    "chunk": "So: -175/288 + 714/288 + c = -3/4",
+    "chunk_idx": 86,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "85"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": -0.019797979797979814,
+    "resampling_importance_kl": 0.4388556083163563,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.6909598971223115,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.5151515151515151,
+    "summary": "solve for c"
+  },
+  {
+    "chunk": "Compute (-175 + 714)/288 = 539/288.",
+    "chunk_idx": 87,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "86"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.42451776459488366,
+    "counterfactual_importance_accuracy": 0.050000000000000044,
+    "counterfactual_importance_kl": 0.055741979419336674,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.8703818848584238,
+    "different_trajectories_fraction": 0.34,
+    "overdeterminedness": 0.47,
+    "summary": "compute (-175 + 714)/288"
+  },
+  {
+    "chunk": "So, 539/288 + c = -3/4",
+    "chunk_idx": 88,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "87"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.6157685363591073,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.930927937731426,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "solve for c"
+  },
+  {
+    "chunk": "Convert -3/4 to -216/288.",
+    "chunk_idx": 89,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "88"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.010404040404040416,
+    "resampling_importance_kl": 0.417692573368592,
+    "counterfactual_importance_accuracy": 0.04040404040404044,
+    "counterfactual_importance_kl": 0.036179613129917736,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.0693468806512896,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.91,
+    "summary": "convert -3/4 to -216/288"
+  },
+  {
+    "chunk": "So, 539/288 + c = -216/288",
+    "chunk_idx": 90,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "89"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.4186518350846557,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.0164709119369686,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.797979797979798,
+    "summary": "solve for c"
+  },
+  {
+    "chunk": "Subtract 539/288 from both sides:",
+    "chunk_idx": 91,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "90"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.04040404040404044,
+    "resampling_importance_kl": 0.8121361419615979,
+    "counterfactual_importance_accuracy": -0.04123711340206182,
+    "counterfactual_importance_kl": 0.8305570821959676,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.4425718998315942,
+    "different_trajectories_fraction": 0.9797979797979798,
+    "overdeterminedness": 0.8282828282828283,
+    "summary": "subtract 539/288"
+  },
+  {
+    "chunk": "c = -216/288 - 539/288 = (-216 - 539)/288 = (-755)/288.",
+    "chunk_idx": 92,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "91"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.06060606060606055,
+    "resampling_importance_kl": 0.06252035654417329,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.172862421425401,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.96,
+    "summary": "calculate c=-755/288"
+  },
+  {
+    "chunk": "So, c = -755/288.",
+    "chunk_idx": 93,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "92"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": 0.030606060606060526,
+    "resampling_importance_kl": 0.012499981764066637,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.0130348214701264,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "assign c=-755/288"
+  },
+  {
+    "chunk": "Now, we can use equation (1) to find d.",
+    "chunk_idx": 94,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "93"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.4183794551881495,
+    "counterfactual_importance_accuracy": -0.01571428571428568,
+    "counterfactual_importance_kl": 0.05245310588120926,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.898607343020314,
+    "different_trajectories_fraction": 0.28,
+    "overdeterminedness": 0.75,
+    "summary": "find d"
+  },
+  {
+    "chunk": "Equation (1): a + b + c + d = 1",
+    "chunk_idx": 95,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.42451668669006953,
+    "counterfactual_importance_accuracy": 0.01717948717948725,
+    "counterfactual_importance_kl": 0.2915887202660377,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.5679674516866726,
+    "different_trajectories_fraction": 0.78,
+    "overdeterminedness": 0.69,
+    "summary": "solve a+b+c+d=1"
+  },
+  {
+    "chunk": "So, (-25/288) + (119/144) + (-755/288) + d = 1",
+    "chunk_idx": 96,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "95",
+      "64",
+      "78",
+      "93"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.030000000000000027,
+    "resampling_importance_kl": 0.6521716852143724,
+    "counterfactual_importance_accuracy": 0.029696969696969777,
+    "counterfactual_importance_kl": 0.6716255944447451,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.9238408283847419,
+    "different_trajectories_fraction": 0.66,
+    "overdeterminedness": 0.6799999999999999,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "Convert 119/144 to 238/288.",
+    "chunk_idx": 97,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "96"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.039999999999999925,
+    "resampling_importance_kl": 0.46750527454226126,
+    "counterfactual_importance_accuracy": 0.041860465116279055,
+    "counterfactual_importance_kl": 0.3106534141906382,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.254377809469163,
+    "different_trajectories_fraction": 0.86,
+    "overdeterminedness": 0.49,
+    "summary": "convert 119/144 to 238/288"
+  },
+  {
+    "chunk": "So: -25/288 + 238/288 -755/288 + d = 1",
+    "chunk_idx": 98,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "97"
+    ],
+    "accuracy": 0.9,
+    "resampling_importance_accuracy": 0.06874999999999998,
+    "resampling_importance_kl": 1.200789003372261,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.809789490005896,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.8,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "Combine the fractions:",
+    "chunk_idx": 99,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "98"
+    ],
+    "accuracy": 0.96875,
+    "resampling_importance_accuracy": -0.01041666666666663,
+    "resampling_importance_kl": 0.003252791843011981,
+    "counterfactual_importance_accuracy": 0.01041666666666663,
+    "counterfactual_importance_kl": 0.003252791843011981,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.3782911757710306,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.29166666666666663,
+    "summary": "combine fractions"
+  },
+  {
+    "chunk": "(-25 + 238 - 755)/288 + d = 1",
+    "chunk_idx": 100,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "99"
+    ],
+    "accuracy": 0.9583333333333334,
+    "resampling_importance_accuracy": 0.021258503401360485,
+    "resampling_importance_kl": 0.8721835324373373,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9319643749101938,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.6458333333333333,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "Compute numerator: -25 + 238 = 213; 213 -755 = -542.",
+    "chunk_idx": 101,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "100"
+    ],
+    "accuracy": 0.9795918367346939,
+    "resampling_importance_accuracy": -0.05029890744176457,
+    "resampling_importance_kl": 0.4747672142500403,
+    "counterfactual_importance_accuracy": 0.07070707070707072,
+    "counterfactual_importance_kl": 0.04725282416955676,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.69391627130621,
+    "different_trajectories_fraction": 0.02040816326530612,
+    "overdeterminedness": 0.8877551020408163,
+    "summary": "compute numerator=-542"
+  },
+  {
+    "chunk": "So, (-542)/288 + d = 1",
+    "chunk_idx": 102,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "101"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": 0.019686662543805467,
+    "resampling_importance_kl": 0.8171047912138392,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.1303609117050494,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.7878787878787878,
+    "summary": "solve for d=1.875"
+  },
+  {
+    "chunk": "Therefore, d = 1 + 542/288",
+    "chunk_idx": 103,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "102"
+    ],
+    "accuracy": 0.9489795918367347,
+    "resampling_importance_accuracy": -0.030612244897959218,
+    "resampling_importance_kl": 0.24257876833034264,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.1759097825255001,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.846938775510204,
+    "summary": "calculate d=2.88"
+  },
+  {
+    "chunk": "Convert 1 to 288/288.",
+    "chunk_idx": 104,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "103"
+    ],
+    "accuracy": 0.9183673469387755,
+    "resampling_importance_accuracy": 0.05132962275819419,
+    "resampling_importance_kl": 0.8303608752398597,
+    "counterfactual_importance_accuracy": 0.030303030303030276,
+    "counterfactual_importance_kl": 0.06029221548304276,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.332563716637745,
+    "different_trajectories_fraction": 0.09183673469387756,
+    "overdeterminedness": 0.8061224489795918,
+    "summary": "convert 1=288/288"
+  },
+  {
+    "chunk": "So, d = 288/288 + 542/288 = 830/288",
+    "chunk_idx": 105,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "104"
+    ],
+    "accuracy": 0.9696969696969697,
+    "resampling_importance_accuracy": -0.05132962275819419,
+    "resampling_importance_kl": 0.4640807846703782,
+    "counterfactual_importance_accuracy": 0.08163265306122447,
+    "counterfactual_importance_kl": 0.06062460659541187,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.8018956376341817,
+    "different_trajectories_fraction": 0.10101010101010101,
+    "overdeterminedness": 0.8484848484848485,
+    "summary": "calculate d=830/288"
+  },
+  {
+    "chunk": "Simplify 830/288: divide numerator and denominator by 2: 415/144.",
+    "chunk_idx": 106,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "105"
+    ],
+    "accuracy": 0.9183673469387755,
+    "resampling_importance_accuracy": 0.07153164296021441,
+    "resampling_importance_kl": 1.2290093213996,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 7.912021107187389,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9285714285714286,
+    "summary": "simplify 830/288"
+  },
+  {
+    "chunk": "So, d = 415/144.",
+    "chunk_idx": 107,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "106"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.0505050505050505,
+    "resampling_importance_kl": 0.05183901553187247,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2945952785768267,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98989898989899,
+    "summary": "derive d=2.89"
+  },
+  {
+    "chunk": "Therefore, the coefficients are:",
+    "chunk_idx": 108,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "64",
+      "78",
+      "93",
+      "107"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": 0.010606060606060508,
+    "resampling_importance_kl": 0.046074369646889914,
+    "counterfactual_importance_accuracy": -0.010606060606060508,
+    "counterfactual_importance_kl": 0.046074369646889914,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.2320494411291465,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8585858585858586,
+    "summary": "list coefficients"
+  },
+  {
+    "chunk": "a = -25/288",
+    "chunk_idx": 109,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "64"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.6019055929530224,
+    "counterfactual_importance_accuracy": -0.020000000000000018,
+    "counterfactual_importance_kl": 0.6019055929530224,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9372215475684906,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.99,
+    "summary": "assign a=-25/288"
+  },
+  {
+    "chunk": "b = 119/144",
+    "chunk_idx": 110,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "78"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.010404040404040416,
+    "resampling_importance_kl": 0.21045991500366587,
+    "counterfactual_importance_accuracy": 0.010404040404040416,
+    "counterfactual_importance_kl": 0.21045991500366587,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.2183034865239595,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.99,
+    "summary": "set b=119/144"
+  },
+  {
+    "chunk": "c = -755/288",
+    "chunk_idx": 111,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "93"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.019995877138734297,
+    "resampling_importance_kl": 0.831106055212169,
+    "counterfactual_importance_accuracy": 0.020408163265306145,
+    "counterfactual_importance_kl": 0.031090504021024614,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.333832395637245,
+    "different_trajectories_fraction": 0.010101010101010102,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "derive c=-755/288"
+  },
+  {
+    "chunk": "d = 415/144",
+    "chunk_idx": 112,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "107"
+    ],
+    "accuracy": 0.9795918367346939,
+    "resampling_importance_accuracy": -0.020408163265306145,
+    "resampling_importance_kl": 0.44354753994217494,
+    "counterfactual_importance_accuracy": 0.04081632653061229,
+    "counterfactual_importance_kl": 0.03208829628281843,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.8319019777945216,
+    "different_trajectories_fraction": 0.061224489795918366,
+    "overdeterminedness": 0.9591836734693877,
+    "summary": "derive d=2.89"
+  },
+  {
+    "chunk": "So, the polynomial is:",
+    "chunk_idx": 113,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "108"
+    ],
+    "accuracy": 0.9591836734693877,
+    "resampling_importance_accuracy": 0.0008163265306122547,
+    "resampling_importance_kl": 0.4158594833254032,
+    "counterfactual_importance_accuracy": -0.0008163265306122547,
+    "counterfactual_importance_kl": 0.4158594833254032,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9908973347246899,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9387755102040817,
+    "summary": "state polynomial"
+  },
+  {
+    "chunk": "p(x) = (-25/288)x\u00b3 + (119/144)x\u00b2 + (-755/288)x + 415/144",
+    "chunk_idx": 114,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "113"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.00040404040404040664,
+    "resampling_importance_kl": 0.4063581268020625,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.0557999343672106,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "define p(x)"
+  },
+  {
+    "chunk": "Hmm, that seems a bit messy, but let me double-check my calculations.",
+    "chunk_idx": 115,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "114"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.009791795506081225,
+    "resampling_importance_kl": 0.023138909791409576,
+    "counterfactual_importance_accuracy": -0.009791795506081225,
+    "counterfactual_importance_kl": 0.023138909791409576,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.28305868277294177,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6464646464646464,
+    "summary": "check calculations"
+  },
+  {
+    "chunk": "Wait, maybe I made a mistake in the subtraction somewhere.",
+    "chunk_idx": 116,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "115"
+    ],
+    "accuracy": 0.9693877551020408,
+    "resampling_importance_accuracy": -0.029387755102040836,
+    "resampling_importance_kl": 0.234849839975736,
+    "counterfactual_importance_accuracy": 0.029387755102040836,
+    "counterfactual_importance_kl": 0.234849839975736,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.24589183670033365,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.7346938775510203,
+    "summary": "check subtraction error"
+  },
+  {
+    "chunk": "Let me verify.",
+    "chunk_idx": 117,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "116"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.011428571428571344,
+    "resampling_importance_kl": 0.6319844267584217,
+    "counterfactual_importance_accuracy": 0.008928571428571397,
+    "counterfactual_importance_kl": 0.6575386590271884,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.133601995422392,
+    "different_trajectories_fraction": 0.96,
+    "overdeterminedness": 0.75,
+    "summary": "check answer"
+  },
+  {
+    "chunk": "Starting from equation (5): 7a + 3b + c = -3/4",
+    "chunk_idx": 118,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.9285714285714286,
+    "resampling_importance_accuracy": 0.04112554112554112,
+    "resampling_importance_kl": 1.0319396497587807,
+    "counterfactual_importance_accuracy": -0.050342130987292344,
+    "counterfactual_importance_kl": 1.3459528897178068,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.0855999857114242,
+    "different_trajectories_fraction": 0.6326530612244898,
+    "overdeterminedness": 0.3877551020408163,
+    "summary": "solve 7a + 3b +"
+  },
+  {
+    "chunk": "a = -25/288, b=119/144, c=-755/288",
+    "chunk_idx": 119,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "64",
+      "78",
+      "93"
+    ],
+    "accuracy": 0.9696969696969697,
+    "resampling_importance_accuracy": -0.00030921459492894154,
+    "resampling_importance_kl": 0.4186534515772975,
+    "counterfactual_importance_accuracy": 0.0012004801920768582,
+    "counterfactual_importance_kl": 0.6568714183505457,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.795201357000498,
+    "different_trajectories_fraction": 0.3434343434343434,
+    "overdeterminedness": 0.4545454545454546,
+    "summary": "assign coefficients a, b, c"
+  },
+  {
+    "chunk": "Compute 7a: 7*(-25)/288 = -175/288",
+    "chunk_idx": 120,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "118",
+      "119"
+    ],
+    "accuracy": 0.9693877551020408,
+    "resampling_importance_accuracy": -0.021471088435374153,
+    "resampling_importance_kl": 0.028154169138319453,
+    "counterfactual_importance_accuracy": 0.012083333333333335,
+    "counterfactual_importance_kl": 0.050136195764407275,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.5844531421470225,
+    "different_trajectories_fraction": 0.25510204081632654,
+    "overdeterminedness": 0.19387755102040816,
+    "summary": "compute 7a=-175/288"
+  },
+  {
+    "chunk": "3b: 3*(119)/144 = 357/144",
+    "chunk_idx": 121,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "119"
+    ],
+    "accuracy": 0.9479166666666666,
+    "resampling_importance_accuracy": 0.011679292929292928,
+    "resampling_importance_kl": 0.41450918462403796,
+    "counterfactual_importance_accuracy": -0.031024531024530955,
+    "counterfactual_importance_kl": 0.07750674252866036,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.073877956932023,
+    "different_trajectories_fraction": 0.14583333333333334,
+    "overdeterminedness": 0.48958333333333337,
+    "summary": "calculate 3b=357/144"
+  },
+  {
+    "chunk": "So, -175/288 + 357/144 + c = -3/4",
+    "chunk_idx": 122,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "120",
+      "121"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": -0.00041228612657184804,
+    "resampling_importance_kl": 0.02800812415659515,
+    "counterfactual_importance_accuracy": -0.0017368649587493623,
+    "counterfactual_importance_kl": 0.07632828510536317,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.901835212964421,
+    "different_trajectories_fraction": 0.47474747474747475,
+    "overdeterminedness": 0.48484848484848486,
+    "summary": "solve for c"
+  },
+  {
+    "chunk": "Convert 357/144 to 714/288.",
+    "chunk_idx": 123,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "122"
+    ],
+    "accuracy": 0.9591836734693877,
+    "resampling_importance_accuracy": -0.009688723974438207,
+    "resampling_importance_kl": 0.6333277310663602,
+    "counterfactual_importance_accuracy": 0.0505050505050505,
+    "counterfactual_importance_kl": 0.04800919719223479,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2188951666160048,
+    "different_trajectories_fraction": 0.05102040816326531,
+    "overdeterminedness": 0.7244897959183674,
+    "summary": "convert 357/144 to 714/288"
+  },
+  {
+    "chunk": "So, -175 + 714 = 539, so 539/288 + c = -216/288",
+    "chunk_idx": 124,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "123"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": 0.02050505050505047,
+    "resampling_importance_kl": 0.41115947295302063,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.8376351208696299,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.8686868686868687,
+    "summary": "calculate c=-755/288"
+  },
+  {
+    "chunk": "So, c = (-216 -539)/288 = -755/288.",
+    "chunk_idx": 125,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "124"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.009797979797979806,
+    "resampling_importance_kl": 0.2110452661256533,
+    "counterfactual_importance_accuracy": -0.012056044314108783,
+    "counterfactual_importance_kl": 0.023743916707161514,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.264998851007238,
+    "different_trajectories_fraction": 0.31,
+    "overdeterminedness": 0.5800000000000001,
+    "summary": "calculate c=-755/288"
+  },
+  {
+    "chunk": "That seems correct.",
+    "chunk_idx": 126,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "125"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.00020202020202020332,
+    "resampling_importance_kl": 0.41865287279877844,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.6166117625992675,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "confirm correctness"
+  },
+  {
+    "chunk": "Then, equation (1): a + b + c + d = 1",
+    "chunk_idx": 127,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.2103525567273638,
+    "counterfactual_importance_accuracy": 0.030000000000000027,
+    "counterfactual_importance_kl": 0.030397475338660905,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.7767906240487228,
+    "different_trajectories_fraction": 0.33,
+    "overdeterminedness": 0.5900000000000001,
+    "summary": "write equation a+b+c+d=1"
+  },
+  {
+    "chunk": "So, (-25 + 238 -755)/288 + d = 1",
+    "chunk_idx": 128,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "127",
+      "64",
+      "78",
+      "93"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.009797979797979806,
+    "resampling_importance_kl": 0.6255105828617483,
+    "counterfactual_importance_accuracy": -0.011047979797979779,
+    "counterfactual_importance_kl": 0.044362505086019896,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.5869426619062129,
+    "different_trajectories_fraction": 0.32,
+    "overdeterminedness": 0.43000000000000005,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "Wait, 119/144 is 238/288.",
+    "chunk_idx": 129,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "128"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": -0.009797979797979806,
+    "resampling_importance_kl": 0.2193762531881127,
+    "counterfactual_importance_accuracy": 0.030000000000000027,
+    "counterfactual_importance_kl": 0.034605527597372475,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.7513727051953162,
+    "different_trajectories_fraction": 0.5252525252525253,
+    "overdeterminedness": 0.41414141414141414,
+    "summary": "confirm fraction equivalence"
+  },
+  {
+    "chunk": "So, -25 + 238 = 213; 213 -755 = -542.",
+    "chunk_idx": 130,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "129"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.02050505050505047,
+    "resampling_importance_kl": 0.2276560324419377,
+    "counterfactual_importance_accuracy": -0.0021265284423179764,
+    "counterfactual_importance_kl": 0.6060982934221458,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9885072736232219,
+    "different_trajectories_fraction": 0.38,
+    "overdeterminedness": 0.55,
+    "summary": "calculate result=-542"
+  },
+  {
+    "chunk": "So, -542/288 + d = 1, so d = 1 + 542/288",
+    "chunk_idx": 131,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "130"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.8202545245338033,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.4632681243248629,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.898989898989899,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "Convert 1 to 288/288, so 288 + 542 = 830, so 830/288, which reduces to 415/144.",
+    "chunk_idx": 132,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "131"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.00947620535249405,
+    "resampling_importance_kl": 0.42240048615236525,
+    "counterfactual_importance_accuracy": -0.059981255857544546,
+    "counterfactual_importance_kl": 0.1908749120065433,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.549982234705072,
+    "different_trajectories_fraction": 0.2222222222222222,
+    "overdeterminedness": 0.6060606060606061,
+    "summary": "reduce 830/288 to 415/144"
+  },
+  {
+    "chunk": "That seems correct.",
+    "chunk_idx": 133,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "132"
+    ],
+    "accuracy": 0.9690721649484536,
+    "resampling_importance_accuracy": -0.010309278350515427,
+    "resampling_importance_kl": 0.2168605755987965,
+    "counterfactual_importance_accuracy": 0.04123711340206182,
+    "counterfactual_importance_kl": 0.03857226628025015,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.6520117605099256,
+    "different_trajectories_fraction": 0.09278350515463918,
+    "overdeterminedness": 0.845360824742268,
+    "summary": "confirm correctness"
+  },
+  {
+    "chunk": "Okay, so the coefficients are correct.",
+    "chunk_idx": 134,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "126",
+      "133"
+    ],
+    "accuracy": 0.9587628865979382,
+    "resampling_importance_accuracy": -0.04967197750702912,
+    "resampling_importance_kl": 0.2511967579797172,
+    "counterfactual_importance_accuracy": 0.058122205663189264,
+    "counterfactual_importance_kl": 0.035272883233452804,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6288659793814433,
+    "overdeterminedness": 0.7835051546391752,
+    "summary": "confirm coefficients correct"
+  },
+  {
+    "chunk": "So, now, to find p(5).",
+    "chunk_idx": 135,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "134"
+    ],
+    "accuracy": 0.9090909090909091,
+    "resampling_importance_accuracy": 0.09090909090909094,
+    "resampling_importance_kl": 1.8813054807788134,
+    "counterfactual_importance_accuracy": -0.09210526315789469,
+    "counterfactual_importance_kl": 0.8505028010594485,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.054649162421738,
+    "different_trajectories_fraction": 0.7676767676767676,
+    "overdeterminedness": 0.595959595959596,
+    "summary": "find p(5)"
+  },
+  {
+    "chunk": "Let's compute p(5):",
+    "chunk_idx": 136,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "135"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.050000000000000044,
+    "resampling_importance_kl": 0.05129329374639663,
+    "counterfactual_importance_accuracy": 0.050000000000000044,
+    "counterfactual_importance_kl": 0.04184710911541186,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.802147551997675,
+    "different_trajectories_fraction": 0.7777777777777778,
+    "overdeterminedness": 0.6565656565656566,
+    "summary": "compute p(5)"
+  },
+  {
+    "chunk": "p(5) = (-25/288)*(125) + (119/144)*(25) + (-755/288)*(5) + 415/144",
+    "chunk_idx": 137,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "136",
+      "64",
+      "78",
+      "93",
+      "107"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.009595959595959602,
+    "resampling_importance_kl": 0.22320921935830326,
+    "counterfactual_importance_accuracy": -0.03854332801701221,
+    "counterfactual_importance_kl": 0.5714184533601129,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 10.666190455353753,
+    "different_trajectories_fraction": 0.38,
+    "overdeterminedness": 0.95,
+    "summary": "calculate p(5) = 2.5"
+  },
+  {
+    "chunk": "Compute each term step by step.",
+    "chunk_idx": 138,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "137"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.020404040404040424,
+    "resampling_importance_kl": 0.41287074275967917,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.03191759356057536,
+    "forced_importance_accuracy": 0.034482758620689655,
+    "forced_importance_kl": 8.412088321145198,
+    "different_trajectories_fraction": 0.08080808080808081,
+    "overdeterminedness": 0.9595959595959596,
+    "summary": "compute terms stepwise"
+  },
+  {
+    "chunk": "First term: (-25/288)*125",
+    "chunk_idx": 139,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "138"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.0507070707070707,
+    "resampling_importance_kl": 0.25216617386693396,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.022660098522167486,
+    "forced_importance_kl": 10.101982590502795,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.88,
+    "summary": "calculate first term=-10.4167"
+  },
+  {
+    "chunk": "Compute 25*125 = 3125",
+    "chunk_idx": 140,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "139"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": 0.05029890744176457,
+    "resampling_importance_kl": 1.0302181495998592,
+    "counterfactual_importance_accuracy": -0.037562851227447513,
+    "counterfactual_importance_kl": 0.9499558101773872,
+    "forced_importance_accuracy": 0.014285714285714284,
+    "forced_importance_kl": 9.182047865506348,
+    "different_trajectories_fraction": 0.696969696969697,
+    "overdeterminedness": 0.7878787878787878,
+    "summary": "compute 25*125=3125"
+  },
+  {
+    "chunk": "So, -3125/288.",
+    "chunk_idx": 141,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "140"
+    ],
+    "accuracy": 0.9795918367346939,
+    "resampling_importance_accuracy": 0.010408163265306136,
+    "resampling_importance_kl": 0.004204902509317494,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.09523809523809523,
+    "forced_importance_kl": 7.293264712354207,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9693877551020408,
+    "summary": "calculate -10.9"
+  },
+  {
+    "chunk": "Second term: (119/144)*25",
+    "chunk_idx": 142,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "138"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.040000000000000036,
+    "resampling_importance_kl": 0.04083052852161524,
+    "counterfactual_importance_accuracy": 0.050000000000000044,
+    "counterfactual_importance_kl": 0.03174869113970712,
+    "forced_importance_accuracy": -0.06989247311827956,
+    "forced_importance_kl": 5.973641055117069,
+    "different_trajectories_fraction": 0.08,
+    "overdeterminedness": 0.85,
+    "summary": "calculate second term=20.625"
+  },
+  {
+    "chunk": "Compute 119*25: 100*25=2500, 19*25=475; total=2500+475=2975.",
+    "chunk_idx": 143,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "142"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.0005050505050504528,
+    "resampling_importance_kl": 0.20030385478166374,
+    "counterfactual_importance_accuracy": 0.009964509964509927,
+    "counterfactual_importance_kl": 0.285766802162408,
+    "forced_importance_accuracy": -0.0967741935483871,
+    "forced_importance_kl": 6.941071542261786,
+    "different_trajectories_fraction": 0.74,
+    "overdeterminedness": 0.83,
+    "summary": "calculate total=2975"
+  },
+  {
+    "chunk": "So, 2975/144.",
+    "chunk_idx": 144,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "143"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": 0.04050505050505049,
+    "resampling_importance_kl": 0.4267887857724857,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.517560967085919,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98989898989899,
+    "summary": "divide 2975 by 144"
+  },
+  {
+    "chunk": "Third term: (-755/288)*5",
+    "chunk_idx": 145,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "138"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.030404040404040433,
+    "resampling_importance_kl": 0.03078019287605787,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 6.8586401698427695,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.96,
+    "summary": "calculate third term=-1255/288"
+  },
+  {
+    "chunk": "Compute 755*5=3775",
+    "chunk_idx": 146,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "145"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.010101010101010166,
+    "resampling_importance_kl": 0.6512208168441381,
+    "counterfactual_importance_accuracy": -0.004580690627202233,
+    "counterfactual_importance_kl": 0.771273818400677,
+    "forced_importance_accuracy": 0.07142857142857142,
+    "forced_importance_kl": 5.001013512624469,
+    "different_trajectories_fraction": 0.8686868686868687,
+    "overdeterminedness": 0.9595959595959596,
+    "summary": "compute 755*5=3775"
+  },
+  {
+    "chunk": "So, -3775/288.",
+    "chunk_idx": 147,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "146"
+    ],
+    "accuracy": 0.9696969696969697,
+    "resampling_importance_accuracy": -0.00030921459492894154,
+    "resampling_importance_kl": 0.4186534513707447,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.07142857142857142,
+    "forced_importance_kl": 5.666089854702117,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "calculate -13.125"
+  },
+  {
+    "chunk": "Fourth term: 415/144.",
+    "chunk_idx": 148,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "138"
+    ],
+    "accuracy": 0.9693877551020408,
+    "resampling_importance_accuracy": 0.00030921459492894154,
+    "resampling_importance_kl": 0.2043905876855089,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.125,
+    "forced_importance_kl": 2.801897752204899,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "identify fourth term"
+  },
+  {
+    "chunk": "Now, let's convert all terms to have a denominator of 288 to add them up.",
+    "chunk_idx": 149,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "148"
+    ],
+    "accuracy": 0.9696969696969697,
+    "resampling_importance_accuracy": 0.00030303030303024947,
+    "resampling_importance_kl": 0.22333046334347378,
+    "counterfactual_importance_accuracy": -0.010816326530612264,
+    "counterfactual_importance_kl": 0.4403975408044259,
+    "forced_importance_accuracy": -0.125,
+    "forced_importance_kl": 8.256737741507315,
+    "different_trajectories_fraction": 0.494949494949495,
+    "overdeterminedness": 0.36363636363636365,
+    "summary": "convert denominator=288"
+  },
+  {
+    "chunk": "First term: -3125/288.",
+    "chunk_idx": 150,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "149",
+      "141"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.009797979797979806,
+    "resampling_importance_kl": 0.6116476396618449,
+    "counterfactual_importance_accuracy": 0.02020202020202022,
+    "counterfactual_importance_kl": 0.0263867445588297,
+    "forced_importance_accuracy": 0.3333333333333333,
+    "forced_importance_kl": 4.769721041453619,
+    "different_trajectories_fraction": 0.07,
+    "overdeterminedness": 0.88,
+    "summary": "identify first term"
+  },
+  {
+    "chunk": "Second term: 2975/144 = (2975*2)/288 = 5950/288.",
+    "chunk_idx": 151,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "149",
+      "144"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": -0.030303030303030276,
+    "resampling_importance_kl": 0.46343633381191734,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.26190476190476186,
+    "forced_importance_kl": 8.591869704513636,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9595959595959596,
+    "summary": "calculate second term"
+  },
+  {
+    "chunk": "Third term: -3775/288.",
+    "chunk_idx": 152,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "149",
+      "147"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": 0.030303030303030276,
+    "resampling_importance_kl": 0.2355082912518397,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.07142857142857142,
+    "forced_importance_kl": 7.912570737426534,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98989898989899,
+    "summary": "identify third term=-3775/288"
+  },
+  {
+    "chunk": "Fourth term: 415/144 = (415*2)/288 = 830/288.",
+    "chunk_idx": 153,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "149",
+      "148"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.00020202020202020332,
+    "resampling_importance_kl": 0.2023254687938283,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.10714285714285714,
+    "forced_importance_kl": 12.145945369116518,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "calculate fourth term=830/288"
+  },
+  {
+    "chunk": "So, now, p(5) = (-3125 + 5950 - 3775 + 830)/288.",
+    "chunk_idx": 154,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "150",
+      "151",
+      "152",
+      "153"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.009898989898989963,
+    "resampling_importance_kl": 0.003812607754553641,
+    "counterfactual_importance_accuracy": -0.010951621477937268,
+    "counterfactual_importance_kl": 0.005127179316646248,
+    "forced_importance_accuracy": -0.03571428571428571,
+    "forced_importance_kl": 10.956700839987903,
+    "different_trajectories_fraction": 0.95,
+    "overdeterminedness": 0.18999999999999995,
+    "summary": "calculate p(5)=-250"
+  },
+  {
+    "chunk": "Compute numerator:",
+    "chunk_idx": 155,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "154"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.04989898989899,
+    "resampling_importance_kl": 0.04430060861529434,
+    "counterfactual_importance_accuracy": 0.06000000000000005,
+    "counterfactual_importance_kl": 0.05365271219859602,
+    "forced_importance_accuracy": 0.07142857142857142,
+    "forced_importance_kl": 6.423278569496844,
+    "different_trajectories_fraction": 0.6565656565656566,
+    "overdeterminedness": 0.7070707070707071,
+    "summary": "compute numerator"
+  },
+  {
+    "chunk": "-3125 + 5950 = 2825",
+    "chunk_idx": 156,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "155"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.06000000000000005,
+    "resampling_importance_kl": 1.212958958766307,
+    "counterfactual_importance_accuracy": -0.06818181818181823,
+    "counterfactual_importance_kl": 0.5095701414071642,
+    "forced_importance_accuracy": -0.07142857142857142,
+    "forced_importance_kl": 6.934041257663344,
+    "different_trajectories_fraction": 0.44,
+    "overdeterminedness": 0.85,
+    "summary": "calculate sum=2825"
+  },
+  {
+    "chunk": "2825 - 3775 = -950",
+    "chunk_idx": 157,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "156"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.05154639175257736,
+    "resampling_importance_kl": 0.05292240061582203,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.15384615384615385,
+    "forced_importance_kl": 10.537655807700178,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.95,
+    "summary": "calculate result=-950"
+  },
+  {
+    "chunk": "-950 + 830 = -120.",
+    "chunk_idx": 158,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "157"
+    ],
+    "accuracy": 0.9484536082474226,
+    "resampling_importance_accuracy": 0.001546391752577314,
+    "resampling_importance_kl": 0.4416004556673364,
+    "counterfactual_importance_accuracy": -0.95,
+    "counterfactual_importance_kl": 26.00138019206916,
+    "forced_importance_accuracy": 0.700086430423509,
+    "forced_importance_kl": 22.207214629910865,
+    "different_trajectories_fraction": 0.010309278350515464,
+    "overdeterminedness": 0.9690721649484536,
+    "summary": "calculate sum=-120"
+  },
+  {
+    "chunk": "So, numerator is -120.",
+    "chunk_idx": 159,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "158"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.05204081632653057,
+    "resampling_importance_kl": 0.6581139616816015,
+    "counterfactual_importance_accuracy": 0.10204081632653061,
+    "counterfactual_importance_kl": 0.08178940891613319,
+    "forced_importance_accuracy": 0.12432828529555451,
+    "forced_importance_kl": 3.0753845466632375,
+    "different_trajectories_fraction": 0.07,
+    "overdeterminedness": 0.92,
+    "summary": "numerator is -120"
+  },
+  {
+    "chunk": "Thus, p(5) = -120/288 = -5/12.",
+    "chunk_idx": 160,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "159"
+    ],
+    "accuracy": 0.8979591836734694,
+    "resampling_importance_accuracy": 0.03204081632653066,
+    "resampling_importance_kl": 0.8424891946578696,
+    "counterfactual_importance_accuracy": 0.06999999999999995,
+    "counterfactual_importance_kl": 0.09024672634761614,
+    "forced_importance_accuracy": 0.021739130434782594,
+    "forced_importance_kl": 20.34000061660394,
+    "different_trajectories_fraction": 0.01020408163265306,
+    "overdeterminedness": 0.8163265306122449,
+    "summary": "calculate p(5)=-5/12"
+  },
+  {
+    "chunk": "Wait, that's negative?",
+    "chunk_idx": 161,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "160"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": -0.040000000000000036,
+    "resampling_importance_kl": 0.6487207362371422,
+    "counterfactual_importance_accuracy": 0.06312499999999999,
+    "counterfactual_importance_kl": 0.4031007680339975,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.64,
+    "overdeterminedness": 0.47,
+    "summary": "question negativity"
+  },
+  {
+    "chunk": "But p(x) is a cubic polynomial, and at x=5, it's negative?",
+    "chunk_idx": 162,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "161"
+    ],
+    "accuracy": 0.89,
+    "resampling_importance_accuracy": 0.0481443298969072,
+    "resampling_importance_kl": 1.6683077239565065,
+    "counterfactual_importance_accuracy": -0.04567121161733734,
+    "counterfactual_importance_kl": 0.9050699823877383,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.93,
+    "overdeterminedness": 0.26,
+    "summary": "evaluate p(5)<0"
+  },
+  {
+    "chunk": "But p(n) is positive for n=1,2,3,4.",
+    "chunk_idx": 163,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "162"
+    ],
+    "accuracy": 0.9381443298969072,
+    "resampling_importance_accuracy": 0.05185567010309278,
+    "resampling_importance_kl": 1.0767872013045166,
+    "counterfactual_importance_accuracy": -0.04882352941176471,
+    "counterfactual_importance_kl": 1.0165763477600231,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8762886597938144,
+    "overdeterminedness": 0.3298969072164949,
+    "summary": "p(n)>0 for n=1,2,3,4"
+  },
+  {
+    "chunk": "So, maybe it's correct because it's a cubic, which can go negative beyond a certain point.",
+    "chunk_idx": 164,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "163"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.040000000000000036,
+    "resampling_importance_kl": 0.24806318689030965,
+    "counterfactual_importance_accuracy": 0.03571428571428581,
+    "counterfactual_importance_kl": 0.3293673046597641,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7,
+    "overdeterminedness": 0.20999999999999996,
+    "summary": "consider cubic behavior"
+  },
+  {
+    "chunk": "But let me check my calculations again because getting a negative number seems a bit unexpected, but it might be correct.",
+    "chunk_idx": 165,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "164"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.040000000000000036,
+    "resampling_importance_kl": 0.4082428752007384,
+    "counterfactual_importance_accuracy": -0.04128205128205131,
+    "counterfactual_importance_kl": 0.5200424699249839,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.78,
+    "overdeterminedness": 0.15000000000000002,
+    "summary": "check calculations"
+  },
+  {
+    "chunk": "Compute p(5):",
+    "chunk_idx": 166,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "165"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.050000000000000044,
+    "resampling_importance_kl": 0.05130681696106028,
+    "counterfactual_importance_accuracy": 0.050000000000000044,
+    "counterfactual_importance_kl": 0.05130681696106028,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6599999999999999,
+    "summary": "compute p(5)"
+  },
+  {
+    "chunk": "First term: (-25/288)*125 = (-25*125)/288 = -3125/288 \u2248 -10.865",
+    "chunk_idx": 167,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "166"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.040000000000000036,
+    "resampling_importance_kl": 0.24853221935077977,
+    "counterfactual_importance_accuracy": -0.0022222222222222365,
+    "counterfactual_importance_kl": 0.5112130640770821,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.45,
+    "overdeterminedness": 0.27,
+    "summary": "calculate first term=-10.865"
+  },
+  {
+    "chunk": "Second term: (119/144)*25 = (119*25)/144 \u2248 2975/144 \u2248 20.652",
+    "chunk_idx": 168,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "167"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20723265837117485,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.02173998249755282,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.14,
+    "overdeterminedness": 0.5800000000000001,
+    "summary": "calculate second term \u2248 20.652"
+  },
+  {
+    "chunk": "Third term: (-755/288)*5 = (-755*5)/288 \u2248 -3775/288 \u2248 -13.083",
+    "chunk_idx": 169,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "168"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.4045159929152422,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.17000000000000004,
+    "summary": "calculate third term \u2248 -13.083"
+  },
+  {
+    "chunk": "Fourth term: 415/144 \u2248 2.881",
+    "chunk_idx": 170,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "169"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.21728350591291737,
+    "counterfactual_importance_accuracy": 0.005714285714285783,
+    "counterfactual_importance_kl": 0.3059895858809307,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7,
+    "overdeterminedness": 0.32999999999999996,
+    "summary": "calculate fourth term=2.881"
+  },
+  {
+    "chunk": "So, adding them up:",
+    "chunk_idx": 171,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "170"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.19728333454604008,
+    "counterfactual_importance_accuracy": -0.010000000000000009,
+    "counterfactual_importance_kl": 0.19728333454604008,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.32999999999999996,
+    "summary": "add values"
+  },
+  {
+    "chunk": "-10.865 + 20.652 = 9.787",
+    "chunk_idx": 172,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "171"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.21728350591291737,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.016807115401526403,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.12921173123296514,
+    "different_trajectories_fraction": 0.2,
+    "overdeterminedness": 0.54,
+    "summary": "calculate sum=9.787"
+  },
+  {
+    "chunk": "9.787 -13.083 \u2248 -3.296",
+    "chunk_idx": 173,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "172"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.19728333454604008,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.015831460998041152,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.6995621133419543,
+    "different_trajectories_fraction": 0.09,
+    "overdeterminedness": 0.52,
+    "summary": "calculate -3.296"
+  },
+  {
+    "chunk": "-3.296 + 2.881 \u2248 -0.415",
+    "chunk_idx": 174,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "173"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050847541843233,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.016713478897066127,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.19,
+    "overdeterminedness": 0.6699999999999999,
+    "summary": "calculate sum \u2248 -0.415"
+  },
+  {
+    "chunk": "Which is approximately -5/12, since 5/12 \u2248 0.4167.",
+    "chunk_idx": 175,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "174"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.009898989898989963,
+    "resampling_importance_kl": 0.40441498109648494,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.017493155174883514,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.26,
+    "overdeterminedness": 0.61,
+    "summary": "approximate -5/12"
+  },
+  {
+    "chunk": "So, that seems consistent.",
+    "chunk_idx": 176,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "175"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.010101010101010166,
+    "resampling_importance_kl": 0.2194788164922192,
+    "counterfactual_importance_accuracy": 0.008297258297258359,
+    "counterfactual_importance_kl": 0.2559962917648974,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8484848484848485,
+    "overdeterminedness": 0.6868686868686869,
+    "summary": "confirm consistency"
+  },
+  {
+    "chunk": "So, p(5) is -5/12.",
+    "chunk_idx": 177,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "176"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.010202020202020212,
+    "resampling_importance_kl": 0.19937968241758616,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.015504177446822373,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.04040404040404041,
+    "overdeterminedness": 0.9595959595959596,
+    "summary": "determine p(5)=-5/12"
+  },
+  {
+    "chunk": "But let me make sure I didn't make any calculation errors.",
+    "chunk_idx": 178,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "177"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.013273310899731147,
+    "counterfactual_importance_accuracy": 0.009898989898989963,
+    "counterfactual_importance_kl": 0.012999179822682184,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.99,
+    "overdeterminedness": 0.39,
+    "summary": "check calculation errors"
+  },
+  {
+    "chunk": "Wait, let me compute the numerator again:",
+    "chunk_idx": 179,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "178"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.6060154878826357,
+    "counterfactual_importance_accuracy": -0.020618556701030966,
+    "counterfactual_importance_kl": 0.6266291082212505,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.97,
+    "overdeterminedness": 0.49,
+    "summary": "compute numerator"
+  },
+  {
+    "chunk": "-3125 + 5950 - 3775 + 830",
+    "chunk_idx": 180,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "179"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.04081632653061229,
+    "resampling_importance_kl": 0.041672695973853154,
+    "counterfactual_importance_accuracy": 0.04081632653061229,
+    "counterfactual_importance_kl": 0.021858790801802166,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.13,
+    "overdeterminedness": 0.72,
+    "summary": "calculate result=580"
+  },
+  {
+    "chunk": "Compute step by step:",
+    "chunk_idx": 181,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "180"
+    ],
+    "accuracy": 0.9591836734693877,
+    "resampling_importance_accuracy": 0.010816326530612264,
+    "resampling_importance_kl": 0.86954737839824,
+    "counterfactual_importance_accuracy": 0.004025974025974044,
+    "counterfactual_importance_kl": 0.045214194916161694,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7857142857142857,
+    "overdeterminedness": 0.7857142857142857,
+    "summary": "compute step by step"
+  },
+  {
+    "chunk": "Start with -3125 + 5950: that's 2825.",
+    "chunk_idx": 182,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "181"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.009797979797979806,
+    "resampling_importance_kl": 0.4182779244968281,
+    "counterfactual_importance_accuracy": -0.01683501683501687,
+    "counterfactual_importance_kl": 0.05489636950277008,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.27,
+    "overdeterminedness": 0.81,
+    "summary": "calculate sum=2825"
+  },
+  {
+    "chunk": "2825 - 3775: subtract 3775 from 2825.",
+    "chunk_idx": 183,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "182"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.010202020202020212,
+    "resampling_importance_kl": 0.19937968241758616,
+    "counterfactual_importance_accuracy": -0.010202020202020212,
+    "counterfactual_importance_kl": 0.19937968241758616,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9696969696969697,
+    "summary": "subtract 3775 from 2825"
+  },
+  {
+    "chunk": "2825 - 3000 = -175, then add back 225 (since 3775 - 3000 = 775, so 2825 - 3775 = -950).",
+    "chunk_idx": 184,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "183"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.00020408163265306367,
+    "resampling_importance_kl": 0.20723473397062686,
+    "counterfactual_importance_accuracy": 0.010204081632653073,
+    "counterfactual_importance_kl": 0.0105264077324235,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.07,
+    "overdeterminedness": 0.4,
+    "summary": "calculate result=-950"
+  },
+  {
+    "chunk": "So, -950. Then, -950 + 830 = -120.",
+    "chunk_idx": 185,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "184"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": -0.030612244897959218,
+    "resampling_importance_kl": 0.019885293109737558,
+    "counterfactual_importance_accuracy": 0.04081632653061229,
+    "counterfactual_importance_kl": 0.02882043651964138,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.20408163265306123,
+    "overdeterminedness": 0.8367346938775511,
+    "summary": "calculate sum=-120"
+  },
+  {
+    "chunk": "Yes, that's correct.",
+    "chunk_idx": 186,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "185"
+    ],
+    "accuracy": 0.9591836734693877,
+    "resampling_importance_accuracy": 0.02061430632859207,
+    "resampling_importance_kl": 0.013649457373447072,
+    "counterfactual_importance_accuracy": -0.03535353535353536,
+    "counterfactual_importance_kl": 0.020144726593521848,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.5510204081632653,
+    "overdeterminedness": 0.826530612244898,
+    "summary": "confirm correctness"
+  },
+  {
+    "chunk": "So, p(5) = -120/288 = -5/12.",
+    "chunk_idx": 187,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "186"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20932591754655666,
+    "counterfactual_importance_accuracy": -0.004188223700418825,
+    "counterfactual_importance_kl": 0.2540602211523579,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8282828282828283,
+    "overdeterminedness": 0.8484848484848485,
+    "summary": "calculate p(5)=-5/12"
+  },
+  {
+    "chunk": "So, the answer is -5/12.",
+    "chunk_idx": 188,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "187"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.4186518350888845,
+    "counterfactual_importance_accuracy": 0.02020202020202022,
+    "counterfactual_importance_kl": 0.021164800676835214,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0707070707070707,
+    "overdeterminedness": 0.8888888888888888,
+    "summary": "state answer=-5/12"
+  },
+  {
+    "chunk": "But wait, the problem says \"Find p(5).\" So, is negative acceptable?",
+    "chunk_idx": 189,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "188"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20232443108393547,
+    "counterfactual_importance_accuracy": 0.00909090909090915,
+    "counterfactual_importance_kl": 0.24909301877479248,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9090909090909091,
+    "overdeterminedness": 0.13131313131313127,
+    "summary": "find p(5)"
+  },
+  {
+    "chunk": "Since it's a cubic polynomial, it can definitely take negative values.",
+    "chunk_idx": 190,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "189"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.010101010101010166,
+    "resampling_importance_kl": 0.00395367519785581,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.01719239960233678,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.2222222222222222,
+    "overdeterminedness": 0.2727272727272727,
+    "summary": "negative values possible"
+  },
+  {
+    "chunk": "Alternatively, maybe I made a mistake in the initial system of equations.",
+    "chunk_idx": 191,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "190"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.009898989898989963,
+    "resampling_importance_kl": 0.010050335643872452,
+    "counterfactual_importance_accuracy": 0.009583333333333388,
+    "counterfactual_importance_kl": 0.009775125734555218,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9696969696969697,
+    "overdeterminedness": 0.505050505050505,
+    "summary": "identify mistake"
+  },
+  {
+    "chunk": "Wait, let me double-check the equations.",
+    "chunk_idx": 192,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "191"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.3946666639903824,
+    "counterfactual_importance_accuracy": -0.023809523809523836,
+    "counterfactual_importance_kl": 0.47757237227424704,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.84,
+    "overdeterminedness": 0.81,
+    "summary": "check equations"
+  },
+  {
+    "chunk": "Given p(n) = 1/n\u00b2 for n=1,2,3,4.",
+    "chunk_idx": 193,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "1"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010204081632653073,
+    "resampling_importance_kl": 0.010256499959750712,
+    "counterfactual_importance_accuracy": 0.010204081632653073,
+    "counterfactual_importance_kl": 0.01005033564183809,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.98,
+    "overdeterminedness": 0.75,
+    "summary": "define p(n)=1/n\u00b2"
+  },
+  {
+    "chunk": "So, p(1)=1, p(2)=1/4, p(3)=1/9, p(4)=1/16.",
+    "chunk_idx": 194,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "193"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.00020408163265306367,
+    "resampling_importance_kl": 0.2114639857775739,
+    "counterfactual_importance_accuracy": -0.022258064516128995,
+    "counterfactual_importance_kl": 0.6968954349232697,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.3163265306122449,
+    "overdeterminedness": 0.7551020408163265,
+    "summary": "define p(1-4)"
+  },
+  {
+    "chunk": "So, equations:",
+    "chunk_idx": 195,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "194"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": -0.000989010989010941,
+    "counterfactual_importance_kl": 0.00017035250964304535,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.91,
+    "overdeterminedness": 0.5800000000000001,
+    "summary": "list equations"
+  },
+  {
+    "chunk": "a + b + c + d = 1",
+    "chunk_idx": 196,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": -0.013333333333333308,
+    "counterfactual_importance_kl": 0.2698771730323055,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.75,
+    "overdeterminedness": 0.75,
+    "summary": "solve a + b +"
+  },
+  {
+    "chunk": "8a +4b +2c + d = 1/4",
+    "chunk_idx": 197,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "12"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.28,
+    "overdeterminedness": 0.42000000000000004,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "27a +9b +3c + d = 1/9",
+    "chunk_idx": 198,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "14"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.01005033564183809,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9081632653061225,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "64a +16b +4c + d = 1/16",
+    "chunk_idx": 199,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.013273310899731147,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "solve for d"
+  },
+  {
+    "chunk": "Yes, that's correct.",
+    "chunk_idx": 200,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "196",
+      "197",
+      "198",
+      "199"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 0.6060154878826357,
+    "counterfactual_importance_accuracy": -0.03448275862068961,
+    "counterfactual_importance_kl": 0.7056650591961222,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.87,
+    "overdeterminedness": 0.43999999999999995,
+    "summary": "confirm correctness"
+  },
+  {
+    "chunk": "Then, we subtracted equation (1) from (2) to get 7a +3b +c = -3/4.",
+    "chunk_idx": 201,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.006079045505870278,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.35,
+    "overdeterminedness": 0.30000000000000004,
+    "summary": "subtract equations to get 7a"
+  },
+  {
+    "chunk": "Correct. Similarly, (3)-(2)=19a +5b +c = -5/36.",
+    "chunk_idx": 202,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "31"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.005730673923343129,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.25,
+    "overdeterminedness": 0.5,
+    "summary": "calculate 19a + 5b +"
+  },
+  {
+    "chunk": "(4)-(3)=37a +7b +c = -7/144.",
+    "chunk_idx": 203,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "37"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "simplify equation to -7/144"
+  },
+  {
+    "chunk": "Then, subtracted (5) from (6) to get 12a +2b = 11/18.",
+    "chunk_idx": 204,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "47"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.63,
+    "summary": "subtract 5 from 6"
+  },
+  {
+    "chunk": "(7)-(6)=18a +2b=13/144.",
+    "chunk_idx": 205,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "53"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.03,
+    "overdeterminedness": 0.76,
+    "summary": "simplify equation to 18a +"
+  },
+  {
+    "chunk": "Subtracting those two gave 6a= -25/48, so a= -25/(48*6)= -25/288.",
+    "chunk_idx": 206,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "62"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.48,
+    "summary": "solve a=-25/288"
+  },
+  {
+    "chunk": "Then, 12a +2b=11/18.",
+    "chunk_idx": 207,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "47"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010204081632653073,
+    "resampling_importance_kl": 0.010256499959750712,
+    "counterfactual_importance_accuracy": 0.010204081632653073,
+    "counterfactual_importance_kl": 0.007905179217042233,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.71,
+    "overdeterminedness": 0.37,
+    "summary": "derive 12a + 2b ="
+  },
+  {
+    "chunk": "12*(-25/288)= -300/288= -25/24.",
+    "chunk_idx": 208,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "207"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.010204081632653073,
+    "resampling_importance_kl": 0.2012053963457433,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.005665736461119789,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.1836734693877551,
+    "overdeterminedness": 0.6836734693877551,
+    "summary": "calculate result=-25/24"
+  },
+  {
+    "chunk": "So, -25/24 +2b=11/18.",
+    "chunk_idx": 209,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "208"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010101010101010055,
+    "resampling_importance_kl": 0.01015237125017049,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9587628865979382,
+    "summary": "solve for b"
+  },
+  {
+    "chunk": "2b=11/18 +25/24.",
+    "chunk_idx": 210,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "209"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.19937761404697535,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.005633816790907229,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.21212121212121213,
+    "overdeterminedness": 0.8080808080808081,
+    "summary": "solve for b"
+  },
+  {
+    "chunk": "Convert to 72 denominator: 11/18=44/72, 25/24=75/72.",
+    "chunk_idx": 211,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "210"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.02020270690244599,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.011049834039659472,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.12921173124523977,
+    "different_trajectories_fraction": 0.18,
+    "overdeterminedness": 0.88,
+    "summary": "convert fractions to 72"
+  },
+  {
+    "chunk": "44+75=119, so 119/72.",
+    "chunk_idx": 212,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "211"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.3946666639903824,
+    "counterfactual_importance_accuracy": -0.11111111111111116,
+    "counterfactual_importance_kl": 2.542005027440634,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.700780335869615,
+    "different_trajectories_fraction": 0.09,
+    "overdeterminedness": 0.89,
+    "summary": "calculate 119/72"
+  },
+  {
+    "chunk": "Thus, 2b=119/72 => b=119/144.",
+    "chunk_idx": 213,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "212"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010101010101010055,
+    "resampling_importance_kl": 0.010152371256581246,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.97,
+    "summary": "solve for b=119/144"
+  },
+  {
+    "chunk": "Then, equation (5): 7a +3b +c = -3/4.",
+    "chunk_idx": 214,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.19927609550300318,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.7575757575757576,
+    "summary": "write equation 7a+3b+c=-3/4"
+  },
+  {
+    "chunk": "7a=7*(-25)/288= -175/288.",
+    "chunk_idx": 215,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "214"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335643973571,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.005194813839336687,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.06060606060606061,
+    "overdeterminedness": 0.8484848484848485,
+    "summary": "simplify 7a=-175/288"
+  },
+  {
+    "chunk": "3b=3*(119)/144=357/144=714/288.",
+    "chunk_idx": 216,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "214"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1970807990146171,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.92,
+    "summary": "simplify 3b=714/288"
+  },
+  {
+    "chunk": "So, -175/288 +714/288=539/288.",
+    "chunk_idx": 217,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "215",
+      "216"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.3469387755102041,
+    "overdeterminedness": 0.8979591836734694,
+    "summary": "calculate sum=539/288"
+  },
+  {
+    "chunk": "So, 539/288 +c= -3/4= -216/288.",
+    "chunk_idx": 218,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "217"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.92,
+    "summary": "solve c=-3/4"
+  },
+  {
+    "chunk": "Thus, c= -216/288 -539/288= -755/288.",
+    "chunk_idx": 219,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "218"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.86,
+    "summary": "calculate c=-755/288"
+  },
+  {
+    "chunk": "Then, equation (1): a +b +c +d=1.",
+    "chunk_idx": 220,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050847541843233,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "write equation a+b+c+d=1"
+  },
+  {
+    "chunk": "a=-25/288, b=119/144=238/288, c=-755/288.",
+    "chunk_idx": 221,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "220",
+      "64",
+      "78",
+      "93"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.4045159929152422,
+    "counterfactual_importance_accuracy": -0.0129885057471264,
+    "counterfactual_importance_kl": 0.46837032576381726,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.87,
+    "overdeterminedness": 0.84,
+    "summary": "assign values a, b, c"
+  },
+  {
+    "chunk": "So, sum: (-25 +238 -755)/288 +d=1.",
+    "chunk_idx": 222,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "221"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050847541843233,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.016172856268539277,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.13,
+    "overdeterminedness": 0.77,
+    "summary": "calculate d=-1.5"
+  },
+  {
+    "chunk": "Compute numerator: -25 +238=213; 213 -755= -542.",
+    "chunk_idx": 223,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "222"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.19728333454604008,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.015267454650824738,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.65,
+    "summary": "compute numerator=-542"
+  },
+  {
+    "chunk": "So, -542/288 +d=1 => d=1 +542/288= (288 +542)/288=830/288=415/144.",
+    "chunk_idx": 224,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "223"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050847541843233,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.97,
+    "summary": "solve for d=415/144"
+  },
+  {
+    "chunk": "So, the coefficients are correct.",
+    "chunk_idx": 225,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "224"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.009898989898989963,
+    "resampling_importance_kl": 0.1971823227272814,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.015915451086129167,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.09,
+    "overdeterminedness": 0.92,
+    "summary": "confirm coefficients correct"
+  },
+  {
+    "chunk": "Then, p(5)= (-25/288)*125 + (119/144)*25 + (-755/288)*5 +415/144.",
+    "chunk_idx": 226,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "135"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.030303030303030387,
+    "resampling_importance_kl": 0.019679446696769784,
+    "counterfactual_importance_accuracy": 0.04040404040404044,
+    "counterfactual_importance_kl": 0.03367321421394861,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.47474747474747475,
+    "overdeterminedness": 0.7070707070707071,
+    "summary": "calculate p(5)"
+  },
+  {
+    "chunk": "Compute each term:",
+    "chunk_idx": 227,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "226",
+      "64",
+      "78",
+      "93",
+      "107"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.04040404040404044,
+    "resampling_importance_kl": 0.8314244498840306,
+    "counterfactual_importance_accuracy": -0.03448275862068961,
+    "counterfactual_importance_kl": 0.02039061870388628,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.29292929292929293,
+    "overdeterminedness": 0.6767676767676767,
+    "summary": "compute each term"
+  },
+  {
+    "chunk": "First term: (-25*125)/288= -3125/288\u2248-10.865",
+    "chunk_idx": 228,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "227"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.11,
+    "overdeterminedness": 0.6799999999999999,
+    "summary": "calculate first term=-10.865"
+  },
+  {
+    "chunk": "Second term: (119*25)/144=2975/144\u224820.652",
+    "chunk_idx": 229,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "227"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.25,
+    "overdeterminedness": 0.56,
+    "summary": "calculate second term=20.652"
+  },
+  {
+    "chunk": "Third term: (-755*5)/288= -3775/288\u2248-13.083",
+    "chunk_idx": 230,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "227"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.36,
+    "summary": "calculate third term=-13.083"
+  },
+  {
+    "chunk": "Fourth term: 415/144\u22482.881",
+    "chunk_idx": 231,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "227"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.19718232272925265,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.007968169366838806,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.73,
+    "overdeterminedness": 0.31000000000000005,
+    "summary": "calculate fourth term\u22482.881"
+  },
+  {
+    "chunk": "Adding them up:",
+    "chunk_idx": 232,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "228",
+      "229",
+      "230",
+      "231"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.29292929292929293,
+    "summary": "sum values"
+  },
+  {
+    "chunk": "-10.865 +20.652=9.787",
+    "chunk_idx": 233,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "232"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.59,
+    "overdeterminedness": 0.89,
+    "summary": "calculate sum=9.787"
+  },
+  {
+    "chunk": "9.787 -13.083= -3.296",
+    "chunk_idx": 234,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "233"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.96,
+    "overdeterminedness": 0.81,
+    "summary": "calculate result=-3.296"
+  },
+  {
+    "chunk": "-3.296 +2.881\u2248-0.415",
+    "chunk_idx": 235,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "234"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.020202020202020204,
+    "overdeterminedness": 0.7676767676767677,
+    "summary": "calculate sum\u2248-0.415"
+  },
+  {
+    "chunk": "Which is approximately -5/12.",
+    "chunk_idx": 236,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "235"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.2,
+    "overdeterminedness": 0.6599999999999999,
+    "summary": "approximate value -5/12"
+  },
+  {
+    "chunk": "So, yes, the exact value is -120/288= -5/12.",
+    "chunk_idx": 237,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "236"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335643973571,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.00947874373160932,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9393939393939394,
+    "overdeterminedness": 0.6666666666666667,
+    "summary": "calculate value=-5/12"
+  },
+  {
+    "chunk": "Therefore, the answer is \\boxed{-\\dfrac{5}{12}}.",
+    "chunk_idx": 238,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "237"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": -0.010000000000000009,
+    "counterfactual_importance_kl": 0.1972828260877841,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.92,
+    "summary": "provide answer=-\\dfrac{5}{12}"
+  },
+  {
+    "chunk": "**Final Answer**\n\\boxed{-\\dfrac{5}{12}}",
+    "chunk_idx": 239,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "238"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.0,
+    "summary": "derive answer=-5/12"
+  }
+]

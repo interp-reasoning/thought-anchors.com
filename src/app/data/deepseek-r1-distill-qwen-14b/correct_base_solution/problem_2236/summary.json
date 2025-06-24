@@ -1,0 +1,263 @@
+{
+  "problem_idx": 2236,
+  "num_chunks": 87,
+  "avg_importance": 0.0031245871317214955,
+  "max_importance": 0.9,
+  "min_importance": -1.0,
+  "top_influential_steps": [
+    {
+      "step_idx": 82,
+      "step_text": {
+        "chunk": "Wait, but let me think again about the tens place for 8's.",
+        "chunk_idx": 82,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "81"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.38,
+        "summary": "consider tens place",
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0
+      },
+      "avg_outgoing_importance": 0.395
+    },
+    {
+      "step_idx": 59,
+      "step_text": {
+        "chunk": "Wait, that seems a bit high.",
+        "chunk_idx": 59,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "58"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.94,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.88,
+        "summary": "assess value high",
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0
+      },
+      "avg_outgoing_importance": 0.23407407407407405
+    },
+    {
+      "step_idx": 62,
+      "step_text": {
+        "chunk": "- Units place: 4,14,...,484.",
+        "chunk_idx": 62,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "61"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.77,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.77,
+        "summary": "list units place",
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0
+      },
+      "avg_outgoing_importance": 0.1925
+    },
+    {
+      "step_idx": 84,
+      "step_text": {
+        "chunk": "So, 9 eights in the tens place for that set.",
+        "chunk_idx": 84,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "83"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.16,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.73,
+        "summary": "count 9 eights",
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0
+      },
+      "avg_outgoing_importance": 0.12500000000000003
+    },
+    {
+      "step_idx": 83,
+      "step_text": {
+        "chunk": "From 480-488, that's 9 numbers: 480,481,...,488.",
+        "chunk_idx": 83,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "82"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.27,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.5700000000000001,
+        "summary": "list numbers 480-488",
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0
+      },
+      "avg_outgoing_importance": 0.12
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "Each page number can be a one-digit, two-digit, or three-digit number.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.27,
+        "counterfactual_importance_kl": 0.2998455344127869,
+        "accuracy": 0.7628865979381443,
+        "absolute_importance_accuracy": 0.27,
+        "absolute_importance_kl": 0.2998455344127869,
+        "different_trajectories_fraction": 0.041237113402061855,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 4.699511667411447,
+        "overdeterminedness": 0.8350515463917526,
+        "summary": "identify page number range",
+        "resampling_importance_accuracy": -0.0328865979381443,
+        "resampling_importance_kl": 0.04190508990180017
+      },
+      "avg_incoming_importance": 0.1366666666666667
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "First, I think I should consider how page numbers are structured.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.002545500827287772,
+        "counterfactual_importance_kl": 0.5739488098443315,
+        "accuracy": 0.76,
+        "absolute_importance_accuracy": 0.002545500827287772,
+        "absolute_importance_kl": 0.5739488098443316,
+        "different_trajectories_fraction": 0.81,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.6342783161767893,
+        "overdeterminedness": 0.5800000000000001,
+        "summary": "consider page structure",
+        "resampling_importance_accuracy": 0.0028865979381442752,
+        "resampling_importance_kl": 0.4190497891638946
+      },
+      "avg_incoming_importance": 0.12
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let me break this down step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.017142857142857126,
+        "counterfactual_importance_kl": 0.04485162504048643,
+        "accuracy": 0.69,
+        "absolute_importance_accuracy": -0.017142857142857126,
+        "absolute_importance_kl": 0.04485162504048644,
+        "different_trajectories_fraction": 0.35,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.310469580506733,
+        "overdeterminedness": 0.91,
+        "summary": "break down steps",
+        "resampling_importance_accuracy": 0.07000000000000006,
+        "resampling_importance_kl": 0.23427378159919016
+      },
+      "avg_incoming_importance": 0.08000000000000007
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Since the book has 488 pages, the page numbers go from 1 to 488.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 0.73,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.2151262732086576,
+        "overdeterminedness": 0.98,
+        "summary": "list page numbers",
+        "resampling_importance_accuracy": 0.050000000000000044,
+        "resampling_importance_kl": 0.4711595133245402
+      },
+      "avg_incoming_importance": 0.065
+    },
+    {
+      "step_idx": 12,
+      "step_text": {
+        "chunk": "How many such numbers are there?",
+        "chunk_idx": 12,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "11"
+        ],
+        "counterfactual_importance_accuracy": 0.11468085106382975,
+        "counterfactual_importance_kl": 0.03485520090528853,
+        "accuracy": 0.72,
+        "absolute_importance_accuracy": 0.11468085106382975,
+        "absolute_importance_kl": 0.03485520090528853,
+        "different_trajectories_fraction": 0.47,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.9051721801207546,
+        "overdeterminedness": 0.63,
+        "summary": "count numbers",
+        "resampling_importance_accuracy": -0.08999999999999997,
+        "resampling_importance_kl": 0.42870177609235705
+      },
+      "avg_incoming_importance": 0.047499999999999994
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "problem_idx": 4682,
+  "num_chunks": 145,
+  "avg_importance": 0.00037101508250963843,
+  "max_importance": 0.8556701030927836,
+  "min_importance": -0.7063661285409686,
+  "top_influential_steps": [
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "Alternatively, maybe I can calculate the value of 66666\u2081\u2086 in decimal and then find out how many bits that number would require.",
+        "chunk_idx": 13,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "accuracy": 0.4536082474226804,
+        "resampling_importance_accuracy": 0.4150786212641883,
+        "resampling_importance_kl": 0.4842874110871723,
+        "counterfactual_importance_accuracy": -0.42077020202020204,
+        "counterfactual_importance_kl": 0.5010377376724022,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.9896907216494846,
+        "overdeterminedness": 0.6494845360824743,
+        "summary": "calculate bits for 66666"
+      },
+      "avg_outgoing_importance": 0.24457779176831668
+    },
+    {
+      "step_idx": 131,
+      "step_text": {
+        "chunk": "So, I think the answer is 19 bits.",
+        "chunk_idx": 131,
+        "function_tags": [
+          "final_answer_emission"
+        ],
+        "depends_on": [
+          "130"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.16,
+        "overdeterminedness": 0.77,
+        "summary": "state answer=19 bits"
+      },
+      "avg_outgoing_importance": 0.13846153846153847
+    },
+    {
+      "step_idx": 98,
+      "step_text": {
+        "chunk": "Wait, but let me confirm this by actually converting 66666\u2081\u2086 to binary and counting the bits.",
+        "chunk_idx": 98,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "97"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": -0.19999999999999996,
+        "forced_importance_kl": 0.2231435510722883,
+        "different_trajectories_fraction": 0.8969072164948454,
+        "overdeterminedness": 0.18556701030927836,
+        "summary": "convert 66666\u2081\u2086 to binary"
+      },
+      "avg_outgoing_importance": 0.11379677140964829
+    },
+    {
+      "step_idx": 132,
+      "step_text": {
+        "chunk": "Wait, but let me make sure by actually writing out the binary number.",
+        "chunk_idx": 132,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "131"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.64,
+        "overdeterminedness": 0.30000000000000004,
+        "summary": "write binary number"
+      },
+      "avg_outgoing_importance": 0.09416666666666666
+    },
+    {
+      "step_idx": 117,
+      "step_text": {
+        "chunk": "Alternatively, I can use the formula: number of bits = floor(log\u2082(N)) + 1",
+        "chunk_idx": 117,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "116"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.68,
+        "overdeterminedness": 0.31000000000000005,
+        "summary": "calculate bits=floor(log\u2082(N))+1"
+      },
+      "avg_outgoing_importance": 0.08333333333333333
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "First, the number given is 66666 in base 16.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.8673469387755102,
+        "resampling_importance_accuracy": -0.07353250578581949,
+        "resampling_importance_kl": 0.01920786709218716,
+        "counterfactual_importance_accuracy": 0.07285223367697602,
+        "counterfactual_importance_kl": 0.016191856210915716,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.30612244897959184,
+        "overdeterminedness": 0.7448979591836735,
+        "summary": "convert 66666 to decimal"
+      },
+      "avg_incoming_importance": 0.118
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "That's five digits in total.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "6"
+        ],
+        "accuracy": 0.7263157894736842,
+        "resampling_importance_accuracy": 0.021052631578947323,
+        "resampling_importance_kl": 0.0011531336933269971,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9157894736842105,
+        "summary": "count digits=5"
+      },
+      "avg_incoming_importance": 0.10857142857142857
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Let me count the digits: 6, 6, 6, 6, 6.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.7938144329896907,
+        "resampling_importance_accuracy": -0.06749864351600643,
+        "resampling_importance_kl": 0.21845033442152084,
+        "counterfactual_importance_accuracy": 0.04833209785025938,
+        "counterfactual_importance_kl": 0.28849250628532364,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.7319587628865979,
+        "overdeterminedness": 0.6907216494845361,
+        "summary": "count digits=5"
+      },
+      "avg_incoming_importance": 0.08444444444444443
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let's see.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "accuracy": 0.9090909090909091,
+        "resampling_importance_accuracy": -0.019090909090909047,
+        "resampling_importance_kl": 0.02020788163485821,
+        "counterfactual_importance_accuracy": 0.03134831460674159,
+        "counterfactual_importance_kl": 0.02151570561836738,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.008094118863102767,
+        "different_trajectories_fraction": 0.898989898989899,
+        "overdeterminedness": 0.8484848484848485,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.07
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "I think so because each hex digit maps directly to 4 bits without any overlap or sharing.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "2"
+        ],
+        "accuracy": 0.75,
+        "resampling_importance_accuracy": -0.07999999999999996,
+        "resampling_importance_kl": 0.01518868645871646,
+        "counterfactual_importance_accuracy": 0.04830985915492958,
+        "counterfactual_importance_kl": 0.000402875392468742,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.71,
+        "overdeterminedness": 0.21999999999999997,
+        "summary": "map hex to bits"
+      },
+      "avg_incoming_importance": 0.040999999999999995
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "problem_idx": 2189,
+  "num_chunks": 204,
+  "avg_importance": 0.0008247487448138296,
+  "max_importance": 0.97,
+  "min_importance": -0.91,
+  "top_influential_steps": [
+    {
+      "step_idx": 147,
+      "step_text": {
+        "chunk": "Wait, another sanity check: let's think about the number of ways the two green plates can be adjacent.",
+        "chunk_idx": 147,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "146"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.74,
+        "summary": "count adjacent arrangements"
+      },
+      "avg_outgoing_importance": 0.36017857142857146
+    },
+    {
+      "step_idx": 178,
+      "step_text": {
+        "chunk": "Wait, just to make sure, let me compute 10 * (8!",
+        "chunk_idx": 178,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "177"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.6699999999999999,
+        "summary": "compute 10 * (8!)"
+      },
+      "avg_outgoing_importance": 0.26239999999999997
+    },
+    {
+      "step_idx": 188,
+      "step_text": {
+        "chunk": "Just to recap:",
+        "chunk_idx": 188,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "187"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.77,
+        "summary": "recap information"
+      },
+      "avg_outgoing_importance": 0.25799999999999995
+    },
+    {
+      "step_idx": 189,
+      "step_text": {
+        "chunk": "Total circular arrangements: (10-1)!",
+        "chunk_idx": 189,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "188"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.97,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.85,
+        "summary": "calculate arrangements=362880"
+      },
+      "avg_outgoing_importance": 0.2007142857142857
+    },
+    {
+      "step_idx": 133,
+      "step_text": {
+        "chunk": "So, the answer should be 588.",
+        "chunk_idx": 133,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "132"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.28,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.84,
+        "summary": "state answer=588"
+      },
+      "avg_outgoing_importance": 0.19085714285714284
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "She has different colored plates: 5 blue, 2 red, 2 green, and 1 orange.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.011975424346558405,
+        "counterfactual_importance_kl": 0.6309222801890998,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.78348934397317,
+        "different_trajectories_fraction": 0.0,
+        "accuracy": 0.9072164948453608,
+        "overdeterminedness": 0.979381443298969,
+        "summary": "list plate colors"
+      },
+      "avg_incoming_importance": 0.26
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "The catch is she doesn't want the two green plates to be next to each other.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.03080808080808073,
+        "counterfactual_importance_kl": 0.6797715987309911,
+        "absolute_importance_accuracy": -0.19999999999999996,
+        "absolute_importance_kl": 0.40119029397504163,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 7.651365983942957,
+        "different_trajectories_fraction": 0.04040404040404041,
+        "accuracy": 0.9191919191919192,
+        "overdeterminedness": 0.8787878787878788,
+        "summary": "avoid adjacent greens"
+      },
+      "avg_incoming_importance": 0.14979797979797976
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "for distinct objects.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "counterfactual_importance_accuracy": -0.010101010101010055,
+        "counterfactual_importance_kl": 0.21128982623600462,
+        "absolute_importance_accuracy": 0.06060606060606055,
+        "absolute_importance_kl": 0.0586834831258404,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 4.696569746667023,
+        "different_trajectories_fraction": 0.050505050505050504,
+        "accuracy": 0.9494949494949495,
+        "overdeterminedness": 0.9292929292929293,
+        "summary": "list distinct objects"
+      },
+      "avg_incoming_importance": 0.07994949494949496
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "First, arranging objects around a circular table is different from arranging them in a straight line.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.05919191919191924,
+        "counterfactual_importance_kl": 0.4456403045711802,
+        "absolute_importance_accuracy": 0.028888888888888853,
+        "absolute_importance_kl": 0.05106126383236184,
+        "forced_importance_accuracy": 0.01,
+        "forced_importance_kl": 8.581424897567528,
+        "different_trajectories_fraction": 0.2727272727272727,
+        "accuracy": 0.9191919191919192,
+        "overdeterminedness": 0.4747474747474747,
+        "summary": "arranging circularly"
+      },
+      "avg_incoming_importance": 0.07959595959595958
+    },
+    {
+      "step_idx": 19,
+      "step_text": {
+        "chunk": "= 9! ways.",
+        "chunk_idx": 19,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "18"
+        ],
+        "counterfactual_importance_accuracy": 0.07999999999999996,
+        "counterfactual_importance_kl": 0.6181116834333527,
+        "absolute_importance_accuracy": -0.20999999999999996,
+        "absolute_importance_kl": 0.19568006539740074,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 14.344105710707188,
+        "different_trajectories_fraction": 0.04,
+        "accuracy": 0.88,
+        "overdeterminedness": 0.96,
+        "summary": "calculate 9!=362880"
+      },
+      "avg_incoming_importance": 0.04789473684210526
+    }
+  ]
+}

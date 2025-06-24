@@ -1,0 +1,245 @@
+{
+  "problem_idx": 3448,
+  "num_chunks": 134,
+  "avg_importance": 0.0005442564578757746,
+  "max_importance": 0.9299999999999999,
+  "min_importance": -0.92,
+  "top_influential_steps": [
+    {
+      "step_idx": 125,
+      "step_text": {
+        "chunk": "1. I started by expanding \\( \\binom{1/2}{2014} \\) using the definition, factored out terms, and expressed the product of odd numbers as a factorial expression.",
+        "chunk_idx": 125,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "124"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.01,
+        "counterfactual_importance_kl": 0.010050335646067225,
+        "absolute_importance_accuracy": -0.01,
+        "absolute_importance_kl": 0.008888947179227176,
+        "different_trajectories_fraction": 0.87,
+        "overdeterminedness": 0.040000000000000036,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.1130928484406444,
+        "summary": "expand binom(1/2, 2014)"
+      },
+      "avg_outgoing_importance": 0.29000000000000004
+    },
+    {
+      "step_idx": 127,
+      "step_text": {
+        "chunk": "3. I expressed \\( 4028!",
+        "chunk_idx": 127,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "126"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.02,
+        "counterfactual_importance_kl": 0.0202027071029492,
+        "absolute_importance_accuracy": -0.02,
+        "absolute_importance_kl": 0.010582107387488682,
+        "different_trajectories_fraction": 0.1,
+        "overdeterminedness": 0.91,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.06447619454780612,
+        "summary": "express 4028!"
+      },
+      "avg_outgoing_importance": 0.10666666666666665
+    },
+    {
+      "step_idx": 131,
+      "step_text": {
+        "chunk": "I think that all makes sense.",
+        "chunk_idx": 131,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "130"
+        ],
+        "accuracy": 0.01,
+        "counterfactual_importance_accuracy": -0.01,
+        "counterfactual_importance_kl": 0.1972828260877841,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.00836824941220271,
+        "different_trajectories_fraction": 0.8,
+        "overdeterminedness": 0.5,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.3334945275377348,
+        "summary": "no action taken"
+      },
+      "avg_outgoing_importance": 0.09499999999999997
+    },
+    {
+      "step_idx": 117,
+      "step_text": {
+        "chunk": "So, we can cancel one 2014 from numerator and denominator:",
+        "chunk_idx": 117,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "116"
+        ],
+        "accuracy": 0.03,
+        "counterfactual_importance_accuracy": 0.03,
+        "counterfactual_importance_kl": 0.009679294927449164,
+        "absolute_importance_accuracy": -0.026666666666666665,
+        "absolute_importance_kl": 0.002329182251523336,
+        "different_trajectories_fraction": 0.3,
+        "overdeterminedness": 0.79,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.424067795072001,
+        "summary": "cancel 2014"
+      },
+      "avg_outgoing_importance": 0.070625
+    },
+    {
+      "step_idx": 112,
+      "step_text": {
+        "chunk": "So, let's write that:",
+        "chunk_idx": 112,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "111"
+        ],
+        "accuracy": 0.01,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.12,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.7537714775920918,
+        "summary": "write equation"
+      },
+      "avg_outgoing_importance": 0.062380952380952384
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "\\] Hmm, that looks a bit intimidating at first glance, but let me break it down step by step.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "accuracy": 0.7912087912087912,
+        "counterfactual_importance_accuracy": -0.0023199023199023117,
+        "counterfactual_importance_kl": 0.43878657160669765,
+        "absolute_importance_accuracy": -0.012769485903814215,
+        "absolute_importance_kl": 0.632117079327707,
+        "different_trajectories_fraction": 0.7362637362637363,
+        "overdeterminedness": 0.6483516483516483,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.27794577611613625,
+        "summary": "break down step"
+      },
+      "avg_incoming_importance": 0.07500000000000001
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Let me try to compute the numerator here.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "accuracy": 0.7368421052631579,
+        "counterfactual_importance_accuracy": -0.08849045691150947,
+        "counterfactual_importance_kl": 1.5575344851918274,
+        "absolute_importance_accuracy": 0.10164835164835162,
+        "absolute_importance_kl": 1.9769160448379133,
+        "different_trajectories_fraction": 0.12631578947368421,
+        "overdeterminedness": 0.736842105263158,
+        "forced_importance_accuracy": -0.01,
+        "forced_importance_kl": 1.12065361804302,
+        "summary": "compute numerator"
+      },
+      "avg_incoming_importance": 0.05800000000000001
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "I remember that binomial coefficients can be tricky when the upper number isn't a positive integer, especially with fractions like 1/2.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.7888888888888889,
+        "counterfactual_importance_accuracy": -0.013607990012484361,
+        "counterfactual_importance_kl": 0.04972552439846034,
+        "absolute_importance_accuracy": 0.01638576779026213,
+        "absolute_importance_kl": 0.04471750757159651,
+        "different_trajectories_fraction": 0.8,
+        "overdeterminedness": 0.34444444444444444,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.0646344863048545,
+        "summary": "discuss binomial coefficients"
+      },
+      "avg_incoming_importance": 0.04
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "But I also recall that there are some identities or formulas that might help simplify this expression.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.7752808988764045,
+        "counterfactual_importance_accuracy": -0.001087350489307748,
+        "counterfactual_importance_kl": 1.1924617500378922,
+        "absolute_importance_accuracy": 0.018014243820695497,
+        "absolute_importance_kl": 0.5721825178613309,
+        "different_trajectories_fraction": 0.8651685393258427,
+        "overdeterminedness": 0.3033707865168539,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.2773760142181484,
+        "summary": "simplify expression"
+      },
+      "avg_incoming_importance": 0.03
+    },
+    {
+      "step_idx": 15,
+      "step_text": {
+        "chunk": "Hmm, so the numerator is a product of 2014 terms starting from \\( \\frac{1}{2} \\) and decreasing by 1 each time, but all the way down to \\( -\\frac{4025}{2} \\).",
+        "chunk_idx": 15,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "14"
+        ],
+        "accuracy": 0.7127659574468085,
+        "counterfactual_importance_accuracy": 0.06251494142959602,
+        "counterfactual_importance_kl": 1.1176075285009037,
+        "absolute_importance_accuracy": -0.09009571369121927,
+        "absolute_importance_kl": 1.2823647179481785,
+        "different_trajectories_fraction": 0.574468085106383,
+        "overdeterminedness": 0.2021276595744681,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.22624244861490767,
+        "summary": "calculate numerator product"
+      },
+      "avg_incoming_importance": 0.019333333333333334
+    }
+  ]
+}

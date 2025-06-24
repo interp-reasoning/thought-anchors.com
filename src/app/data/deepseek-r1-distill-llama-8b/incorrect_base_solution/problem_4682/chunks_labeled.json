@@ -1,0 +1,3404 @@
+[
+  {
+    "chunk": "Okay, so I have this problem where I need to find out how many base-2 digits, or bits, the base-16 number \\(66666_{16}\\) has when it's written in binary.",
+    "chunk_idx": 0,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.6170212765957447,
+    "resampling_importance_accuracy": 0.09726443768996962,
+    "resampling_importance_kl": 0.6520847815211912,
+    "counterfactual_importance_accuracy": -0.28571428571428575,
+    "counterfactual_importance_kl": 3.4096441510291795,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.678304695347667,
+    "different_trajectories_fraction": 0.07446808510638298,
+    "overdeterminedness": 0.2978723404255319,
+    "summary": "convert 66666_{16} to binary"
+  },
+  {
+    "chunk": "Hmm, let me think about how to approach this.",
+    "chunk_idx": 1,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [],
+    "accuracy": 0.7142857142857143,
+    "resampling_importance_accuracy": 0.06231003039513672,
+    "resampling_importance_kl": 0.2815221148486633,
+    "counterfactual_importance_accuracy": -0.06447453255963886,
+    "counterfactual_importance_kl": 0.049772823001303486,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.033389222483393925,
+    "different_trajectories_fraction": 0.7252747252747253,
+    "overdeterminedness": 0.4285714285714286,
+    "summary": "consider approach"
+  },
+  {
+    "chunk": "First, I remember that base-16 is hexadecimal, which is a common numbering system used in computing.",
+    "chunk_idx": 2,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.776595744680851,
+    "resampling_importance_accuracy": -0.03466026080988327,
+    "resampling_importance_kl": 0.03140488475155811,
+    "counterfactual_importance_accuracy": 0.008064516129032251,
+    "counterfactual_importance_kl": 0.05133243714137793,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0009921106367353355,
+    "different_trajectories_fraction": 0.7659574468085106,
+    "overdeterminedness": 0.19148936170212771,
+    "summary": "identify base-16 system"
+  },
+  {
+    "chunk": "Each digit in a hexadecimal number corresponds to 4 bits in binary because \\(2^4 = 16\\).",
+    "chunk_idx": 3,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.7419354838709677,
+    "resampling_importance_accuracy": -0.03541374474053294,
+    "resampling_importance_kl": 0.9122714107824555,
+    "counterfactual_importance_accuracy": 0.04347826086956519,
+    "counterfactual_importance_kl": 6.1605803371137995,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.04129108498961861,
+    "different_trajectories_fraction": 0.043010752688172046,
+    "overdeterminedness": 0.8709677419354839,
+    "summary": "convert hex to binary"
+  },
+  {
+    "chunk": "So, if I can figure out how many digits are in the hexadecimal number, I can multiply that by 4 to get the number of bits.",
+    "chunk_idx": 4,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "3"
+    ],
+    "accuracy": 0.7065217391304348,
+    "resampling_importance_accuracy": -0.22231121281464533,
+    "resampling_importance_kl": 0.1257365406321822,
+    "counterfactual_importance_accuracy": 0.3372180451127819,
+    "counterfactual_importance_kl": 0.1737188357442377,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.1972828260877841,
+    "different_trajectories_fraction": 0.30434782608695654,
+    "overdeterminedness": 0.6195652173913043,
+    "summary": "multiply digits by 4"
+  },
+  {
+    "chunk": "The given number is \\(66666_{16}\\).",
+    "chunk_idx": 5,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.4842105263157895,
+    "resampling_importance_accuracy": 0.027694235588972382,
+    "resampling_importance_kl": 0.4258083191082569,
+    "counterfactual_importance_accuracy": 0.08809523809523812,
+    "counterfactual_importance_kl": 0.07601561682741893,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6842105263157895,
+    "overdeterminedness": 0.4842105263157894,
+    "summary": "convert 66666_{16}"
+  },
+  {
+    "chunk": "Let me count the number of digits.",
+    "chunk_idx": 6,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "5"
+    ],
+    "accuracy": 0.5119047619047619,
+    "resampling_importance_accuracy": -0.02277432712215316,
+    "resampling_importance_kl": 0.32646496482912424,
+    "counterfactual_importance_accuracy": 0.1358695652173913,
+    "counterfactual_importance_kl": 0.09846473827043536,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.2857142857142857,
+    "overdeterminedness": 0.8095238095238095,
+    "summary": "count digits"
+  },
+  {
+    "chunk": "Starting from the left, each digit is a 6, and there are five of them.",
+    "chunk_idx": 7,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "6"
+    ],
+    "accuracy": 0.4891304347826087,
+    "resampling_importance_accuracy": -0.20047064096817574,
+    "resampling_importance_kl": 2.16841927654574,
+    "counterfactual_importance_accuracy": 0.20224929709465794,
+    "counterfactual_importance_kl": 0.8881626075527305,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.5978260869565217,
+    "overdeterminedness": 0.4565217391304348,
+    "summary": "count digits=5"
+  },
+  {
+    "chunk": "So, that's 5 digits in hexadecimal.",
+    "chunk_idx": 8,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "7"
+    ],
+    "accuracy": 0.28865979381443296,
+    "resampling_importance_accuracy": 0.1456836405290014,
+    "resampling_importance_kl": 0.045070780927890505,
+    "counterfactual_importance_accuracy": -0.19521299956082566,
+    "counterfactual_importance_kl": 0.057709147749724576,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.4742268041237113,
+    "overdeterminedness": 0.7216494845360825,
+    "summary": "identify 5 digits"
+  },
+  {
+    "chunk": "If each digit is 4 bits, then the total number of bits should be \\(5 \\times 4 = 20\\) bits.",
+    "chunk_idx": 9,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "8",
+      "4"
+    ],
+    "accuracy": 0.43434343434343436,
+    "resampling_importance_accuracy": -0.1663021972300323,
+    "resampling_importance_kl": 0.06386461732283358,
+    "counterfactual_importance_accuracy": 0.320194057004245,
+    "counterfactual_importance_kl": 0.14001983440630492,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.1717171717171717,
+    "overdeterminedness": 0.5454545454545454,
+    "summary": "calculate total bits=20"
+  },
+  {
+    "chunk": "Hmm, that seems straightforward, but let me make sure I'm not missing anything.",
+    "chunk_idx": 10,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "9"
+    ],
+    "accuracy": 0.26804123711340205,
+    "resampling_importance_accuracy": 0.0027920962199312616,
+    "resampling_importance_kl": 1.9780845163382046e-05,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 1.9824020578000992e-05,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9896907216494846,
+    "overdeterminedness": 0.6907216494845361,
+    "summary": "check for completeness"
+  },
+  {
+    "chunk": "Wait, maybe I should convert the hexadecimal number to decimal first and then convert that decimal number to binary to see how many bits it actually has.",
+    "chunk_idx": 11,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.2708333333333333,
+    "resampling_importance_accuracy": 0.25663919413919417,
+    "resampling_importance_kl": 0.13578154993750455,
+    "counterfactual_importance_accuracy": -0.25824175824175827,
+    "counterfactual_importance_kl": 0.06537153098007081,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.5416666666666666,
+    "overdeterminedness": 0.4375,
+    "summary": "convert hexadecimal to decimal"
+  },
+  {
+    "chunk": "That might be a more accurate way to confirm the number of bits.",
+    "chunk_idx": 12,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "11"
+    ],
+    "accuracy": 0.5274725274725275,
+    "resampling_importance_accuracy": 0.010161881129623018,
+    "resampling_importance_kl": 0.00020750601032884855,
+    "counterfactual_importance_accuracy": -0.002750687671917995,
+    "counterfactual_importance_kl": 3.6641588530241485e-05,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.945054945054945,
+    "overdeterminedness": 0.6043956043956045,
+    "summary": "confirm bits count"
+  },
+  {
+    "chunk": "Starting with \\(66666_{16}\\), let me convert it to decimal.",
+    "chunk_idx": 13,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "5"
+    ],
+    "accuracy": 0.5376344086021505,
+    "resampling_importance_accuracy": 0.04747197437657291,
+    "resampling_importance_kl": 0.016608096596178686,
+    "counterfactual_importance_accuracy": -0.044876497921252145,
+    "counterfactual_importance_kl": 0.014301277222207125,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9354838709677419,
+    "overdeterminedness": 0.7526881720430108,
+    "summary": "convert 66666_{16} to decimal"
+  },
+  {
+    "chunk": "In hexadecimal, each digit represents a power of 16.",
+    "chunk_idx": 14,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.5851063829787234,
+    "resampling_importance_accuracy": -0.08005587792821833,
+    "resampling_importance_kl": 0.22527643476458697,
+    "counterfactual_importance_accuracy": 0.3282828282828283,
+    "counterfactual_importance_kl": 0.20051436705225248,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.06382978723404255,
+    "overdeterminedness": 0.7553191489361702,
+    "summary": "represent powers of 16"
+  },
+  {
+    "chunk": "The rightmost digit is \\(16^0\\), then \\(16^1\\), \\(16^2\\), and so on.",
+    "chunk_idx": 15,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "14"
+    ],
+    "accuracy": 0.5050505050505051,
+    "resampling_importance_accuracy": 0.06060606060606055,
+    "resampling_importance_kl": 0.030987162141687143,
+    "counterfactual_importance_accuracy": 0.43434343434343436,
+    "counterfactual_importance_kl": 0.6292433392546021,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.010101010101010102,
+    "overdeterminedness": 0.8080808080808081,
+    "summary": "identify digit positions"
+  },
+  {
+    "chunk": "So, let's break it down:",
+    "chunk_idx": 16,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "15"
+    ],
+    "accuracy": 0.5656565656565656,
+    "resampling_importance_accuracy": 0.016761016761016823,
+    "resampling_importance_kl": 0.41100830046859227,
+    "counterfactual_importance_accuracy": -0.009383874552413962,
+    "counterfactual_importance_kl": 0.4621787247110043,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.898989898989899,
+    "overdeterminedness": 0.5656565656565656,
+    "summary": "break down problem"
+  },
+  {
+    "chunk": "- The leftmost digit is 6, which is in the \\(16^4\\) place.",
+    "chunk_idx": 17,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.5824175824175825,
+    "resampling_importance_accuracy": -0.05241758241758243,
+    "resampling_importance_kl": 0.005548758642635716,
+    "counterfactual_importance_accuracy": 0.09499999999999997,
+    "counterfactual_importance_kl": 0.029372211981206486,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8791208791208791,
+    "overdeterminedness": 0.7032967032967032,
+    "summary": "identify digit=6"
+  },
+  {
+    "chunk": "- The next digit is also 6, in the \\(16^3\\) place.",
+    "chunk_idx": 18,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.53,
+    "resampling_importance_accuracy": 0.08855670103092783,
+    "resampling_importance_kl": 0.016230842580445215,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.95,
+    "summary": "identify digit=6"
+  },
+  {
+    "chunk": "- The third digit is 6 in the \\(16^2\\) place.",
+    "chunk_idx": 19,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.6185567010309279,
+    "resampling_importance_accuracy": 0.023548562126966877,
+    "resampling_importance_kl": 0.001195451653445971,
+    "counterfactual_importance_accuracy": -0.01390013495276654,
+    "counterfactual_importance_kl": 2.442830779029277e-05,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8041237113402062,
+    "overdeterminedness": 0.9484536082474226,
+    "summary": "identify digit=6"
+  },
+  {
+    "chunk": "- The fourth digit is 6 in the \\(16^1\\) place.",
+    "chunk_idx": 20,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.6421052631578947,
+    "resampling_importance_accuracy": -0.033857840477482415,
+    "resampling_importance_kl": 0.0024325084035210914,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "identify digit=6"
+  },
+  {
+    "chunk": "- The rightmost digit is 6 in the \\(16^0\\) place.",
+    "chunk_idx": 21,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.6082474226804123,
+    "resampling_importance_accuracy": -0.08697082693573144,
+    "resampling_importance_kl": 0.015309690984966137,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.979381443298969,
+    "summary": "identify digit=6"
+  },
+  {
+    "chunk": "So, converting each digit:",
+    "chunk_idx": 22,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "17",
+      "18",
+      "19",
+      "20",
+      "21"
+    ],
+    "accuracy": 0.5212765957446809,
+    "resampling_importance_accuracy": 0.0044966001316077975,
+    "resampling_importance_kl": 4.053454809939492e-05,
+    "counterfactual_importance_accuracy": -0.0044966001316077975,
+    "counterfactual_importance_kl": 4.053454809939492e-05,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6595744680851063,
+    "summary": "convert each digit"
+  },
+  {
+    "chunk": "- \\(6 \\times 16^4\\)\n- \\(6 \\times 16^3\\)\n- \\(6 \\times 16^2\\)\n- \\(6 \\times 16^1\\)\n- \\(6 \\times 16^0\\)",
+    "chunk_idx": 23,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "22"
+    ],
+    "accuracy": 0.5257731958762887,
+    "resampling_importance_accuracy": 0.04123711340206182,
+    "resampling_importance_kl": 0.0034414084488050556,
+    "counterfactual_importance_accuracy": -0.0744729958455147,
+    "counterfactual_importance_kl": 0.013679365936723448,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6907216494845361,
+    "overdeterminedness": 0.8865979381443299,
+    "summary": "calculate powers of 16"
+  },
+  {
+    "chunk": "Let me compute each term:",
+    "chunk_idx": 24,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "23"
+    ],
+    "accuracy": 0.5670103092783505,
+    "resampling_importance_accuracy": -0.0013537436217848642,
+    "resampling_importance_kl": 3.7304572329062338e-06,
+    "counterfactual_importance_accuracy": 0.101010101010101,
+    "counterfactual_importance_kl": 0.0428917094453108,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6185567010309279,
+    "overdeterminedness": 0.6391752577319587,
+    "summary": "compute each term"
+  },
+  {
+    "chunk": "1. \\(16^4 = 65536\\), so \\(6 \\times 65536 = 393216\\)\n2.",
+    "chunk_idx": 25,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "24"
+    ],
+    "accuracy": 0.5656565656565656,
+    "resampling_importance_accuracy": -0.008955534728730563,
+    "resampling_importance_kl": 0.0001627250715041037,
+    "counterfactual_importance_accuracy": 0.01663230240549829,
+    "counterfactual_importance_kl": 0.0007808552676265845,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7575757575757576,
+    "overdeterminedness": 0.3737373737373737,
+    "summary": "calculate product=393216"
+  },
+  {
+    "chunk": "\\(16^3 = 4096\\), so \\(6 \\times 4096 = 24576\\)\n3.",
+    "chunk_idx": 26,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.5567010309278351,
+    "resampling_importance_accuracy": -0.03629286766252893,
+    "resampling_importance_kl": 0.0026463192253046303,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "calculate 6 \\times 4096"
+  },
+  {
+    "chunk": "\\(16^2 = 256\\), so \\(6 \\times 256 = 1536\\)\n4.",
+    "chunk_idx": 27,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "26"
+    ],
+    "accuracy": 0.5204081632653061,
+    "resampling_importance_accuracy": 0.10064446831364127,
+    "resampling_importance_kl": 0.02095272724215798,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "calculate 6 \\times 256 ="
+  },
+  {
+    "chunk": "\\(16^1 = 16\\), so \\(6 \\times 16 = 96\\)\n5.",
+    "chunk_idx": 28,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "27"
+    ],
+    "accuracy": 0.6210526315789474,
+    "resampling_importance_accuracy": -0.07105263157894737,
+    "resampling_importance_kl": 0.01033417243351227,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "calculate 6\u00d716=96"
+  },
+  {
+    "chunk": "\\(16^0 = 1\\), so \\(6 \\times 1 = 6\\)",
+    "chunk_idx": 29,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "28"
+    ],
+    "accuracy": 0.55,
+    "resampling_importance_accuracy": 0.03762886597938142,
+    "resampling_importance_kl": 0.0028982131293933053,
+    "counterfactual_importance_accuracy": -0.006983704689058845,
+    "counterfactual_importance_kl": 0.00042212132475571117,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.31,
+    "overdeterminedness": 0.74,
+    "summary": "calculate 6=6"
+  },
+  {
+    "chunk": "Now, adding all these together:",
+    "chunk_idx": 30,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "29"
+    ],
+    "accuracy": 0.5876288659793815,
+    "resampling_importance_accuracy": -0.052275330625846106,
+    "resampling_importance_kl": 0.014594044281385207,
+    "counterfactual_importance_accuracy": 0.052275330625846106,
+    "counterfactual_importance_kl": 0.014594044281385207,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.711340206185567,
+    "summary": "add values together"
+  },
+  {
+    "chunk": "393,216 + 24,576 = 417,792",
+    "chunk_idx": 31,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "30"
+    ],
+    "accuracy": 0.5353535353535354,
+    "resampling_importance_accuracy": -0.050817452879308556,
+    "resampling_importance_kl": 0.20534558474322273,
+    "counterfactual_importance_accuracy": 0.04293644499830068,
+    "counterfactual_importance_kl": 0.22124457428231792,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9191919191919192,
+    "overdeterminedness": 0.8282828282828283,
+    "summary": "calculate sum=417,792"
+  },
+  {
+    "chunk": "417,792 + 1,536 = 419,328",
+    "chunk_idx": 32,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "31"
+    ],
+    "accuracy": 0.4845360824742268,
+    "resampling_importance_accuracy": 0.05546391752577323,
+    "resampling_importance_kl": 0.006168151183473726,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9484536082474226,
+    "summary": "add 417792 and 1536"
+  },
+  {
+    "chunk": "419,328 + 96 = 419,424",
+    "chunk_idx": 33,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "32"
+    ],
+    "accuracy": 0.54,
+    "resampling_importance_accuracy": -0.018723404255319154,
+    "resampling_importance_kl": 0.0007033175374927293,
+    "counterfactual_importance_accuracy": 0.04342928660826029,
+    "counterfactual_importance_kl": 0.007252021942929877,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.85,
+    "overdeterminedness": 0.95,
+    "summary": "add 419,328 + 96"
+  },
+  {
+    "chunk": "419,424 + 6 = 419,430",
+    "chunk_idx": 34,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "33"
+    ],
+    "accuracy": 0.5212765957446809,
+    "resampling_importance_accuracy": 0.02127659574468077,
+    "resampling_importance_kl": 0.0009100578444592687,
+    "counterfactual_importance_accuracy": -0.013817559305453586,
+    "counterfactual_importance_kl": 7.034256950231091e-05,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.925531914893617,
+    "overdeterminedness": 0.9574468085106383,
+    "summary": "add 419,424 + 6"
+  },
+  {
+    "chunk": "So, \\(66666_{16}\\) in decimal is 419,430.",
+    "chunk_idx": 35,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "34"
+    ],
+    "accuracy": 0.5425531914893617,
+    "resampling_importance_accuracy": -0.11987277911822763,
+    "resampling_importance_kl": 0.02899507006442159,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9361702127659575,
+    "summary": "convert 66666_{16} to 419430"
+  },
+  {
+    "chunk": "Now, let me convert this decimal number to binary.",
+    "chunk_idx": 36,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "35"
+    ],
+    "accuracy": 0.422680412371134,
+    "resampling_importance_accuracy": -0.08594571849358301,
+    "resampling_importance_kl": 0.015964255648589554,
+    "counterfactual_importance_accuracy": 0.069515306122449,
+    "counterfactual_importance_kl": 0.002165503148493262,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.32989690721649484,
+    "overdeterminedness": 0.7525773195876289,
+    "summary": "convert decimal to binary"
+  },
+  {
+    "chunk": "To do that, I can use the division by 2 method repeatedly and count the number of divisions until the quotient is zero.",
+    "chunk_idx": 37,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.336734693877551,
+    "resampling_importance_accuracy": 0.09034863945578231,
+    "resampling_importance_kl": 0.017088741676723918,
+    "counterfactual_importance_accuracy": -0.08687714776632299,
+    "counterfactual_importance_kl": 0.014256499536715081,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9897959183673469,
+    "overdeterminedness": 0.5102040816326531,
+    "summary": "count divisions until zero"
+  },
+  {
+    "chunk": "Alternatively, I can use a more efficient method by determining the highest power of 2 less than or equal to the number.",
+    "chunk_idx": 38,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "37"
+    ],
+    "accuracy": 0.4270833333333333,
+    "resampling_importance_accuracy": -0.012189716312056731,
+    "resampling_importance_kl": 0.010817735068369982,
+    "counterfactual_importance_accuracy": 0.015213909860443853,
+    "counterfactual_importance_kl": 0.010733332538785176,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.96875,
+    "overdeterminedness": 0.35416666666666663,
+    "summary": "determine highest power of 2"
+  },
+  {
+    "chunk": "Let me find the highest power of 2 less than or equal to 419,430.",
+    "chunk_idx": 39,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "38"
+    ],
+    "accuracy": 0.4148936170212766,
+    "resampling_importance_accuracy": 0.13149813555604295,
+    "resampling_importance_kl": 0.03501036471601446,
+    "counterfactual_importance_accuracy": -0.13149813555604295,
+    "counterfactual_importance_kl": 0.03501036471601446,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6595744680851063,
+    "summary": "find highest power=2^19"
+  },
+  {
+    "chunk": "I know that \\(2^{18} = 262,144\\) and \\(2^{19} = 524,288\\).",
+    "chunk_idx": 40,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.5463917525773195,
+    "resampling_importance_accuracy": -0.03060227889310896,
+    "resampling_importance_kl": 0.20578742239859033,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9587628865979382,
+    "summary": "calculate powers of 2"
+  },
+  {
+    "chunk": "Since 524,288 is larger than 419,430, the highest power needed is \\(2^{18}\\).",
+    "chunk_idx": 41,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "40",
+      "39"
+    ],
+    "accuracy": 0.5157894736842106,
+    "resampling_importance_accuracy": -0.07828947368421058,
+    "resampling_importance_kl": 0.0123409988991703,
+    "counterfactual_importance_accuracy": -0.020833333333333315,
+    "counterfactual_importance_kl": 0.008198128734004488,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.12631578947368421,
+    "overdeterminedness": 0.6947368421052631,
+    "summary": "identify highest power"
+  },
+  {
+    "chunk": "So, starting with \\(2^{18}\\):",
+    "chunk_idx": 42,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "41"
+    ],
+    "accuracy": 0.4375,
+    "resampling_importance_accuracy": 0.011479591836734693,
+    "resampling_importance_kl": 0.0002667803624578583,
+    "counterfactual_importance_accuracy": -0.035936113575865125,
+    "counterfactual_importance_kl": 0.006691145529518175,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9583333333333334,
+    "overdeterminedness": 0.26041666666666663,
+    "summary": "calculate 2^{18}"
+  },
+  {
+    "chunk": "419,430 \u00f7 262,144 = 1 with a remainder of 419,430 - 262,144 = 157,286",
+    "chunk_idx": 43,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "42"
+    ],
+    "accuracy": 0.4489795918367347,
+    "resampling_importance_accuracy": 0.10657596371882089,
+    "resampling_importance_kl": 0.02281137171879699,
+    "counterfactual_importance_accuracy": 0.11111111111111105,
+    "counterfactual_importance_kl": 0.058391934823069314,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.061224489795918366,
+    "overdeterminedness": 0.9387755102040817,
+    "summary": "divide 419430 by 262144"
+  },
+  {
+    "chunk": "157,286 \u00f7 131,072 (which is \\(2^{17}\\)) = 1 with a remainder of 157,286 - 131,072 = 26,214",
+    "chunk_idx": 44,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "43"
+    ],
+    "accuracy": 0.5555555555555556,
+    "resampling_importance_accuracy": -0.17094017094017094,
+    "resampling_importance_kl": 0.059659366540510045,
+    "counterfactual_importance_accuracy": 0.22408026755852845,
+    "counterfactual_importance_kl": 0.09120392477613123,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.696969696969697,
+    "overdeterminedness": 0.8282828282828283,
+    "summary": "divide 157286 by 131072"
+  },
+  {
+    "chunk": "26,214 \u00f7 65,536 (which is \\(2^{16}\\)) = 0, so we move to the next lower power.",
+    "chunk_idx": 45,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "44"
+    ],
+    "accuracy": 0.38461538461538464,
+    "resampling_importance_accuracy": -0.010989010989011005,
+    "resampling_importance_kl": 0.00025700519776141774,
+    "counterfactual_importance_accuracy": 0.12637362637362637,
+    "counterfactual_importance_kl": 0.033840141010747754,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.10989010989010989,
+    "overdeterminedness": 0.6043956043956045,
+    "summary": "divide 26,214 by 65,536"
+  },
+  {
+    "chunk": "26,214 \u00f7 32,768 (which is \\(2^{15}\\)) = 0",
+    "chunk_idx": 46,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "45"
+    ],
+    "accuracy": 0.37362637362637363,
+    "resampling_importance_accuracy": 0.004151404151404137,
+    "resampling_importance_kl": 0.011323028511885496,
+    "counterfactual_importance_accuracy": 0.10370370370370369,
+    "counterfactual_importance_kl": 0.03764418575556219,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.2967032967032967,
+    "overdeterminedness": 0.5494505494505495,
+    "summary": "divide 26,214 by 32,768"
+  },
+  {
+    "chunk": "26,214 \u00f7 16,384 (which is \\(2^{14}\\)) = 1 with a remainder of 26,214 - 16,384 = 9,830",
+    "chunk_idx": 47,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "46"
+    ],
+    "accuracy": 0.37777777777777777,
+    "resampling_importance_accuracy": -0.008212560386473444,
+    "resampling_importance_kl": 0.23040969887333904,
+    "counterfactual_importance_accuracy": -0.007065217391304335,
+    "counterfactual_importance_kl": 0.26014603095981675,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8888888888888888,
+    "overdeterminedness": 0.3666666666666667,
+    "summary": "divide 26214 by 16384"
+  },
+  {
+    "chunk": "9,830 \u00f7 8,192 (which is \\(2^{13}\\)) = 1 with a remainder of 9,830 - 8,192 = 1,638",
+    "chunk_idx": 48,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "47"
+    ],
+    "accuracy": 0.3695652173913043,
+    "resampling_importance_accuracy": 0.07835144927536236,
+    "resampling_importance_kl": 0.2499354939905038,
+    "counterfactual_importance_accuracy": -0.07835144927536236,
+    "counterfactual_importance_kl": 0.2499354939905038,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.05434782608695654,
+    "summary": "divide 9830 by 8192"
+  },
+  {
+    "chunk": "1,638 \u00f7 4,096 (which is \\(2^{12}\\)) = 0",
+    "chunk_idx": 49,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "48"
+    ],
+    "accuracy": 0.4479166666666667,
+    "resampling_importance_accuracy": -0.07678264604810997,
+    "resampling_importance_kl": 0.43534567152757037,
+    "counterfactual_importance_accuracy": 0.07678264604810997,
+    "counterfactual_importance_kl": 0.43534567152757037,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.04166666666666663,
+    "summary": "divide 1,638 by 4,096"
+  },
+  {
+    "chunk": "1,638 \u00f7 2,048 (which is \\(2^{11}\\)) = 0",
+    "chunk_idx": 50,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "49"
+    ],
+    "accuracy": 0.3711340206185567,
+    "resampling_importance_accuracy": 0.010309278350515427,
+    "resampling_importance_kl": 0.2138693800546512,
+    "counterfactual_importance_accuracy": -0.010309278350515427,
+    "counterfactual_importance_kl": 0.2138693800546512,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.05154639175257736,
+    "summary": "divide 1,638 by 2,048"
+  },
+  {
+    "chunk": "1,638 \u00f7 1,024 (which is \\(2^{10}\\)) = 1 with a remainder of 1,638 - 1,024 = 614",
+    "chunk_idx": 51,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "50"
+    ],
+    "accuracy": 0.38144329896907214,
+    "resampling_importance_accuracy": -0.017806935332708496,
+    "resampling_importance_kl": 0.20460256478946762,
+    "counterfactual_importance_accuracy": 0.017806935332708496,
+    "counterfactual_importance_kl": 0.20460256478946762,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.05154639175257736,
+    "summary": "divide 1,638 by 1,024"
+  },
+  {
+    "chunk": "614 \u00f7 512 (which is \\(2^9\\)) = 1 with a remainder of 614 - 512 = 102",
+    "chunk_idx": 52,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "51"
+    ],
+    "accuracy": 0.36363636363636365,
+    "resampling_importance_accuracy": -0.023210831721470038,
+    "resampling_importance_kl": 0.011534766303254736,
+    "counterfactual_importance_accuracy": 0.03191489361702127,
+    "counterfactual_importance_kl": 0.012945043892597426,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9494949494949495,
+    "overdeterminedness": 0.0505050505050505,
+    "summary": "divide 614 by 512"
+  },
+  {
+    "chunk": "102 \u00f7 256 (which is \\(2^8\\)) = 0",
+    "chunk_idx": 53,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "52"
+    ],
+    "accuracy": 0.3404255319148936,
+    "resampling_importance_accuracy": 0.07446808510638298,
+    "resampling_importance_kl": 0.22030663283849683,
+    "counterfactual_importance_accuracy": -0.07446808510638298,
+    "counterfactual_importance_kl": 0.22030663283849683,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.03191489361702127,
+    "summary": "divide 102\u00f7256=0"
+  },
+  {
+    "chunk": "102 \u00f7 128 (which is \\(2^7\\)) = 0",
+    "chunk_idx": 54,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "53"
+    ],
+    "accuracy": 0.4148936170212766,
+    "resampling_importance_accuracy": -0.09231297185998627,
+    "resampling_importance_kl": 0.018699620993890442,
+    "counterfactual_importance_accuracy": 0.09231297185998627,
+    "counterfactual_importance_kl": 0.018699620993890442,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.05319148936170215,
+    "summary": "divide 102\u00f7128=0"
+  },
+  {
+    "chunk": "102 \u00f7 64 (which is \\(2^6\\)) = 1 with a remainder of 102 - 64 = 38",
+    "chunk_idx": 55,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "54"
+    ],
+    "accuracy": 0.3225806451612903,
+    "resampling_importance_accuracy": 0.1161948650427913,
+    "resampling_importance_kl": 0.02823266371040828,
+    "counterfactual_importance_accuracy": -0.09451321512211441,
+    "counterfactual_importance_kl": 0.006589737083960982,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6559139784946236,
+    "overdeterminedness": 0.07526881720430112,
+    "summary": "divide 102 by 64"
+  },
+  {
+    "chunk": "38 \u00f7 32 (which is \\(2^5\\)) = 1 with a remainder of 38 - 32 = 6",
+    "chunk_idx": 56,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "55"
+    ],
+    "accuracy": 0.4387755102040816,
+    "resampling_importance_accuracy": -0.03473510616367759,
+    "resampling_importance_kl": 0.0024845573914191108,
+    "counterfactual_importance_accuracy": 0.011689933038247668,
+    "counterfactual_importance_kl": 0.0002130196575549654,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9081632653061225,
+    "overdeterminedness": 0.030612244897959218,
+    "summary": "divide 38 by 32"
+  },
+  {
+    "chunk": "6 \u00f7 16 (which is \\(2^4\\)) = 0",
+    "chunk_idx": 57,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "56"
+    ],
+    "accuracy": 0.40404040404040403,
+    "resampling_importance_accuracy": 0.014326942898371497,
+    "resampling_importance_kl": 0.00042318292570403364,
+    "counterfactual_importance_accuracy": -0.031270572745227154,
+    "counterfactual_importance_kl": 0.004276568532326996,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9393939393939394,
+    "overdeterminedness": 0.02020202020202022,
+    "summary": "divide 6\u00f716=0"
+  },
+  {
+    "chunk": "6 \u00f7 8 (which is \\(2^3\\)) = 0",
+    "chunk_idx": 58,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "57"
+    ],
+    "accuracy": 0.41836734693877553,
+    "resampling_importance_accuracy": -0.12244897959183676,
+    "resampling_importance_kl": 0.042237844449288305,
+    "counterfactual_importance_accuracy": 0.12513426423200857,
+    "counterfactual_importance_kl": 0.042752780527285476,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9693877551020408,
+    "overdeterminedness": 0.04081632653061229,
+    "summary": "calculate 6\u00f78=0"
+  },
+  {
+    "chunk": "6 \u00f7 4 (which is \\(2^2\\)) = 1 with a remainder of 6 - 4 = 2",
+    "chunk_idx": 59,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "58"
+    ],
+    "accuracy": 0.29591836734693877,
+    "resampling_importance_accuracy": 0.09408163265306124,
+    "resampling_importance_kl": 0.23084200211033834,
+    "counterfactual_importance_accuracy": -0.11222222222222222,
+    "counterfactual_importance_kl": 0.26193442975177167,
+    "forced_importance_accuracy": 0.3,
+    "forced_importance_kl": 0.35667494368963537,
+    "different_trajectories_fraction": 0.9183673469387755,
+    "overdeterminedness": 0.0714285714285714,
+    "summary": "calculate remainder=2"
+  },
+  {
+    "chunk": "2 \u00f7 2 (which is \\(2^1\\)) = 1 with a remainder of 0",
+    "chunk_idx": 60,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "59"
+    ],
+    "accuracy": 0.39,
+    "resampling_importance_accuracy": -0.012448979591836773,
+    "resampling_importance_kl": 0.19764342615182695,
+    "counterfactual_importance_accuracy": -0.01952632905013857,
+    "counterfactual_importance_kl": 0.25131014311778754,
+    "forced_importance_accuracy": -0.3,
+    "forced_importance_kl": 6.9876665049363815,
+    "different_trajectories_fraction": 0.81,
+    "overdeterminedness": 0.07999999999999996,
+    "summary": "divide 2\u00f72=1"
+  },
+  {
+    "chunk": "So, writing down the binary digits from highest power to lowest:",
+    "chunk_idx": 61,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "60"
+    ],
+    "accuracy": 0.37755102040816324,
+    "resampling_importance_accuracy": 0.11244897959183675,
+    "resampling_importance_kl": 0.025596114011676788,
+    "counterfactual_importance_accuracy": -0.11244897959183675,
+    "counterfactual_importance_kl": 0.025596114011676788,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.05102040816326525,
+    "summary": "list binary digits"
+  },
+  {
+    "chunk": "1 (for \\(2^{18}\\)), 1 (for \\(2^{17}\\)), 0 (for \\(2^{16}\\)), 1 (for \\(2^{14}\\)), 1 (for \\(2^{13}\\)), 0 (for \\(2^{12}\\)), 0 (for \\(2^{11}\\)), 1 (for \\(2^{10}\\)), 1 (for \\(2^9\\)), 0 (for \\(2^8\\)), 0 (for \\(2^7\\)), 1 (for \\(2^6\\)), 1 (for \\(2^5\\)), 0 (for \\(2^4\\)), 0 (for \\(2^3\\)), 1 (for \\(2^2\\)), 1 (for \\(2^1\\)), and 0 (for \\(2^0\\)).",
+    "chunk_idx": 62,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "61"
+    ],
+    "accuracy": 0.49,
+    "resampling_importance_accuracy": -0.05701030927835049,
+    "resampling_importance_kl": 0.055173965326604346,
+    "counterfactual_importance_accuracy": 0.0670103092783505,
+    "counterfactual_importance_kl": 0.031102301952456474,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.24,
+    "overdeterminedness": 0.55,
+    "summary": "list binary digits"
+  },
+  {
+    "chunk": "Wait, that seems like a lot.",
+    "chunk_idx": 63,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "62"
+    ],
+    "accuracy": 0.4329896907216495,
+    "resampling_importance_accuracy": -0.020618556701030966,
+    "resampling_importance_kl": 1.1047555932134794,
+    "counterfactual_importance_accuracy": 0.01471219931271478,
+    "counterfactual_importance_kl": 1.1155370543544112,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9896907216494846,
+    "overdeterminedness": 0.45360824742268047,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "Let me count the number of bits:",
+    "chunk_idx": 64,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "63"
+    ],
+    "accuracy": 0.41237113402061853,
+    "resampling_importance_accuracy": 0.025128865979381465,
+    "resampling_importance_kl": 0.01227305426916819,
+    "counterfactual_importance_accuracy": -0.06763698630136988,
+    "counterfactual_importance_kl": 0.025778627168692336,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7525773195876289,
+    "overdeterminedness": 0.5154639175257731,
+    "summary": "count bits"
+  },
+  {
+    "chunk": "1. \\(2^{18}\\) - 1\n2.",
+    "chunk_idx": 65,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "64"
+    ],
+    "accuracy": 0.4375,
+    "resampling_importance_accuracy": -0.008928571428571452,
+    "resampling_importance_kl": 0.2160367709321516,
+    "counterfactual_importance_accuracy": 0.012987012987012991,
+    "counterfactual_importance_kl": 0.2706719712843291,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8020833333333334,
+    "overdeterminedness": 0.8333333333333334,
+    "summary": "calculate value=262143"
+  },
+  {
+    "chunk": "\\(2^{17}\\) - 2\n3.",
+    "chunk_idx": 66,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "65"
+    ],
+    "accuracy": 0.42857142857142855,
+    "resampling_importance_accuracy": -0.00589101620029453,
+    "resampling_importance_kl": 0.22183090421482146,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9795918367346939,
+    "summary": "calculate value=131070"
+  },
+  {
+    "chunk": "\\(2^{16}\\) - 3\n4.",
+    "chunk_idx": 67,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "66"
+    ],
+    "accuracy": 0.422680412371134,
+    "resampling_importance_accuracy": 0.04196605227533062,
+    "resampling_importance_kl": 0.011570784352468153,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.979381443298969,
+    "summary": "calculate result=65533"
+  },
+  {
+    "chunk": "\\(2^{14}\\) - 4\n5.",
+    "chunk_idx": 68,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "67"
+    ],
+    "accuracy": 0.46464646464646464,
+    "resampling_importance_accuracy": 0.04535353535353537,
+    "resampling_importance_kl": 0.006361987098907604,
+    "counterfactual_importance_accuracy": 0.15666666666666662,
+    "counterfactual_importance_kl": 0.09841969750374234,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.030303030303030304,
+    "overdeterminedness": 0.9595959595959596,
+    "summary": "calculate result=16380"
+  },
+  {
+    "chunk": "\\(2^{13}\\) - 5\n6.",
+    "chunk_idx": 69,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "68"
+    ],
+    "accuracy": 0.51,
+    "resampling_importance_accuracy": 0.06142857142857139,
+    "resampling_importance_kl": 0.023673216917302422,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate result=8191"
+  },
+  {
+    "chunk": "\\(2^{12}\\) - 6\n7.",
+    "chunk_idx": 70,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "69"
+    ],
+    "accuracy": 0.5714285714285714,
+    "resampling_importance_accuracy": -0.11879699248120296,
+    "resampling_importance_kl": 0.24333483618355783,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "calculate result=4098"
+  },
+  {
+    "chunk": "\\(2^{11}\\) - 7\n8.",
+    "chunk_idx": 71,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "70"
+    ],
+    "accuracy": 0.45263157894736844,
+    "resampling_importance_accuracy": 0.00191387559808609,
+    "resampling_importance_kl": 0.0035930372938949946,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "calculate result=2015"
+  },
+  {
+    "chunk": "\\(2^{10}\\) - 8\n9.",
+    "chunk_idx": 72,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "71"
+    ],
+    "accuracy": 0.45454545454545453,
+    "resampling_importance_accuracy": -0.02296650717703347,
+    "resampling_importance_kl": 0.005852030855167847,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98989898989899,
+    "summary": "calculate result=1016"
+  },
+  {
+    "chunk": "\\(2^9\\) - 9\n10.",
+    "chunk_idx": 73,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "72"
+    ],
+    "accuracy": 0.43157894736842106,
+    "resampling_importance_accuracy": 0.03233857840477483,
+    "resampling_importance_kl": 0.003828704112325221,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "calculate result=1015"
+  },
+  {
+    "chunk": "\\(2^8\\) - 10\n11.",
+    "chunk_idx": 74,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "73"
+    ],
+    "accuracy": 0.4639175257731959,
+    "resampling_importance_accuracy": 0.00976668475311987,
+    "resampling_importance_kl": 0.0054971308152846204,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "calculate result=246"
+  },
+  {
+    "chunk": "\\(2^7\\) - 11\n12.",
+    "chunk_idx": 75,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "74"
+    ],
+    "accuracy": 0.47368421052631576,
+    "resampling_importance_accuracy": -0.032823995472552325,
+    "resampling_importance_kl": 0.011569118831074143,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "calculate result=117"
+  },
+  {
+    "chunk": "\\(2^6\\) - 12\n13.",
+    "chunk_idx": 76,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "75"
+    ],
+    "accuracy": 0.44086021505376344,
+    "resampling_importance_accuracy": 0.017473118279569877,
+    "resampling_importance_kl": 0.001741425678055998,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.989247311827957,
+    "summary": "calculate result=52"
+  },
+  {
+    "chunk": "\\(2^5\\) - 13\n14.",
+    "chunk_idx": 77,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "76"
+    ],
+    "accuracy": 0.4583333333333333,
+    "resampling_importance_accuracy": -0.019557823129251695,
+    "resampling_importance_kl": 0.002790007002205809,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "calculate result=19"
+  },
+  {
+    "chunk": "\\(2^4\\) - 14\n15.",
+    "chunk_idx": 78,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "77"
+    ],
+    "accuracy": 0.4387755102040816,
+    "resampling_importance_accuracy": 0.01483273721859879,
+    "resampling_importance_kl": 0.0017038365491289873,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.01,
+    "forced_importance_kl": 0.010050335646067225,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "calculate result=-14"
+  },
+  {
+    "chunk": "\\(2^3\\) - 15\n16.",
+    "chunk_idx": 79,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "78"
+    ],
+    "accuracy": 0.4536082474226804,
+    "resampling_importance_accuracy": 0.08894494406668124,
+    "resampling_importance_kl": 0.02079037902394347,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.01,
+    "forced_importance_kl": 0.1972828260877841,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "calculate result=-7"
+  },
+  {
+    "chunk": "\\(2^2\\) - 16\n17.",
+    "chunk_idx": 80,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "79"
+    ],
+    "accuracy": 0.5425531914893617,
+    "resampling_importance_accuracy": -0.0008865248226950229,
+    "resampling_importance_kl": 0.0010225944744838879,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9893617021276596,
+    "summary": "calculate result=-12"
+  },
+  {
+    "chunk": "\\(2^1\\) - 17\n18.",
+    "chunk_idx": 81,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "80"
+    ],
+    "accuracy": 0.5416666666666666,
+    "resampling_importance_accuracy": -0.13541666666666663,
+    "resampling_importance_kl": 0.050230440301794244,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "calculate result=-15"
+  },
+  {
+    "chunk": "\\(2^0\\) - 18",
+    "chunk_idx": 82,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "81"
+    ],
+    "accuracy": 0.40625,
+    "resampling_importance_accuracy": -0.040658602150537626,
+    "resampling_importance_kl": 0.02548995092402042,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "calculate result=-17"
+  },
+  {
+    "chunk": "So, that's 18 bits.",
+    "chunk_idx": 83,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "82"
+    ],
+    "accuracy": 0.3655913978494624,
+    "resampling_importance_accuracy": 0.042571867456660084,
+    "resampling_importance_kl": 0.060915107298752665,
+    "counterfactual_importance_accuracy": -0.04918890633176348,
+    "counterfactual_importance_kl": 0.0029078648239783747,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.41935483870967744,
+    "overdeterminedness": 0.6129032258064516,
+    "summary": "state 18 bits"
+  },
+  {
+    "chunk": "But wait, that contradicts my earlier thought where I thought it would be 20 bits.",
+    "chunk_idx": 84,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "83"
+    ],
+    "accuracy": 0.40816326530612246,
+    "resampling_importance_accuracy": 0.14973147153598276,
+    "resampling_importance_kl": 0.04635283057063161,
+    "counterfactual_importance_accuracy": -0.16600284495021334,
+    "counterfactual_importance_kl": 0.0448195102780294,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7551020408163265,
+    "overdeterminedness": 0.40816326530612246,
+    "summary": "identify contradiction"
+  },
+  {
+    "chunk": "Hmm, which one is correct?",
+    "chunk_idx": 85,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "84"
+    ],
+    "accuracy": 0.5578947368421052,
+    "resampling_importance_accuracy": -0.03212154096581654,
+    "resampling_importance_kl": 0.010174619388967809,
+    "counterfactual_importance_accuracy": -0.0019636720667648433,
+    "counterfactual_importance_kl": 0.029920302392785494,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.4421052631578947,
+    "overdeterminedness": 0.7789473684210526,
+    "summary": "determine correct option"
+  },
+  {
+    "chunk": "Wait, maybe I made a mistake in counting the bits.",
+    "chunk_idx": 86,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "85"
+    ],
+    "accuracy": 0.5257731958762887,
+    "resampling_importance_accuracy": -0.10740584893751315,
+    "resampling_importance_kl": 0.03357152843927718,
+    "counterfactual_importance_accuracy": 0.09250221827861582,
+    "counterfactual_importance_kl": 0.02099705418532958,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9484536082474226,
+    "overdeterminedness": 0.6701030927835052,
+    "summary": "check bit count"
+  },
+  {
+    "chunk": "Let me list out the binary digits step by step:",
+    "chunk_idx": 87,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "86"
+    ],
+    "accuracy": 0.41836734693877553,
+    "resampling_importance_accuracy": 0.1730305025235901,
+    "resampling_importance_kl": 0.2581783843757718,
+    "counterfactual_importance_accuracy": -0.1724789305434467,
+    "counterfactual_importance_kl": 0.3089403914691603,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7551020408163265,
+    "overdeterminedness": 0.4693877551020408,
+    "summary": "list binary digits"
+  },
+  {
+    "chunk": "Starting from the highest power:",
+    "chunk_idx": 88,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "87"
+    ],
+    "accuracy": 0.5913978494623656,
+    "resampling_importance_accuracy": -0.030173359666447297,
+    "resampling_importance_kl": 0.0960342493891507,
+    "counterfactual_importance_accuracy": 0.038775510204081653,
+    "counterfactual_importance_kl": 0.032542439846353265,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.4838709677419355,
+    "overdeterminedness": 0.5913978494623655,
+    "summary": "highest power identified"
+  },
+  {
+    "chunk": "1. \\(2^{18}\\): 1\n2.",
+    "chunk_idx": 89,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "88"
+    ],
+    "accuracy": 0.5612244897959183,
+    "resampling_importance_accuracy": 0.047022932884493995,
+    "resampling_importance_kl": 3.692245620269745,
+    "counterfactual_importance_accuracy": -0.0503526858383071,
+    "counterfactual_importance_kl": 3.8190905235054946,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9693877551020408,
+    "overdeterminedness": 0.6224489795918368,
+    "summary": "calculate \\(2^{18}=262144\\)"
+  },
+  {
+    "chunk": "\\(2^{17}\\): 1\n3.",
+    "chunk_idx": 90,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "89"
+    ],
+    "accuracy": 0.6082474226804123,
+    "resampling_importance_accuracy": -0.05616408934707895,
+    "resampling_importance_kl": 0.006442944552942816,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "calculate 2^17=131072"
+  },
+  {
+    "chunk": "\\(2^{16}\\): 0\n4.",
+    "chunk_idx": 91,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "90"
+    ],
+    "accuracy": 0.5520833333333334,
+    "resampling_importance_accuracy": 0.019345238095238027,
+    "resampling_importance_kl": 0.0007614038478922468,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "calculate 2^16=65536"
+  },
+  {
+    "chunk": "\\(2^{14}\\): 1\n5.",
+    "chunk_idx": 92,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "91"
+    ],
+    "accuracy": 0.5714285714285714,
+    "resampling_importance_accuracy": 0.01746031746031751,
+    "resampling_importance_kl": 0.20438009345650118,
+    "counterfactual_importance_accuracy": -0.05555555555555558,
+    "counterfactual_importance_kl": 0.10609726853641382,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.15306122448979592,
+    "overdeterminedness": 0.7959183673469388,
+    "summary": "calculate 2^{14}=16384"
+  },
+  {
+    "chunk": "\\(2^{13}\\): 1\n6.",
+    "chunk_idx": 93,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "92"
+    ],
+    "accuracy": 0.5888888888888889,
+    "resampling_importance_accuracy": -0.015972222222222276,
+    "resampling_importance_kl": 0.23459935624747835,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.18,
+    "forced_importance_kl": 0.19845093848352224,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9888888888888889,
+    "summary": "calculate 2^{13}=8192"
+  },
+  {
+    "chunk": "\\(2^{12}\\): 0\n7.",
+    "chunk_idx": 94,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "93"
+    ],
+    "accuracy": 0.5729166666666666,
+    "resampling_importance_accuracy": 0.006030701754386025,
+    "resampling_importance_kl": 0.0001170804192876726,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.18,
+    "forced_importance_kl": 4.087724997482313,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "calculate 2^{12}=4096"
+  },
+  {
+    "chunk": "\\(2^{11}\\): 0\n8.",
+    "chunk_idx": 95,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "94"
+    ],
+    "accuracy": 0.5789473684210527,
+    "resampling_importance_accuracy": -0.007518796992481258,
+    "resampling_importance_kl": 0.0014670779057612193,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "calculate 2^{11}=2048"
+  },
+  {
+    "chunk": "\\(2^{10}\\): 1\n9.",
+    "chunk_idx": 96,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "95"
+    ],
+    "accuracy": 0.5714285714285714,
+    "resampling_importance_accuracy": -0.045112781954887216,
+    "resampling_importance_kl": 0.0044920760222071435,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "calculate 2^{10}=1024"
+  },
+  {
+    "chunk": "\\(2^9\\): 1\n10.",
+    "chunk_idx": 97,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "96"
+    ],
+    "accuracy": 0.5263157894736842,
+    "resampling_importance_accuracy": -0.031470428648941895,
+    "resampling_importance_kl": 0.0037628166530282794,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "calculate 2^9=512"
+  },
+  {
+    "chunk": "\\(2^8\\): 0\n11.",
+    "chunk_idx": 98,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "97"
+    ],
+    "accuracy": 0.4948453608247423,
+    "resampling_importance_accuracy": 0.005154639175257714,
+    "resampling_importance_kl": 0.000906896724131156,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "calculate 2^8=256"
+  },
+  {
+    "chunk": "\\(2^7\\): 0\n12.",
+    "chunk_idx": 99,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "98"
+    ],
+    "accuracy": 0.5,
+    "resampling_importance_accuracy": -0.021276595744680826,
+    "resampling_importance_kl": 0.0009586318153187619,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "calculate 2^7=128"
+  },
+  {
+    "chunk": "\\(2^6\\): 1\n13.",
+    "chunk_idx": 100,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "99"
+    ],
+    "accuracy": 0.4787234042553192,
+    "resampling_importance_accuracy": 0.026894573272770728,
+    "resampling_importance_kl": 0.0015302918825724522,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9893617021276596,
+    "summary": "calculate 2^6=64"
+  },
+  {
+    "chunk": "\\(2^5\\): 1\n14.",
+    "chunk_idx": 101,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "100"
+    ],
+    "accuracy": 0.5056179775280899,
+    "resampling_importance_accuracy": 0.15764732859435904,
+    "resampling_importance_kl": 0.052893931171470954,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9887640449438202,
+    "summary": "calculate 2^5=32"
+  },
+  {
+    "chunk": "\\(2^4\\): 0\n15.",
+    "chunk_idx": 102,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "101"
+    ],
+    "accuracy": 0.6632653061224489,
+    "resampling_importance_accuracy": -0.2590099869735128,
+    "resampling_importance_kl": 0.13729453088496782,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "calculate 2^4=16"
+  },
+  {
+    "chunk": "\\(2^3\\): 0\n16.",
+    "chunk_idx": 103,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "102"
+    ],
+    "accuracy": 0.40425531914893614,
+    "resampling_importance_accuracy": 0.11702127659574474,
+    "resampling_importance_kl": 0.04883416032942951,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9893617021276596,
+    "summary": "calculate 2^3=8"
+  },
+  {
+    "chunk": "\\(2^2\\): 1\n17.",
+    "chunk_idx": 104,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "103"
+    ],
+    "accuracy": 0.5212765957446809,
+    "resampling_importance_accuracy": -0.00514756348661638,
+    "resampling_importance_kl": 0.003100836368571779,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9893617021276596,
+    "summary": "calculate 2^2=4"
+  },
+  {
+    "chunk": "\\(2^1\\): 1\n18.",
+    "chunk_idx": 105,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "104"
+    ],
+    "accuracy": 0.5161290322580645,
+    "resampling_importance_accuracy": 0.019953441968739605,
+    "resampling_importance_kl": 0.015245087042430277,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.989247311827957,
+    "summary": "calculate 2^1=2"
+  },
+  {
+    "chunk": "\\(2^0\\): 0",
+    "chunk_idx": 106,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "105"
+    ],
+    "accuracy": 0.5360824742268041,
+    "resampling_importance_accuracy": 0.0889175257731959,
+    "resampling_importance_kl": 0.22985612044405612,
+    "counterfactual_importance_accuracy": -0.11436170212765961,
+    "counterfactual_importance_kl": 0.46129402329866886,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.4845360824742268,
+    "overdeterminedness": 0.44329896907216493,
+    "summary": "derive 2^0=1"
+  },
+  {
+    "chunk": "So, writing them out: 1 1 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1 0",
+    "chunk_idx": 107,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "106"
+    ],
+    "accuracy": 0.625,
+    "resampling_importance_accuracy": 0.02335164835164838,
+    "resampling_importance_kl": 0.015332941654034947,
+    "counterfactual_importance_accuracy": -0.12835164835164836,
+    "counterfactual_importance_kl": 0.07130878513265931,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.2604166666666667,
+    "overdeterminedness": 0.5104166666666667,
+    "summary": "list binary sequence"
+  },
+  {
+    "chunk": "Counting these: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18.",
+    "chunk_idx": 108,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "107"
+    ],
+    "accuracy": 0.6483516483516484,
+    "resampling_importance_accuracy": -0.13288773082587524,
+    "resampling_importance_kl": 0.05299947606571821,
+    "counterfactual_importance_accuracy": 0.16310751104565546,
+    "counterfactual_importance_kl": 0.07182164978535818,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9230769230769231,
+    "overdeterminedness": 0.6813186813186813,
+    "summary": "count total=18"
+  },
+  {
+    "chunk": "So, 18 bits in total.",
+    "chunk_idx": 109,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "108"
+    ],
+    "accuracy": 0.5154639175257731,
+    "resampling_importance_accuracy": -0.0628323385784047,
+    "resampling_importance_kl": 0.023111389037134562,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9175257731958762,
+    "summary": "count bits=18"
+  },
+  {
+    "chunk": "But wait, earlier I thought 5 hex digits would translate to 20 bits.",
+    "chunk_idx": 110,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "109"
+    ],
+    "accuracy": 0.45263157894736844,
+    "resampling_importance_accuracy": 0.14530656538252845,
+    "resampling_importance_kl": 0.04468329324243914,
+    "counterfactual_importance_accuracy": -0.16936671575846834,
+    "counterfactual_importance_kl": 0.09402660228106825,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.3684210526315789,
+    "overdeterminedness": 0.3157894736842105,
+    "summary": "correct bit conversion"
+  },
+  {
+    "chunk": "So, which is it?",
+    "chunk_idx": 111,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "110"
+    ],
+    "accuracy": 0.5979381443298969,
+    "resampling_importance_accuracy": -0.09267498643516003,
+    "resampling_importance_kl": 0.017422536231260985,
+    "counterfactual_importance_accuracy": 0.12517162471395882,
+    "counterfactual_importance_kl": 0.04567909128223965,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9484536082474226,
+    "overdeterminedness": 0.7731958762886598,
+    "summary": "determine choice"
+  },
+  {
+    "chunk": "Let me think again.",
+    "chunk_idx": 112,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "111"
+    ],
+    "accuracy": 0.5052631578947369,
+    "resampling_importance_accuracy": 0.10764006791171477,
+    "resampling_importance_kl": 0.025718600767165894,
+    "counterfactual_importance_accuracy": -0.10764006791171477,
+    "counterfactual_importance_kl": 0.025718600767165894,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.4631578947368421,
+    "summary": "think again"
+  },
+  {
+    "chunk": "Each hex digit is 4 bits, so 5 hex digits should be 5 * 4 = 20 bits.",
+    "chunk_idx": 113,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.6129032258064516,
+    "resampling_importance_accuracy": -0.16027164685908318,
+    "resampling_importance_kl": 0.06612848183775379,
+    "counterfactual_importance_accuracy": -0.20263157894736844,
+    "counterfactual_importance_kl": 0.35030118044593583,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.043010752688172046,
+    "overdeterminedness": 0.7526881720430108,
+    "summary": "calculate bits=20"
+  },
+  {
+    "chunk": "But when I converted the number to decimal and then to binary, I only got 18 bits.",
+    "chunk_idx": 114,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "113"
+    ],
+    "accuracy": 0.45263157894736844,
+    "resampling_importance_accuracy": -0.04638157894736844,
+    "resampling_importance_kl": 0.050341060504231414,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.7789473684210526,
+    "summary": "convert to binary"
+  },
+  {
+    "chunk": "That means there's a discrepancy here.",
+    "chunk_idx": 115,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "114"
+    ],
+    "accuracy": 0.40625,
+    "resampling_importance_accuracy": 0.06743421052631576,
+    "resampling_importance_kl": 0.029361059605729458,
+    "counterfactual_importance_accuracy": -0.1308270676691729,
+    "counterfactual_importance_kl": 0.03686110254717708,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.3645833333333333,
+    "overdeterminedness": 0.7395833333333333,
+    "summary": "identify discrepancy"
+  },
+  {
+    "chunk": "Hmm, maybe my conversion to binary was incorrect.",
+    "chunk_idx": 116,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "115"
+    ],
+    "accuracy": 0.47368421052631576,
+    "resampling_importance_accuracy": -0.020075963103635353,
+    "resampling_importance_kl": 0.20922313774646048,
+    "counterfactual_importance_accuracy": 0.021391752577319567,
+    "counterfactual_importance_kl": 0.2522175816277786,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8421052631578947,
+    "overdeterminedness": 0.5052631578947369,
+    "summary": "check binary conversion"
+  },
+  {
+    "chunk": "Let me double-check that.",
+    "chunk_idx": 117,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "116"
+    ],
+    "accuracy": 0.4536082474226804,
+    "resampling_importance_accuracy": 0.05165491047205645,
+    "resampling_importance_kl": 0.008518598741937576,
+    "counterfactual_importance_accuracy": -0.023781676413255404,
+    "counterfactual_importance_kl": 0.003036492294854213,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8350515463917526,
+    "overdeterminedness": 0.7010309278350515,
+    "summary": "check answer"
+  },
+  {
+    "chunk": "Starting with 419,430:",
+    "chunk_idx": 118,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "117"
+    ],
+    "accuracy": 0.5052631578947369,
+    "resampling_importance_accuracy": -0.12228443449048154,
+    "resampling_importance_kl": 0.06776918802819563,
+    "counterfactual_importance_accuracy": 0.08999424956871765,
+    "counterfactual_importance_kl": 0.011922771942908188,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7789473684210526,
+    "overdeterminedness": 0.3052631578947368,
+    "summary": "start with 419430"
+  },
+  {
+    "chunk": "1. 419,430 \u00f7 262,144 (2^18) = 1, remainder 157,286\n2.",
+    "chunk_idx": 119,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "118"
+    ],
+    "accuracy": 0.3829787234042553,
+    "resampling_importance_accuracy": -0.03603994789405124,
+    "resampling_importance_kl": 0.03442651083174801,
+    "counterfactual_importance_accuracy": 0.03603994789405124,
+    "counterfactual_importance_kl": 0.03442651083174801,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.3936170212765957,
+    "summary": "divide 419430 by 262144"
+  },
+  {
+    "chunk": "157,286 \u00f7 131,072 (2^17) = 1, remainder 26,214\n3.",
+    "chunk_idx": 120,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "119"
+    ],
+    "accuracy": 0.3469387755102041,
+    "resampling_importance_accuracy": 0.09183673469387754,
+    "resampling_importance_kl": 0.021002776457382397,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "divide 157286 by 131072"
+  },
+  {
+    "chunk": "26,214 \u00f7 65,536 (2^16) = 0, remainder 26,214\n4.",
+    "chunk_idx": 121,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "120"
+    ],
+    "accuracy": 0.4387755102040816,
+    "resampling_importance_accuracy": 0.1571840857555143,
+    "resampling_importance_kl": 0.05033075056762504,
+    "counterfactual_importance_accuracy": -0.09595959595959591,
+    "counterfactual_importance_kl": 0.09393769623742995,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.02040816326530612,
+    "overdeterminedness": 0.7346938775510203,
+    "summary": "divide 26,214 by 65,536"
+  },
+  {
+    "chunk": "26,214 \u00f7 32,768 (2^15) = 0, remainder 26,214\n5.",
+    "chunk_idx": 122,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "121"
+    ],
+    "accuracy": 0.5959595959595959,
+    "resampling_importance_accuracy": -0.17759224902082038,
+    "resampling_importance_kl": 0.08839696339434744,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98989898989899,
+    "summary": "divide 26,214 by 32,768"
+  },
+  {
+    "chunk": "26,214 \u00f7 16,384 (2^14) = 1, remainder 9,830\n6.",
+    "chunk_idx": 123,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "122"
+    ],
+    "accuracy": 0.41836734693877553,
+    "resampling_importance_accuracy": 0.05638012780869922,
+    "resampling_importance_kl": 0.006603605187230334,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "divide 26214 by 16384"
+  },
+  {
+    "chunk": "9,830 \u00f7 8,192 (2^13) = 1, remainder 1,638\n7.",
+    "chunk_idx": 124,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "123"
+    ],
+    "accuracy": 0.47474747474747475,
+    "resampling_importance_accuracy": 0.04608585858585862,
+    "resampling_importance_kl": 0.007263403370686428,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98989898989899,
+    "summary": "divide 9830 by 8192"
+  },
+  {
+    "chunk": "1,638 \u00f7 4,096 (2^12) = 0, remainder 1,638\n8.",
+    "chunk_idx": 125,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "124"
+    ],
+    "accuracy": 0.5208333333333334,
+    "resampling_importance_accuracy": 0.02972846441947563,
+    "resampling_importance_kl": 0.0052578011913961276,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "divide 1,638 by 4,096"
+  },
+  {
+    "chunk": "1,638 \u00f7 2,048 (2^11) = 0, remainder 1,638\n9.",
+    "chunk_idx": 126,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "125"
+    ],
+    "accuracy": 0.550561797752809,
+    "resampling_importance_accuracy": -0.04467944481163255,
+    "resampling_importance_kl": 0.00514542135347637,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9887640449438202,
+    "summary": "divide 1,638 by 2,048"
+  },
+  {
+    "chunk": "1,638 \u00f7 1,024 (2^10) = 1, remainder 614\n10.",
+    "chunk_idx": 127,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "126"
+    ],
+    "accuracy": 0.5058823529411764,
+    "resampling_importance_accuracy": -0.12126696832579181,
+    "resampling_importance_kl": 0.04915335757762612,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9882352941176471,
+    "summary": "divide 1,638 by 1,024"
+  },
+  {
+    "chunk": "614 \u00f7 512 (2^9) = 1, remainder 102\n11.",
+    "chunk_idx": 128,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "127"
+    ],
+    "accuracy": 0.38461538461538464,
+    "resampling_importance_accuracy": 0.02354788069073782,
+    "resampling_importance_kl": 0.02452269523728353,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.989010989010989,
+    "summary": "divide 614 by 512"
+  },
+  {
+    "chunk": "102 \u00f7 256 (2^8) = 0, remainder 102\n12.",
+    "chunk_idx": 129,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "128"
+    ],
+    "accuracy": 0.40816326530612246,
+    "resampling_importance_accuracy": 0.12867883995703544,
+    "resampling_importance_kl": 0.03355788194681558,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "divide 102 by 256"
+  },
+  {
+    "chunk": "102 \u00f7 128 (2^7) = 0, remainder 102\n13.",
+    "chunk_idx": 130,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "129"
+    ],
+    "accuracy": 0.5368421052631579,
+    "resampling_importance_accuracy": -0.1388829215896885,
+    "resampling_importance_kl": 0.04023953120288151,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9894736842105263,
+    "summary": "divide 102 by 128"
+  },
+  {
+    "chunk": "102 \u00f7 64 (2^6) = 1, remainder 38\n14.",
+    "chunk_idx": 131,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "130"
+    ],
+    "accuracy": 0.3979591836734694,
+    "resampling_importance_accuracy": 0.21028823900694293,
+    "resampling_importance_kl": 0.0925888247713324,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9897959183673469,
+    "summary": "divide 102 by 64"
+  },
+  {
+    "chunk": "38 \u00f7 32 (2^5) = 1, remainder 6\n15.",
+    "chunk_idx": 132,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "131"
+    ],
+    "accuracy": 0.6082474226804123,
+    "resampling_importance_accuracy": -0.09783075601374569,
+    "resampling_importance_kl": 0.024089276627129036,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "divide 38 by 32"
+  },
+  {
+    "chunk": "6 \u00f7 16 (2^4) = 0, remainder 6\n16.",
+    "chunk_idx": 133,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "132"
+    ],
+    "accuracy": 0.5104166666666666,
+    "resampling_importance_accuracy": -0.05680841924398622,
+    "resampling_importance_kl": 0.02434829879039218,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9895833333333334,
+    "summary": "calculate quotient=0"
+  },
+  {
+    "chunk": "6 \u00f7 8 (2^3) = 0, remainder 6\n17.",
+    "chunk_idx": 134,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "133"
+    ],
+    "accuracy": 0.4536082474226804,
+    "resampling_importance_accuracy": -0.010309278350515483,
+    "resampling_importance_kl": 0.018716423107170026,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "divide 6\u00f78"
+  },
+  {
+    "chunk": "6 \u00f7 4 (2^2) = 1, remainder 2\n18.",
+    "chunk_idx": 135,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "134"
+    ],
+    "accuracy": 0.44329896907216493,
+    "resampling_importance_accuracy": 0.026701030927835046,
+    "resampling_importance_kl": 0.0028693479178170805,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9896907216494846,
+    "summary": "divide 6 by 4"
+  },
+  {
+    "chunk": "2 \u00f7 2 (2^1) = 1, remainder 0",
+    "chunk_idx": 136,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "135"
+    ],
+    "accuracy": 0.47,
+    "resampling_importance_accuracy": -0.05163265306122444,
+    "resampling_importance_kl": 0.014598460888114638,
+    "counterfactual_importance_accuracy": -0.41836734693877553,
+    "counterfactual_importance_kl": 0.7293267956869778,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.01,
+    "overdeterminedness": 0.97,
+    "summary": "divide 2\u00f72=1"
+  },
+  {
+    "chunk": "So, the binary representation is: 1 1 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1 0",
+    "chunk_idx": 137,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "136"
+    ],
+    "accuracy": 0.41836734693877553,
+    "resampling_importance_accuracy": -0.014326942898371497,
+    "resampling_importance_kl": 0.007557836638465007,
+    "counterfactual_importance_accuracy": 0.013542013542013565,
+    "counterfactual_importance_kl": 0.03629051237255895,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9285714285714286,
+    "overdeterminedness": 0.30612244897959184,
+    "summary": "binary representation: 1101100110011001"
+  },
+  {
+    "chunk": "Which is 18 bits.",
+    "chunk_idx": 138,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "137"
+    ],
+    "accuracy": 0.40404040404040403,
+    "resampling_importance_accuracy": 0.12173279183588465,
+    "resampling_importance_kl": 0.04601471140084998,
+    "counterfactual_importance_accuracy": -0.16213683223992503,
+    "counterfactual_importance_kl": 0.042588971770191525,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.4444444444444444,
+    "overdeterminedness": 0.6767676767676767,
+    "summary": "identify 18 bits"
+  },
+  {
+    "chunk": "So, why is this conflicting with the earlier idea that 5 hex digits correspond to 20 bits?",
+    "chunk_idx": 139,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "138"
+    ],
+    "accuracy": 0.5257731958762887,
+    "resampling_importance_accuracy": -0.109106529209622,
+    "resampling_importance_kl": 0.03492759972820084,
+    "counterfactual_importance_accuracy": 0.11274509803921567,
+    "counterfactual_importance_kl": 0.017586930051635613,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7010309278350515,
+    "overdeterminedness": 0.3402061855670103,
+    "summary": "identify bit discrepancy"
+  },
+  {
+    "chunk": "Wait a second, maybe leading zeros are being omitted.",
+    "chunk_idx": 140,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "139"
+    ],
+    "accuracy": 0.4166666666666667,
+    "resampling_importance_accuracy": 0.05333333333333329,
+    "resampling_importance_kl": 0.02176388224044081,
+    "counterfactual_importance_accuracy": -0.07526315789473681,
+    "counterfactual_importance_kl": 0.013058133747334583,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7916666666666666,
+    "overdeterminedness": 0.17708333333333337,
+    "summary": "omit leading zeros"
+  },
+  {
+    "chunk": "When I converted the decimal number to binary, I didn't consider leading zeros, but in reality, when converting from hex to binary, each hex digit is exactly 4 bits, so 5 hex digits should be 20 bits.",
+    "chunk_idx": 141,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.47,
+    "resampling_importance_accuracy": -0.33868686868686865,
+    "resampling_importance_kl": 0.5308755484672874,
+    "counterfactual_importance_accuracy": 0.34945609945609946,
+    "counterfactual_importance_kl": 0.34738648110665293,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.52,
+    "overdeterminedness": 0.13,
+    "summary": "calculate bits=20"
+  },
+  {
+    "chunk": "Perhaps when I converted 419,430 to binary, I only got 18 bits because the number doesn't require all 20 bits.",
+    "chunk_idx": 142,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "141"
+    ],
+    "accuracy": 0.13131313131313133,
+    "resampling_importance_accuracy": 0.13750407298794393,
+    "resampling_importance_kl": 0.0666331103981988,
+    "counterfactual_importance_accuracy": -0.1389470744309454,
+    "counterfactual_importance_kl": 0.06018023103247151,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7777777777777778,
+    "overdeterminedness": 0.0505050505050505,
+    "summary": "convert 419430 to binary"
+  },
+  {
+    "chunk": "But actually, when we convert each hex digit to 4 bits, we have to include all 20 bits, even if the leading bits are zeros.",
+    "chunk_idx": 143,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.26881720430107525,
+    "resampling_importance_accuracy": -0.18548387096774194,
+    "resampling_importance_kl": 0.25164266168973526,
+    "counterfactual_importance_accuracy": 0.22747747747747749,
+    "counterfactual_importance_kl": 0.2852669152484132,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7956989247311828,
+    "overdeterminedness": 0.053763440860215006,
+    "summary": "include 20 bits"
+  },
+  {
+    "chunk": "So, maybe I made a mistake in the conversion process.",
+    "chunk_idx": 144,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "143"
+    ],
+    "accuracy": 0.08333333333333333,
+    "resampling_importance_accuracy": 0.028911564625850344,
+    "resampling_importance_kl": 0.0045584715765534245,
+    "counterfactual_importance_accuracy": -0.03269944341372913,
+    "counterfactual_importance_kl": 0.006343141184064982,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9166666666666666,
+    "overdeterminedness": 0.14583333333333337,
+    "summary": "identify conversion error"
+  },
+  {
+    "chunk": "Let me try another method.",
+    "chunk_idx": 145,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "144"
+    ],
+    "accuracy": 0.11224489795918367,
+    "resampling_importance_accuracy": -0.049087003222341566,
+    "resampling_importance_kl": 0.025734734867422678,
+    "counterfactual_importance_accuracy": 0.033227647431832597,
+    "counterfactual_importance_kl": 0.0066077929498082905,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8469387755102041,
+    "overdeterminedness": 0.7346938775510203,
+    "summary": "try alternative method"
+  },
+  {
+    "chunk": "Alternatively, instead of converting to decimal first, I can convert each hex digit to 4 bits and concatenate them.",
+    "chunk_idx": 146,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "145"
+    ],
+    "accuracy": 0.06315789473684211,
+    "resampling_importance_accuracy": -0.0013022246337493215,
+    "resampling_importance_kl": 2.25230362760156e-05,
+    "counterfactual_importance_accuracy": -0.029597605586963754,
+    "counterfactual_importance_kl": 0.05205029493058225,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.3263157894736842,
+    "overdeterminedness": 0.18947368421052635,
+    "summary": "convert hex to bits"
+  },
+  {
+    "chunk": "Given \\(66666_{16}\\):",
+    "chunk_idx": 147,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.061855670103092786,
+    "resampling_importance_accuracy": 0.011060996563573885,
+    "resampling_importance_kl": 0.0009585895087386373,
+    "counterfactual_importance_accuracy": -0.0047348484848484945,
+    "counterfactual_importance_kl": 0.0037525101343498122,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9072164948453608,
+    "overdeterminedness": 0.6082474226804124,
+    "summary": "convert to decimal"
+  },
+  {
+    "chunk": "Each '6' in hex is 0110 in binary (since 6 in decimal is 0110 in 4 bits).",
+    "chunk_idx": 148,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "147"
+    ],
+    "accuracy": 0.07291666666666667,
+    "resampling_importance_accuracy": 0.0007675438596491113,
+    "resampling_importance_kl": 0.0016180392981077114,
+    "counterfactual_importance_accuracy": -0.07368421052631578,
+    "counterfactual_importance_kl": 0.1177830160813714,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.020833333333333332,
+    "overdeterminedness": 0.8125,
+    "summary": "convert hex 6 to binary"
+  },
+  {
+    "chunk": "So, writing each digit:",
+    "chunk_idx": 149,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "148"
+    ],
+    "accuracy": 0.07368421052631578,
+    "resampling_importance_accuracy": -0.00916808149405772,
+    "resampling_importance_kl": 0.008802065114159253,
+    "counterfactual_importance_accuracy": 0.009951956074124912,
+    "counterfactual_importance_kl": 0.0009038331534816976,
+    "forced_importance_accuracy": 0.0273972602739726,
+    "forced_importance_kl": 0.027779563886074467,
+    "different_trajectories_fraction": 0.9894736842105263,
+    "overdeterminedness": 0.3894736842105263,
+    "summary": "write each digit"
+  },
+  {
+    "chunk": "First digit: 6 -> 0110",
+    "chunk_idx": 150,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "149"
+    ],
+    "accuracy": 0.06451612903225806,
+    "resampling_importance_accuracy": -0.04323953328757721,
+    "resampling_importance_kl": 0.030824416957290733,
+    "counterfactual_importance_accuracy": 0.04323953328757721,
+    "counterfactual_importance_kl": 0.030824416957290733,
+    "forced_importance_accuracy": -0.0273972602739726,
+    "forced_importance_kl": 0.562241251941843,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6021505376344086,
+    "summary": "convert 6 to 0110"
+  },
+  {
+    "chunk": "Second digit: 6 -> 0110",
+    "chunk_idx": 151,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "150"
+    ],
+    "accuracy": 0.02127659574468085,
+    "resampling_importance_accuracy": 0.0982886216466235,
+    "resampling_importance_kl": 0.0671326793025851,
+    "counterfactual_importance_accuracy": -0.0982886216466235,
+    "counterfactual_importance_kl": 0.0671326793025851,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.276595744680851,
+    "summary": "convert 6 to 0110"
+  },
+  {
+    "chunk": "Third digit: 6 -> 0110",
+    "chunk_idx": 152,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "151"
+    ],
+    "accuracy": 0.11956521739130435,
+    "resampling_importance_accuracy": -0.043478260869565216,
+    "resampling_importance_kl": 0.027035341283511156,
+    "counterfactual_importance_accuracy": 0.048913043478260865,
+    "counterfactual_importance_kl": 0.03525644348701044,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9565217391304348,
+    "overdeterminedness": 0.3369565217391305,
+    "summary": "convert 6 to 0110"
+  },
+  {
+    "chunk": "Fourth digit: 6 -> 0110",
+    "chunk_idx": 153,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "152"
+    ],
+    "accuracy": 0.07608695652173914,
+    "resampling_importance_accuracy": -0.012257169287696587,
+    "resampling_importance_kl": 0.0042164856074490675,
+    "counterfactual_importance_accuracy": 0.0035859431030361016,
+    "counterfactual_importance_kl": 0.00283088100413929,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.967391304347826,
+    "overdeterminedness": 0.25,
+    "summary": "convert 6 to 0110"
+  },
+  {
+    "chunk": "Fifth digit: 6 -> 0110",
+    "chunk_idx": 154,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "153"
+    ],
+    "accuracy": 0.06382978723404255,
+    "resampling_importance_accuracy": -0.030496453900709215,
+    "resampling_importance_kl": 0.011458957237449437,
+    "counterfactual_importance_accuracy": 0.03188405797101449,
+    "counterfactual_importance_kl": 0.02245768928276158,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9787234042553191,
+    "overdeterminedness": 0.3191489361702128,
+    "summary": "convert 6 to 0110"
+  },
+  {
+    "chunk": "So, concatenating all these together:",
+    "chunk_idx": 155,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "154"
+    ],
+    "accuracy": 0.03333333333333333,
+    "resampling_importance_accuracy": 0.041935483870967745,
+    "resampling_importance_kl": 0.018024059947294988,
+    "counterfactual_importance_accuracy": -0.041935483870967745,
+    "counterfactual_importance_kl": 0.018024059947294988,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.23333333333333328,
+    "summary": "concatenate strings"
+  },
+  {
+    "chunk": "0110 0110 0110 0110 0110",
+    "chunk_idx": 156,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "155"
+    ],
+    "accuracy": 0.07526881720430108,
+    "resampling_importance_accuracy": -0.01143902997025853,
+    "resampling_importance_kl": 0.015730646349224383,
+    "counterfactual_importance_accuracy": 0.006758448060075098,
+    "counterfactual_importance_kl": 0.0004151148055673002,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9139784946236559,
+    "overdeterminedness": 0.5483870967741935,
+    "summary": "convert binary to decimal"
+  },
+  {
+    "chunk": "Let me write that out:",
+    "chunk_idx": 157,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "156"
+    ],
+    "accuracy": 0.06382978723404255,
+    "resampling_importance_accuracy": -0.008884732288987604,
+    "resampling_importance_kl": 0.000727238598297578,
+    "counterfactual_importance_accuracy": 0.008884732288987604,
+    "counterfactual_importance_kl": 0.000727238598297578,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.4787234042553191,
+    "summary": "write out expression"
+  },
+  {
+    "chunk": "0 1 1 0 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1 0",
+    "chunk_idx": 158,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "157"
+    ],
+    "accuracy": 0.054945054945054944,
+    "resampling_importance_accuracy": 0.03689167974882261,
+    "resampling_importance_kl": 0.026577997576998722,
+    "counterfactual_importance_accuracy": -0.04585972319962468,
+    "counterfactual_importance_kl": 0.03444288082298602,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9560439560439561,
+    "overdeterminedness": 0.7252747252747253,
+    "summary": "list binary sequence"
+  },
+  {
+    "chunk": "Counting the digits: 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+    "chunk_idx": 159,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "158"
+    ],
+    "accuracy": 0.09183673469387756,
+    "resampling_importance_accuracy": -0.03501855287569574,
+    "resampling_importance_kl": 0.034098705306646444,
+    "counterfactual_importance_accuracy": 0.032070707070707076,
+    "counterfactual_importance_kl": 0.008923231191889768,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9183673469387755,
+    "overdeterminedness": 0.7244897959183674,
+    "summary": "count digits=20"
+  },
+  {
+    "chunk": "So, that's 20 bits in total.",
+    "chunk_idx": 160,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "159"
+    ],
+    "accuracy": 0.056818181818181816,
+    "resampling_importance_accuracy": 0.012147335423197493,
+    "resampling_importance_kl": 0.005065615637954065,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9772727272727273,
+    "summary": "count bits=20"
+  },
+  {
+    "chunk": "Therefore, the correct number of bits is 20.",
+    "chunk_idx": 161,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "160"
+    ],
+    "accuracy": 0.06896551724137931,
+    "resampling_importance_accuracy": -0.06896551724137931,
+    "resampling_importance_kl": 1.4970537765090137,
+    "counterfactual_importance_accuracy": 0.07317073170731707,
+    "counterfactual_importance_kl": 1.5983537278020439,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9425287356321839,
+    "overdeterminedness": 0.32183908045977017,
+    "summary": "determine bits=20"
+  },
+  {
+    "chunk": "But wait, earlier when I converted to decimal and then to binary, I only got 18 bits.",
+    "chunk_idx": 162,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "161"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.039473684210526314,
+    "resampling_importance_kl": 0.2498063884125871,
+    "counterfactual_importance_accuracy": -0.039473684210526314,
+    "counterfactual_importance_kl": 0.02631730566752238,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.16129032258064516,
+    "overdeterminedness": 0.33333333333333337,
+    "summary": "convert to binary"
+  },
+  {
+    "chunk": "That must mean that the leading zeros are not being represented when converting from decimal to binary.",
+    "chunk_idx": 163,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "162"
+    ],
+    "accuracy": 0.039473684210526314,
+    "resampling_importance_accuracy": -0.017001774098166764,
+    "resampling_importance_kl": 0.005385159265233332,
+    "counterfactual_importance_accuracy": 0.010314975133542091,
+    "counterfactual_importance_kl": 0.0002656985849876885,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8026315789473685,
+    "overdeterminedness": 0.2763157894736842,
+    "summary": "identify missing leading zeros"
+  },
+  {
+    "chunk": "So, when we convert the entire hex number to binary, we have to include all 20 bits, including the leading zeros.",
+    "chunk_idx": 164,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "163"
+    ],
+    "accuracy": 0.02247191011235955,
+    "resampling_importance_accuracy": -0.02247191011235955,
+    "resampling_importance_kl": 0.47124096543791955,
+    "counterfactual_importance_accuracy": 0.037037037037037035,
+    "counterfactual_importance_kl": 0.7975095154843853,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6067415730337079,
+    "overdeterminedness": 0.011235955056179803,
+    "summary": "convert hex to binary"
+  },
+  {
+    "chunk": "Therefore, the correct number of bits is 20.",
+    "chunk_idx": 165,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "164"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.2014136501378922,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.005571043915621602,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.17346938775510204,
+    "overdeterminedness": 0.7142857142857143,
+    "summary": "determine bits=20"
+  },
+  {
+    "chunk": "I think my initial confusion was because when I converted the decimal number to binary, the leading zeros were omitted, which led me to think it was only 18 bits.",
+    "chunk_idx": 166,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "165"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.010101010101010102,
+    "resampling_importance_kl": 0.010152371254486356,
+    "counterfactual_importance_accuracy": -0.010101010101010102,
+    "counterfactual_importance_kl": 0.008230498864931239,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7676767676767676,
+    "overdeterminedness": 0.19191919191919193,
+    "summary": "omit leading zeros"
+  },
+  {
+    "chunk": "However, when converting hex to binary directly, each hex digit is exactly 4 bits, so 5 hex digits translate to 20 bits, regardless of whether the decimal equivalent requires fewer bits.",
+    "chunk_idx": 167,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "166"
+    ],
+    "accuracy": 0.010101010101010102,
+    "resampling_importance_accuracy": -0.00010101010101010166,
+    "resampling_importance_kl": 5.135961912728504e-07,
+    "counterfactual_importance_accuracy": -0.01,
+    "counterfactual_importance_kl": 0.010989120331592802,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.16161616161616163,
+    "overdeterminedness": 0.0,
+    "summary": "convert 5 hex to 20"
+  },
+  {
+    "chunk": "So, to confirm, \\(66666_{16}\\) in binary is 20 bits long.",
+    "chunk_idx": 168,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "167"
+    ],
+    "accuracy": 0.01,
+    "resampling_importance_accuracy": -0.01,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": 0.010526315789473684,
+    "counterfactual_importance_kl": 0.20872243199728982,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.95,
+    "overdeterminedness": 0.6599999999999999,
+    "summary": "confirm binary length=20"
+  },
+  {
+    "chunk": "Therefore, the answer is 20 bits.",
+    "chunk_idx": 169,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "168"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.01,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": -0.01,
+    "counterfactual_importance_kl": 0.005390847272940569,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.14,
+    "overdeterminedness": 0.86,
+    "summary": "state answer=20 bits"
+  },
+  {
+    "chunk": "**Final Answer**\nThe base-2 number has \\boxed{20} bits.",
+    "chunk_idx": 170,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "169"
+    ],
+    "accuracy": 0.01,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.0,
+    "summary": "identify bits=20"
+  }
+]

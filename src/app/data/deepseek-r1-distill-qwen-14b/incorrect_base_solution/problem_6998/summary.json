@@ -1,0 +1,248 @@
+{
+  "problem_idx": 6998,
+  "num_chunks": 212,
+  "avg_importance": 0.0009111008125948861,
+  "max_importance": 0.98,
+  "min_importance": -0.99,
+  "top_influential_steps": [
+    {
+      "step_idx": 50,
+      "step_text": {
+        "chunk": "Wait, but let me think about whether all these x = 1/(k\u03c0) are indeed in the interval (0.0001, 0.001).",
+        "chunk_idx": 50,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "49"
+        ],
+        "accuracy": 1.0,
+        "counterfactual_importance_accuracy": -0.40909090909090906,
+        "counterfactual_importance_kl": 0.5260930956355766,
+        "absolute_importance_accuracy": 0.40909090909090906,
+        "absolute_importance_kl": 0.5260930956355766,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.8673469387755102,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "check interval validity"
+      },
+      "avg_outgoing_importance": 0.3711792791650822
+    },
+    {
+      "step_idx": 208,
+      "step_text": {
+        "chunk": "The integers k in this range are from 319 to 3182 inclusive.",
+        "chunk_idx": 208,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "207"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.6363636363636364,
+        "overdeterminedness": 0.41414141414141414,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "list integers k=319 to 3182"
+      },
+      "avg_outgoing_importance": 0.32
+    },
+    {
+      "step_idx": 65,
+      "step_text": {
+        "chunk": "So total 9549 + 450.7128 \u2248 10,000.7128",
+        "chunk_idx": 65,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "64"
+        ],
+        "accuracy": 0.7222222222222222,
+        "counterfactual_importance_accuracy": -0.6388888888888888,
+        "counterfactual_importance_kl": 1.261490157317568,
+        "absolute_importance_accuracy": 0.6944444444444444,
+        "absolute_importance_kl": 0.6798035625667931,
+        "different_trajectories_fraction": 0.6,
+        "overdeterminedness": 0.43333333333333335,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate total \u2248 10000.7128"
+      },
+      "avg_outgoing_importance": 0.21047460910474608
+    },
+    {
+      "step_idx": 178,
+      "step_text": {
+        "chunk": "Wait, but I just want to make sure that I didn't make a mistake in the initial setup.",
+        "chunk_idx": 178,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "177"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.31999999999999995,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "check initial setup"
+      },
+      "avg_outgoing_importance": 0.13151515151515153
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "That is, \u03b8 = k\u03c0 for some integer k.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "accuracy": 0.6666666666666666,
+        "counterfactual_importance_accuracy": 0.04467353951890041,
+        "counterfactual_importance_kl": 0.004848131099876599,
+        "absolute_importance_accuracy": -0.04467353951890041,
+        "absolute_importance_kl": 0.004848131099876599,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.6559139784946236,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.491071626220468,
+        "summary": "derive \u03b8=k\u03c0"
+      },
+      "avg_outgoing_importance": 0.1235594402111659
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let me think about how to approach this.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.7045454545454546,
+        "counterfactual_importance_accuracy": -0.027126099706744955,
+        "counterfactual_importance_kl": 0.23744027364575085,
+        "absolute_importance_accuracy": 0.019550342130987386,
+        "absolute_importance_kl": 0.31888906907568626,
+        "different_trajectories_fraction": 0.75,
+        "overdeterminedness": 0.7613636363636364,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2591008144673557,
+        "summary": "consider approach"
+      },
+      "avg_incoming_importance": 0.17996195307545976
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "So, in this case, 1/x must be equal to k\u03c0.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "2",
+          "4"
+        ],
+        "accuracy": 0.711340206185567,
+        "counterfactual_importance_accuracy": 0.07813347802495929,
+        "counterfactual_importance_kl": 0.4599941533090884,
+        "absolute_importance_accuracy": -0.7894736842105263,
+        "absolute_importance_kl": 1.5093544226781923,
+        "different_trajectories_fraction": 0.020618556701030927,
+        "overdeterminedness": 0.7731958762886598,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.687490335337838,
+        "summary": "set 1/x = k\u03c0"
+      },
+      "avg_incoming_importance": 0.019277108433734935
+    },
+    {
+      "step_idx": 33,
+      "step_text": {
+        "chunk": "So, here, a = 319 and b = 3183.",
+        "chunk_idx": 33,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.9879518072289156,
+        "counterfactual_importance_accuracy": -0.007951807228915642,
+        "counterfactual_importance_kl": 0.0018777449859837527,
+        "absolute_importance_accuracy": 0.020000000000000018,
+        "absolute_importance_kl": 0.01671347181255158,
+        "different_trajectories_fraction": 0.024096385542168676,
+        "overdeterminedness": 0.891566265060241,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "set a=319, b=3183"
+      },
+      "avg_incoming_importance": 0.018619934282584887
+    },
+    {
+      "step_idx": 30,
+      "step_text": {
+        "chunk": "Since k must be an integer, k ranges from the next integer after 318.309, which is 319, up to the integer just below 3183.098, which is 3183.",
+        "chunk_idx": 30,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "29"
+        ],
+        "accuracy": 0.95,
+        "counterfactual_importance_accuracy": -0.029999999999999916,
+        "counterfactual_importance_kl": 0.006983717360543797,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.91,
+        "forced_importance_accuracy": -0.033333333333333326,
+        "forced_importance_kl": 0.16907632913896747,
+        "summary": "list k=319 to 3183"
+      },
+      "avg_incoming_importance": 0.017269076305220885
+    },
+    {
+      "step_idx": 47,
+      "step_text": {
+        "chunk": "2883 - 19 = 2864",
+        "chunk_idx": 47,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "46"
+        ],
+        "accuracy": 1.0,
+        "counterfactual_importance_accuracy": -0.010000000000000009,
+        "counterfactual_importance_kl": 0.010050335643973571,
+        "absolute_importance_accuracy": 0.010000000000000009,
+        "absolute_importance_kl": 0.005089060943372359,
+        "different_trajectories_fraction": 0.020202020202020204,
+        "overdeterminedness": 0.9797979797979798,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "subtract 19=2864"
+      },
+      "avg_incoming_importance": 0.016493206870033323
+    }
+  ]
+}

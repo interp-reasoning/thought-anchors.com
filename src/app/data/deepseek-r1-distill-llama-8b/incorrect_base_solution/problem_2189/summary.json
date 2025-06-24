@@ -1,0 +1,240 @@
+{
+  "problem_idx": 2189,
+  "num_chunks": 24,
+  "avg_importance": 0.003975694444444445,
+  "max_importance": 1.0,
+  "min_importance": -0.7,
+  "top_influential_steps": [
+    {
+      "step_idx": 22,
+      "step_text": {
+        "chunk": "\\[ 362880 - 80640 = 282240 \\]",
+        "chunk_idx": 22,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "20",
+          "21"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.006470936799917532,
+        "different_trajectories_fraction": 0.9090909090909091,
+        "overdeterminedness": 0.5454545454545454,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.009106141179423863,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.860888465728592,
+        "accuracy": 0.0,
+        "summary": "subtract 80640 from 362880"
+      },
+      "avg_outgoing_importance": 0.09999999999999998
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "**Step 2: Calculate the number of arrangements where the two green plates are adjacent.**",
+        "chunk_idx": 10,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.91,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.2193966116060564,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 10.966188305082046,
+        "accuracy": 0.0,
+        "summary": "calculate arrangements adjacent"
+      },
+      "avg_outgoing_importance": 0.09769230769230772
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "The number of ways to arrange these 9 units is:",
+        "chunk_idx": 13,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0767337932657504,
+        "different_trajectories_fraction": 0.23,
+        "overdeterminedness": 0.89,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.01946943578695036,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 24.824266017418857,
+        "accuracy": 0.0,
+        "summary": "calculate arrangements=362880"
+      },
+      "avg_outgoing_importance": 0.07899999999999999
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "There are 10 plates in total.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.018571428571428572,
+        "absolute_importance_kl": 8.456863283132694,
+        "different_trajectories_fraction": 0.7,
+        "overdeterminedness": 0.43999999999999995,
+        "counterfactual_importance_accuracy": -0.03,
+        "counterfactual_importance_kl": 6.384865541922769,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 8.121219098994445,
+        "accuracy": 0.04,
+        "summary": "count plates=10"
+      },
+      "avg_outgoing_importance": 0.06842105263157897
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "For circular permutations, the formula is (n-1)!",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.9230708452639436,
+        "different_trajectories_fraction": 0.07,
+        "overdeterminedness": 0.75,
+        "counterfactual_importance_accuracy": -0.01,
+        "counterfactual_importance_kl": 3.161239732811821,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.1640011192633635,
+        "accuracy": 0.01,
+        "summary": "calculate (n-1)!"
+      },
+      "avg_outgoing_importance": 0.065
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "First, calculate the total number of ways to arrange all the plates without any restrictions.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.075,
+        "absolute_importance_kl": 1.8952919423785552,
+        "different_trajectories_fraction": 0.16,
+        "overdeterminedness": 0.71,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 3.5932004946509375,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.9778503655061455,
+        "accuracy": 0.05,
+        "summary": "calculate arrangements=total"
+      },
+      "avg_incoming_importance": 0.37
+    },
+    {
+      "step_idx": 14,
+      "step_text": {
+        "chunk": "\\[ (9 - 1)!",
+        "chunk_idx": 14,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "13"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.98989898989899,
+        "counterfactual_importance_accuracy": 0.010101010101010102,
+        "counterfactual_importance_kl": 0.016879639872879052,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 11.37427629373434,
+        "accuracy": 0.0,
+        "summary": "calculate factorial=40320"
+      },
+      "avg_incoming_importance": 0.07142857142857142
+    },
+    {
+      "step_idx": 11,
+      "step_text": {
+        "chunk": "Treat the two green plates as a single unit.",
+        "chunk_idx": 11,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.98,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.4223966882436648,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 4.336620194059844,
+        "accuracy": 0.0,
+        "summary": "combine plates"
+      },
+      "avg_incoming_importance": 0.061818181818181814
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "The number of ways to arrange these 9 units is:",
+        "chunk_idx": 13,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0767337932657504,
+        "different_trajectories_fraction": 0.23,
+        "overdeterminedness": 0.89,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.01946943578695036,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 24.824266017418857,
+        "accuracy": 0.0,
+        "summary": "calculate arrangements=362880"
+      },
+      "avg_incoming_importance": 0.0476923076923077
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "For circular permutations, the formula is (n-1)!",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.9230708452639436,
+        "different_trajectories_fraction": 0.07,
+        "overdeterminedness": 0.75,
+        "counterfactual_importance_accuracy": -0.01,
+        "counterfactual_importance_kl": 3.161239732811821,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.1640011192633635,
+        "accuracy": 0.01,
+        "summary": "calculate (n-1)!"
+      },
+      "avg_incoming_importance": 0.03600000000000001
+    }
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "problem_idx": 2238,
+  "num_chunks": 150,
+  "avg_importance": 0.00015777777777777768,
+  "max_importance": 0.97,
+  "min_importance": -0.8400000000000001,
+  "top_influential_steps": [
+    {
+      "step_idx": 147,
+      "step_text": {
+        "chunk": "I think I've considered multiple approaches and they all lead to the same conclusion.",
+        "chunk_idx": 147,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "146"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.97,
+        "overdeterminedness": 0.6799999999999999,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.0,
+        "summary": "conclude same result"
+      },
+      "avg_outgoing_importance": 0.31000000000000005
+    },
+    {
+      "step_idx": 114,
+      "step_text": {
+        "chunk": "But let me verify this by expanding both expressions.",
+        "chunk_idx": 114,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "113"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.98,
+        "overdeterminedness": 0.47,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.0,
+        "summary": "expand expressions"
+      },
+      "avg_outgoing_importance": 0.28257142857142853
+    },
+    {
+      "step_idx": 80,
+      "step_text": {
+        "chunk": "Wait, but another thought: when you multiply the two expansions, each term \\(a^k b^{4 - k}\\) is multiplied by each term \\(c^{6 - 3m}\\).",
+        "chunk_idx": 80,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "79"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.84,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.0,
+        "summary": "multiply terms \\(a^k b^{4 -"
+      },
+      "avg_outgoing_importance": 0.19202898550724637
+    },
+    {
+      "step_idx": 139,
+      "step_text": {
+        "chunk": "Alternatively, another way to think about it is that when you multiply two polynomials, the coefficient of a specific term in the product is the product of the coefficients from each polynomial for the terms that multiply together to form that specific term.",
+        "chunk_idx": 139,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "138"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.98,
+        "overdeterminedness": 0.62,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.0,
+        "summary": "multiply polynomial coefficients"
+      },
+      "avg_outgoing_importance": 0.16799999999999998
+    },
+    {
+      "step_idx": 128,
+      "step_text": {
+        "chunk": "But wait, actually, no.",
+        "chunk_idx": 128,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "127"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.32999999999999996,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.0,
+        "summary": "no action taken"
+      },
+      "avg_outgoing_importance": 0.09142857142857143
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let me try to figure this out step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.010909090909090924,
+        "absolute_importance_kl": 0.4012124968533102,
+        "different_trajectories_fraction": 0.55,
+        "overdeterminedness": 0.88,
+        "counterfactual_importance_accuracy": 0.019999999999999962,
+        "counterfactual_importance_kl": 0.610009732683839,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.30604844289565614,
+        "accuracy": 0.46,
+        "summary": "figure out step by step"
+      },
+      "avg_incoming_importance": 0.10999999999999999
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "Simplifying that, it becomes \\(\\sum_{m=0}^{6} \\dbinom{6}{m} c^{6 - 2m}\\).",
+        "chunk_idx": 8,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "7"
+        ],
+        "absolute_importance_accuracy": -0.09347826086956529,
+        "absolute_importance_kl": 0.06411994420905763,
+        "different_trajectories_fraction": 0.46,
+        "overdeterminedness": 0.69,
+        "counterfactual_importance_accuracy": 0.050000000000000044,
+        "counterfactual_importance_kl": 0.5275124280489418,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.9919668496387718,
+        "accuracy": 0.5,
+        "summary": "simplify sum=\\(\\sum_{m=0}^{6} \\dbinom{6}{m"
+      },
+      "avg_incoming_importance": 0.055
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "Calculating that, \\(\\dbinom{4}{2} = \\dfrac{4!}{2!2!} = \\dfrac{24}{4} = 6\\).",
+        "chunk_idx": 13,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.94,
+        "counterfactual_importance_accuracy": 0.08000000000000007,
+        "counterfactual_importance_kl": 0.4584428756437513,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.48,
+        "summary": "calculate \\(\\dbinom{4}{2}=6\\)"
+      },
+      "avg_incoming_importance": 0.05
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "So, in the expansion of \\((a + b)^4\\), the term \\(a^2b^2\\) corresponds to \\(k = 2\\), right?",
+        "chunk_idx": 10,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "4",
+          "9"
+        ],
+        "absolute_importance_accuracy": -0.04777777777777781,
+        "absolute_importance_kl": 0.6149246037627175,
+        "different_trajectories_fraction": 0.72,
+        "overdeterminedness": 0.14,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.43736869473721013,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.52,
+        "summary": "identify k=2"
+      },
+      "avg_incoming_importance": 0.033999999999999996
+    },
+    {
+      "step_idx": 17,
+      "step_text": {
+        "chunk": "The second expansion, \\(\\left(c + \\dfrac{1}{c}\\right)^6\\), doesn't have any \\(a\\) or \\(b\\) terms.",
+        "chunk_idx": 17,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "16"
+        ],
+        "absolute_importance_accuracy": 0.023333333333333317,
+        "absolute_importance_kl": 0.08214754346805966,
+        "different_trajectories_fraction": 0.06060606060606061,
+        "overdeterminedness": 0.6262626262626263,
+        "counterfactual_importance_accuracy": 0.047373737373737346,
+        "counterfactual_importance_kl": 0.4476657622007272,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.26262626262626265,
+        "summary": "expand \\((c + \\dfrac{1}{c})^6\\)"
+      },
+      "avg_incoming_importance": 0.021176470588235293
+    }
+  ]
+}

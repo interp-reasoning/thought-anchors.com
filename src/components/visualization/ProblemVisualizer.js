@@ -4,6 +4,7 @@ import * as d3 from 'd3'
 import { functionTagColors, formatFunctionTag } from '@/constants/visualization'
 import { processMathText } from '@/utils/textProcessing'
 import ChainOfThought from './ChainOfThought'
+import AttributionGraph from '@/components/attribution/AttributionGraph'
 import {
     VisualizerWrapper,
     GraphContainer,
@@ -16,6 +17,8 @@ import {
     HoverTooltip,
     NavigationControls,
     NavButton,
+    VisualizationToggle,
+    ToggleOption,
 } from '@/styles/visualization'
 import styled from 'styled-components'
 
@@ -158,10 +161,21 @@ const CollapsibleSection = ({ title, children, content, defaultOpen = false }) =
     )
 }
 
-const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlightColor = '#333', nodeHighlightWidth = 2.5, initialImportanceFilter = 4 }) => {
+const ProblemVisualizer = ({ 
+    problemId, 
+    modelId,
+    solutionType,
+    initialCausalLinksCount = 3, 
+    nodeHighlightColor = '#333', 
+    nodeHighlightWidth = 2.5, 
+    initialImportanceFilter = 4,
+    windowWidth = 0,
+    visualizationType = 'circle',
+    onVisualizationTypeChange,
+}) => {
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
-    const [resStepImportanceData, setResStepImportanceData] = useState([])
+    const [counterfactualStepImportanceData, setCounterfactualStepImportanceData] = useState([])
     const [summaryData, setSummaryData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [selectedNode, setSelectedNode] = useState(null)
@@ -172,6 +186,12 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
     const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, content: '' })
     const [normalizedWeights, setNormalizedWeights] = useState(new Map())
     const [scrollToNode, setScrollToNode] = useState(null)
+    
+    // Attribution graph specific state
+    const [selectedPaths, setSelectedPaths] = useState([])
+    const [maxDepth, setMaxDepth] = useState(2)
+    const [lastAttributionNode, setLastAttributionNode] = useState(null)
+    
     const svgRef = useRef(null)
     const graphContainerRef = useRef(null)
     const detailPanelRef = useRef(null)
@@ -184,37 +204,41 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
     const [localImportanceFilter, setLocalImportanceFilter] = useState(initialImportanceFilter)
 
     // Add state for supplementary data
-    const [suppStepImportanceData, setSuppStepImportanceData] = useState(null)
-    const [selectedMetric, setSelectedMetric] = useState('resampling')
+    const [suppressionStepImportanceData, setSuppressionStepImportanceData] = useState(null)
+    const [selectedMetric, setSelectedMetric] = useState('counterfactual')
 
-    const hasSuppStepImportanceData = !!suppStepImportanceData
-    const currentStepImportanceData = selectedMetric === 'resampling' ? resStepImportanceData : suppStepImportanceData
+    const hasSuppressionStepImportanceData = !!suppressionStepImportanceData
+    const currentStepImportanceData = selectedMetric === 'counterfactual' ? counterfactualStepImportanceData : suppressionStepImportanceData
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true)
             try {
-                if (!problemId) {
-                    throw new Error('Problem ID is undefined')
+                if (!problemId || !modelId || !solutionType) {
+                    throw new Error('Problem ID, Model ID, or Solution Type is undefined')
                 }
 
                 // Fetch chunks data
-                const chunksResponse = await import(`../../app/data/${problemId}/chunks_labeled.json`)
-                setChunksData(chunksResponse.default)
+                const chunksResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/chunks_labeled.json`)
+                const chunksWithImportance = chunksResponse.default.map(chunk => ({
+                    ...chunk,
+                    importance: chunk.counterfactual_importance_kl // chunk.resampling_importance_kl
+                }))
+                setChunksData(chunksWithImportance)
 
                 // Fetch step importance data
                 const stepImportanceResponse = await import(
-                    `../../app/data/${problemId}/step_importance.json`
+                    `../../app/data/${modelId}/${solutionType}/${problemId}/step_importance.json`
                 )
-                setResStepImportanceData(stepImportanceResponse.default)
+                setCounterfactualStepImportanceData(stepImportanceResponse.default)
 
                 // Fetch summary data
-                const summaryResponse = await import(`../../app/data/${problemId}/summary.json`)
+                const summaryResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/summary.json`)
                 setSummaryData(summaryResponse.default)
 
                 // Fetch problem data
                 try {
-                    const problemResponse = await import(`../../app/data/${problemId}/problem.json`)
+                    const problemResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/problem.json`)
                     setProblemData(problemResponse.default)
                 } catch (e) {
                     console.warn(`Problem data not found for ${problemId}`)
@@ -222,11 +246,11 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
 
                 // Fetch supplementary data if exists
                 try {
-                    const suppResponse = await import(`../../app/data/${problemId}/step_importance_supp.json`)
-                    setSuppStepImportanceData(suppResponse.default)
+                    const suppressionResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/step_importance_supp.json`)
+                    setSuppressionStepImportanceData(suppressionResponse.default)
                 } catch (e) {
                     console.warn(`Attention suppression data not found for ${problemId}`)
-                    setSuppStepImportanceData(null)
+                    setSuppressionStepImportanceData(null)
                 }
 
                 setLoading(false)
@@ -237,37 +261,49 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         }
 
         fetchData()
-    }, [problemId])
+    }, [problemId, modelId, solutionType])
 
     // Normalize connection weights
     useEffect(() => {
         if (currentStepImportanceData.length > 0) {
             const weightMap = new Map()
             
+            // Collect all importance scores for global normalization
+            const allImportanceScores = []
+            currentStepImportanceData.forEach((step) => {
+                const impacts = step.target_impacts || []
+                impacts.forEach((impact) => {
+                    allImportanceScores.push(Math.abs(impact.importance_score))
+                })
+            })
+            
+            // Find min and max for global 0-1 normalization
+            const minImportance = Math.min(...allImportanceScores)
+            const maxImportance = Math.max(...allImportanceScores)
+            const importanceRange = maxImportance - minImportance || 1 // Avoid division by zero
+            
+            console.log(`Problem ${problemId} sentence-to-sentence scores range: [${minImportance.toFixed(4)}, ${maxImportance.toFixed(4)}]`)
+            
+            // Normalize each connection to 0-1 range
             currentStepImportanceData.forEach((step) => {
                 const sourceIdx = step.source_chunk_idx
                 const impacts = step.target_impacts || []
                 
-                // Calculate sum of absolute values for normalization
-                const totalWeight = impacts.reduce((sum, impact) => 
-                    sum + Math.abs(impact.importance_score), 0)
-                
-                if (totalWeight > 0) {
-                    impacts.forEach((impact) => {
-                        const normalizedWeight = Math.abs(impact.importance_score) / totalWeight
-                        const key = `${sourceIdx}-${impact.target_chunk_idx}`
-                        weightMap.set(key, normalizedWeight)
-                    })
-                }
+                impacts.forEach((impact) => {
+                    const rawImportance = Math.abs(impact.importance_score)
+                    const normalizedWeight = (rawImportance - minImportance) / importanceRange
+                    const key = `${sourceIdx}-${impact.target_chunk_idx}`
+                    weightMap.set(key, normalizedWeight)
+                })
             })
             
             setNormalizedWeights(weightMap)
         }
-    }, [currentStepImportanceData])
+    }, [currentStepImportanceData, problemId])
 
     // Auto-select the most important step when data loads by simulating a click
     useEffect(() => {
-        if (chunksData.length > 0 && !selectedNode) {
+        if (chunksData.length > 0) {
             // Find the chunk with the highest importance score
             const mostImportantChunk = chunksData.reduce((max, chunk) => {
                 const currentImportance = Math.abs(chunk.importance) || 0
@@ -285,7 +321,13 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                 return () => clearTimeout(timer)
             }
         }
-    }, [chunksData])
+    }, [chunksData, problemId, modelId, solutionType]) // Reset when data context changes
+
+    // Clear selection when problem context changes
+    useEffect(() => {
+        setSelectedNode(null)
+        setHoveredNode(null)
+    }, [problemId, modelId, solutionType])
 
     // Add useEffect to handle connection highlighting for selected node
     useEffect(() => {
@@ -591,17 +633,17 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
 
     // Create a separate useEffect for initial graph rendering
     useEffect(() => {
-        if (!loading && chunksData.length > 0 && currentStepImportanceData.length > 0) {
+        if (!loading && chunksData.length > 0 && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
             renderGraph()
         }
-    }, [loading, chunksData, currentStepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter])
+    }, [loading, chunksData, currentStepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter, visualizationType])
 
     // Add a new useEffect to fetch resampled chunks
     useEffect(() => {
         const fetchResampledChunks = async () => {
             try {
                 const resampledChunksResponse = await import(
-                    `../../app/data/${problemId}/chunks_resampled.json`
+                    `../../app/data/${modelId}/${solutionType}/${problemId}/chunks_resampled.json`
                 )
                 setResampledChunks(resampledChunksResponse.default)
             } catch (error) {
@@ -609,10 +651,10 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
             }
         }
 
-        if (problemId) {
+        if (problemId && modelId && solutionType) {
             fetchResampledChunks()
         }
-    }, [problemId])
+    }, [problemId, modelId, solutionType])
 
     // Update isPanelOpen when selectedNode changes
     useEffect(() => {
@@ -677,6 +719,17 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         return () => resizeObserver.disconnect()
     }, [])
 
+    // Re-render graph when window size changes (debounced)
+    useEffect(() => {
+        if (windowWidth > 0 && !loading && chunksData.length > 0 && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
+            // Small delay to ensure layout has updated and prevent rapid re-renders
+            const timer = setTimeout(() => {
+                renderGraph()
+            }, 200) // 200ms debounce for smoother resize
+            return () => clearTimeout(timer)
+        }
+    }, [windowWidth])
+
     const renderGraph = () => {
         if (!svgRef.current || !graphContainerRef.current) return
 
@@ -708,19 +761,29 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         // Create a group for the graph
         const g = svg.append('g')
 
+        // Normalize importance scores for this problem to 0-1 range
+        const rawImportances = chunksData.map(chunk => Math.abs(chunk.importance) || 0.01)
+        const minImportance = Math.min(...rawImportances)
+        const maxImportance = Math.max(...rawImportances)
+        const importanceRange = maxImportance - minImportance || 1 // Avoid division by zero
+
         // Create nodes data with improved sizing
         const nodes = chunksData.map((chunk) => {
-            const importance = Math.abs(chunk.importance) || 0.01
+            const rawImportance = Math.abs(chunk.importance) || 0.01
+            // Normalize importance to 0-1 range for this problem
+            const normalizedImportance = (rawImportance - minImportance) / importanceRange
+            
             return {
                 id: chunk.chunk_idx,
                 text: chunk.chunk,
                 functionTag: chunk.function_tags[0],
-                importance: importance,
+                importance: normalizedImportance, // Use normalized importance
+                rawImportance: rawImportance, // Keep raw for reference
                 dependsOn: chunk.depends_on,
-                // Dynamic radius based on importance (more significant variation)
-                radius: Math.max(10, Math.min(25, 8 + importance * 40)),
-                // Color intensity based on importance
-                colorIntensity: Math.min(1, Math.max(0.6, importance * 3))
+                // Dynamic radius based on normalized importance (more significant variation)
+                radius: Math.max(10, 10 + Math.log(1 + normalizedImportance * 20) * 3.5),
+                // Color intensity based on normalized importance
+                colorIntensity: Math.min(1, Math.max(0.6, normalizedImportance * 3))
             }
         })
 
@@ -1126,20 +1189,23 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
             clearTimeout(hoverTimerRef.current)
         }
         
-        // Set a delay of 1 second before triggering hover effect
-        hoverTimerRef.current = setTimeout(() => {
-            setHoveredNode(node)
-            setHoveredFromCentralGraph(true)
-            
-            // Add red circle overlay to the hovered node
-            if (svgRef.current) {
-                d3.select(svgRef.current)
-                    .selectAll('.nodes g')
-                    .selectAll('circle')
-                    .attr('stroke', (d) => d.id === node.id ? nodeHighlightColor : '#fff')
-                    .attr('stroke-width', (d) => d.id === node.id ? nodeHighlightWidth : 2)
-            }
-        }, 350) // 0.35 second delay
+        // Immediately set the hovered node for responsive CoT updates
+        setHoveredNode(node)
+        setHoveredFromCentralGraph(true)
+        
+        // Use delay only for visual effects in circle mode
+        if (visualizationType === 'circle') {
+            hoverTimerRef.current = setTimeout(() => {
+                // Add highlighting to the hovered node
+                if (svgRef.current) {
+                    d3.select(svgRef.current)
+                        .selectAll('.nodes g')
+                        .selectAll('circle')
+                        .attr('stroke', (d) => d.id === node.id ? nodeHighlightColor : '#fff')
+                        .attr('stroke-width', (d) => d.id === node.id ? nodeHighlightWidth : 2)
+                }
+            }, 200) // Reduced delay for visual effects
+        }
     }
 
     const handleNodeLeave = () => {
@@ -1153,8 +1219,8 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         setHoveredFromCentralGraph(false)
         setTooltip({ visible: false, x: 0, y: 0, content: '' })
         
-        // Only reset node highlighting if no node is selected
-        if (!selectedNode && svgRef.current) {
+        // Only reset node highlighting if no node is selected and in circle mode
+        if (!selectedNode && svgRef.current && visualizationType === 'circle') {
             d3.select(svgRef.current)
                 .selectAll('.nodes g')
                 .selectAll('circle')
@@ -1194,6 +1260,12 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
         setSelectedNode(nodeData)
     }
 
+    // Helper function to get normalized importance score
+    const getNormalizedImportanceScore = (sourceIdx, targetIdx) => {
+        const key = `${sourceIdx}-${targetIdx}`
+        return normalizedWeights.get(key) || 0
+    }
+
     // Get causal effects for a node
     const getCausalEffects = (nodeId) => {
         const effects = []
@@ -1208,7 +1280,8 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                     effects.push({
                         id: targetNode.chunk_idx,
                         functionTag: targetNode.function_tags[0],
-                        importance: impact.importance_score,
+                        importance: getNormalizedImportanceScore(nodeId, impact.target_chunk_idx),
+                        rawImportance: impact.importance_score, // Keep raw for reference
                         text: targetNode.chunk,
                     })
                 }
@@ -1230,7 +1303,8 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                     affectedBy.push({
                         id: step.source_chunk_idx,
                         functionTag: sourceNode.function_tags[0],
-                        importance: impact.importance_score,
+                        importance: getNormalizedImportanceScore(step.source_chunk_idx, nodeId),
+                        rawImportance: impact.importance_score, // Keep raw for reference
                         text: sourceNode.chunk,
                     })
                 }
@@ -1329,11 +1403,104 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
 
     // Add reset view function
     const resetGraphView = () => {
-        if (svgRef.current && zoomRef.current) {
-            const svg = d3.select(svgRef.current)
-            svg.transition().duration(350).call(zoomRef.current.transform, d3.zoomIdentity)
+        if (visualizationType === 'circle') {
+            if (svgRef.current && zoomRef.current) {
+                const svg = d3.select(svgRef.current)
+                svg.transition().duration(350).call(zoomRef.current.transform, d3.zoomIdentity)
+            }
+        } else if (visualizationType === 'attribution') {
+            if (typeof window !== 'undefined' && window.resetAttributionGraphView) {
+                window.resetAttributionGraphView()
+            }
         }
     }
+
+    // Add function to build attribution paths for selected node
+    const buildAttributionPaths = (selectedNodeId, stepImportanceData, chunksData, maxDepth = 2, causalLinksCount = 3) => {
+        if (!selectedNodeId || !stepImportanceData.length) return []
+        
+        // Find the target chunk
+        const targetChunk = chunksData.find(chunk => chunk.chunk_idx === selectedNodeId)
+        if (!targetChunk) return []
+
+        // Build paths by traversing backwards from selected node
+        const buildPaths = (nodeId, currentDepth, visitedNodes = new Set()) => {
+            if (currentDepth >= maxDepth || visitedNodes.has(nodeId)) {
+                return [[{ idx: nodeId, sources: [] }]]
+            }
+
+            visitedNodes.add(nodeId)
+            const paths = []
+            
+            // Find all nodes that influence this node
+            const influencingSteps = stepImportanceData.filter(step =>
+                step.target_impacts && step.target_impacts.some(impact => impact.target_chunk_idx === nodeId)
+            )
+
+            if (influencingSteps.length === 0) {
+                // Leaf node
+                return [[{ idx: nodeId, sources: [] }]]
+            }
+
+            // Get top influences
+            const allInfluences = []
+            influencingSteps.forEach(step => {
+                const impact = step.target_impacts.find(impact => impact.target_chunk_idx === nodeId)
+                if (impact) {
+                    // Use normalized importance score instead of raw score
+                    const normalizedScore = getNormalizedImportanceScore(step.source_chunk_idx, nodeId)
+                    allInfluences.push({
+                        idx: step.source_chunk_idx,
+                        score: normalizedScore
+                    })
+                }
+            })
+
+            // Sort by normalized importance and take top-N based on causalLinksCount
+            const topInfluences = allInfluences
+                .sort((a, b) => b.score - a.score) // Sort by normalized score descending
+                .slice(0, causalLinksCount) // Use causalLinksCount parameter
+
+            if (topInfluences.length === 0) {
+                return [[{ idx: nodeId, sources: [] }]]
+            }
+
+            // Recursively build paths for each influence
+            topInfluences.forEach(influence => {
+                const subPaths = buildPaths(influence.idx, currentDepth + 1, new Set(visitedNodes))
+                subPaths.forEach(subPath => {
+                    const nodePath = [{
+                        idx: nodeId,
+                        sources: topInfluences
+                    }, ...subPath]
+                    paths.push(nodePath)
+                })
+            })
+
+            visitedNodes.delete(nodeId)
+            return paths.length > 0 ? paths : [[{ idx: nodeId, sources: topInfluences }]]
+        }
+
+        return buildPaths(selectedNodeId, 0)
+    }
+
+    // Update attribution paths when selected node changes
+    useEffect(() => {
+        if (selectedNode && visualizationType === 'attribution') {
+            // Build paths for the selected node
+            const paths = buildAttributionPaths(selectedNode.id, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount)
+            setSelectedPaths(paths)
+            setLastAttributionNode(selectedNode.id) // Remember this node for attribution
+        } else if (visualizationType === 'attribution' && lastAttributionNode && currentStepImportanceData.length > 0) {
+            // If in attribution view but no current selection, use the last attribution node
+            const paths = buildAttributionPaths(lastAttributionNode, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount)
+            setSelectedPaths(paths)
+        } else if (visualizationType === 'circle') {
+            // Only clear paths when switching to circle view
+            setSelectedPaths([])
+            setLastAttributionNode(null)
+        }
+    }, [selectedNode, currentStepImportanceData, chunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, lastAttributionNode])
 
     return (
         <div>
@@ -1350,7 +1517,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                     {summaryData && (
                         <ProblemBox>
                             <h3 style={{ marginBottom: '0.5rem' }}>
-                                Problem {summaryData.problem_idx}
+                                {`${problemData?.nickname}` || `Problem ${summaryData.problem_idx}`}
                             </h3>
                             {problemData && problemData.problem && (
                                 <div
@@ -1398,7 +1565,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                                 </p>
                                 <p>{summaryData.num_chunks}</p>
                             </div>
-                            {hasSuppStepImportanceData && (
+                            {hasSuppressionStepImportanceData && (
                                 <div
                                     style={{
                                         marginBottom: '0.5rem',
@@ -1421,7 +1588,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                                             fontSize: '0.875rem',
                                         }}
                                     >
-                                        <option value="resampling">Resampling</option>
+                                        <option value="counterfactual">Counterfactual</option>
                                         <option value="attention suppression">Attention suppression</option>
                                     </select>
                                 </div>
@@ -1558,38 +1725,130 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                         <GraphContainer ref={graphContainerRef}>
                             <GraphControls>
                                 <ControlRow>
-                                    <label>Causal links:</label>
-                                    <select
-                                        value={localCausalLinksCount}
-                                        onChange={(e) => setLocalCausalLinksCount(Number(e.target.value))}
-                                    >
-                                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                                            <option key={num} value={num}>
-                                                {num}
-                                            </option>
-                                        ))}
-                                    </select>
+                                    <label>View:</label>
+                                    <VisualizationToggle>
+                                        <ToggleOption
+                                            active={visualizationType === 'circle'}
+                                            onClick={() => {
+                                                if (onVisualizationTypeChange) {
+                                                    onVisualizationTypeChange('circle')
+                                                }
+                                            }}
+                                        >
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                                                {/* Dots positioned around the circle edge */}
+                                                <circle cx="12" cy="2" r="1.5" fill="currentColor"/>
+                                                <circle cx="20.2" cy="7.8" r="1.5" fill="currentColor"/>
+                                                <circle cx="20.2" cy="16.2" r="1.5" fill="currentColor"/>
+                                                <circle cx="12" cy="22" r="1.5" fill="currentColor"/>
+                                                <circle cx="3.8" cy="16.2" r="1.5" fill="currentColor"/>
+                                                <circle cx="3.8" cy="7.8" r="1.5" fill="currentColor"/>
+                                            </svg>
+                                            Circle
+                                        </ToggleOption>
+                                        <ToggleOption
+                                            active={visualizationType === 'attribution'}
+                                            onClick={() => {
+                                                if (onVisualizationTypeChange) {
+                                                    onVisualizationTypeChange('attribution')
+                                                }
+                                            }}
+                                        >
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                {/* Top level nodes */}
+                                                <rect x="2" y="3" width="4" height="4" rx="1" fill="currentColor"/>
+                                                <rect x="10" y="3" width="4" height="4" rx="1" fill="currentColor"/>
+                                                <rect x="18" y="3" width="4" height="4" rx="1" fill="currentColor"/>
+                                                {/* Bottom target node */}
+                                                <rect x="10" y="17" width="4" height="4" rx="1" fill="currentColor"/>
+                                                {/* Simple connecting lines */}
+                                                <line x1="4" y1="7" x2="12" y2="17" stroke="currentColor" strokeWidth="1.5"/>
+                                                <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" strokeWidth="1.5"/>
+                                                <line x1="20" y1="7" x2="12" y2="17" stroke="currentColor" strokeWidth="1.5"/>
+                                            </svg>
+                                            Tree
+                                        </ToggleOption>
+                                    </VisualizationToggle>
                                 </ControlRow>
-                                <ControlRow>
-                                    <label>Node filter:</label>
-                                    <ImportanceSlider
-                                        type="range"
-                                        min="0"
-                                        max="4"
-                                        value={localImportanceFilter}
-                                        onChange={e => setLocalImportanceFilter(Number(e.target.value))}
-                                    />
-                                    <span style={{ fontSize: '0.875rem', color: '#666', marginLeft: '0.5rem', minWidth: '48px' }}>
-                                        {localImportanceFilter === 4 ? 'All nodes' : `Top ${Math.ceil(((localImportanceFilter + 1) / 5) * 100)}%`}
-                                    </span>
-                                </ControlRow>
+                                
+                                {visualizationType === 'circle' ? (
+                                    <>
+                                        <ControlRow>
+                                            <label>Causal links:</label>
+                                            <select
+                                                value={localCausalLinksCount}
+                                                onChange={(e) => setLocalCausalLinksCount(Number(e.target.value))}
+                                            >
+                                                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                                    <option key={num} value={num}>
+                                                        {num}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </ControlRow>
+                                        <ControlRow>
+                                            <label>Node filter:</label>
+                                            <ImportanceSlider
+                                                type="range"
+                                                min="0"
+                                                max="4"
+                                                value={localImportanceFilter}
+                                                onChange={e => setLocalImportanceFilter(Number(e.target.value))}
+                                            />
+                                            <span style={{ fontSize: '0.875rem', color: '#666', marginLeft: '0.5rem', minWidth: '48px' }}>
+                                                {localImportanceFilter === 4 ? 'All nodes' : `Top ${Math.ceil(((localImportanceFilter + 1) / 5) * 100)}%`}
+                                            </span>
+                                        </ControlRow>
+                                    </>
+                                ) : (
+                                    <>
+                                        <ControlRow>
+                                            <label>Causal links:</label>
+                                            <select
+                                                value={localCausalLinksCount}
+                                                onChange={(e) => setLocalCausalLinksCount(Number(e.target.value))}
+                                            >
+                                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                                    <option key={num} value={num}>
+                                                        {num}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </ControlRow>
+                                        <ControlRow>
+                                            <label>Max depth:</label>
+                                            <select
+                                                value={maxDepth}
+                                                onChange={(e) => setMaxDepth(Number(e.target.value))}
+                                            >
+                                                <option value={1}>1</option>
+                                                <option value={2}>2</option>
+                                                <option value={3}>3</option>
+                                            </select>
+                                        </ControlRow>
+                                    </>
+                                )}
+                                
                                 <ControlRow>
                                     <ControlButton onClick={resetGraphView}>
                                         Reset view
                                     </ControlButton>
                                 </ControlRow>
                             </GraphControls>
-                            <svg ref={svgRef} width='100%' height='100%'></svg>
+                            
+                            {visualizationType === 'circle' ? (
+                                <svg ref={svgRef} width='100%' height='100%'></svg>
+                            ) : (
+                                <AttributionGraph
+                                    selectedIdx={selectedNode?.id || lastAttributionNode}
+                                    chunksData={chunksData}
+                                    selectedPaths={selectedPaths}
+                                    onNodeHover={handleNodeHover}
+                                    onNodeLeave={handleNodeLeave}
+                                    onNodeClick={handleNodeClick}
+                                />
+                            )}
                         </GraphContainer>
 
                         <DetailPanel visible={selectedNode !== null ? 'true' : undefined} ref={detailPanelRef}>
@@ -1666,7 +1925,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                                         </div>
                                         
                                         {/* Function and Importance in containers like left column */}
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', gap: '0.75rem' }}>
                                             <span style={{
                                                 fontSize: '0.75rem',
                                                 fontWeight: 600,
@@ -1687,7 +1946,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                                                 borderRadius: '4px',
                                                 border: '1px solid rgba(0, 0, 0, 0.1)'
                                             }}>
-                                                Importance: {selectedNode.importance.toFixed(4)}
+                                                Importance: {selectedNode.importance.toFixed(3)}
                                             </span>
                                         </div>
 
@@ -1786,7 +2045,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                                                                     Step {affector.id} ({formatFunctionTag(affector.functionTag, true)})
                                                                 </span>
                                                                 <span style={{ fontSize: '0.75rem', color: '#666' }}>
-                                                                    Influence: {affector.importance.toFixed(4)}
+                                                                    Influence: {affector.importance.toFixed(3)}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1849,7 +2108,7 @@ const ProblemVisualizer = ({ problemId, initialCausalLinksCount = 3, nodeHighlig
                                                                         Step {effect.id} ({formatFunctionTag(effect.functionTag, true)})
                                                                     </span>
                                                                     <span style={{ fontSize: '0.75rem', color: '#666' }}>
-                                                                        Influence: {effect.importance.toFixed(4)}
+                                                                        Influence: {effect.importance.toFixed(3)}
                                                                     </span>
                                                                 </div>
                                                             </div>

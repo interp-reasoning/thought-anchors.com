@@ -1,0 +1,237 @@
+{
+  "problem_idx": 2236,
+  "num_chunks": 181,
+  "avg_importance": 0.0024498641677604474,
+  "max_importance": 0.77,
+  "min_importance": -0.62,
+  "top_influential_steps": [
+    {
+      "step_idx": 177,
+      "step_text": {
+        "chunk": "Adding the 1 and 2-digit numbers, we get 188 and 98, respectively.",
+        "chunk_idx": 177,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.93,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.06999999999999995,
+        "summary": "add numbers=188, 98"
+      },
+      "avg_outgoing_importance": 0.16333333333333333
+    },
+    {
+      "step_idx": 0,
+      "step_text": {
+        "chunk": "Alright, so I have this math problem here: I need to figure out how many more 4's are printed than 8's in the page numbers of a 488-page book.",
+        "chunk_idx": 0,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.32,
+        "counterfactual_importance_kl": 3.0753859911332455,
+        "absolute_importance_accuracy": -0.4157142857142857,
+        "absolute_importance_kl": 5.6306262848739586,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 6.546976628866586,
+        "different_trajectories_fraction": 0.14,
+        "accuracy": 0.31,
+        "overdeterminedness": 0.33999999999999997,
+        "summary": "calculate 4's - 8's"
+      },
+      "avg_outgoing_importance": 0.1335
+    },
+    {
+      "step_idx": 170,
+      "step_text": {
+        "chunk": "But just to make sure I didn't miss anything, let me think about the 3-digit numbers again.",
+        "chunk_idx": 170,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.050000000000000044,
+        "counterfactual_importance_kl": 0.6059407805880986,
+        "absolute_importance_accuracy": -0.04154639175257735,
+        "absolute_importance_kl": 0.6124227428403496,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.97,
+        "accuracy": 0.94,
+        "overdeterminedness": 0.19999999999999996,
+        "summary": "review 3-digit numbers"
+      },
+      "avg_outgoing_importance": 0.11499999999999999
+    },
+    {
+      "step_idx": 175,
+      "step_text": {
+        "chunk": "So, that's 89 + 40 + 39 = 168 for 4's and 0 + 39 + 39 = 78 for 8's in the 3-digit numbers.",
+        "chunk_idx": 175,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.5959595959595959,
+        "accuracy": 1.0,
+        "overdeterminedness": 0.6161616161616161,
+        "summary": "calculate totals=168, 78"
+      },
+      "avg_outgoing_importance": 0.10600000000000001
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "So, we have page numbers that are 1-digit (1-9), 2-digits (10-99), and 3-digits (100-488).",
+        "chunk_idx": 7,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.020000000000000018,
+        "counterfactual_importance_kl": 0.26761139953348045,
+        "absolute_importance_accuracy": -0.07444444444444442,
+        "absolute_importance_kl": 0.608350350710125,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 6.747106762003593,
+        "different_trajectories_fraction": 0.45,
+        "accuracy": 0.61,
+        "overdeterminedness": 0.32999999999999996,
+        "summary": "categorize page numbers"
+      },
+      "avg_outgoing_importance": 0.08439306358381504
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, okay.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.010000000000000009,
+        "counterfactual_importance_kl": 1.0167460619539233,
+        "absolute_importance_accuracy": 0.026666666666666616,
+        "absolute_importance_kl": 2.153624515157585,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 7.318479813604137,
+        "different_trajectories_fraction": 0.51,
+        "accuracy": 0.63,
+        "overdeterminedness": 0.85,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.54
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "I'll need to calculate how many times 4 and 8 appear in each of these categories and then sum them up.",
+        "chunk_idx": 8,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "7"
+        ],
+        "counterfactual_importance_accuracy": 0.10737373737373734,
+        "counterfactual_importance_kl": 1.4500849434291354,
+        "absolute_importance_accuracy": -0.13023088023088025,
+        "absolute_importance_kl": 2.4888350720972836,
+        "forced_importance_accuracy": -0.01,
+        "forced_importance_kl": 8.542761001418683,
+        "different_trajectories_fraction": 0.28,
+        "accuracy": 0.63,
+        "overdeterminedness": 0.29000000000000004,
+        "summary": "count occurrences and sum"
+      },
+      "avg_incoming_importance": 0.09
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "First off, the book has pages numbered from 1 to 488.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.10454545454545461,
+        "counterfactual_importance_kl": 0.8778160124899395,
+        "absolute_importance_accuracy": -0.11268656716417913,
+        "absolute_importance_kl": 0.7347737202433697,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 10.057895209224585,
+        "different_trajectories_fraction": 0.6767676767676768,
+        "accuracy": 0.5454545454545454,
+        "overdeterminedness": 0.5858585858585859,
+        "summary": "list pages 1-488"
+      },
+      "avg_incoming_importance": 0.08000000000000002
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "In this range, the digits 4 and 8 will each appear once.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "counterfactual_importance_accuracy": 0.11353535353535349,
+        "counterfactual_importance_kl": 0.657182800340071,
+        "absolute_importance_accuracy": -0.06769230769230772,
+        "absolute_importance_kl": 0.08623491682976069,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 6.694391320257359,
+        "different_trajectories_fraction": 0.3939393939393939,
+        "accuracy": 0.6464646464646465,
+        "overdeterminedness": 0.5656565656565656,
+        "summary": "list digits 4, 8"
+      },
+      "avg_incoming_importance": 0.073
+    },
+    {
+      "step_idx": 9,
+      "step_text": {
+        "chunk": "Let me start by considering the 1-digit page numbers, which are from 1 to 9.",
+        "chunk_idx": 9,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "7"
+        ],
+        "counterfactual_importance_accuracy": -0.09090909090909083,
+        "counterfactual_importance_kl": 0.5013136622876339,
+        "absolute_importance_accuracy": 0.07304754865730467,
+        "absolute_importance_kl": 0.6144339094565583,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 7.775971950979975,
+        "different_trajectories_fraction": 0.8282828282828283,
+        "accuracy": 0.7373737373737373,
+        "overdeterminedness": 0.6666666666666667,
+        "summary": "consider page numbers"
+      },
+      "avg_incoming_importance": 0.06666666666666667
+    }
+  ]
+}

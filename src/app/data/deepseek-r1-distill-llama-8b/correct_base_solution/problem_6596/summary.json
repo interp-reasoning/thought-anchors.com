@@ -1,0 +1,241 @@
+{
+  "problem_idx": 6596,
+  "num_chunks": 255,
+  "avg_importance": 0.001831920883666418,
+  "max_importance": 0.9361702127659575,
+  "min_importance": -0.40626262626262627,
+  "top_influential_steps": [
+    {
+      "step_idx": 0,
+      "step_text": {
+        "chunk": "Okay, so I have this math problem here.",
+        "chunk_idx": 0,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.010869565217391304,
+        "resampling_importance_kl": 3.6641228894974023,
+        "counterfactual_importance_accuracy": -0.010869565217391304,
+        "counterfactual_importance_kl": 4.050238205068736,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.16080546032859,
+        "different_trajectories_fraction": 0.8787878787878788,
+        "overdeterminedness": 0.4444444444444444,
+        "summary": "identify math problem"
+      },
+      "avg_outgoing_importance": 0.34822635806887775
+    },
+    {
+      "step_idx": 136,
+      "step_text": {
+        "chunk": "So, the figure seems to have a larger rectangle or square on the right, from (2,0) to (12,10), which is 10 units high and 10 units wide.",
+        "chunk_idx": 136,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "126"
+        ],
+        "accuracy": 0.056818181818181816,
+        "resampling_importance_accuracy": 0.17234848484848483,
+        "resampling_importance_kl": 0.14324397233659156,
+        "counterfactual_importance_accuracy": -0.1556372549019608,
+        "counterfactual_importance_kl": 0.12144877525670028,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0012189798510835494,
+        "different_trajectories_fraction": 0.7727272727272727,
+        "overdeterminedness": 0.05681818181818177,
+        "summary": "identify rectangle dimensions"
+      },
+      "avg_outgoing_importance": 0.03352914740626606
+    },
+    {
+      "step_idx": 11,
+      "step_text": {
+        "chunk": "So, if I let the side length of the smaller square be 's,' then:",
+        "chunk_idx": 11,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "10"
+        ],
+        "accuracy": 0.02040816326530612,
+        "resampling_importance_accuracy": 0.01184990125082291,
+        "resampling_importance_kl": 0.5333170693139992,
+        "counterfactual_importance_accuracy": -0.0032725572697522194,
+        "counterfactual_importance_kl": 0.7189040626722061,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.1231865107290777,
+        "different_trajectories_fraction": 0.7040816326530612,
+        "overdeterminedness": 0.6938775510204082,
+        "summary": "let s=side length"
+      },
+      "avg_outgoing_importance": 0.03329341825672257
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "It seems like there's a larger square, and somewhere on its side, there's a smaller square attached or maybe overlapping.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.03225806451612903,
+        "resampling_importance_accuracy": 0.027741935483870966,
+        "resampling_importance_kl": 1.281188931217702,
+        "counterfactual_importance_accuracy": -0.027741935483870966,
+        "counterfactual_importance_kl": 1.281188931217702,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.968294113971541,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.3548387096774194,
+        "summary": "identify square relationship"
+      },
+      "avg_outgoing_importance": 0.02698576465978844
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "Points A and B are labeled on opposite corners\u2014A is on the east (right) side, and B is on the west (left) side.",
+        "chunk_idx": 8,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.06,
+        "resampling_importance_accuracy": -0.049473684210526316,
+        "resampling_importance_kl": 1.5684134033766495,
+        "counterfactual_importance_accuracy": 0.03202687569988802,
+        "counterfactual_importance_kl": 1.9240493242425316,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.9450191438825637,
+        "different_trajectories_fraction": 0.47,
+        "overdeterminedness": 0.20999999999999996,
+        "summary": "label points A and B"
+      },
+      "avg_outgoing_importance": 0.02526743688489516
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "The problem says there's a smaller square and a larger square in a figure.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.030612244897959183,
+        "resampling_importance_accuracy": -0.02019557823129252,
+        "resampling_importance_kl": 0.2101355301761715,
+        "counterfactual_importance_accuracy": -0.010416666666666666,
+        "counterfactual_importance_kl": 0.26296692407314126,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.4249386087894753,
+        "different_trajectories_fraction": 0.3979591836734694,
+        "overdeterminedness": 0.8163265306122449,
+        "summary": "identify squares"
+      },
+      "avg_incoming_importance": 0.30715316429602146
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "I need to find the distance from point A to point B and express it as a decimal to the nearest tenth.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.01020408163265306,
+        "resampling_importance_accuracy": -0.01020408163265306,
+        "resampling_importance_kl": 0.7321808676654724,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 3.5305037324468223,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.7536708955798295,
+        "different_trajectories_fraction": 0.07142857142857142,
+        "overdeterminedness": 0.8979591836734694,
+        "summary": "calculate distance as decimal"
+      },
+      "avg_incoming_importance": 0.19426406926406928
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Let me try to figure it out step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.010869565217391304,
+        "resampling_importance_accuracy": 0.01974267968056788,
+        "resampling_importance_kl": 0.9692005284746131,
+        "counterfactual_importance_accuracy": -0.01795401704985792,
+        "counterfactual_importance_kl": 0.3329053434421286,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.4147129865355737,
+        "different_trajectories_fraction": 0.8586956521739131,
+        "overdeterminedness": 0.7173913043478262,
+        "summary": "figure it out"
+      },
+      "avg_incoming_importance": 0.12494510320597278
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "The smaller square has a perimeter of 4 cm, and the larger square has an area of 16 cm\u00b2.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.010416666666666666,
+        "resampling_importance_accuracy": -0.00021258503401360568,
+        "resampling_importance_kl": 1.1974944099496356,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.227328297518633,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9895833333333334,
+        "summary": "calculate perimeter=4 cm"
+      },
+      "avg_incoming_importance": 0.08754208754208755
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "Points A and B are labeled on opposite corners\u2014A is on the east (right) side, and B is on the west (left) side.",
+        "chunk_idx": 8,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.06,
+        "resampling_importance_accuracy": -0.049473684210526316,
+        "resampling_importance_kl": 1.5684134033766495,
+        "counterfactual_importance_accuracy": 0.03202687569988802,
+        "counterfactual_importance_kl": 1.9240493242425316,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.9450191438825637,
+        "different_trajectories_fraction": 0.47,
+        "overdeterminedness": 0.20999999999999996,
+        "summary": "label points A and B"
+      },
+      "avg_incoming_importance": 0.0686489898989899
+    }
+  ]
+}

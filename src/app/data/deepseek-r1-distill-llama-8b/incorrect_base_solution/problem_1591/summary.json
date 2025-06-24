@@ -1,0 +1,241 @@
+{
+  "problem_idx": 1591,
+  "num_chunks": 152,
+  "avg_importance": 0.00042129854348809027,
+  "max_importance": 0.82,
+  "min_importance": -0.64,
+  "top_influential_steps": [
+    {
+      "step_idx": 89,
+      "step_text": {
+        "chunk": "We have \\( (1 + \\frac{0.06}{12})^{12} = e^{12 \\ln(1.005)} \\).",
+        "chunk_idx": 89,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": -0.24018425093222195,
+        "absolute_importance_kl": 0.12919613073681016,
+        "different_trajectories_fraction": 0.94,
+        "overdeterminedness": 0.42000000000000004,
+        "counterfactual_importance_accuracy": 0.23422680412371133,
+        "counterfactual_importance_kl": 0.1316196309197329,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.24,
+        "summary": "derive e^{12 ln(1.005)}"
+      },
+      "avg_outgoing_importance": 0.2124143664782175
+    },
+    {
+      "step_idx": 69,
+      "step_text": {
+        "chunk": "Wait, but just to make sure, maybe I should use a calculator to compute (1.005)^12 more accurately.",
+        "chunk_idx": 69,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "68"
+        ],
+        "absolute_importance_accuracy": -0.18,
+        "absolute_importance_kl": 0.08989396582525155,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.71,
+        "counterfactual_importance_accuracy": 0.18,
+        "counterfactual_importance_kl": 0.08989396582525155,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.19,
+        "summary": "compute (1.005)^12"
+      },
+      "avg_outgoing_importance": 0.17597560975609755
+    },
+    {
+      "step_idx": 139,
+      "step_text": {
+        "chunk": "1.005^6 \u2248 1.025251002 * 1.005 \u2248 1.030301502",
+        "chunk_idx": 139,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "138"
+        ],
+        "absolute_importance_accuracy": -0.028229665071770327,
+        "absolute_importance_kl": 0.00992757820509027,
+        "different_trajectories_fraction": 0.22,
+        "overdeterminedness": 0.20999999999999996,
+        "counterfactual_importance_accuracy": -0.006315789473684219,
+        "counterfactual_importance_kl": 0.00028483858749618965,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.08,
+        "summary": "calculate \u2248 1.030301502"
+      },
+      "avg_outgoing_importance": 0.15982456140350876
+    },
+    {
+      "step_idx": 88,
+      "step_text": {
+        "chunk": "Wait, just to double-check, let me compute it using logarithms.",
+        "chunk_idx": 88,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "87"
+        ],
+        "absolute_importance_accuracy": -0.08693877551020407,
+        "absolute_importance_kl": 0.020687818216339,
+        "different_trajectories_fraction": 0.98,
+        "overdeterminedness": 0.52,
+        "counterfactual_importance_accuracy": 0.09,
+        "counterfactual_importance_kl": 0.024629684385019668,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.15,
+        "summary": "compute using logarithms"
+      },
+      "avg_outgoing_importance": 0.14698412698412697
+    },
+    {
+      "step_idx": 105,
+      "step_text": {
+        "chunk": "So, let me compute e^{0.059849692}.",
+        "chunk_idx": 105,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "104"
+        ],
+        "absolute_importance_accuracy": 0.010526315789473717,
+        "absolute_importance_kl": 0.021748264476584168,
+        "different_trajectories_fraction": 0.20202020202020202,
+        "overdeterminedness": 0.48484848484848486,
+        "counterfactual_importance_accuracy": 0.11472620946305151,
+        "counterfactual_importance_kl": 0.23648317051299383,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.47474747474747475,
+        "summary": "compute e^{0.059849692}"
+      },
+      "avg_outgoing_importance": 0.14621269907311096
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Dr. Fu Manchu has a bank account with an annual interest rate of 6 percent, but it compounds monthly.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.10516483516483521,
+        "absolute_importance_kl": 0.7552613175577908,
+        "different_trajectories_fraction": 0.91,
+        "overdeterminedness": 0.83,
+        "counterfactual_importance_accuracy": -0.10999999999999999,
+        "counterfactual_importance_kl": 0.6915990120049798,
+        "forced_importance_accuracy": 0.1,
+        "forced_importance_kl": 0.06154866198126899,
+        "accuracy": 0.84,
+        "summary": "calculate interest rate=6%"
+      },
+      "avg_incoming_importance": 0.797979797979798
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "I need to find the equivalent annual interest rate, r percent, that would give the same return if it were compounded annually instead.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.20999999999999996,
+        "absolute_importance_kl": 0.28942875448601235,
+        "different_trajectories_fraction": 0.09,
+        "overdeterminedness": 0.71,
+        "counterfactual_importance_accuracy": 0.06000000000000005,
+        "counterfactual_importance_kl": 1.2776780441101454,
+        "forced_importance_accuracy": -0.11,
+        "forced_importance_kl": 0.139752639744152,
+        "accuracy": 0.73,
+        "summary": "find r percent"
+      },
+      "avg_incoming_importance": 0.21237373737373733
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Let me try to recall how that works.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": -0.07258064516129037,
+        "absolute_importance_kl": 2.3158313893715046,
+        "different_trajectories_fraction": 0.31,
+        "overdeterminedness": 0.9,
+        "counterfactual_importance_accuracy": -0.020000000000000018,
+        "counterfactual_importance_kl": 1.5173641430837748,
+        "forced_importance_accuracy": 0.22,
+        "forced_importance_kl": 0.21744634181232278,
+        "accuracy": 0.77,
+        "summary": "recall process"
+      },
+      "avg_incoming_importance": 0.1725
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "In this case, the nominal rate is 6%, but it's compounded monthly.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "1"
+        ],
+        "absolute_importance_accuracy": -0.02806451612903227,
+        "absolute_importance_kl": 1.206474177967062,
+        "different_trajectories_fraction": 0.93,
+        "overdeterminedness": 0.28,
+        "counterfactual_importance_accuracy": 0.030000000000000027,
+        "counterfactual_importance_kl": 1.1245904687448884,
+        "forced_importance_accuracy": 0.03,
+        "forced_importance_kl": 0.0037460648713255017,
+        "accuracy": 0.74,
+        "summary": "identify nominal rate=6%"
+      },
+      "avg_incoming_importance": 0.07385281385281384
+    },
+    {
+      "step_idx": 19,
+      "step_text": {
+        "chunk": "- \\( A_{annual} \\) as the amount after one year with annual compounding.",
+        "chunk_idx": 19,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.99,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.8663405877146806,
+        "forced_importance_accuracy": 0.31,
+        "forced_importance_kl": 0.19831331575121475,
+        "accuracy": 0.77,
+        "summary": "define A_{annual}"
+      },
+      "avg_incoming_importance": 0.051036682615629984
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "problem_idx": 2238,
+  "num_chunks": 95,
+  "avg_importance": 0.0009849327641665352,
+  "max_importance": 0.95,
+  "min_importance": -0.54,
+  "top_influential_steps": [
+    {
+      "step_idx": 90,
+      "step_text": {
+        "chunk": "Next, in \\(\\left(c + \\dfrac{1}{c}\\right)^6\\), the constant term (which is \\(c^0\\)) is found when the exponent is zero.",
+        "chunk_idx": 90,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "76"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": -0.010000000000000009,
+        "resampling_importance_kl": 0.010050335646067225,
+        "counterfactual_importance_accuracy": 0.010000000000000009,
+        "counterfactual_importance_kl": 0.005390847272940569,
+        "forced_importance_accuracy": -1.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.14,
+        "overdeterminedness": 0.69,
+        "summary": "find constant term"
+      },
+      "avg_outgoing_importance": 0.1775
+    },
+    {
+      "step_idx": 92,
+      "step_text": {
+        "chunk": "Therefore, when we multiply the \\(a^2b^2\\) term by the constant term from the second expansion, we get \\(6 \\times 20 = 120\\) as the coefficient of \\(a^2b^2\\) in the entire expression.",
+        "chunk_idx": 92,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "86"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.71,
+        "overdeterminedness": 0.44999999999999996,
+        "summary": "multiply coefficients=120"
+      },
+      "avg_outgoing_importance": 0.12500000000000003
+    },
+    {
+      "step_idx": 73,
+      "step_text": {
+        "chunk": "But the question is asking for the coefficient of \\(a^2b^2\\), which is only the term where the exponent of \\(c\\) is zero, right?",
+        "chunk_idx": 73,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "72"
+        ],
+        "accuracy": 0.69,
+        "resampling_importance_accuracy": 0.30000000000000004,
+        "resampling_importance_kl": 7.121993407620924,
+        "counterfactual_importance_accuracy": -0.38583333333333336,
+        "counterfactual_importance_kl": 1.252368431425432,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2927386390847426,
+        "different_trajectories_fraction": 0.48,
+        "overdeterminedness": 0.07999999999999996,
+        "summary": "identify coefficient of \\(a^2b^2\\)"
+      },
+      "avg_outgoing_importance": 0.09047619047619049
+    },
+    {
+      "step_idx": 88,
+      "step_text": {
+        "chunk": "Let me double-check that.",
+        "chunk_idx": 88,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "86"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.83,
+        "overdeterminedness": 0.6599999999999999,
+        "summary": "check answer"
+      },
+      "avg_outgoing_importance": 0.085
+    },
+    {
+      "step_idx": 82,
+      "step_text": {
+        "chunk": "Let me calculate that:",
+        "chunk_idx": 82,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "81"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.89,
+        "summary": "calculate that"
+      },
+      "avg_outgoing_importance": 0.08416666666666665
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let me try to figure this out step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.54,
+        "resampling_importance_accuracy": 0.07224489795918365,
+        "resampling_importance_kl": 0.6813832836460324,
+        "counterfactual_importance_accuracy": -0.09611586570111919,
+        "counterfactual_importance_kl": 0.7784250193525726,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.2808220695887251,
+        "different_trajectories_fraction": 0.31,
+        "overdeterminedness": 0.91,
+        "summary": "figure out step"
+      },
+      "avg_incoming_importance": 0.39999999999999997
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "So, in this case, \\((a + b)^4\\) would expand to \\(\\dbinom{4}{0}a^4 + \\dbinom{4}{1}a^3b + \\dbinom{4}{2}a^2b^2 + \\dbinom{4}{3}ab^3 + \\dbinom{4}{4}b^4\\).",
+        "chunk_idx": 4,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "2",
+          "3"
+        ],
+        "accuracy": 0.46,
+        "resampling_importance_accuracy": -0.040000000000000036,
+        "resampling_importance_kl": 0.6220932975847628,
+        "counterfactual_importance_accuracy": 0.04153846153846158,
+        "counterfactual_importance_kl": 0.34623607009812724,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 13.68994071830585,
+        "different_trajectories_fraction": 0.65,
+        "overdeterminedness": 0.63,
+        "summary": "expand (a+b)^4"
+      },
+      "avg_incoming_importance": 0.04999999999999999
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "Got that part.",
+        "chunk_idx": 8,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.56,
+        "resampling_importance_accuracy": -0.10000000000000003,
+        "resampling_importance_kl": 0.2551738979660659,
+        "counterfactual_importance_accuracy": 0.10666666666666663,
+        "counterfactual_importance_kl": 0.4137930393553897,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.6,
+        "overdeterminedness": 0.69,
+        "summary": "acknowledge completion"
+      },
+      "avg_incoming_importance": 0.04000000000000001
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "The binomial theorem says that \\((a + b)^n = \\sum_{k=0}^{n} \\dbinom{n}{k} a^{n - k} b^{k}\\).",
+        "chunk_idx": 3,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.46,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.45602816384933986,
+        "counterfactual_importance_accuracy": 0.2066666666666666,
+        "counterfactual_importance_kl": 0.20170688349437313,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.6926549984669266,
+        "different_trajectories_fraction": 0.27,
+        "overdeterminedness": 0.74,
+        "summary": "state binomial theorem"
+      },
+      "avg_incoming_importance": 0.030000000000000027
+    },
+    {
+      "step_idx": 15,
+      "step_text": {
+        "chunk": "Since \\(a\\) and \\(b\\) are variables in the first part, and \\(c\\) is a different variable in the second part, when we multiply them together, the terms in the expansion will involve products of \\(a\\), \\(b\\), and \\(c\\) terms.",
+        "chunk_idx": 15,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "14"
+        ],
+        "accuracy": 0.29,
+        "resampling_importance_accuracy": 0.34,
+        "resampling_importance_kl": 0.4470607490568196,
+        "counterfactual_importance_accuracy": -0.316046511627907,
+        "counterfactual_importance_kl": 0.36585773571007696,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.86,
+        "overdeterminedness": 0.08999999999999997,
+        "summary": "multiply a, b, c"
+      },
+      "avg_incoming_importance": 0.014000000000000002
+    }
+  ]
+}

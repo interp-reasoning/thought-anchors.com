@@ -1,0 +1,249 @@
+{
+  "problem_idx": 1591,
+  "num_chunks": 162,
+  "avg_importance": -0.00010131324384731004,
+  "max_importance": 0.96,
+  "min_importance": -0.9294949494949495,
+  "top_influential_steps": [
+    {
+      "step_idx": 158,
+      "step_text": {
+        "chunk": "Wait, but let me make sure that 6.183673% is indeed 6.18% when rounded to two decimal places.",
+        "chunk_idx": 158,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "157"
+        ],
+        "accuracy": 0.01,
+        "counterfactual_importance_accuracy": -0.01,
+        "counterfactual_importance_kl": 0.1944060053638137,
+        "absolute_importance_accuracy": 0.01,
+        "absolute_importance_kl": 0.1944060053638137,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.88,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "round 6.183673% to 6.18%"
+      },
+      "avg_outgoing_importance": 0.5022222222222222
+    },
+    {
+      "step_idx": 117,
+      "step_text": {
+        "chunk": "Wait, but let me check if I can compute (1.005)^12 more accurately.",
+        "chunk_idx": 117,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "116"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.02127659574468085,
+        "counterfactual_importance_kl": 0.02150620500637256,
+        "absolute_importance_accuracy": -0.02127659574468085,
+        "absolute_importance_kl": 0.02150620500637256,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.53,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "compute (1.005)^12"
+      },
+      "avg_outgoing_importance": 0.35650870406189555
+    },
+    {
+      "step_idx": 139,
+      "step_text": {
+        "chunk": "Wait, but let me check once again to be absolutely sure.",
+        "chunk_idx": 139,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "138"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.010752688172043012,
+        "counterfactual_importance_kl": 0.010810915892540723,
+        "absolute_importance_accuracy": -0.010752688172043012,
+        "absolute_importance_kl": 0.010810915892540723,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.7040816326530612,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "check once again"
+      },
+      "avg_outgoing_importance": 0.25166014209076415
+    },
+    {
+      "step_idx": 148,
+      "step_text": {
+        "chunk": "1.005^6 \u2248 1.0252518971 * 1.005 \u2248 1.0303789566",
+        "chunk_idx": 148,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "147"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.51,
+        "overdeterminedness": 0.52,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate \u2248 1.030379"
+      },
+      "avg_outgoing_importance": 0.14769230769230773
+    },
+    {
+      "step_idx": 150,
+      "step_text": {
+        "chunk": "1.005^8 \u2248 1.0355158514 * 1.005 \u2248 1.0406684855",
+        "chunk_idx": 150,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "149"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.4444444444444444,
+        "overdeterminedness": 0.46464646464646464,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate 1.005^8 \u2248 1.0406684855"
+      },
+      "avg_outgoing_importance": 0.12272727272727274
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Fu Manchu has a bank account with an annual interest rate of 6 percent, but it compounds monthly.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.75,
+        "counterfactual_importance_accuracy": 0.007575757575757569,
+        "counterfactual_importance_kl": 1.0495650118508564,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.98,
+        "forced_importance_accuracy": 0.1,
+        "forced_importance_kl": 0.06154866198126899,
+        "summary": "calculate interest rate"
+      },
+      "avg_incoming_importance": 0.20999999999999996
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "I know that when interest is compounded, it's calculated on the initial principal and also on the accumulated interest from previous periods.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "4"
+        ],
+        "accuracy": 0.83,
+        "counterfactual_importance_accuracy": -0.11282828282828283,
+        "counterfactual_importance_kl": 0.2803165256831338,
+        "absolute_importance_accuracy": 0.22032828282828287,
+        "absolute_importance_kl": 0.14844543393335777,
+        "different_trajectories_fraction": 0.16,
+        "overdeterminedness": 0.8200000000000001,
+        "forced_importance_accuracy": -0.23,
+        "forced_importance_kl": 5.286263943920434,
+        "summary": "calculate compounded interest"
+      },
+      "avg_incoming_importance": 0.126
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "So, n would be 12 because there are 12 months in a year.",
+        "chunk_idx": 13,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "accuracy": 0.7395833333333334,
+        "counterfactual_importance_accuracy": 0.04392182130584188,
+        "counterfactual_importance_kl": 1.074813992453647,
+        "absolute_importance_accuracy": -0.04276441389843455,
+        "absolute_importance_kl": 0.1288383627274423,
+        "different_trajectories_fraction": 0.28125,
+        "overdeterminedness": 0.8229166666666666,
+        "forced_importance_accuracy": -0.16000000000000003,
+        "forced_importance_kl": 1.3982747516486744,
+        "summary": "set n=12"
+      },
+      "avg_incoming_importance": 0.04250594766058683
+    },
+    {
+      "step_idx": 24,
+      "step_text": {
+        "chunk": "So, each month, the interest rate is 0.5%.",
+        "chunk_idx": 24,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "23"
+        ],
+        "accuracy": 0.8080808080808081,
+        "counterfactual_importance_accuracy": -0.03257060399917544,
+        "counterfactual_importance_kl": 0.039720742189529125,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9797979797979798,
+        "forced_importance_accuracy": -0.15,
+        "forced_importance_kl": 0.13578054087833943,
+        "summary": "interest rate=0.5%"
+      },
+      "avg_incoming_importance": 0.029166666666666664
+    },
+    {
+      "step_idx": 18,
+      "step_text": {
+        "chunk": "Let me plug in the numbers.",
+        "chunk_idx": 18,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "17"
+        ],
+        "accuracy": 0.78125,
+        "counterfactual_importance_accuracy": -0.00347222222222221,
+        "counterfactual_importance_kl": 0.8442509343607862,
+        "absolute_importance_accuracy": -0.01777777777777778,
+        "absolute_importance_kl": 1.3112463246653359,
+        "different_trajectories_fraction": 0.5208333333333334,
+        "overdeterminedness": 0.84375,
+        "forced_importance_accuracy": 0.34,
+        "forced_importance_kl": 0.41551544370986293,
+        "summary": "plug in numbers"
+      },
+      "avg_incoming_importance": 0.026064814814814815
+    }
+  ]
+}

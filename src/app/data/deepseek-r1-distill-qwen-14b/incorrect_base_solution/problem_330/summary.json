@@ -1,0 +1,251 @@
+{
+  "problem_idx": 330,
+  "num_chunks": 231,
+  "avg_importance": 0.0014988619198381104,
+  "max_importance": 0.9099999999999999,
+  "min_importance": -0.96,
+  "top_influential_steps": [
+    {
+      "step_idx": 217,
+      "step_text": {
+        "chunk": "Just to make sure, let me compute the expression step by step again:",
+        "chunk_idx": 217,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "216"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.40771316750457764,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.4215918097327624,
+        "different_trajectories_fraction": 0.97,
+        "overdeterminedness": 0.4,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "compute expression step-by-step"
+      },
+      "avg_outgoing_importance": 0.39237179487179485
+    },
+    {
+      "step_idx": 229,
+      "step_text": {
+        "chunk": "So, I'm confident that the answer is 36,084.",
+        "chunk_idx": 229,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "228"
+        ],
+        "accuracy": 0.010101010101010102,
+        "counterfactual_importance_accuracy": -0.010101010101010102,
+        "counterfactual_importance_kl": 0.20354004279151577,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.02040883763177646,
+        "different_trajectories_fraction": 0.010101010101010102,
+        "overdeterminedness": 0.8888888888888888,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "confirm answer=36,084"
+      },
+      "avg_outgoing_importance": 0.35
+    },
+    {
+      "step_idx": 219,
+      "step_text": {
+        "chunk": "1. 1 + 3 = 4",
+        "chunk_idx": 219,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "218"
+        ],
+        "accuracy": 0.01,
+        "counterfactual_importance_accuracy": -0.01,
+        "counterfactual_importance_kl": 0.2062979058533522,
+        "absolute_importance_accuracy": 0.010526315789473684,
+        "absolute_importance_kl": 0.21623014062800275,
+        "different_trajectories_fraction": 0.95,
+        "overdeterminedness": 0.6,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate 1+3=4"
+      },
+      "avg_outgoing_importance": 0.3390909090909091
+    },
+    {
+      "step_idx": 227,
+      "step_text": {
+        "chunk": "9. 1 + 12027 = 12028; then 3*12028 = 36084",
+        "chunk_idx": 227,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "226"
+        ],
+        "accuracy": 0.010416666666666666,
+        "counterfactual_importance_accuracy": -0.010416666666666666,
+        "counterfactual_importance_kl": 0.21448377705140648,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9375,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate 3*12028=36084"
+      },
+      "avg_outgoing_importance": 0.1775
+    },
+    {
+      "step_idx": 203,
+      "step_text": {
+        "chunk": "Total: 196830 + 19683 = 216,513",
+        "chunk_idx": 203,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "202"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.010050335646067225,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0070671668708616395,
+        "different_trajectories_fraction": 0.58,
+        "overdeterminedness": 0.18999999999999995,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate total=216513"
+      },
+      "avg_outgoing_importance": 0.12333333333333332
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "Wow, that looks complicated with all those nested parentheses.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "1"
+        ],
+        "accuracy": 0.797979797979798,
+        "counterfactual_importance_accuracy": 0.06060606060606055,
+        "counterfactual_importance_kl": 0.8416199680180277,
+        "absolute_importance_accuracy": -0.14430014430014426,
+        "absolute_importance_kl": 0.7194687381855275,
+        "different_trajectories_fraction": 0.0707070707070707,
+        "overdeterminedness": 0.6868686868686869,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.471045397458586,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.3046969696969697
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "Let me see if I can break it down step by step.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "2"
+        ],
+        "accuracy": 0.8585858585858586,
+        "counterfactual_importance_accuracy": 0.012842712842712878,
+        "counterfactual_importance_kl": 0.7003698238381234,
+        "absolute_importance_accuracy": 0.12857142857142856,
+        "absolute_importance_kl": 0.15732024015395454,
+        "different_trajectories_fraction": 0.1111111111111111,
+        "overdeterminedness": 0.9595959595959596,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.3859271451235047,
+        "summary": "break down step"
+      },
+      "avg_incoming_importance": 0.21
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "That usually makes sense with nested expressions.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "4"
+        ],
+        "accuracy": 0.8350515463917526,
+        "counterfactual_importance_accuracy": 0.025707947279133503,
+        "counterfactual_importance_kl": 1.9493011336569919,
+        "absolute_importance_accuracy": -0.020759493670886142,
+        "absolute_importance_kl": 0.11582675061767521,
+        "different_trajectories_fraction": 0.25773195876288657,
+        "overdeterminedness": 0.8144329896907216,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.239000872853452,
+        "summary": "no specific action"
+      },
+      "avg_incoming_importance": 0.09093877551020409
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3)))))))))",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [
+          "0"
+        ],
+        "accuracy": 0.8461538461538461,
+        "counterfactual_importance_accuracy": -0.048174048174048134,
+        "counterfactual_importance_kl": 0.4841973949357982,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.967032967032967,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.091460941368175,
+        "summary": "calculate value=30"
+      },
+      "avg_incoming_importance": 0.06000000000000005
+    },
+    {
+      "step_idx": 11,
+      "step_text": {
+        "chunk": "So, 3 times 4 is 12.",
+        "chunk_idx": 11,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "10"
+        ],
+        "accuracy": 0.5102040816326531,
+        "counterfactual_importance_accuracy": 0.044012785837226454,
+        "counterfactual_importance_kl": 1.664749698845025,
+        "absolute_importance_accuracy": -0.06485516534221997,
+        "absolute_importance_kl": 1.896407666072464,
+        "different_trajectories_fraction": 0.47959183673469385,
+        "overdeterminedness": 0.7653061224489796,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 4.827172336872016,
+        "summary": "multiply 3*4=12"
+      },
+      "avg_incoming_importance": 0.05980716253443526
+    }
+  ]
+}

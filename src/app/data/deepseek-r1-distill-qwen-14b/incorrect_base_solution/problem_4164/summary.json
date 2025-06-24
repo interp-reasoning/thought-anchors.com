@@ -1,0 +1,249 @@
+{
+  "problem_idx": 4164,
+  "num_chunks": 117,
+  "avg_importance": 0.0023893610499520815,
+  "max_importance": 0.69,
+  "min_importance": -0.71,
+  "top_influential_steps": [
+    {
+      "step_idx": 114,
+      "step_text": {
+        "chunk": "So, I think my earlier solution is correct.",
+        "chunk_idx": 114,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "113"
+        ],
+        "accuracy": 0.05154639175257732,
+        "counterfactual_importance_accuracy": -0.0010413412475268127,
+        "counterfactual_importance_kl": 0.2136555422825415,
+        "absolute_importance_accuracy": 0.00444000444000444,
+        "absolute_importance_kl": 0.2284133203142726,
+        "different_trajectories_fraction": 0.9381443298969072,
+        "overdeterminedness": 0.5257731958762887,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.08230794251230494,
+        "summary": "verify solution correctness"
+      },
+      "avg_outgoing_importance": 0.18
+    },
+    {
+      "step_idx": 109,
+      "step_text": {
+        "chunk": "Alternatively, since we have p(n) = 1/n\u00b2 for n=1,2,3,4, maybe we can consider that p(x) = 1/x\u00b2 minus some function that is zero at x=1,2,3,4.",
+        "chunk_idx": 109,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "108"
+        ],
+        "accuracy": 0.32978723404255317,
+        "counterfactual_importance_accuracy": -0.028711965225348857,
+        "counterfactual_importance_kl": 0.2223909881721398,
+        "absolute_importance_accuracy": 0.06378959604766055,
+        "absolute_importance_kl": 0.2973804401967072,
+        "different_trajectories_fraction": 0.7872340425531915,
+        "overdeterminedness": 0.17021276595744683,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.007810483277569474,
+        "summary": "consider p(x) = 1/x\u00b2"
+      },
+      "avg_outgoing_importance": 0.15142857142857144
+    },
+    {
+      "step_idx": 104,
+      "step_text": {
+        "chunk": "Wait, but let me think again.",
+        "chunk_idx": 104,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "103"
+        ],
+        "accuracy": 0.2111111111111111,
+        "counterfactual_importance_accuracy": 0.29426523297491036,
+        "counterfactual_importance_kl": 0.3983961696891463,
+        "absolute_importance_accuracy": -0.3193298324581145,
+        "absolute_importance_kl": 0.457404166261245,
+        "different_trajectories_fraction": 0.9555555555555556,
+        "overdeterminedness": 0.2666666666666667,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0034532570840066293,
+        "summary": "pause for thought"
+      },
+      "avg_outgoing_importance": 0.14250000000000002
+    },
+    {
+      "step_idx": 63,
+      "step_text": {
+        "chunk": "Hmm, but actually, since Q(x) is a quintic, and (x - 1)(x - 2)(x - 3)(x - 4) is a quartic, the fifth factor must be linear, so it's (x - r).",
+        "chunk_idx": 63,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "62"
+        ],
+        "accuracy": 0.7127659574468085,
+        "counterfactual_importance_accuracy": -0.49627111208598373,
+        "counterfactual_importance_kl": 1.2297550510856163,
+        "absolute_importance_accuracy": 0.5482110369921164,
+        "absolute_importance_kl": 0.8005788001325216,
+        "different_trajectories_fraction": 0.5425531914893617,
+        "overdeterminedness": 0.0957446808510638,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.5368682369149942,
+        "summary": "identify fifth factor"
+      },
+      "avg_outgoing_importance": 0.10281093569503272
+    },
+    {
+      "step_idx": 108,
+      "step_text": {
+        "chunk": "But that might be more involved.",
+        "chunk_idx": 108,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "107"
+        ],
+        "accuracy": 0.17391304347826086,
+        "counterfactual_importance_accuracy": 0.1558741905642923,
+        "counterfactual_importance_kl": 0.07467082327815966,
+        "absolute_importance_accuracy": -0.1558741905642923,
+        "absolute_importance_kl": 0.07467082327815966,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.32608695652173914,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.003694529278661249,
+        "summary": "no specific action"
+      },
+      "avg_outgoing_importance": 0.09749999999999999
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "The given information is that p(n) = 1/n\u00b2 for n = 1, 2, 3, and 4.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.8191489361702128,
+        "counterfactual_importance_accuracy": 0.06849151326798941,
+        "counterfactual_importance_kl": 0.6713960403468764,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.925531914893617,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.7228250623181272,
+        "summary": "define p(n)=1/n\u00b2"
+      },
+      "avg_incoming_importance": 0.31000000000000005
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "But wait, setting up four equations might be a bit tedious.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.8,
+        "counterfactual_importance_accuracy": 0.08043478260869563,
+        "counterfactual_importance_kl": 1.9186082822272092,
+        "absolute_importance_accuracy": -0.03194993412384717,
+        "absolute_importance_kl": 2.676232459938584,
+        "different_trajectories_fraction": 0.3473684210526316,
+        "overdeterminedness": 0.4421052631578948,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.9655977392654737,
+        "summary": "set up equations"
+      },
+      "avg_incoming_importance": 0.05833333333333333
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Since it's a cubic, it's determined uniquely by four points, which is exactly what we have here: four values of n (1, 2, 3, 4) and their corresponding p(n) values.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "1"
+        ],
+        "accuracy": 0.8555555555555555,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.7325536279755017,
+        "absolute_importance_accuracy": -0.07777777777777772,
+        "absolute_importance_kl": 0.9463486237154272,
+        "different_trajectories_fraction": 0.3,
+        "overdeterminedness": 0.5333333333333333,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.14500311325965495,
+        "summary": "determine cubic uniquely"
+      },
+      "avg_incoming_importance": 0.05749999999999998
+    },
+    {
+      "step_idx": 12,
+      "step_text": {
+        "chunk": "Now, let's see what we know about Q(x).",
+        "chunk_idx": 12,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "11"
+        ],
+        "accuracy": 0.8829787234042553,
+        "counterfactual_importance_accuracy": 0.019195189639222954,
+        "counterfactual_importance_kl": 1.106675920577007,
+        "absolute_importance_accuracy": 0.00691699604743079,
+        "absolute_importance_kl": 0.08285099921026132,
+        "different_trajectories_fraction": 0.35106382978723405,
+        "overdeterminedness": 0.6914893617021276,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.24293675276814594,
+        "summary": "analyze Q(x)"
+      },
+      "avg_incoming_importance": 0.05333333333333334
+    },
+    {
+      "step_idx": 17,
+      "step_text": {
+        "chunk": "Since we already have four roots at 1, 2, 3, 4, there must be a fifth root, say r.",
+        "chunk_idx": 17,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "16"
+        ],
+        "accuracy": 0.896551724137931,
+        "counterfactual_importance_accuracy": -0.001814882032667886,
+        "counterfactual_importance_kl": 1.4181589228578384,
+        "absolute_importance_accuracy": -0.001879699248120259,
+        "absolute_importance_kl": 0.8307806827344595,
+        "different_trajectories_fraction": 0.3218390804597701,
+        "overdeterminedness": 0.12643678160919536,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.3284512546704548,
+        "summary": "identify fifth root r"
+      },
+      "avg_incoming_importance": 0.035882352941176476
+    }
+  ]
+}

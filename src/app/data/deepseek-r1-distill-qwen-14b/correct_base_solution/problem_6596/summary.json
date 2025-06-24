@@ -1,0 +1,245 @@
+{
+  "problem_idx": 6596,
+  "num_chunks": 233,
+  "avg_importance": 0.0007247004853158968,
+  "max_importance": 0.94,
+  "min_importance": -0.6799999999999999,
+  "top_influential_steps": [
+    {
+      "step_idx": 226,
+      "step_text": {
+        "chunk": "Wait, but let me double-check.",
+        "chunk_idx": 226,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "225"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.99,
+        "overdeterminedness": 0.72,
+        "summary": "check answer"
+      },
+      "avg_outgoing_importance": 0.6033333333333334
+    },
+    {
+      "step_idx": 191,
+      "step_text": {
+        "chunk": "But wait, another way to think about it is that the figure might have the smaller square on top of the larger square, but that would make the vertical distance larger.",
+        "chunk_idx": 191,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "190"
+        ],
+        "accuracy": 0.9797979797979798,
+        "resampling_importance_accuracy": -0.009797979797979806,
+        "resampling_importance_kl": 0.21937625318811269,
+        "counterfactual_importance_accuracy": 0.008260869565217432,
+        "counterfactual_importance_kl": 0.2348549880986647,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.9292929292929293,
+        "overdeterminedness": 0.4040404040404041,
+        "summary": "consider square positioning"
+      },
+      "avg_outgoing_importance": 0.09829268292682926
+    },
+    {
+      "step_idx": 213,
+      "step_text": {
+        "chunk": "But considering the Asymptote code, which shows a diagonal line from (0,2) to (12,10), it seems like points A and B are not directly aligned horizontally or vertically but are connected by a diagonal.",
+        "chunk_idx": 213,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "45"
+        ],
+        "accuracy": 0.968421052631579,
+        "resampling_importance_accuracy": -0.008825093035619402,
+        "resampling_importance_kl": 0.4464472399423383,
+        "counterfactual_importance_accuracy": 0.008825093035619402,
+        "counterfactual_importance_kl": 0.4464472399423383,
+        "forced_importance_accuracy": -0.06000000000000005,
+        "forced_importance_kl": 0.061875403491680185,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.34736842105263155,
+        "summary": "plot diagonal line"
+      },
+      "avg_outgoing_importance": 0.0956140350877193
+    },
+    {
+      "step_idx": 196,
+      "step_text": {
+        "chunk": "In the Asymptote code, the smaller square is from (0,0) to (2,0) to (2,2) to (0,2), which is a 2x2 square.",
+        "chunk_idx": 196,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "195"
+        ],
+        "accuracy": 0.9292929292929293,
+        "resampling_importance_accuracy": 0.030707070707070683,
+        "resampling_importance_kl": 0.8218066310228227,
+        "counterfactual_importance_accuracy": -0.029767441860465094,
+        "counterfactual_importance_kl": 0.4758098747548356,
+        "forced_importance_accuracy": 0.08000000000000007,
+        "forced_importance_kl": 0.029467452765498114,
+        "different_trajectories_fraction": 0.8686868686868687,
+        "overdeterminedness": 0.696969696969697,
+        "summary": "define square vertices"
+      },
+      "avg_outgoing_importance": 0.07305555555555554
+    },
+    {
+      "step_idx": 208,
+      "step_text": {
+        "chunk": "Points A and B are at the top corners of these squares.",
+        "chunk_idx": 208,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "207"
+        ],
+        "accuracy": 0.9693877551020408,
+        "resampling_importance_accuracy": -0.0400948258091115,
+        "resampling_importance_kl": 0.24150995705689196,
+        "counterfactual_importance_accuracy": -0.004292929292929237,
+        "counterfactual_importance_kl": 0.5632441110703863,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.40816326530612246,
+        "overdeterminedness": 0.6020408163265306,
+        "summary": "identify points A, B"
+      },
+      "avg_outgoing_importance": 0.07204124579124578
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "I need to find the distance from point A to point B, and express it as a decimal to the nearest tenth.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.21875,
+        "resampling_importance_accuracy": -0.004464285714285726,
+        "resampling_importance_kl": 0.5097486769430086,
+        "counterfactual_importance_accuracy": -0.21428571428571427,
+        "counterfactual_importance_kl": 3.0654653752544103,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.418042224797102,
+        "different_trajectories_fraction": 0.010416666666666666,
+        "overdeterminedness": 0.9479166666666666,
+        "summary": "calculate distance as decimal"
+      },
+      "avg_incoming_importance": 0.32499999999999996
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Hmm, so it seems like the figure is made up of two squares connected in some way, maybe side by side or overlapping?",
+        "chunk_idx": 6,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "accuracy": 0.21212121212121213,
+        "resampling_importance_accuracy": 0.0021645021645021467,
+        "resampling_importance_kl": 0.45084801928124985,
+        "counterfactual_importance_accuracy": -0.07142857142857142,
+        "counterfactual_importance_kl": 0.44833599221961873,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.7272926494640731,
+        "different_trajectories_fraction": 0.7070707070707071,
+        "overdeterminedness": 0.19191919191919193,
+        "summary": "identify square arrangement"
+      },
+      "avg_incoming_importance": 0.04833333333333334
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "It also labels points B at (0,2) and A at (12,10).",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.28125,
+        "resampling_importance_accuracy": -0.06912878787878787,
+        "resampling_importance_kl": 0.7047048866033606,
+        "counterfactual_importance_accuracy": -0.04545454545454547,
+        "counterfactual_importance_kl": 1.413910887113369,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.7625601886868758,
+        "different_trajectories_fraction": 0.0625,
+        "overdeterminedness": 0.8125,
+        "summary": "label points A, B"
+      },
+      "avg_incoming_importance": 0.039999999999999994
+    },
+    {
+      "step_idx": 12,
+      "step_text": {
+        "chunk": "So, each side is 4 cm divided by 4, which is 1 cm.",
+        "chunk_idx": 12,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "11"
+        ],
+        "accuracy": 0.12244897959183673,
+        "resampling_importance_accuracy": 0.07546768707482993,
+        "resampling_importance_kl": 0.5412306706057607,
+        "counterfactual_importance_accuracy": -0.08680555555555555,
+        "counterfactual_importance_kl": 0.34482955442729,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.952755399079189,
+        "different_trajectories_fraction": 0.09183673469387756,
+        "overdeterminedness": 0.8673469387755102,
+        "summary": "divide 4cm by 4"
+      },
+      "avg_incoming_importance": 0.036666666666666674
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Let me calculate that first.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "accuracy": 0.22340425531914893,
+        "resampling_importance_accuracy": -0.033930571108622604,
+        "resampling_importance_kl": 0.9665434693003712,
+        "counterfactual_importance_accuracy": 0.06404744255003705,
+        "counterfactual_importance_kl": 1.2833743509908542,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.9258878429299758,
+        "different_trajectories_fraction": 0.7553191489361702,
+        "overdeterminedness": 0.7659574468085106,
+        "summary": "calculate that"
+      },
+      "avg_incoming_importance": 0.034999999999999996
+    }
+  ]
+}

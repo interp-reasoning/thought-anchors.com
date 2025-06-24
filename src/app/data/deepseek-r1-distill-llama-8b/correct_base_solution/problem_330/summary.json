@@ -1,0 +1,243 @@
+{
+  "problem_idx": 330,
+  "num_chunks": 170,
+  "avg_importance": 0.0026135768908111118,
+  "max_importance": 1.0,
+  "min_importance": -0.91,
+  "top_influential_steps": [
+    {
+      "step_idx": 164,
+      "step_text": {
+        "chunk": "60,000 + 27,000 = 87,000",
+        "chunk_idx": 164,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "163"
+        ],
+        "accuracy": 0.99,
+        "resampling_importance_accuracy": -0.07163265306122446,
+        "resampling_importance_kl": 0.06316824757249877,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.96,
+        "summary": "calculate sum=87000"
+      },
+      "avg_outgoing_importance": 0.388
+    },
+    {
+      "step_idx": 168,
+      "step_text": {
+        "chunk": "Therefore, after carefully stepping through each layer and verifying my calculations, I conclude that the value of the given expression is 88,572.",
+        "chunk_idx": 168,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "167"
+        ],
+        "accuracy": 0.97,
+        "resampling_importance_accuracy": 0.019795918367346954,
+        "resampling_importance_kl": 0.20089289487128706,
+        "counterfactual_importance_accuracy": -0.06979591836734689,
+        "counterfactual_importance_kl": 0.14419174997208084,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.25,
+        "overdeterminedness": 0.39,
+        "summary": "conclude value=88572"
+      },
+      "avg_outgoing_importance": 0.18
+    },
+    {
+      "step_idx": 167,
+      "step_text": {
+        "chunk": "Yes, that seems correct.",
+        "chunk_idx": 167,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "166"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": -0.030000000000000027,
+        "resampling_importance_kl": 0.030459207062393395,
+        "counterfactual_importance_accuracy": 0.030000000000000027,
+        "counterfactual_importance_kl": 0.015504179177428613,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.05,
+        "overdeterminedness": 0.89,
+        "summary": "confirm correctness"
+      },
+      "avg_outgoing_importance": 0.165
+    },
+    {
+      "step_idx": 162,
+      "step_text": {
+        "chunk": "24 * 3 = 72",
+        "chunk_idx": 162,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "161"
+        ],
+        "accuracy": 0.97,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.006931471800391508,
+        "counterfactual_importance_accuracy": 0.0050000000000000044,
+        "counterfactual_importance_kl": 0.023598797065821516,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.4,
+        "overdeterminedness": 0.8200000000000001,
+        "summary": "multiply 24*3=72"
+      },
+      "avg_outgoing_importance": 0.1642857142857143
+    },
+    {
+      "step_idx": 0,
+      "step_text": {
+        "chunk": "Alright, so I've got this math problem here that I need to solve.",
+        "chunk_idx": 0,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.22448979591836735,
+        "resampling_importance_accuracy": 0.30551020408163265,
+        "resampling_importance_kl": 9.539380788051233,
+        "counterfactual_importance_accuracy": -0.37523809523809526,
+        "counterfactual_importance_kl": 10.809324976891888,
+        "forced_importance_accuracy": -0.55,
+        "forced_importance_kl": 14.21827053440187,
+        "different_trajectories_fraction": 0.8571428571428571,
+        "overdeterminedness": 0.18367346938775508,
+        "summary": "solve math problem"
+      },
+      "avg_outgoing_importance": 0.13946745562130175
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "It's a nested expression with a bunch of threes and parentheses.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.53,
+        "resampling_importance_accuracy": -0.030000000000000027,
+        "resampling_importance_kl": 2.724709963444287,
+        "counterfactual_importance_accuracy": 0.06164383561643838,
+        "counterfactual_importance_kl": 1.5699555209144773,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 6.678915774425119,
+        "different_trajectories_fraction": 0.73,
+        "overdeterminedness": 0.30000000000000004,
+        "summary": "evaluate nested expression"
+      },
+      "avg_incoming_importance": 0.39999999999999997
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "That usually makes nested expressions easier to handle.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "6"
+        ],
+        "accuracy": 0.3838383838383838,
+        "resampling_importance_accuracy": -0.05394147662188897,
+        "resampling_importance_kl": 2.7959920328643775,
+        "counterfactual_importance_accuracy": -0.12989690721649483,
+        "counterfactual_importance_kl": 2.532798881920161,
+        "forced_importance_accuracy": 0.12,
+        "forced_importance_kl": 0.24931693037802896,
+        "different_trajectories_fraction": 0.30303030303030304,
+        "overdeterminedness": 0.6767676767676767,
+        "summary": "simplify nested expressions"
+      },
+      "avg_incoming_importance": 0.08242424242424243
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "I think the best way to approach it is to start from the innermost parentheses and work my way outwards.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.32653061224489793,
+        "resampling_importance_accuracy": 0.05730777159348588,
+        "resampling_importance_kl": 3.658987193328432,
+        "counterfactual_importance_accuracy": -0.09494949494949495,
+        "counterfactual_importance_kl": 4.075426481661848,
+        "forced_importance_accuracy": -0.13999999999999996,
+        "forced_importance_kl": 0.6573875862721085,
+        "different_trajectories_fraction": 0.45918367346938777,
+        "overdeterminedness": 0.24489795918367352,
+        "summary": "start from innermost parentheses"
+      },
+      "avg_incoming_importance": 0.07442760942760944
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Wow, that's a lot of parentheses!",
+        "chunk_idx": 4,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "accuracy": 0.45454545454545453,
+        "resampling_importance_accuracy": -0.1452671040299906,
+        "resampling_importance_kl": 3.409873380248893,
+        "counterfactual_importance_accuracy": 0.14072164948453608,
+        "counterfactual_importance_kl": 4.068166061194058,
+        "forced_importance_accuracy": -0.08999999999999997,
+        "forced_importance_kl": 0.9184567964458775,
+        "different_trajectories_fraction": 0.6060606060606061,
+        "overdeterminedness": 0.5757575757575757,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.06606060606060606
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "Let me write it down to get a better look:",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.5,
+        "resampling_importance_accuracy": -0.0625,
+        "resampling_importance_kl": 2.3336463767878035,
+        "counterfactual_importance_accuracy": 0.05661764705882355,
+        "counterfactual_importance_kl": 2.2377680593927356,
+        "forced_importance_accuracy": 0.12,
+        "forced_importance_kl": 1.115528367193025,
+        "different_trajectories_fraction": 0.8673469387755102,
+        "overdeterminedness": 0.5816326530612245,
+        "summary": "write it down"
+      },
+      "avg_incoming_importance": 0.0613265306122449
+    }
+  ]
+}

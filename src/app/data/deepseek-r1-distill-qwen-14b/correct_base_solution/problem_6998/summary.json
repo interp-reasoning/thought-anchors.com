@@ -1,0 +1,250 @@
+{
+  "problem_idx": 6998,
+  "num_chunks": 125,
+  "avg_importance": 0.0017525106306424713,
+  "max_importance": 0.95,
+  "min_importance": -0.7200000000000001,
+  "top_influential_steps": [
+    {
+      "step_idx": 72,
+      "step_text": {
+        "chunk": "Wait, but let me check the endpoints.",
+        "chunk_idx": 72,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "71"
+        ],
+        "accuracy": 0.8888888888888888,
+        "resampling_importance_accuracy": -0.3737373737373737,
+        "resampling_importance_kl": 0.3259270364696918,
+        "counterfactual_importance_accuracy": 0.3737373737373737,
+        "counterfactual_importance_kl": 0.3259270364696918,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.5555555555555556,
+        "summary": "check endpoints"
+      },
+      "avg_outgoing_importance": 0.3959615384615385
+    },
+    {
+      "step_idx": 100,
+      "step_text": {
+        "chunk": "Wait, perhaps I should compute 1/(3183\u03c0) more accurately.",
+        "chunk_idx": 100,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "99"
+        ],
+        "accuracy": 0.98989898989899,
+        "resampling_importance_accuracy": 0.010101010101010055,
+        "resampling_importance_kl": 0.19927609550300318,
+        "counterfactual_importance_accuracy": -0.011627906976744207,
+        "counterfactual_importance_kl": 0.2324796982953988,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.8686868686868687,
+        "overdeterminedness": 0.4242424242424242,
+        "summary": "compute 1/(3183\u03c0)"
+      },
+      "avg_outgoing_importance": 0.3095833333333333
+    },
+    {
+      "step_idx": 121,
+      "step_text": {
+        "chunk": "Alternatively, I can think of it as the number of integers from 319 to 3183 is equal to (3183 - 319) +1.",
+        "chunk_idx": 121,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "120"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.96,
+        "overdeterminedness": 0.64,
+        "summary": "calculate integers=2865"
+      },
+      "avg_outgoing_importance": 0.20333333333333337
+    },
+    {
+      "step_idx": 118,
+      "step_text": {
+        "chunk": "Wait, but let me just make sure that I didn't make any miscalculations in the subtraction.",
+        "chunk_idx": 118,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "117"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.9,
+        "overdeterminedness": 0.14,
+        "summary": "check subtraction accuracy"
+      },
+      "avg_outgoing_importance": 0.09166666666666667
+    },
+    {
+      "step_idx": 41,
+      "step_text": {
+        "chunk": "But wait a second, let me make sure I didn't make a mistake here.",
+        "chunk_idx": 41,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "40"
+        ],
+        "accuracy": 0.89,
+        "resampling_importance_accuracy": -0.10999999999999999,
+        "resampling_importance_kl": 0.04116932344342805,
+        "counterfactual_importance_accuracy": 0.10999999999999999,
+        "counterfactual_importance_kl": 0.04116932344342805,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.71,
+        "summary": "check for mistakes"
+      },
+      "avg_outgoing_importance": 0.08253012048192772
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "So, I need to find how many times sin(1/x) equals zero in that interval.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "1"
+        ],
+        "accuracy": 0.8297872340425532,
+        "resampling_importance_accuracy": -0.09782847115595528,
+        "resampling_importance_kl": 0.4729112516666577,
+        "counterfactual_importance_accuracy": -0.06529209621993126,
+        "counterfactual_importance_kl": 0.4243764940953276,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.7939683122439147,
+        "different_trajectories_fraction": 0.06382978723404255,
+        "overdeterminedness": 0.7021276595744681,
+        "summary": "find zeros of sin(1/x)"
+      },
+      "avg_incoming_importance": 0.37
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, x-intercepts are where the function crosses the x-axis, which means y = 0.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.6770833333333334,
+        "resampling_importance_accuracy": 0.1527039007092198,
+        "resampling_importance_kl": 0.1121958085852106,
+        "counterfactual_importance_accuracy": -0.17918482440399897,
+        "counterfactual_importance_kl": 0.13670245138250964,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.2630087276077333,
+        "different_trajectories_fraction": 0.8645833333333334,
+        "overdeterminedness": 0.7083333333333333,
+        "summary": "identify x-intercepts"
+      },
+      "avg_incoming_importance": 0.27
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Since x is positive and between 0.0001 and 0.001, I can substitute x with 1/(n\u03c0) to find the range of n.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "9",
+          "7"
+        ],
+        "accuracy": 0.8080808080808081,
+        "resampling_importance_accuracy": 0.08191919191919195,
+        "resampling_importance_kl": 0.44767384593569093,
+        "counterfactual_importance_accuracy": -0.010000000000000009,
+        "counterfactual_importance_kl": 0.019183170329399046,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.4827585712118316,
+        "different_trajectories_fraction": 0.25252525252525254,
+        "overdeterminedness": 0.7272727272727273,
+        "summary": "substitute x=1/(n\u03c0)"
+      },
+      "avg_incoming_importance": 0.05900000000000001
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "I can rewrite these inequalities to solve for n.",
+        "chunk_idx": 13,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "accuracy": 0.845360824742268,
+        "resampling_importance_accuracy": -0.030927835051546393,
+        "resampling_importance_kl": 0.2171271753428773,
+        "counterfactual_importance_accuracy": -0.004909180166912108,
+        "counterfactual_importance_kl": 0.015418237618450431,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.7518970964392342,
+        "different_trajectories_fraction": 0.21649484536082475,
+        "overdeterminedness": 0.7628865979381443,
+        "summary": "rewrite inequalities for n"
+      },
+      "avg_incoming_importance": 0.03923076923076924
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "So, each x-intercept occurs at x = 1/(n\u03c0) for some integer n.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "6"
+        ],
+        "accuracy": 0.7472527472527473,
+        "resampling_importance_accuracy": 0.12143412143412147,
+        "resampling_importance_kl": 0.05297945956464714,
+        "counterfactual_importance_accuracy": -0.03535353535353536,
+        "counterfactual_importance_kl": 0.0018612835225398534,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.8500926527097432,
+        "different_trajectories_fraction": 0.06593406593406594,
+        "overdeterminedness": 0.8681318681318682,
+        "summary": "identify x-intercepts"
+      },
+      "avg_incoming_importance": 0.03137085137085137
+    }
+  ]
+}

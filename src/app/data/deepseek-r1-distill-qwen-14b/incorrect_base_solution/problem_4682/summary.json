@@ -1,0 +1,249 @@
+{
+  "problem_idx": 4682,
+  "num_chunks": 208,
+  "avg_importance": 0.00020295957413799903,
+  "max_importance": 0.99,
+  "min_importance": -0.9253731343283582,
+  "top_influential_steps": [
+    {
+      "step_idx": 195,
+      "step_text": {
+        "chunk": "Wait, let me check with a smaller example to see which interpretation is correct.",
+        "chunk_idx": 195,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "194"
+        ],
+        "accuracy": 0.17,
+        "counterfactual_importance_accuracy": 0.03,
+        "counterfactual_importance_kl": 0.002927379677042284,
+        "absolute_importance_accuracy": -0.03,
+        "absolute_importance_kl": 0.002927379677042284,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.52,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "check smaller example"
+      },
+      "avg_outgoing_importance": 0.21333333333333335
+    },
+    {
+      "step_idx": 135,
+      "step_text": {
+        "chunk": "Wait, but that contradicts the decimal approach where the number is 419,430, which is less than 2\u00b9\u2079, so it should require 19 bits.",
+        "chunk_idx": 135,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "134"
+        ],
+        "accuracy": 0.06,
+        "counterfactual_importance_accuracy": 0.31373737373737376,
+        "counterfactual_importance_kl": 0.2719909309166944,
+        "absolute_importance_accuracy": -0.32323232323232326,
+        "absolute_importance_kl": 0.30276080151830176,
+        "different_trajectories_fraction": 0.99,
+        "overdeterminedness": 0.85,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "require 19 bits"
+      },
+      "avg_outgoing_importance": 0.17819444444444443
+    },
+    {
+      "step_idx": 205,
+      "step_text": {
+        "chunk": "But I'm still not entirely sure because in some contexts, when converting from hex to binary, you might keep the leading zeros from each hex digit, resulting in a longer binary number.",
+        "chunk_idx": 205,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "204"
+        ],
+        "accuracy": 0.53,
+        "counterfactual_importance_accuracy": 0.04999999999999993,
+        "counterfactual_importance_kl": 0.005084570803359889,
+        "absolute_importance_accuracy": -0.10564102564102562,
+        "absolute_importance_kl": 0.03565539249023114,
+        "different_trajectories_fraction": 0.78,
+        "overdeterminedness": 0.020000000000000018,
+        "forced_importance_accuracy": -0.21,
+        "forced_importance_kl": 4.805014894350341,
+        "summary": "keep leading zeros"
+      },
+      "avg_outgoing_importance": 0.15000000000000002
+    },
+    {
+      "step_idx": 72,
+      "step_text": {
+        "chunk": "Wait, no, because the leading zero in the 20-bit number is part of the 4-bit groupings.",
+        "chunk_idx": 72,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "71"
+        ],
+        "accuracy": 0.8877551020408163,
+        "counterfactual_importance_accuracy": -0.16775510204081634,
+        "counterfactual_importance_kl": 0.08333181300011427,
+        "absolute_importance_accuracy": 0.16636363636363638,
+        "absolute_importance_kl": 0.06870204048366778,
+        "different_trajectories_fraction": 0.8979591836734694,
+        "overdeterminedness": 0.7448979591836735,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "identify leading zero"
+      },
+      "avg_outgoing_importance": 0.11207407407407406
+    },
+    {
+      "step_idx": 174,
+      "step_text": {
+        "chunk": "The number of bits is the position of the highest set bit plus one.",
+        "chunk_idx": 174,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "173"
+        ],
+        "accuracy": 0.21,
+        "counterfactual_importance_accuracy": 0.10313131313131316,
+        "counterfactual_importance_kl": 0.026614779485041012,
+        "absolute_importance_accuracy": -0.1702741702741703,
+        "absolute_importance_kl": 0.057865650877294436,
+        "different_trajectories_fraction": 0.35,
+        "overdeterminedness": 0.62,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.19937761404697535,
+        "summary": "calculate bits = position +"
+      },
+      "avg_outgoing_importance": 0.10242424242424242
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "Let me count the number of digits here.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.8125,
+        "counterfactual_importance_accuracy": -0.022499999999999964,
+        "counterfactual_importance_kl": 0.2089195700936138,
+        "absolute_importance_accuracy": 0.08499999999999996,
+        "absolute_importance_kl": 0.032503986154621675,
+        "different_trajectories_fraction": 0.4166666666666667,
+        "overdeterminedness": 0.90625,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "count digits"
+      },
+      "avg_incoming_importance": 0.0775
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, let me think about how to approach this.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.9,
+        "counterfactual_importance_accuracy": -0.023711340206185594,
+        "counterfactual_importance_kl": 0.002923002379372732,
+        "absolute_importance_accuracy": 0.05704467353951892,
+        "absolute_importance_kl": 0.03538596194448399,
+        "different_trajectories_fraction": 0.6,
+        "overdeterminedness": 0.71,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.033389222483393925,
+        "summary": "consider approach"
+      },
+      "avg_incoming_importance": 0.07
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "It's 5 digits long: 6, 6, 6, 6, 6.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "6"
+        ],
+        "accuracy": 0.79,
+        "counterfactual_importance_accuracy": 0.01412371134020618,
+        "counterfactual_importance_kl": 0.000622149176371661,
+        "absolute_importance_accuracy": -0.08983799705449191,
+        "absolute_importance_kl": 0.036614356651142155,
+        "different_trajectories_fraction": 0.49,
+        "overdeterminedness": 0.75,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "identify digits=5"
+      },
+      "avg_incoming_importance": 0.05714285714285715
+    },
+    {
+      "step_idx": 17,
+      "step_text": {
+        "chunk": "The next digit is also 6, so that's another 0110.",
+        "chunk_idx": 17,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "14"
+        ],
+        "accuracy": 0.8144329896907216,
+        "counterfactual_importance_accuracy": -0.09443298969072167,
+        "counterfactual_importance_kl": 0.2322135680668464,
+        "absolute_importance_accuracy": 0.28,
+        "absolute_importance_kl": 0.26905323331116315,
+        "different_trajectories_fraction": 0.020618556701030927,
+        "overdeterminedness": 0.7731958762886598,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "append 0110"
+      },
+      "avg_incoming_importance": 0.047641117052881765
+    },
+    {
+      "step_idx": 22,
+      "step_text": {
+        "chunk": "Let me write that out without spaces: 01100110011001100110.",
+        "chunk_idx": 22,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "21"
+        ],
+        "accuracy": 0.8507462686567164,
+        "counterfactual_importance_accuracy": 0.007839589929142132,
+        "counterfactual_importance_kl": 0.000249294630521364,
+        "absolute_importance_accuracy": -0.0014430014430014682,
+        "absolute_importance_kl": 1.4323115472318453e-05,
+        "different_trajectories_fraction": 0.208955223880597,
+        "overdeterminedness": 0.6716417910447761,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "write binary string"
+      },
+      "avg_incoming_importance": 0.026621438263229304
+    }
+  ]
+}

@@ -23,8 +23,9 @@ export const Title = styled.h1`
 export const VisualizerWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
-    height: 80vh;
+    max-height: 80vh;
     align-items: stretch;
     transition: all 0.3s ease;
 `
@@ -37,6 +38,7 @@ export const GraphContainer = styled.div`
     background: #f9f9f9;
     position: relative;
     transition: flex 0.3s ease;
+    max-height: 90vh;
 `
 
 export const ProblemBox = styled.div`
@@ -58,15 +60,23 @@ export const DetailPanel = styled.div.withConfig({
     background: white;
     max-width: 400px;
     overflow-y: auto;
-    min-width: 300px;
+    min-width: 275px;
     display: ${(props) => (props.visible ? 'block' : 'none')};
     transition: all 0.3s ease;
+    max-height: 90vh;
 
     /* Hide scrollbar by default */
     scrollbar-width: none;  /* Firefox */
     -ms-overflow-style: none;  /* IE and Edge */
     &::-webkit-scrollbar {
         display: none;  /* Chrome, Safari, Opera */
+    }
+    
+    @media (max-width: 875px) {
+        flex-basis: 100%;
+        max-width: none;
+        min-width: auto;
+        order: 3;
     }
 `
 
@@ -167,5 +177,42 @@ export const NavButton = styled.button`
         background: #007bff;
         color: white;
         border-color: #007bff;
+    }
+`
+
+export const VisualizationToggle = styled.div`
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    background: white;
+`
+
+export const ToggleOption = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'active',
+})`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: ${props => props.active ? '#e3f2fd' : 'white'};
+    color: ${props => props.active ? '#1976d2' : '#666'};
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    border-right: 1px solid #ccc;
+    
+    &:last-child {
+        border-right: none;
+    }
+    
+    &:hover {
+        background: ${props => props.active ? '#e3f2fd' : '#f5f5f5'};
+    }
+    
+    svg {
+        width: 16px;
+        height: 16px;
     }
 ` 

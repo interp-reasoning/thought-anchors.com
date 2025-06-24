@@ -1,0 +1,243 @@
+{
+  "problem_idx": 2189,
+  "num_chunks": 114,
+  "avg_importance": 0.0011469920430542714,
+  "max_importance": 0.9099999999999999,
+  "min_importance": -0.86,
+  "top_influential_steps": [
+    {
+      "step_idx": 110,
+      "step_text": {
+        "chunk": "Wait, but let me just check the subtraction again: 756 - 168.",
+        "chunk_idx": 110,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "109"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.97,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.55,
+        "summary": "check subtraction 588"
+      },
+      "avg_outgoing_importance": 0.22666666666666666
+    },
+    {
+      "step_idx": 95,
+      "step_text": {
+        "chunk": "Wait, but let me consider another approach just to verify.",
+        "chunk_idx": 95,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "94"
+        ],
+        "counterfactual_importance_accuracy": -0.030927835051546393,
+        "counterfactual_importance_kl": 0.031416196012311715,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.030927835051546393,
+        "absolute_importance_kl": 0.031090586846719483,
+        "different_trajectories_fraction": 0.98989898989899,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.6666666666666667,
+        "summary": "verify approach"
+      },
+      "avg_outgoing_importance": 0.20833333333333334
+    },
+    {
+      "step_idx": 107,
+      "step_text": {
+        "chunk": "Alternatively, using the inclusion-exclusion principle: total arrangements minus arrangements where the two green plates are adjacent.",
+        "chunk_idx": 107,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "106"
+        ],
+        "counterfactual_importance_accuracy": 0.020000000000000018,
+        "counterfactual_importance_kl": 0.40852960739494965,
+        "accuracy": 0.98,
+        "absolute_importance_accuracy": -0.013157894736842146,
+        "absolute_importance_kl": 0.0013611445606755293,
+        "different_trajectories_fraction": 0.76,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.39,
+        "summary": "subtract adjacent arrangements"
+      },
+      "avg_outgoing_importance": 0.08833333333333333
+    },
+    {
+      "step_idx": 85,
+      "step_text": {
+        "chunk": "Wait, but let me make sure I didn't make a mistake in the initial total arrangements.",
+        "chunk_idx": 85,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "84"
+        ],
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.84,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.22999999999999998,
+        "summary": "check total arrangements"
+      },
+      "avg_outgoing_importance": 0.07607142857142858
+    },
+    {
+      "step_idx": 106,
+      "step_text": {
+        "chunk": "Maybe it's better to stick with the initial method.",
+        "chunk_idx": 106,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "105"
+        ],
+        "counterfactual_importance_accuracy": -0.020000000000000018,
+        "counterfactual_importance_kl": 0.0202027071029492,
+        "accuracy": 1.0,
+        "absolute_importance_accuracy": 0.020000000000000018,
+        "absolute_importance_kl": 0.01904819474254995,
+        "different_trajectories_fraction": 0.94,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "overdeterminedness": 0.38,
+        "summary": "stick with initial method"
+      },
+      "avg_outgoing_importance": 0.06857142857142857
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Let me try to figure this out step by step.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.082766439909297,
+        "counterfactual_importance_kl": 0.029143212503458665,
+        "accuracy": 0.8061224489795918,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.6903655899815924,
+        "overdeterminedness": 0.9795918367346939,
+        "summary": "figure out step"
+      },
+      "avg_incoming_importance": 0.32999999999999996
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Since the arrangement is around a circular table, I remember that circular permutations are a bit different from linear ones.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.008205343993267444,
+        "counterfactual_importance_kl": 0.0002093600294048991,
+        "accuracy": 0.8041237113402062,
+        "absolute_importance_accuracy": -0.04591836734693877,
+        "absolute_importance_kl": 0.012054584593171158,
+        "different_trajectories_fraction": 0.41237113402061853,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.1415183681175507,
+        "overdeterminedness": 0.711340206185567,
+        "summary": "understand circular permutations"
+      },
+      "avg_incoming_importance": 0.0875
+    },
+    {
+      "step_idx": 7,
+      "step_text": {
+        "chunk": "But wait, in this case, the plates aren't all distinct.",
+        "chunk_idx": 7,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": 0.06435488909715714,
+        "counterfactual_importance_kl": 0.21653380597852756,
+        "accuracy": 0.8144329896907216,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.3262807589663703,
+        "overdeterminedness": 0.7835051546391752,
+        "summary": "identify non-distinct plates"
+      },
+      "avg_incoming_importance": 0.04
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "First, let me list out the plates she has: 5 blue, 2 red, 2 green, and 1 orange.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "counterfactual_importance_accuracy": -0.101010101010101,
+        "counterfactual_importance_kl": 0.04079854440490102,
+        "accuracy": 0.8888888888888888,
+        "absolute_importance_accuracy": 0.10685805422647532,
+        "absolute_importance_kl": 0.04588162490441231,
+        "different_trajectories_fraction": 0.9595959595959596,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 7.708813836792318,
+        "overdeterminedness": 0.797979797979798,
+        "summary": "list plates=5 blue, 2 red,"
+      },
+      "avg_incoming_importance": 0.03999999999999998
+    },
+    {
+      "step_idx": 22,
+      "step_text": {
+        "chunk": "Let's compute each factorial:",
+        "chunk_idx": 22,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "21"
+        ],
+        "counterfactual_importance_accuracy": -0.05258773300010411,
+        "counterfactual_importance_kl": 0.018061941265942752,
+        "accuracy": 0.9494949494949495,
+        "absolute_importance_accuracy": 0.1030927835051546,
+        "absolute_importance_kl": 0.0860128730970143,
+        "different_trajectories_fraction": 0.1414141414141414,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.6832436553538836,
+        "overdeterminedness": 0.9595959595959596,
+        "summary": "compute factorials"
+      },
+      "avg_incoming_importance": 0.03772727272727273
+    }
+  ]
+}

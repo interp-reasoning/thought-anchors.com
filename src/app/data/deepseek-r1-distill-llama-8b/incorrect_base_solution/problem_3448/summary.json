@@ -1,0 +1,249 @@
+{
+  "problem_idx": 3448,
+  "num_chunks": 164,
+  "avg_importance": 0.0011376667332452068,
+  "max_importance": 0.7928118393234672,
+  "min_importance": -0.7530864197530864,
+  "top_influential_steps": [
+    {
+      "step_idx": 158,
+      "step_text": {
+        "chunk": "1. Express \\(\\binom{1/2}{2014}\\) using the known identity involving the central binomial coefficient.",
+        "chunk_idx": 158,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "157"
+        ],
+        "absolute_importance_accuracy": -0.011111111111111112,
+        "absolute_importance_kl": 0.01612938158724746,
+        "different_trajectories_fraction": 0.6391752577319587,
+        "overdeterminedness": 0.4639175257731959,
+        "counterfactual_importance_accuracy": 0.0008018327605956478,
+        "counterfactual_importance_kl": 2.9979317909178765e-05,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.010309278350515464,
+        "summary": "express binomial coefficient"
+      },
+      "avg_outgoing_importance": 0.19282932416953036
+    },
+    {
+      "step_idx": 160,
+      "step_text": {
+        "chunk": "3. Simplify, noticing that the terms cancel out, leaving only the sign.",
+        "chunk_idx": 160,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "159"
+        ],
+        "absolute_importance_accuracy": 0.013513513513513514,
+        "absolute_importance_kl": 0.2728130013477208,
+        "different_trajectories_fraction": 0.7956989247311828,
+        "overdeterminedness": 0.25806451612903225,
+        "counterfactual_importance_accuracy": -0.010752688172043012,
+        "counterfactual_importance_kl": 0.2126992426040269,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.010752688172043012,
+        "summary": "simplify expression"
+      },
+      "avg_outgoing_importance": 0.13009289737400337
+    },
+    {
+      "step_idx": 118,
+      "step_text": {
+        "chunk": "Alternatively, I remember that \\(\\binom{1/2}{k}\\) can be expressed as:",
+        "chunk_idx": 118,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "117"
+        ],
+        "absolute_importance_accuracy": -0.02857888555396059,
+        "absolute_importance_kl": 0.03769118988881192,
+        "different_trajectories_fraction": 0.797979797979798,
+        "overdeterminedness": 0.16161616161616166,
+        "counterfactual_importance_accuracy": 0.0008330729980214474,
+        "counterfactual_importance_kl": 0.010382945153017476,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.1020713380714966,
+        "accuracy": 0.04040404040404041,
+        "summary": "express \\(\\binom{1/2}{k}\\)"
+      },
+      "avg_outgoing_importance": 0.11298321126499822
+    },
+    {
+      "step_idx": 161,
+      "step_text": {
+        "chunk": "4. Since 2013 is odd, the result is \\(-1\\).",
+        "chunk_idx": 161,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "160"
+        ],
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.21428571428571427,
+        "overdeterminedness": 0.8571428571428572,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "accuracy": 0.0,
+        "summary": "result is -1"
+      },
+      "avg_outgoing_importance": 0.08725005153576582
+    },
+    {
+      "step_idx": 117,
+      "step_text": {
+        "chunk": "Let me think if there's another way to approach this problem, maybe using generating functions or known identities.",
+        "chunk_idx": 117,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "116"
+        ],
+        "absolute_importance_accuracy": 0.03276669130327666,
+        "absolute_importance_kl": 0.01749188616991952,
+        "different_trajectories_fraction": 0.82,
+        "overdeterminedness": 0.36,
+        "counterfactual_importance_accuracy": -0.01959595959595959,
+        "counterfactual_importance_kl": 0.004330387861252193,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.424067795072001,
+        "accuracy": 0.06,
+        "summary": "consider alternative methods"
+      },
+      "avg_outgoing_importance": 0.0861374615722442
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Let me read it again to make sure I understand what it's asking.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "absolute_importance_accuracy": -0.17103825136612028,
+        "absolute_importance_kl": 2.964978268006103,
+        "different_trajectories_fraction": 0.4,
+        "overdeterminedness": 0.6666666666666667,
+        "counterfactual_importance_accuracy": 0.17770491803278687,
+        "counterfactual_importance_kl": 2.5426539104535864,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.6037300002301647,
+        "accuracy": 0.56,
+        "summary": "check understanding"
+      },
+      "avg_incoming_importance": 0.4666666666666667
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "Also, there's a power of 4 involved.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [
+          "2"
+        ],
+        "absolute_importance_accuracy": -0.19100169779286935,
+        "absolute_importance_kl": 1.762946512471051,
+        "different_trajectories_fraction": 0.6666666666666666,
+        "overdeterminedness": 0.5614035087719298,
+        "counterfactual_importance_accuracy": 0.13837011884550088,
+        "counterfactual_importance_kl": 2.207968080492484,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.13410912966223643,
+        "accuracy": 0.6842105263157895,
+        "summary": "identify power of 4"
+      },
+      "avg_incoming_importance": 0.06666666666666667
+    },
+    {
+      "step_idx": 14,
+      "step_text": {
+        "chunk": "Wait, let's compute \\(\\frac{1}{2} - 2013\\).",
+        "chunk_idx": 14,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "13"
+        ],
+        "absolute_importance_accuracy": -0.20133779264214047,
+        "absolute_importance_kl": 1.1187314230043146,
+        "different_trajectories_fraction": 0.38333333333333336,
+        "overdeterminedness": 0.30000000000000004,
+        "counterfactual_importance_accuracy": 0.12307692307692308,
+        "counterfactual_importance_kl": 1.8382753698964387,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.3681031850683487,
+        "accuracy": 0.6,
+        "summary": "compute result=-2012.5"
+      },
+      "avg_incoming_importance": 0.04523809523809524
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "\\[\n\\left(\\frac{1}{2}\\right)\\left(-\\frac{1}{2}\\right)\\left(-\\frac{3}{2}\\right) \\dots \\left(\\frac{1}{2} - 2013\\right)\n\\]",
+        "chunk_idx": 13,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "12"
+        ],
+        "absolute_importance_accuracy": -0.14545454545454545,
+        "absolute_importance_kl": 3.1400118731397226,
+        "different_trajectories_fraction": 0.3283582089552239,
+        "overdeterminedness": 0.23880597014925375,
+        "counterfactual_importance_accuracy": -0.011940298507462699,
+        "counterfactual_importance_kl": 2.8055369224441327,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.4463371928671095,
+        "accuracy": 0.6119402985074627,
+        "summary": "multiply fractions"
+      },
+      "avg_incoming_importance": 0.041140451588212786
+    },
+    {
+      "step_idx": 11,
+      "step_text": {
+        "chunk": "Let me see if I can find a pattern or a way to simplify this expression.",
+        "chunk_idx": 11,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "9"
+        ],
+        "absolute_importance_accuracy": -0.01736254650682101,
+        "absolute_importance_kl": 2.5634992710689573,
+        "different_trajectories_fraction": 0.6612903225806451,
+        "overdeterminedness": 0.25806451612903225,
+        "counterfactual_importance_accuracy": -0.001913613996719521,
+        "counterfactual_importance_kl": 2.304462530097438,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.6584997306879573,
+        "accuracy": 0.6290322580645161,
+        "summary": "simplify expression"
+      },
+      "avg_incoming_importance": 0.02917888563049853
+    }
+  ]
+}

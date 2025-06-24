@@ -1,0 +1,2073 @@
+[
+  {
+    "chunk": "Okay, so I have this problem here that I need to solve.",
+    "chunk_idx": 0,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.62,
+    "resampling_importance_accuracy": 0.10448979591836738,
+    "resampling_importance_kl": 1.647054907301968,
+    "counterfactual_importance_accuracy": -0.11983863312766974,
+    "counterfactual_importance_kl": 1.9557672773629355,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.010520204964692088,
+    "different_trajectories_fraction": 0.86,
+    "overdeterminedness": 0.5,
+    "summary": "solve problem"
+  },
+  {
+    "chunk": "It involves binomial coefficients and some exponents.",
+    "chunk_idx": 1,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.7244897959183674,
+    "resampling_importance_accuracy": -0.12244897959183676,
+    "resampling_importance_kl": 0.500412861188861,
+    "counterfactual_importance_accuracy": 0.14795918367346939,
+    "counterfactual_importance_kl": 0.10867690838665263,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.10196369982368388,
+    "different_trajectories_fraction": 0.3673469387755102,
+    "overdeterminedness": 0.5510204081632653,
+    "summary": "calculate binomial coefficients"
+  },
+  {
+    "chunk": "Let me try to understand what it's asking for and figure out how to approach it step by step.",
+    "chunk_idx": 2,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [],
+    "accuracy": 0.6020408163265306,
+    "resampling_importance_accuracy": 0.09795918367346934,
+    "resampling_importance_kl": 1.3734255459838944,
+    "counterfactual_importance_accuracy": -0.09999999999999998,
+    "counterfactual_importance_kl": 1.4609597055429773,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.016232188004604818,
+    "different_trajectories_fraction": 0.9183673469387755,
+    "overdeterminedness": 0.6938775510204082,
+    "summary": "analyze problem requirements"
+  },
+  {
+    "chunk": "The problem is: Compute the value of\n\\[\n\\frac{\\binom{1/2}{2014} \\cdot 4^{2014}}{\\binom{4028}{2014}} \\, .",
+    "chunk_idx": 3,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.7,
+    "resampling_importance_accuracy": -0.0814432989690721,
+    "resampling_importance_kl": 0.8297922300780887,
+    "counterfactual_importance_accuracy": 0.1556368473561689,
+    "counterfactual_importance_kl": 1.588170993320956,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.006481757058602461,
+    "different_trajectories_fraction": 0.31,
+    "overdeterminedness": 0.74,
+    "summary": "compute value=0"
+  },
+  {
+    "chunk": "\\]\nAlright, so the expression involves a binomial coefficient with a non-integer upper index, multiplied by 4 raised to the power of 2014, and then divided by another binomial coefficient.",
+    "chunk_idx": 4,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [
+      "3"
+    ],
+    "accuracy": 0.6185567010309279,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.9587649714778467,
+    "counterfactual_importance_accuracy": 0.006443298969072142,
+    "counterfactual_importance_kl": 1.0150281294212995,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.10464836425382229,
+    "different_trajectories_fraction": 0.9072164948453608,
+    "overdeterminedness": 0.4226804123711341,
+    "summary": "calculate expression involving binomials"
+  },
+  {
+    "chunk": "Let me recall the definition of the binomial coefficient for a real number.",
+    "chunk_idx": 5,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.6185567010309279,
+    "resampling_importance_accuracy": 0.05491268672417415,
+    "resampling_importance_kl": 1.9355043632454245,
+    "counterfactual_importance_accuracy": -0.04580981328701694,
+    "counterfactual_importance_kl": 1.8125018849346213,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.056327753365003314,
+    "different_trajectories_fraction": 0.9690721649484536,
+    "overdeterminedness": 0.4020618556701031,
+    "summary": "define binomial coefficient"
+  },
+  {
+    "chunk": "It says that for a real number \\( x \\) and a nonnegative integer \\( k \\),\n\\[\n\\binom{x}{k} = \\frac{x(x - 1)(x - 2) \\dots (x - k + 1)}{k!}\n\\]\nSo, in this case, \\( x = 1/2 \\) and \\( k = 2014 \\).",
+    "chunk_idx": 6,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "5"
+    ],
+    "accuracy": 0.673469387755102,
+    "resampling_importance_accuracy": -0.0714285714285714,
+    "resampling_importance_kl": 0.4597767392022535,
+    "counterfactual_importance_accuracy": 0.06462585034013602,
+    "counterfactual_importance_kl": 0.4973334783153537,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.5809975468080368,
+    "different_trajectories_fraction": 0.9183673469387755,
+    "overdeterminedness": 0.5,
+    "summary": "calculate \\(\\binom{1/2}{2014}\\)"
+  },
+  {
+    "chunk": "That means the numerator is going to involve a product of 2014 terms, each decreasing by 1, starting from \\( 1/2 \\).",
+    "chunk_idx": 7,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "6"
+    ],
+    "accuracy": 0.6020408163265306,
+    "resampling_importance_accuracy": 0.04081632653061229,
+    "resampling_importance_kl": 0.9605464410454458,
+    "counterfactual_importance_accuracy": -0.02619047619047621,
+    "counterfactual_importance_kl": 0.8298201917154799,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.046866167744640405,
+    "different_trajectories_fraction": 0.6122448979591837,
+    "overdeterminedness": 0.12244897959183676,
+    "summary": "calculate numerator product"
+  },
+  {
+    "chunk": "Hmm, that seems complicated, but maybe there's a pattern or a formula that can help simplify this.",
+    "chunk_idx": 8,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "7"
+    ],
+    "accuracy": 0.6428571428571429,
+    "resampling_importance_accuracy": -0.04081632653061229,
+    "resampling_importance_kl": 1.2997846836441325,
+    "counterfactual_importance_accuracy": 0.1038415366146459,
+    "counterfactual_importance_kl": 0.5706633041821234,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.010618593182541752,
+    "different_trajectories_fraction": 0.5204081632653061,
+    "overdeterminedness": 0.33673469387755106,
+    "summary": "suggest formula simplification"
+  },
+  {
+    "chunk": "Let me write down the numerator and the denominator separately to see if I can find a relationship or a way to cancel things out.",
+    "chunk_idx": 9,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "8"
+    ],
+    "accuracy": 0.6020408163265306,
+    "resampling_importance_accuracy": 0.004019789734075463,
+    "resampling_importance_kl": 2.376680857117888,
+    "counterfactual_importance_accuracy": -0.004019789734075463,
+    "counterfactual_importance_kl": 2.376680857117888,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.027080055887923983,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.18367346938775508,
+    "summary": "list numerator denominator"
+  },
+  {
+    "chunk": "First, let's compute the numerator:\n\\[\n\\binom{1/2}{2014} \\cdot 4^{2014}\n\\]\nExpanding the binomial coefficient:\n\\[\n\\binom{1/2}{2014} = \\frac{(1/2)(1/2 - 1)(1/2 - 2) \\dots (1/2 - 2013)}{2014!}\n\\]\nSo, substituting back into the numerator:\n\\[\n\\frac{(1/2)(1/2 - 1)(1/2 - 2) \\dots (1/2 - 2013)}{2014!} \\cdot 4^{2014}\n\\]\nLet me see what \\( 1/2 - n \\) is for \\( n \\) from 0 to 2013.",
+    "chunk_idx": 10,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "6",
+      "9"
+    ],
+    "accuracy": 0.6060606060606061,
+    "resampling_importance_accuracy": 0.01249609497032178,
+    "resampling_importance_kl": 2.716980926778412,
+    "counterfactual_importance_accuracy": -0.11855670103092786,
+    "counterfactual_importance_kl": 3.2122615114344786,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.7779849521896676,
+    "different_trajectories_fraction": 0.2222222222222222,
+    "overdeterminedness": 0.3939393939393939,
+    "summary": "compute numerator"
+  },
+  {
+    "chunk": "Each term is \\( 1/2 - n = (1 - 2n)/2 \\).",
+    "chunk_idx": 11,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.6185567010309279,
+    "resampling_importance_accuracy": 0.007705925231698441,
+    "resampling_importance_kl": 1.3054218783074392,
+    "counterfactual_importance_accuracy": 0.04040404040404033,
+    "counterfactual_importance_kl": 1.5285890839978034,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.05572045123324658,
+    "different_trajectories_fraction": 0.30927835051546393,
+    "overdeterminedness": 0.6494845360824743,
+    "summary": "simplify equation"
+  },
+  {
+    "chunk": "So, all the terms in the numerator can be expressed as \\( (1 - 2n)/2 \\).",
+    "chunk_idx": 12,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "11"
+    ],
+    "accuracy": 0.6262626262626263,
+    "resampling_importance_accuracy": 0.03373737373737373,
+    "resampling_importance_kl": 1.6913145876673294,
+    "counterfactual_importance_accuracy": -0.06000000000000005,
+    "counterfactual_importance_kl": 1.0499901915993544,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.10245816762205819,
+    "different_trajectories_fraction": 0.5050505050505051,
+    "overdeterminedness": 0.46464646464646464,
+    "summary": "express numerator as (1 -"
+  },
+  {
+    "chunk": "Therefore, the entire product in the numerator becomes:\n\\[\n\\prod_{n=0}^{2013} \\frac{1 - 2n}{2} = \\left( \\prod_{n=0}^{2013} (1 - 2n) \\right) \\cdot \\left( \\frac{1}{2} \\right)^{2014}\n\\]\nHmm, so that's:\n\\[\n\\left( \\prod_{n=0}^{2013} (1 - 2n) \\right) \\cdot \\frac{1}{2^{2014}} \\cdot \\frac{4^{2014}}{2014!}\n\\]\nWait, no, let me correct that.",
+    "chunk_idx": 13,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "12"
+    ],
+    "accuracy": 0.66,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 1.4464690313194934,
+    "counterfactual_importance_accuracy": 0.006249999999999978,
+    "counterfactual_importance_kl": 1.42364144368417,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.40916086036923693,
+    "different_trajectories_fraction": 0.32,
+    "overdeterminedness": 0.18000000000000005,
+    "summary": "calculate product expression"
+  },
+  {
+    "chunk": "The entire expression is:\n\\[\n\\frac{\\left( \\prod_{n=0}^{2013} \\frac{1 - 2n}{2} \\right)}{2014!} \\cdot 4^{2014}\n\\]\nWhich is equal to:\n\\[\n\\left( \\frac{\\prod_{n=0}^{2013} (1 - 2n)}{2^{2014}} \\right) \\cdot \\frac{4^{2014}}{2014!}\n\\]\nSo, simplifying the constants:\n\\[\n\\frac{4^{2014}}{2^{2014}} = 2^{2014}\n\\]\nTherefore, the numerator becomes:\n\\[\n\\frac{\\prod_{n=0}^{2013} (1 - 2n) \\cdot 2^{2014}}{2014!}\n\\]\nNow, let me look at the denominator of the original expression:\n\\[\n\\binom{4028}{2014} = \\frac{4028!}{2014!",
+    "chunk_idx": 14,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "13"
+    ],
+    "accuracy": 0.65,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.8729306148644662,
+    "counterfactual_importance_accuracy": 0.04270270270270271,
+    "counterfactual_importance_kl": 0.663104476846546,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0661886028405079,
+    "different_trajectories_fraction": 0.37,
+    "overdeterminedness": 0.15000000000000002,
+    "summary": "simplify to 2^{2014}"
+  },
+  {
+    "chunk": "\\cdot (4028 - 2014)!} = \\frac{4028!}{(2014!)^2}\n\\]\nSo, putting it all together, the entire expression is:\n\\[\n\\frac{\\frac{\\prod_{n=0}^{2013} (1 - 2n) \\cdot 2^{2014}}{2014!}}{\\frac{4028!}{(2014!)^2}} = \\frac{\\prod_{n=0}^{2013} (1 - 2n) \\cdot 2^{2014}}{2014!} \\cdot \\frac{(2014!)^2}{4028!}\n\\]\nSimplify the factorial terms:\n\\[\n\\frac{2^{2014} \\cdot \\prod_{n=0}^{2013} (1 - 2n) \\cdot (2014!)^2}{2014!",
+    "chunk_idx": 15,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "14"
+    ],
+    "accuracy": 0.66,
+    "resampling_importance_accuracy": -0.050000000000000044,
+    "resampling_importance_kl": 1.04654691121163,
+    "counterfactual_importance_accuracy": 0.12913043478260866,
+    "counterfactual_importance_kl": 3.0659240533830303,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.04694210711142505,
+    "different_trajectories_fraction": 0.23,
+    "overdeterminedness": 0.5900000000000001,
+    "summary": "simplify factorial terms"
+  },
+  {
+    "chunk": "\\cdot 4028!} = 2^{2014} \\cdot \\prod_{n=0}^{2013} (1 - 2n) \\cdot \\frac{2014!}{4028!}\n\\]\nSimplify \\( \\frac{2014!}{4028!} \\):\n\\[\n\\frac{2014!}{4028!} = \\frac{1}{(4028)(4027) \\dots (2015)}\n\\]\nSo, now the expression becomes:\n\\[\n2^{2014} \\cdot \\prod_{n=0}^{2013} (1 - 2n) \\cdot \\frac{1}{(4028)(4027) \\dots (2015)}\n\\]\nHmm, this seems a bit messy.",
+    "chunk_idx": 16,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "15"
+    ],
+    "accuracy": 0.61,
+    "resampling_importance_accuracy": 0.13,
+    "resampling_importance_kl": 0.9410323837649044,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.17031140559158295,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.07999999999999996,
+    "summary": "simplify fraction"
+  },
+  {
+    "chunk": "Maybe I should look for a different approach or recall some identities involving binomial coefficients with non-integer upper indices.",
+    "chunk_idx": 17,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.74,
+    "resampling_importance_accuracy": -0.11373737373737369,
+    "resampling_importance_kl": 0.6894367788589558,
+    "counterfactual_importance_accuracy": 0.10707070707070698,
+    "counterfactual_importance_kl": 0.5361647890274075,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.9058673443642882,
+    "different_trajectories_fraction": 0.9,
+    "overdeterminedness": 0.5,
+    "summary": "recall binomial identities"
+  },
+  {
+    "chunk": "Wait a second, I remember that binomial coefficients with half-integer upper indices are related to central binomial coefficients or Catalan numbers.",
+    "chunk_idx": 18,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "17"
+    ],
+    "accuracy": 0.6262626262626263,
+    "resampling_importance_accuracy": 0.1337373737373737,
+    "resampling_importance_kl": 1.5068451215354999,
+    "counterfactual_importance_accuracy": -0.13704918032786884,
+    "counterfactual_importance_kl": 1.11638364939481,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.7681834846869828,
+    "different_trajectories_fraction": 0.6161616161616161,
+    "overdeterminedness": 0.11111111111111116,
+    "summary": "relate binomial coefficients"
+  },
+  {
+    "chunk": "Also, there's a formula involving Gamma functions, but I might not need to go that far.",
+    "chunk_idx": 19,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "18"
+    ],
+    "accuracy": 0.76,
+    "resampling_importance_accuracy": -0.050000000000000044,
+    "resampling_importance_kl": 1.2935060107473653,
+    "counterfactual_importance_accuracy": 0.050000000000000044,
+    "counterfactual_importance_kl": 1.2935060107473653,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.08541345915149007,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.5700000000000001,
+    "summary": "mention gamma function"
+  },
+  {
+    "chunk": "Alternatively, maybe I can express \\( \\binom{1/2}{k} \\) in terms of factorials or products.",
+    "chunk_idx": 20,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "19"
+    ],
+    "accuracy": 0.71,
+    "resampling_importance_accuracy": 0.18898989898989904,
+    "resampling_importance_kl": 2.516453872718749,
+    "counterfactual_importance_accuracy": -0.20565656565656565,
+    "counterfactual_importance_kl": 2.1125514506722145,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0008942519875949646,
+    "different_trajectories_fraction": 0.75,
+    "overdeterminedness": 0.49,
+    "summary": "express \\( \\binom{1/2}{k} \\)"
+  },
+  {
+    "chunk": "Let me recall that:\n\\[\n\\binom{1/2}{k} = \\frac{(-1)^{k-1} (2k - 2)!}{2^{2k - 1} k!",
+    "chunk_idx": 21,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "20"
+    ],
+    "accuracy": 0.898989898989899,
+    "resampling_importance_accuracy": 0.0010101010101010166,
+    "resampling_importance_kl": 0.6542731984429138,
+    "counterfactual_importance_accuracy": -0.00638297872340432,
+    "counterfactual_importance_kl": 0.9670388606398528,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.277025549428008,
+    "different_trajectories_fraction": 0.47474747474747475,
+    "overdeterminedness": 0.7878787878787878,
+    "summary": "derive binom(1/2,k)"
+  },
+  {
+    "chunk": "(k - 1)!}\n\\]\nWait, is that correct?",
+    "chunk_idx": 22,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "21"
+    ],
+    "accuracy": 0.9,
+    "resampling_importance_accuracy": 0.039999999999999925,
+    "resampling_importance_kl": 1.0027803333254448,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.08419686010158037,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.95,
+    "summary": "check factorial correctness"
+  },
+  {
+    "chunk": "Let me check for small \\( k \\).",
+    "chunk_idx": 23,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "22"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.4474236849552242,
+    "counterfactual_importance_accuracy": 0.03142857142857147,
+    "counterfactual_importance_kl": 0.051776181716799555,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.2148575480221444,
+    "different_trajectories_fraction": 0.35,
+    "overdeterminedness": 0.69,
+    "summary": "check small \\( k \\)"
+  },
+  {
+    "chunk": "For \\( k = 1 \\), \\( \\binom{1/2}{1} = 1/2 \\).",
+    "chunk_idx": 24,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "23"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 1.0066320679690404,
+    "counterfactual_importance_accuracy": 0.030000000000000027,
+    "counterfactual_importance_kl": 0.04651994662981916,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0344872551929824,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.77,
+    "summary": "calculate \\(\\binom{1/2}{1} = 1/2\\)"
+  },
+  {
+    "chunk": "Plugging into the formula:\n\\[\n\\frac{(-1)^{0} (0)!}{2^{1} 1!",
+    "chunk_idx": 25,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "24"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.030000000000000027,
+    "resampling_importance_kl": 0.6521716850046726,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.005368987221609254,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9,
+    "summary": "plug into formula"
+  },
+  {
+    "chunk": "(0)!} = \\frac{1 \\cdot 1}{2 \\cdot 1 \\cdot 1} = 1/2\n\\]\nOkay, that works.",
+    "chunk_idx": 26,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 1.0204950113788953,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.030024148507715964,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.89,
+    "summary": "calculate (0)! = 1/2"
+  },
+  {
+    "chunk": "For \\( k = 2 \\), \\( \\binom{1/2}{2} = (1/2)(-1/2)/2 = (-1/4)/2 = -1/8 \\).",
+    "chunk_idx": 27,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "26"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.039999999999999925,
+    "resampling_importance_kl": 0.44838198570024557,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.46603965340076875,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.89,
+    "summary": "calculate \\(\\binom{1/2}{2} = -1/8\\)"
+  },
+  {
+    "chunk": "Plugging into the formula:\n\\[\n\\frac{(-1)^{1} (2)!}{2^{3} 2!",
+    "chunk_idx": 28,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "27"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": 0.019999999999999907,
+    "resampling_importance_kl": 1.2929226874529276,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.015361900833253658,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "calculate expression value"
+  },
+  {
+    "chunk": "(1)!} = \\frac{-1 \\cdot 2}{8 \\cdot 2 \\cdot 1} = \\frac{-2}{16} = -1/8\n\\]\nThat also works.",
+    "chunk_idx": 29,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "28"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.8230011947179074,
+    "counterfactual_importance_accuracy": 0.030000000000000027,
+    "counterfactual_importance_kl": 0.041031296495554814,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.1308169903389256,
+    "different_trajectories_fraction": 0.01,
+    "overdeterminedness": 0.64,
+    "summary": "calculate (1)! = -1/8"
+  },
+  {
+    "chunk": "So, perhaps the general formula is:\n\\[\n\\binom{1/2}{k} = \\frac{(-1)^{k - 1} (2k - 2)!}{2^{2k - 1} k!",
+    "chunk_idx": 30,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "29"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.05999999999999994,
+    "resampling_importance_kl": 0.46946977169050824,
+    "counterfactual_importance_accuracy": 0.07780487804878045,
+    "counterfactual_importance_kl": 0.341703323603465,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.24626595044702446,
+    "different_trajectories_fraction": 0.82,
+    "overdeterminedness": 0.72,
+    "summary": "derive binom(1/2,k)"
+  },
+  {
+    "chunk": "(k - 1)!}\n\\]\nHmm, so let's try to use this formula for \\( k = 2014 \\).",
+    "chunk_idx": 31,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "30"
+    ],
+    "accuracy": 0.91,
+    "resampling_importance_accuracy": 0.05999999999999994,
+    "resampling_importance_kl": 1.6136193719947438,
+    "counterfactual_importance_accuracy": -0.08392405063291142,
+    "counterfactual_importance_kl": 2.079749837139064,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9496366954375308,
+    "different_trajectories_fraction": 0.79,
+    "overdeterminedness": 0.10999999999999999,
+    "summary": "apply formula for k=2014"
+  },
+  {
+    "chunk": "Then:\n\\[\n\\binom{1/2}{2014} = \\frac{(-1)^{2013} (4026)!}{2^{4027} \\cdot 2014!",
+    "chunk_idx": 32,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "31"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.04999999999999993,
+    "resampling_importance_kl": 0.4658000457040341,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.2402088851892584,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "calculate binom(1/2, 2014)"
+  },
+  {
+    "chunk": "\\cdot 2013!}\n\\]\nWait, because \\( 2k - 2 = 2 \\times 2014 - 2 = 4026 \\).",
+    "chunk_idx": 33,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "32"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.019999999999999907,
+    "resampling_importance_kl": 0.8368708118502096,
+    "counterfactual_importance_accuracy": 0.0004761904761905189,
+    "counterfactual_importance_kl": 0.5308618923883213,
+    "forced_importance_accuracy": 0.010752688172043012,
+    "forced_importance_kl": 0.9551834070992226,
+    "different_trajectories_fraction": 0.84,
+    "overdeterminedness": 0.41000000000000003,
+    "summary": "calculate 2k=4026"
+  },
+  {
+    "chunk": "So, substituting that in:\n\\[\n\\binom{1/2}{2014} = \\frac{(-1)^{2013} \\cdot 4026!}{2^{4027} \\cdot 2014!",
+    "chunk_idx": 34,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "33"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.040000000000000036,
+    "resampling_importance_kl": 1.2180865597926236,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.04145667246230931,
+    "forced_importance_accuracy": -0.010752688172043012,
+    "forced_importance_kl": 5.501557609490913,
+    "different_trajectories_fraction": 0.03,
+    "overdeterminedness": 0.5900000000000001,
+    "summary": "calculate binom(1/2, 2014)"
+  },
+  {
+    "chunk": "\\cdot 2013!}\n\\]\nOkay, so now let's plug this back into our original expression:\n\\[\n\\frac{\\binom{1/2}{2014} \\cdot 4^{2014}}{\\binom{4028}{2014}} = \\frac{\\left( \\frac{(-1)^{2013} \\cdot 4026!}{2^{4027} \\cdot 2014!",
+    "chunk_idx": 35,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "34"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.05999999999999994,
+    "resampling_importance_kl": 0.26221650950997455,
+    "counterfactual_importance_accuracy": 0.039999999999999925,
+    "counterfactual_importance_kl": 0.06160765819280249,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.3904393648539342,
+    "different_trajectories_fraction": 0.25,
+    "overdeterminedness": 0.35,
+    "summary": "calculate expression value"
+  },
+  {
+    "chunk": "\\cdot 2013!} \\right) \\cdot 4^{2014}}{\\binom{4028}{2014}}\n\\]\nSimplify the constants:\nFirst, \\( 4^{2014} = 2^{4028} \\), so:\n\\[\n\\frac{(-1)^{2013} \\cdot 4026!",
+    "chunk_idx": 36,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "35"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.029999999999999916,
+    "resampling_importance_kl": 1.4679286715962105,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.010101010101010102,
+    "forced_importance_kl": 2.050070157745198,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.49,
+    "summary": "simplify expression"
+  },
+  {
+    "chunk": "\\cdot 2^{4028}}{2^{4027} \\cdot 2014!",
+    "chunk_idx": 37,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "36"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.039999999999999925,
+    "resampling_importance_kl": 0.6764274342830594,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.246058014399906,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "simplify expression"
+  },
+  {
+    "chunk": "\\cdot 2013!} = \\frac{(-1)^{2013} \\cdot 4026!",
+    "chunk_idx": 38,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "37"
+    ],
+    "accuracy": 0.91,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 1.0522447346770785,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.010101010101010102,
+    "forced_importance_kl": 2.100125991224774,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "derive 2013! = \\frac{(-1)^{2013} \\cdot"
+  },
+  {
+    "chunk": "\\cdot 2}{2014!",
+    "chunk_idx": 39,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "38"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.019999999999999907,
+    "resampling_importance_kl": 1.2929249596131498,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 6.3622542259838895,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate factorial 2014!"
+  },
+  {
+    "chunk": "\\cdot 2013!}\n\\]\nSo, the expression becomes:\n\\[\n\\frac{(-1)^{2013} \\cdot 4026!",
+    "chunk_idx": 40,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "39"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.019999999999999907,
+    "resampling_importance_kl": 0.06873613469440147,
+    "counterfactual_importance_accuracy": -0.17000000000000004,
+    "counterfactual_importance_kl": 0.46209128212721595,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 11.518129699845133,
+    "different_trajectories_fraction": 0.04,
+    "overdeterminedness": 0.61,
+    "summary": "simplify expression"
+  },
+  {
+    "chunk": "\\cdot 2}{2014!",
+    "chunk_idx": 41,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "40"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": -0.20000000000000007,
+    "resampling_importance_kl": 1.039402520566202,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 20.502541412129542,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "multiply by 2"
+  },
+  {
+    "chunk": "\\cdot 2013!",
+    "chunk_idx": 42,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "41"
+    ],
+    "accuracy": 0.72,
+    "resampling_importance_accuracy": 0.20000000000000007,
+    "resampling_importance_kl": 5.364183859565744,
+    "counterfactual_importance_accuracy": -0.20000000000000007,
+    "counterfactual_importance_kl": 5.364183859565744,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 19.971446979889894,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6799999999999999,
+    "summary": "multiply by 2013!"
+  },
+  {
+    "chunk": "\\cdot \\binom{4028}{2014}}\n\\]\nNow, let's write out \\( \\binom{4028}{2014} \\):\n\\[\n\\binom{4028}{2014} = \\frac{4028!}{2014!",
+    "chunk_idx": 43,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "42"
+    ],
+    "accuracy": 0.92,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 1.2611757949516516,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.02,
+    "forced_importance_kl": 3.949029428215477,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.65,
+    "summary": "calculate \\binom{4028}{2014}"
+  },
+  {
+    "chunk": "\\cdot (4028 - 2014)!} = \\frac{4028!}{2014!",
+    "chunk_idx": 44,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "43"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": -0.050000000000000044,
+    "resampling_importance_kl": 0.4658596074523984,
+    "counterfactual_importance_accuracy": 0.06117647058823528,
+    "counterfactual_importance_kl": 0.0657070256638045,
+    "forced_importance_accuracy": 0.0507070707070707,
+    "forced_importance_kl": 2.0086243361937104,
+    "different_trajectories_fraction": 0.17,
+    "overdeterminedness": 0.75,
+    "summary": "simplify factorial expression"
+  },
+  {
+    "chunk": "\\cdot 2014!}\n\\]\nSo, substituting back in:\n\\[\n\\frac{(-1)^{2013} \\cdot 4026!",
+    "chunk_idx": 45,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "44"
+    ],
+    "accuracy": 0.88,
+    "resampling_importance_accuracy": -0.040000000000000036,
+    "resampling_importance_kl": 0.5189640059843618,
+    "counterfactual_importance_accuracy": 0.16000000000000003,
+    "counterfactual_importance_kl": 0.15246847829821134,
+    "forced_importance_accuracy": -0.0707070707070707,
+    "forced_importance_kl": 15.359790578670209,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.6599999999999999,
+    "summary": "substitute back in"
+  },
+  {
+    "chunk": "\\cdot 2}{2014!",
+    "chunk_idx": 46,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "45"
+    ],
+    "accuracy": 0.84,
+    "resampling_importance_accuracy": -0.16999999999999993,
+    "resampling_importance_kl": 2.7541602320318073,
+    "counterfactual_importance_accuracy": 0.16999999999999993,
+    "counterfactual_importance_kl": 2.7541602320318073,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 21.708797341999354,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate factorial 2014!"
+  },
+  {
+    "chunk": "\\cdot 2013!",
+    "chunk_idx": 47,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "46"
+    ],
+    "accuracy": 0.67,
+    "resampling_importance_accuracy": 0.19999999999999996,
+    "resampling_importance_kl": 6.6420555035691216,
+    "counterfactual_importance_accuracy": -0.19999999999999996,
+    "counterfactual_importance_kl": 6.6420555035691216,
+    "forced_importance_accuracy": 0.25252525252525254,
+    "forced_importance_kl": 1.5545152433553726,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.94,
+    "summary": "multiply by 2013!"
+  },
+  {
+    "chunk": "\\cdot \\frac{4028!}{2014!",
+    "chunk_idx": 48,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "47"
+    ],
+    "accuracy": 0.87,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.2444167327644197,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.21212121212121213,
+    "forced_importance_kl": 8.817443661494657,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate factorial ratio"
+  },
+  {
+    "chunk": "\\cdot 2014!}} = \\frac{(-1)^{2013} \\cdot 4026!",
+    "chunk_idx": 49,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "48"
+    ],
+    "accuracy": 0.87,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.629650284063878,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.009791795506081225,
+    "forced_importance_kl": 8.517983462478856,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate 2014! = \\frac{(-1)^{2013} \\cdot"
+  },
+  {
+    "chunk": "\\cdot 2 \\cdot 2014!",
+    "chunk_idx": 50,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "49"
+    ],
+    "accuracy": 0.89,
+    "resampling_importance_accuracy": 0.040000000000000036,
+    "resampling_importance_kl": 0.6218039655711715,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.1893877551020408,
+    "forced_importance_kl": 10.753673091433619,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "multiply by 4028"
+  },
+  {
+    "chunk": "\\cdot 2014!}{2014!",
+    "chunk_idx": 51,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "50"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": -0.2300000000000001,
+    "resampling_importance_kl": 0.9009557007743672,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.22,
+    "forced_importance_kl": 12.9678515497694,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "simplify 2014!/2014!"
+  },
+  {
+    "chunk": "\\cdot 2013!",
+    "chunk_idx": 52,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "51"
+    ],
+    "accuracy": 0.7,
+    "resampling_importance_accuracy": 0.24,
+    "resampling_importance_kl": 5.122699196904753,
+    "counterfactual_importance_accuracy": -0.24,
+    "counterfactual_importance_kl": 5.122699196904753,
+    "forced_importance_accuracy": 0.07142857142857142,
+    "forced_importance_kl": 7.362972609748586,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.79,
+    "summary": "multiply by 2013!"
+  },
+  {
+    "chunk": "\\cdot 4028!}\n\\]\nSimplify the factorial terms:\nFirst, \\( 4028!",
+    "chunk_idx": 53,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "52"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": -0.009999999999999898,
+    "resampling_importance_kl": 0.23808064512442462,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.06132756132756132,
+    "forced_importance_kl": 5.096371745656294,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.81,
+    "summary": "simplify 4028!"
+  },
+  {
+    "chunk": "= 4028 \\cdot 4027 \\cdot 4026!",
+    "chunk_idx": 54,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "53"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": 0.039999999999999925,
+    "resampling_importance_kl": 1.2180952132338398,
+    "counterfactual_importance_accuracy": -0.020000000000000018,
+    "counterfactual_importance_kl": 0.10986122299448944,
+    "forced_importance_accuracy": 0.050505050505050504,
+    "forced_importance_kl": 4.755779718954345,
+    "different_trajectories_fraction": 0.2,
+    "overdeterminedness": 0.96,
+    "summary": "multiply 4028, 4027, 4026!"
+  },
+  {
+    "chunk": "\\). So, substituting that in:\n\\[\n\\frac{(-1)^{2013} \\cdot 4026!",
+    "chunk_idx": 55,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "54"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.15000000000000002,
+    "resampling_importance_kl": 0.14215756198512927,
+    "counterfactual_importance_accuracy": 0.18000000000000005,
+    "counterfactual_importance_kl": 0.1139442185676495,
+    "forced_importance_accuracy": -0.06060606060606061,
+    "forced_importance_kl": 11.067713770428156,
+    "different_trajectories_fraction": 0.05,
+    "overdeterminedness": 0.86,
+    "summary": "substitute value in"
+  },
+  {
+    "chunk": "\\cdot 2 \\cdot 2014!",
+    "chunk_idx": 56,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "55"
+    ],
+    "accuracy": 0.82,
+    "resampling_importance_accuracy": 0.1100000000000001,
+    "resampling_importance_kl": 1.8426941257059415,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 6.036877471449519,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "multiply by 4028"
+  },
+  {
+    "chunk": "\\cdot 2014!}{2014!",
+    "chunk_idx": 57,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "56"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": -0.20000000000000007,
+    "resampling_importance_kl": 0.8191623359476763,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.402184960538545,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "simplify 2014!/2014!"
+  },
+  {
+    "chunk": "\\cdot 2013!",
+    "chunk_idx": 58,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "57"
+    ],
+    "accuracy": 0.73,
+    "resampling_importance_accuracy": 0.24,
+    "resampling_importance_kl": 4.654645906436054,
+    "counterfactual_importance_accuracy": -0.24,
+    "counterfactual_importance_kl": 4.654645906436054,
+    "forced_importance_accuracy": 0.030927835051546393,
+    "forced_importance_kl": 3.7244121581466967,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.86,
+    "summary": "multiply by 2013!"
+  },
+  {
+    "chunk": "\\cdot 4028 \\cdot 4027 \\cdot 4026!}\n\\]\nCancel out \\( 4026!",
+    "chunk_idx": 59,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "58"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.6117491701467462,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.4190721649484536,
+    "forced_importance_kl": 13.191108392734808,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.88,
+    "summary": "cancel out 4026!"
+  },
+  {
+    "chunk": "\\) from numerator and denominator:\n\\[\n\\frac{(-1)^{2013} \\cdot 2 \\cdot 2014!",
+    "chunk_idx": 60,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "59"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.14,
+    "resampling_importance_kl": 0.35830032287048286,
+    "counterfactual_importance_accuracy": 0.12610169491525425,
+    "counterfactual_importance_kl": 0.4638208347147556,
+    "forced_importance_accuracy": -0.45,
+    "forced_importance_kl": 14.634128324751709,
+    "different_trajectories_fraction": 0.59,
+    "overdeterminedness": 0.96,
+    "summary": "calculate numerator=-2"
+  },
+  {
+    "chunk": "\\cdot 2014!}{2014!",
+    "chunk_idx": 61,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "60"
+    ],
+    "accuracy": 0.84,
+    "resampling_importance_accuracy": -0.15999999999999992,
+    "resampling_importance_kl": 2.2942918735675684,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "divide 2014!"
+  },
+  {
+    "chunk": "\\cdot 2013!",
+    "chunk_idx": 62,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "61"
+    ],
+    "accuracy": 0.68,
+    "resampling_importance_accuracy": 0.29999999999999993,
+    "resampling_importance_kl": 6.982979020106498,
+    "counterfactual_importance_accuracy": -0.29999999999999993,
+    "counterfactual_importance_kl": 6.982979020106498,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.94,
+    "summary": "multiply by 2013!"
+  },
+  {
+    "chunk": "\\cdot 4028 \\cdot 4027}\n\\]\nSimplify \\( 2014!",
+    "chunk_idx": 63,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "62"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.030000000000000027,
+    "resampling_importance_kl": 0.44493409205144424,
+    "counterfactual_importance_accuracy": -0.040909090909090895,
+    "counterfactual_importance_kl": 2.0851476689669823,
+    "forced_importance_accuracy": 0.782608695652174,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.11,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "simplify 2014!"
+  },
+  {
+    "chunk": "/ 2014! \\):\nWait, actually, we have \\( 2014!",
+    "chunk_idx": 64,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "63"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.2934343434343434,
+    "resampling_importance_kl": 0.361972084839349,
+    "counterfactual_importance_accuracy": 0.3021972300322816,
+    "counterfactual_importance_kl": 0.3765099507149511,
+    "forced_importance_accuracy": -0.782608695652174,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.97,
+    "overdeterminedness": 0.8,
+    "summary": "factorial of 2014"
+  },
+  {
+    "chunk": "\\cdot 2014!",
+    "chunk_idx": 65,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "64"
+    ],
+    "accuracy": 0.6565656565656566,
+    "resampling_importance_accuracy": 0.3334343434343434,
+    "resampling_importance_kl": 6.595983922801127,
+    "counterfactual_importance_accuracy": -0.33482758620689657,
+    "counterfactual_importance_kl": 5.189748359397731,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8787878787878788,
+    "overdeterminedness": 0.8585858585858586,
+    "summary": "multiply by 2014!"
+  },
+  {
+    "chunk": "\\) in the numerator and \\( 2014!",
+    "chunk_idx": 66,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "65"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.22743744086851989,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.3541666666666667,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "include 2014!"
+  },
+  {
+    "chunk": "\\) in the denominator, so that leaves \\( 2014!",
+    "chunk_idx": 67,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "66"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.3946687116753339,
+    "counterfactual_importance_accuracy": -0.04555555555555557,
+    "counterfactual_importance_kl": 0.7752932810846326,
+    "forced_importance_accuracy": -0.25416666666666665,
+    "forced_importance_kl": 9.183377600941888,
+    "different_trajectories_fraction": 0.54,
+    "overdeterminedness": 0.87,
+    "summary": "leave 2014!"
+  },
+  {
+    "chunk": "\\) in the numerator.",
+    "chunk_idx": 68,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "67"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20723265837324717,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.010695285963591518,
+    "forced_importance_accuracy": 0.10833333333333334,
+    "forced_importance_kl": 1.4264335614736174,
+    "different_trajectories_fraction": 0.12,
+    "overdeterminedness": 0.98,
+    "summary": "identify numerator"
+  },
+  {
+    "chunk": "So:\n\\[\n\\frac{(-1)^{2013} \\cdot 2 \\cdot 2014!}{2013!",
+    "chunk_idx": 69,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "68"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.21728350591291737,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.015504175706144674,
+    "forced_importance_accuracy": -0.20833333333333334,
+    "forced_importance_kl": 23.321634713506686,
+    "different_trajectories_fraction": 0.05,
+    "overdeterminedness": 0.9,
+    "summary": "calculate fraction value"
+  },
+  {
+    "chunk": "\\cdot 4028 \\cdot 4027}\n\\]\nSimplify \\( 2014!",
+    "chunk_idx": 70,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "69"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.3946666639903824,
+    "counterfactual_importance_accuracy": -0.19999999999999996,
+    "counterfactual_importance_kl": 4.702963773575486,
+    "forced_importance_accuracy": 0.7052631578947368,
+    "forced_importance_kl": 8.42041498248549,
+    "different_trajectories_fraction": 0.05,
+    "overdeterminedness": 0.86,
+    "summary": "simplify 2014!"
+  },
+  {
+    "chunk": "/ 2013! \\):\n\\[\n\\frac{2014!}{2013!} = 2014\n\\]\nTherefore, substituting back in:\n\\[\n\\frac{(-1)^{2013} \\cdot 2 \\cdot 2014}{4028 \\cdot 4027}\n\\]\nNow, let's compute the constants:\nFirst, \\( (-1)^{2013} = -1 \\), so:\n\\[\n\\frac{-1 \\cdot 2 \\cdot 2014}{4028 \\cdot 4027}\n\\]\nSimplify numerator and denominator:\nNote that 4028 is 2 times 2014, so 4028 = 2 * 2014.",
+    "chunk_idx": 71,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "70"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.2866585067319461,
+    "forced_importance_kl": 22.36508868036817,
+    "different_trajectories_fraction": 0.35,
+    "overdeterminedness": 0.32999999999999996,
+    "summary": "simplify fraction"
+  },
+  {
+    "chunk": "So, 4028 = 2 * 2014, so we can write:\n\\[\n\\frac{-2 \\cdot 2014}{(2 \\cdot 2014) \\cdot 4027} = \\frac{-2 \\cdot 2014}{2 \\cdot 2014 \\cdot 4027}\n\\]\nCancel out the common factors in numerator and denominator:\nThe 2 and 2014 cancel out:\n\\[\n\\frac{-1}{4027}\n\\]\nSo, the entire expression simplifies to \\( -1/4027 \\).",
+    "chunk_idx": 72,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "71"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.5813953488372092,
+    "forced_importance_kl": 23.443896241937296,
+    "different_trajectories_fraction": 0.26,
+    "overdeterminedness": 0.08999999999999997,
+    "summary": "simplify to -1/4027"
+  },
+  {
+    "chunk": "Wait, but let me double-check the steps because I feel like I might have missed a negative sign somewhere or made a mistake in simplifying.",
+    "chunk_idx": 73,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "72"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.009661910695708079,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.96,
+    "overdeterminedness": 0.29000000000000004,
+    "summary": "check for mistakes"
+  },
+  {
+    "chunk": "Starting from:\n\\[\n\\frac{(-1)^{2013} \\cdot 2 \\cdot 2014}{4028 \\cdot 4027}\n\\]\nSince \\( (-1)^{2013} = -1 \\), that becomes:\n\\[\n\\frac{-2 \\cdot 2014}{4028 \\cdot 4027}\n\\]\nBut 4028 is 2 * 2014, so:\n\\[\n\\frac{-2 \\cdot 2014}{2 \\cdot 2014 \\cdot 4027}\n\\]\nCancel 2 and 2014:\n\\[\n\\frac{-1}{4027}\n\\]\nYes, that seems correct.",
+    "chunk_idx": 74,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "73"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20723265837324717,
+    "counterfactual_importance_accuracy": -0.0004166666666666208,
+    "counterfactual_importance_kl": 0.2159001728562538,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.96,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "simplify to -1/4027"
+  },
+  {
+    "chunk": "So, the value of the original expression is \\( -1/4027 \\).",
+    "chunk_idx": 75,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "74"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": -0.05555555555555558,
+    "counterfactual_importance_kl": 1.2258448750822426,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.18,
+    "overdeterminedness": 0.91,
+    "summary": "value = -1/4027"
+  },
+  {
+    "chunk": "But let me think again\u2014could the negative sign be correct?",
+    "chunk_idx": 76,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "75"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.009569450797869661,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.95,
+    "overdeterminedness": 0.26,
+    "summary": "consider negative sign"
+  },
+  {
+    "chunk": "Because binomial coefficients with non-integer upper indices can indeed be negative, depending on the parameters.",
+    "chunk_idx": 77,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "76"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20723265837324717,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.012270091480646016,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.36,
+    "overdeterminedness": 0.24,
+    "summary": "identify negative coefficients"
+  },
+  {
+    "chunk": "For example, \\( \\binom{1/2}{k} \\) alternates in sign depending on \\( k \\).",
+    "chunk_idx": 78,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "77"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": -0.016129032258064502,
+    "counterfactual_importance_kl": 0.33115311911582695,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.62,
+    "overdeterminedness": 0.43000000000000005,
+    "summary": "alternate sign \\( k \\)"
+  },
+  {
+    "chunk": "Since 2014 is even or odd?",
+    "chunk_idx": 79,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "78"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.52,
+    "overdeterminedness": 0.7,
+    "summary": "determine even/odd"
+  },
+  {
+    "chunk": "Wait, 2014 is even because 2014 divided by 2 is 1007.",
+    "chunk_idx": 80,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "79"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.46,
+    "overdeterminedness": 0.6699999999999999,
+    "summary": "confirm 2014 even"
+  },
+  {
+    "chunk": "So, 2014 is even, so \\( (-1)^{2013} = (-1)^{odd} = -1 \\).",
+    "chunk_idx": 81,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "80"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.5,
+    "overdeterminedness": 0.6699999999999999,
+    "summary": "evaluate (-1)^{2013} = -1"
+  },
+  {
+    "chunk": "So, the negative sign is correct.",
+    "chunk_idx": 82,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "81"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "confirm negative sign"
+  },
+  {
+    "chunk": "Therefore, the final answer is \\( -1/4027 \\).",
+    "chunk_idx": 83,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "82"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.07,
+    "overdeterminedness": 0.86,
+    "summary": "final answer = -1/4027"
+  },
+  {
+    "chunk": "Wait, but just to make sure, let me consider whether all the steps were correct.",
+    "chunk_idx": 84,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "83"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.020000000000000018,
+    "summary": "check correctness"
+  },
+  {
+    "chunk": "1. I used the formula for \\( \\binom{1/2}{k} \\) as \\( \\frac{(-1)^{k - 1} (2k - 2)!}{2^{2k - 1} k!",
+    "chunk_idx": 85,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "84"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.99,
+    "overdeterminedness": 0.27,
+    "summary": "use formula for \\( \\binom{1/2}{k}"
+  },
+  {
+    "chunk": "(k - 1)!} \\).",
+    "chunk_idx": 86,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "85"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.92,
+    "summary": "calculate (k - 1)!"
+  },
+  {
+    "chunk": "That seems correct because for k=1 and k=2, it worked.",
+    "chunk_idx": 87,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "86"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.76,
+    "overdeterminedness": 0.16000000000000003,
+    "summary": "confirm k=1, k=2"
+  },
+  {
+    "chunk": "2. Plugging in k=2014, I got \\( (-1)^{2013} \\cdot 4026!",
+    "chunk_idx": 88,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "87"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.67,
+    "overdeterminedness": 0.10999999999999999,
+    "summary": "calculate value=(-1)^{2013} \\cdot 4026!"
+  },
+  {
+    "chunk": "/ (2^{4027} \\cdot 2014!",
+    "chunk_idx": 89,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "88"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.03,
+    "overdeterminedness": 0.95,
+    "summary": "calculate value of expression"
+  },
+  {
+    "chunk": "\\cdot 2013!) \\).",
+    "chunk_idx": 90,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "89"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "multiply by 2013!"
+  },
+  {
+    "chunk": "That seems okay.",
+    "chunk_idx": 91,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "90"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20723265837324717,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.018018505031734158,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.88,
+    "overdeterminedness": 0.92,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "3. Then, I multiplied by \\( 4^{2014} = 2^{4028} \\), so that became \\( 2^{4028} \\times \\) that term, which after simplifying became 2^{4028 - 4027} = 2^{1} = 2.",
+    "chunk_idx": 92,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "91"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.005037777599958383,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.01,
+    "overdeterminedness": 0.06000000000000005,
+    "summary": "multiply by \\( 4^{2014} \\)"
+  },
+  {
+    "chunk": "So, that step is correct.",
+    "chunk_idx": 93,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "92"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.82,
+    "overdeterminedness": 0.33999999999999997,
+    "summary": "confirm correctness"
+  },
+  {
+    "chunk": "4. Then, in the denominator, I used the formula for \\( \\binom{4028}{2014} = 4028!",
+    "chunk_idx": 94,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "93"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.09,
+    "overdeterminedness": 0.54,
+    "summary": "use formula \\( \\binom{4028}{2014} \\)"
+  },
+  {
+    "chunk": "/ (2014!^2) \\).",
+    "chunk_idx": 95,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "94"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.04,
+    "overdeterminedness": 0.92,
+    "summary": "calculate (2014!)^2"
+  },
+  {
+    "chunk": "That's correct.",
+    "chunk_idx": 96,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "95"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.27,
+    "overdeterminedness": 0.91,
+    "summary": "confirm correctness"
+  },
+  {
+    "chunk": "5. Then, when I wrote out the entire expression, I had to cancel out the factorials and simplify.",
+    "chunk_idx": 97,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "96"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.73,
+    "overdeterminedness": 0.06999999999999995,
+    "summary": "cancel factorials"
+  },
+  {
+    "chunk": "That led me through a series of factorial cancellations, eventually leading to the expression \\( (-1)^{2013} \\times 2 \\times 2014 / (4028 \\times 4027) \\).",
+    "chunk_idx": 98,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "97"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.94,
+    "overdeterminedness": 0.4,
+    "summary": "calculate expression=(-1)^{2013} \\times 2 \\times"
+  },
+  {
+    "chunk": "6. Then, recognizing that 4028 is 2*2014, so substituting that in, the 2 and 2014 canceled out, leaving \\( -1 / 4027 \\).",
+    "chunk_idx": 99,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "98"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.005797116954087224,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.27,
+    "overdeterminedness": 0.16000000000000003,
+    "summary": "simplify to -1/4027"
+  },
+  {
+    "chunk": "That makes sense.",
+    "chunk_idx": 100,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "99"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": -0.010000000000000009,
+    "counterfactual_importance_kl": 0.1972828260877841,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6599999999999999,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "I think all the steps are correct.",
+    "chunk_idx": 101,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "100"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.92,
+    "overdeterminedness": 0.20999999999999996,
+    "summary": "verify steps correctness"
+  },
+  {
+    "chunk": "Therefore, I can be confident that the value is \\( -1/4027 \\).",
+    "chunk_idx": 102,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "101"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.006872878910573101,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.54,
+    "overdeterminedness": 0.5700000000000001,
+    "summary": "state value=-1/4027"
+  },
+  {
+    "chunk": "**Final Answer**\n\\boxed{-\\dfrac{1}{4027}}",
+    "chunk_idx": 103,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "102"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.0,
+    "summary": "derive answer=-1/4027"
+  }
+]

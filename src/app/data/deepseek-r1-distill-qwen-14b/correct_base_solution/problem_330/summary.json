@@ -1,0 +1,245 @@
+{
+  "problem_idx": 330,
+  "num_chunks": 139,
+  "avg_importance": 0.0019957243318944502,
+  "max_importance": 0.96,
+  "min_importance": -0.89,
+  "top_influential_steps": [
+    {
+      "step_idx": 137,
+      "step_text": {
+        "chunk": "Therefore, after carefully computing each layer and verifying with a closed-form solution, I'm confident that the answer is 88572.",
+        "chunk_idx": 137,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "136"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.99,
+        "overdeterminedness": 0.52,
+        "summary": "confirm answer=88572"
+      },
+      "avg_outgoing_importance": 0.45999999999999996
+    },
+    {
+      "step_idx": 135,
+      "step_text": {
+        "chunk": "Alternatively, if I had noticed the pattern earlier, I could have used the closed-form expression to compute a_9 directly without computing each layer.",
+        "chunk_idx": 135,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "134"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.9,
+        "summary": "compute a_9 directly"
+      },
+      "avg_outgoing_importance": 0.15333333333333332
+    },
+    {
+      "step_idx": 45,
+      "step_text": {
+        "chunk": "Wait, actually, that's breaking it down incorrectly.",
+        "chunk_idx": 45,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "44"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": -0.030000000000000027,
+        "forced_importance_kl": 0.03045920726587578,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.52,
+        "summary": "correct breakdown"
+      },
+      "avg_outgoing_importance": 0.14150537634408603
+    },
+    {
+      "step_idx": 129,
+      "step_text": {
+        "chunk": "3^9 = 19683",
+        "chunk_idx": 129,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "128"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.73,
+        "summary": "calculate 3^9=19683"
+      },
+      "avg_outgoing_importance": 0.13555555555555554
+    },
+    {
+      "step_idx": 16,
+      "step_text": {
+        "chunk": "Layer 1: 1 + 3\nLayer 2: 1 + 3(Layer 1)\nLayer 3: 1 + 3(Layer 2)\n...",
+        "chunk_idx": 16,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "15"
+        ],
+        "accuracy": 1.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.27897380829098656,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.898989898989899,
+        "summary": "calculate Layer 3=13"
+      },
+      "avg_outgoing_importance": 0.09983606557377048
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "The problem is:",
+        "chunk_idx": 2,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.8484848484848485,
+        "resampling_importance_accuracy": -0.042362399505256665,
+        "resampling_importance_kl": 0.4435765374478073,
+        "counterfactual_importance_accuracy": 0.15039929015084297,
+        "counterfactual_importance_kl": 0.24661396154158294,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.829801577910195,
+        "different_trajectories_fraction": 0.23232323232323232,
+        "overdeterminedness": 0.8686868686868687,
+        "summary": "identify problem"
+      },
+      "avg_incoming_importance": 0.20500000000000002
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk": "First, I notice that the expression is a nested set of terms where each term is 1 plus 3 times another similar expression.",
+        "chunk_idx": 6,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "accuracy": 0.7448979591836735,
+        "resampling_importance_accuracy": 0.14399092970521532,
+        "resampling_importance_kl": 1.986370430176875,
+        "counterfactual_importance_accuracy": -0.09941520467836251,
+        "counterfactual_importance_kl": 1.19399334472036,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.666184462112768,
+        "different_trajectories_fraction": 0.3877551020408163,
+        "overdeterminedness": 0.3571428571428571,
+        "summary": "identify nested expression"
+      },
+      "avg_incoming_importance": 0.09166666666666667
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "It looks a bit complicated at first glance, but maybe if I break it down step by step, it'll make more sense.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.8144329896907216,
+        "resampling_importance_accuracy": 0.034051858794126866,
+        "resampling_importance_kl": 0.46917028060905636,
+        "counterfactual_importance_accuracy": -0.03737373737373739,
+        "counterfactual_importance_kl": 0.4948866556898441,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.707961745854084,
+        "different_trajectories_fraction": 0.9278350515463918,
+        "overdeterminedness": 0.4329896907216495,
+        "summary": "break down problem"
+      },
+      "avg_incoming_importance": 0.08
+    },
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "Let me see if I can figure this out.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.797979797979798,
+        "resampling_importance_accuracy": -0.05308183879612449,
+        "resampling_importance_kl": 0.2686939469573758,
+        "counterfactual_importance_accuracy": 0.055102040816326525,
+        "counterfactual_importance_kl": 0.4429553180022872,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.3001672956551176,
+        "different_trajectories_fraction": 0.6060606060606061,
+        "overdeterminedness": 0.8282828282828283,
+        "summary": "attempt problem-solving"
+      },
+      "avg_incoming_importance": 0.076
+    },
+    {
+      "step_idx": 14,
+      "step_text": {
+        "chunk": "Let's start by labeling each layer for clarity.",
+        "chunk_idx": 14,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "13"
+        ],
+        "accuracy": 0.94,
+        "resampling_importance_accuracy": 0.04979591836734698,
+        "resampling_importance_kl": 1.2404833311114951,
+        "counterfactual_importance_accuracy": -0.08413554100885634,
+        "counterfactual_importance_kl": 1.643989121357653,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.2941734070492925,
+        "different_trajectories_fraction": 0.53,
+        "overdeterminedness": 0.5,
+        "summary": "label layers"
+      },
+      "avg_incoming_importance": 0.03357142857142857
+    }
+  ]
+}

@@ -1,0 +1,3391 @@
+[
+  {
+    "chunk": "Alright, so I've got this math problem here that I need to solve.",
+    "chunk_idx": 0,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.22448979591836735,
+    "resampling_importance_accuracy": 0.30551020408163265,
+    "resampling_importance_kl": 9.539380788051233,
+    "counterfactual_importance_accuracy": -0.37523809523809526,
+    "counterfactual_importance_kl": 10.809324976891888,
+    "forced_importance_accuracy": -0.55,
+    "forced_importance_kl": 14.21827053440187,
+    "different_trajectories_fraction": 0.8571428571428571,
+    "overdeterminedness": 0.18367346938775508,
+    "summary": "solve math problem"
+  },
+  {
+    "chunk": "It's a nested expression with a bunch of threes and parentheses.",
+    "chunk_idx": 1,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.53,
+    "resampling_importance_accuracy": -0.030000000000000027,
+    "resampling_importance_kl": 2.724709963444287,
+    "counterfactual_importance_accuracy": 0.06164383561643838,
+    "counterfactual_importance_kl": 1.5699555209144773,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 6.678915774425119,
+    "different_trajectories_fraction": 0.73,
+    "overdeterminedness": 0.30000000000000004,
+    "summary": "evaluate nested expression"
+  },
+  {
+    "chunk": "Let me write it down to get a better look:",
+    "chunk_idx": 2,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.5,
+    "resampling_importance_accuracy": -0.0625,
+    "resampling_importance_kl": 2.3336463767878035,
+    "counterfactual_importance_accuracy": 0.05661764705882355,
+    "counterfactual_importance_kl": 2.2377680593927356,
+    "forced_importance_accuracy": 0.12,
+    "forced_importance_kl": 1.115528367193025,
+    "different_trajectories_fraction": 0.8673469387755102,
+    "overdeterminedness": 0.5816326530612245,
+    "summary": "write it down"
+  },
+  {
+    "chunk": "3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3)))))))))",
+    "chunk_idx": 3,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.4375,
+    "resampling_importance_accuracy": 0.01704545454545453,
+    "resampling_importance_kl": 1.6470069956528197,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.47,
+    "forced_importance_kl": 5.781829958204628,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.90625,
+    "summary": "calculate value=30"
+  },
+  {
+    "chunk": "Wow, that's a lot of parentheses!",
+    "chunk_idx": 4,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [],
+    "accuracy": 0.45454545454545453,
+    "resampling_importance_accuracy": -0.1452671040299906,
+    "resampling_importance_kl": 3.409873380248893,
+    "counterfactual_importance_accuracy": 0.14072164948453608,
+    "counterfactual_importance_kl": 4.068166061194058,
+    "forced_importance_accuracy": -0.08999999999999997,
+    "forced_importance_kl": 0.9184567964458775,
+    "different_trajectories_fraction": 0.6060606060606061,
+    "overdeterminedness": 0.5757575757575757,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "Okay, so I need to compute this step by step.",
+    "chunk_idx": 5,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [],
+    "accuracy": 0.30927835051546393,
+    "resampling_importance_accuracy": 0.017252261729434004,
+    "resampling_importance_kl": 1.4565321434964298,
+    "counterfactual_importance_accuracy": 0.024820739106453438,
+    "counterfactual_importance_kl": 1.642827786913885,
+    "forced_importance_accuracy": -0.09000000000000002,
+    "forced_importance_kl": 1.0360668087368636,
+    "different_trajectories_fraction": 0.7628865979381443,
+    "overdeterminedness": 0.3402061855670103,
+    "summary": "compute step by step"
+  },
+  {
+    "chunk": "I think the best way to approach it is to start from the innermost parentheses and work my way outwards.",
+    "chunk_idx": 6,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "5"
+    ],
+    "accuracy": 0.32653061224489793,
+    "resampling_importance_accuracy": 0.05730777159348588,
+    "resampling_importance_kl": 3.658987193328432,
+    "counterfactual_importance_accuracy": -0.09494949494949495,
+    "counterfactual_importance_kl": 4.075426481661848,
+    "forced_importance_accuracy": -0.13999999999999996,
+    "forced_importance_kl": 0.6573875862721085,
+    "different_trajectories_fraction": 0.45918367346938777,
+    "overdeterminedness": 0.24489795918367352,
+    "summary": "start from innermost parentheses"
+  },
+  {
+    "chunk": "That usually makes nested expressions easier to handle.",
+    "chunk_idx": 7,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "6"
+    ],
+    "accuracy": 0.3838383838383838,
+    "resampling_importance_accuracy": -0.05394147662188897,
+    "resampling_importance_kl": 2.7959920328643775,
+    "counterfactual_importance_accuracy": -0.12989690721649483,
+    "counterfactual_importance_kl": 2.532798881920161,
+    "forced_importance_accuracy": 0.12,
+    "forced_importance_kl": 0.24931693037802896,
+    "different_trajectories_fraction": 0.30303030303030304,
+    "overdeterminedness": 0.6767676767676767,
+    "summary": "simplify nested expressions"
+  },
+  {
+    "chunk": "Let me try that.",
+    "chunk_idx": 8,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "7"
+    ],
+    "accuracy": 0.32989690721649484,
+    "resampling_importance_accuracy": -0.025549081129538298,
+    "resampling_importance_kl": 2.889201490291057,
+    "counterfactual_importance_accuracy": 0.008152173913043459,
+    "counterfactual_importance_kl": 3.2480376271923803,
+    "forced_importance_accuracy": 0.03999999999999998,
+    "forced_importance_kl": 0.03746160493074322,
+    "different_trajectories_fraction": 0.8247422680412371,
+    "overdeterminedness": 0.6185567010309279,
+    "summary": "attempt action"
+  },
+  {
+    "chunk": "First, let's identify the innermost part.",
+    "chunk_idx": 9,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "8"
+    ],
+    "accuracy": 0.30434782608695654,
+    "resampling_importance_accuracy": -0.007644529383659837,
+    "resampling_importance_kl": 5.032144363595658,
+    "counterfactual_importance_accuracy": 0.08564964447317386,
+    "counterfactual_importance_kl": 4.863766240681829,
+    "forced_importance_accuracy": -0.07948453608247424,
+    "forced_importance_kl": 0.570692346057664,
+    "different_trajectories_fraction": 0.3695652173913043,
+    "overdeterminedness": 0.7282608695652174,
+    "summary": "identify innermost part"
+  },
+  {
+    "chunk": "It seems like the last set of parentheses is (1 + 3).",
+    "chunk_idx": 10,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "9"
+    ],
+    "accuracy": 0.2967032967032967,
+    "resampling_importance_accuracy": -0.07577306414515717,
+    "resampling_importance_kl": 4.275797358302655,
+    "counterfactual_importance_accuracy": 0.02435278630978499,
+    "counterfactual_importance_kl": 3.5177904121120602,
+    "forced_importance_accuracy": -0.20051546391752575,
+    "forced_importance_kl": 0.8940998625913813,
+    "different_trajectories_fraction": 0.5824175824175825,
+    "overdeterminedness": 0.5384615384615384,
+    "summary": "identify parentheses (1 + 3)"
+  },
+  {
+    "chunk": "Let me compute that first.",
+    "chunk_idx": 11,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.22093023255813954,
+    "resampling_importance_accuracy": 0.06478405315614616,
+    "resampling_importance_kl": 6.447420112381571,
+    "counterfactual_importance_accuracy": -0.0357142857142857,
+    "counterfactual_importance_kl": 3.617481140171918,
+    "forced_importance_accuracy": -0.09,
+    "forced_importance_kl": 2.4059197875216363,
+    "different_trajectories_fraction": 0.32558139534883723,
+    "overdeterminedness": 0.7906976744186046,
+    "summary": "compute result"
+  },
+  {
+    "chunk": "1 + 3 = 4 Okay, so the innermost part simplifies to 4.",
+    "chunk_idx": 12,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "11"
+    ],
+    "accuracy": 0.2857142857142857,
+    "resampling_importance_accuracy": -0.06832298136645962,
+    "resampling_importance_kl": 4.725552019782484,
+    "counterfactual_importance_accuracy": 0.01790281329923274,
+    "counterfactual_importance_kl": 2.07006941221585,
+    "forced_importance_accuracy": -0.06,
+    "forced_importance_kl": 23.45571422908527,
+    "different_trajectories_fraction": 0.18681318681318682,
+    "overdeterminedness": 0.9010989010989011,
+    "summary": "simplify to 4"
+  },
+  {
+    "chunk": "Now, replacing that in the expression, the next layer out would be 3(1 + 3(1 + 3(...))).",
+    "chunk_idx": 13,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "12"
+    ],
+    "accuracy": 0.21739130434782608,
+    "resampling_importance_accuracy": -0.04871660555264537,
+    "resampling_importance_kl": 7.5569148949708405,
+    "counterfactual_importance_accuracy": 0.11465863453815262,
+    "counterfactual_importance_kl": 4.941838145150463,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.040821993689274944,
+    "different_trajectories_fraction": 0.6521739130434783,
+    "overdeterminedness": 0.32608695652173914,
+    "summary": "replace expression"
+  },
+  {
+    "chunk": "Let me replace the innermost parentheses and see what the next step is.",
+    "chunk_idx": 14,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "13"
+    ],
+    "accuracy": 0.1686746987951807,
+    "resampling_importance_accuracy": -0.014828544949026856,
+    "resampling_importance_kl": 6.125901178483151,
+    "counterfactual_importance_accuracy": 0.018993352326685642,
+    "counterfactual_importance_kl": 6.318624875050626,
+    "forced_importance_accuracy": 0.01,
+    "forced_importance_kl": 0.513376778739017,
+    "different_trajectories_fraction": 0.9759036144578314,
+    "overdeterminedness": 0.28915662650602414,
+    "summary": "replace parentheses"
+  },
+  {
+    "chunk": "So after replacing, the expression becomes:",
+    "chunk_idx": 15,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "14"
+    ],
+    "accuracy": 0.15384615384615385,
+    "resampling_importance_accuracy": -0.022893772893772896,
+    "resampling_importance_kl": 4.714301652201119,
+    "counterfactual_importance_accuracy": 0.022893772893772896,
+    "counterfactual_importance_kl": 4.714301652201119,
+    "forced_importance_accuracy": -0.01,
+    "forced_importance_kl": 1.0691216601738176,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.012820512820512775,
+    "summary": "replace expression"
+  },
+  {
+    "chunk": "3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(1 + 3(4))))))))) )",
+    "chunk_idx": 16,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "15"
+    ],
+    "accuracy": 0.13095238095238096,
+    "resampling_importance_accuracy": 0.06492390770741285,
+    "resampling_importance_kl": 4.846233321148384,
+    "counterfactual_importance_accuracy": -0.1958762886597938,
+    "counterfactual_importance_kl": 11.327687843435246,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.0769804153449187,
+    "different_trajectories_fraction": 0.13095238095238096,
+    "overdeterminedness": 0.13095238095238093,
+    "summary": "calculate value=120"
+  },
+  {
+    "chunk": "Wait, hold on, I think I might have miscounted the layers.",
+    "chunk_idx": 17,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "16"
+    ],
+    "accuracy": 0.1958762886597938,
+    "resampling_importance_accuracy": -0.11076990568107041,
+    "resampling_importance_kl": 5.73749812006914,
+    "counterfactual_importance_accuracy": 0.11076990568107041,
+    "counterfactual_importance_kl": 5.73749812006914,
+    "forced_importance_accuracy": 0.010101010101010102,
+    "forced_importance_kl": 1.839164764871957,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.2680412371134021,
+    "summary": "recount layers"
+  },
+  {
+    "chunk": "Let me go step by step.",
+    "chunk_idx": 18,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "17"
+    ],
+    "accuracy": 0.0851063829787234,
+    "resampling_importance_accuracy": 0.12179016874541453,
+    "resampling_importance_kl": 6.381173161128786,
+    "counterfactual_importance_accuracy": -0.12179016874541453,
+    "counterfactual_importance_kl": 6.381173161128786,
+    "forced_importance_accuracy": -0.00010101010101010166,
+    "forced_importance_kl": 0.910077562510833,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.7127659574468085,
+    "summary": "step by step"
+  },
+  {
+    "chunk": "Starting from the innermost:",
+    "chunk_idx": 19,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "18"
+    ],
+    "accuracy": 0.20689655172413793,
+    "resampling_importance_accuracy": -0.019396551724137928,
+    "resampling_importance_kl": 5.094117808712315,
+    "counterfactual_importance_accuracy": -0.0017857142857142794,
+    "counterfactual_importance_kl": 5.399556863937419,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.51880606268421,
+    "different_trajectories_fraction": 0.8045977011494253,
+    "overdeterminedness": 0.7586206896551724,
+    "summary": "start from innermost"
+  },
+  {
+    "chunk": "1. Compute 1 + 3 = 4\n2.",
+    "chunk_idx": 20,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "19"
+    ],
+    "accuracy": 0.1875,
+    "resampling_importance_accuracy": 0.05925324675324675,
+    "resampling_importance_kl": 5.28311363370435,
+    "counterfactual_importance_accuracy": -0.04675324675324674,
+    "counterfactual_importance_kl": 4.172884590314527,
+    "forced_importance_accuracy": -0.01,
+    "forced_importance_kl": 1.869598935314218,
+    "different_trajectories_fraction": 0.3125,
+    "overdeterminedness": 0.7875,
+    "summary": "compute 1 + 3 ="
+  },
+  {
+    "chunk": "The next layer is 1 + 3(4).",
+    "chunk_idx": 21,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "20"
+    ],
+    "accuracy": 0.24675324675324675,
+    "resampling_importance_accuracy": 0.01830699421060869,
+    "resampling_importance_kl": 6.6779575446578985,
+    "counterfactual_importance_accuracy": 0.034939759036144546,
+    "counterfactual_importance_kl": 2.9563171510229007,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.804272720601201,
+    "different_trajectories_fraction": 0.2597402597402597,
+    "overdeterminedness": 0.3246753246753247,
+    "summary": "calculate layer=13"
+  },
+  {
+    "chunk": "Let's compute that.",
+    "chunk_idx": 22,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "21"
+    ],
+    "accuracy": 0.26506024096385544,
+    "resampling_importance_accuracy": -0.08226454203912426,
+    "resampling_importance_kl": 3.711239223104633,
+    "counterfactual_importance_accuracy": 0.0874745713455391,
+    "counterfactual_importance_kl": 4.0287451484985475,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.7671473842508947,
+    "different_trajectories_fraction": 0.891566265060241,
+    "overdeterminedness": 0.7831325301204819,
+    "summary": "compute that"
+  },
+  {
+    "chunk": "So, 1 + 3(4) = 1 + 12 = 13",
+    "chunk_idx": 23,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "22"
+    ],
+    "accuracy": 0.1827956989247312,
+    "resampling_importance_accuracy": 0.12155212716222535,
+    "resampling_importance_kl": 7.692216502377331,
+    "counterfactual_importance_accuracy": -0.004347826086956552,
+    "counterfactual_importance_kl": 3.0689147690600977,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 19.045056877214485,
+    "different_trajectories_fraction": 0.10752688172043011,
+    "overdeterminedness": 0.7849462365591398,
+    "summary": "calculate result=13"
+  },
+  {
+    "chunk": "Wait, that seems too big.",
+    "chunk_idx": 24,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "23"
+    ],
+    "accuracy": 0.30434782608695654,
+    "resampling_importance_accuracy": 0.01888449714536672,
+    "resampling_importance_kl": 7.768885362297579,
+    "counterfactual_importance_accuracy": -0.01888449714536672,
+    "counterfactual_importance_kl": 7.768885362297579,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6956521739130435,
+    "summary": "assess size validity"
+  },
+  {
+    "chunk": "Maybe I'm not structuring this correctly.",
+    "chunk_idx": 25,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "24"
+    ],
+    "accuracy": 0.32323232323232326,
+    "resampling_importance_accuracy": 0.14141414141414138,
+    "resampling_importance_kl": 4.570117155171612,
+    "counterfactual_importance_accuracy": -0.14141414141414138,
+    "counterfactual_importance_kl": 4.570117155171612,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.04082199429833465,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.4545454545454546,
+    "summary": "restructure approach"
+  },
+  {
+    "chunk": "Let me try a different approach.",
+    "chunk_idx": 26,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.46464646464646464,
+    "resampling_importance_accuracy": 0.055761698618841504,
+    "resampling_importance_kl": 2.526351308250398,
+    "counterfactual_importance_accuracy": -0.08511404561824731,
+    "counterfactual_importance_kl": 2.9780291653301476,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.10765130044656732,
+    "different_trajectories_fraction": 0.8585858585858586,
+    "overdeterminedness": 0.7272727272727273,
+    "summary": "try different approach"
+  },
+  {
+    "chunk": "Maybe it's better to evaluate each layer one by one, starting from the innermost.",
+    "chunk_idx": 27,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "26"
+    ],
+    "accuracy": 0.5204081632653061,
+    "resampling_importance_accuracy": 0.10204081632653061,
+    "resampling_importance_kl": 1.3837808942994814,
+    "counterfactual_importance_accuracy": -0.09919316563834835,
+    "counterfactual_importance_kl": 1.3305071765763576,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.28383145538827975,
+    "different_trajectories_fraction": 0.8775510204081632,
+    "overdeterminedness": 0.13265306122448983,
+    "summary": "evaluate layers sequentially"
+  },
+  {
+    "chunk": "Let me number the layers from the innermost outwards.",
+    "chunk_idx": 28,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "27"
+    ],
+    "accuracy": 0.6224489795918368,
+    "resampling_importance_accuracy": -0.11224489795918369,
+    "resampling_importance_kl": 2.656728472574933,
+    "counterfactual_importance_accuracy": 0.0897959183673469,
+    "counterfactual_importance_kl": 2.877087709193576,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.4901287902859499,
+    "different_trajectories_fraction": 0.9183673469387755,
+    "overdeterminedness": 0.2857142857142857,
+    "summary": "number layers"
+  },
+  {
+    "chunk": "Let's say the innermost is Layer 1, then Layer 2, and so on, until Layer 9.",
+    "chunk_idx": 29,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "28"
+    ],
+    "accuracy": 0.5102040816326531,
+    "resampling_importance_accuracy": -0.1002040816326531,
+    "resampling_importance_kl": 6.8807513245418335,
+    "counterfactual_importance_accuracy": 0.1002040816326531,
+    "counterfactual_importance_kl": 6.8807513245418335,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.610201950664184,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.23469387755102045,
+    "summary": "identify layer sequence"
+  },
+  {
+    "chunk": "Layer 1: 1 + 3 = 4",
+    "chunk_idx": 30,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "29"
+    ],
+    "accuracy": 0.41,
+    "resampling_importance_accuracy": -0.11707070707070705,
+    "resampling_importance_kl": 1.3247650916100446,
+    "counterfactual_importance_accuracy": 0.08638105189829326,
+    "counterfactual_importance_kl": 1.48911189128906,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.6554718573131009,
+    "different_trajectories_fraction": 0.87,
+    "overdeterminedness": 0.15000000000000002,
+    "summary": "calculate sum=4"
+  },
+  {
+    "chunk": "Layer 2: 1 + 3(Layer 1) = 1 + 3(4) = 1 + 12 = 13",
+    "chunk_idx": 31,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "30"
+    ],
+    "accuracy": 0.29292929292929293,
+    "resampling_importance_accuracy": 0.13707070707070707,
+    "resampling_importance_kl": 1.9488740223306504,
+    "counterfactual_importance_accuracy": -0.12318181818181817,
+    "counterfactual_importance_kl": 1.7095876895259747,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.9255614006790274,
+    "different_trajectories_fraction": 0.8888888888888888,
+    "overdeterminedness": 0.06060606060606055,
+    "summary": "calculate Layer 2=13"
+  },
+  {
+    "chunk": "Layer 3: 1 + 3(Layer 2) = 1 + 3(13) = 1 + 39 = 40",
+    "chunk_idx": 32,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "31"
+    ],
+    "accuracy": 0.43,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 1.056900836861197,
+    "counterfactual_importance_accuracy": 0.020519480519480493,
+    "counterfactual_importance_kl": 0.6081115939472361,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.8675005674344016,
+    "different_trajectories_fraction": 0.77,
+    "overdeterminedness": 0.12,
+    "summary": "calculate Layer 3=40"
+  },
+  {
+    "chunk": "Layer 4: 1 + 3(Layer 3) = 1 + 3(40) = 1 + 120 = 121",
+    "chunk_idx": 33,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "32"
+    ],
+    "accuracy": 0.46,
+    "resampling_importance_accuracy": -0.09000000000000002,
+    "resampling_importance_kl": 0.7597607384844458,
+    "counterfactual_importance_accuracy": 0.15830188679245283,
+    "counterfactual_importance_kl": 0.17712885413872492,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9057908275634956,
+    "different_trajectories_fraction": 0.53,
+    "overdeterminedness": 0.22999999999999998,
+    "summary": "calculate Layer 4=121"
+  },
+  {
+    "chunk": "Layer 5: 1 + 3(Layer 4) = 1 + 3(121) = 1 + 363 = 364",
+    "chunk_idx": 34,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "33"
+    ],
+    "accuracy": 0.37,
+    "resampling_importance_accuracy": 0.07,
+    "resampling_importance_kl": 2.3112658677611146,
+    "counterfactual_importance_accuracy": 0.06,
+    "counterfactual_importance_kl": 0.2514450027517083,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 23.39858185946958,
+    "different_trajectories_fraction": 0.14,
+    "overdeterminedness": 0.18999999999999995,
+    "summary": "calculate Layer 5=364"
+  },
+  {
+    "chunk": "Layer 6: 1 + 3(Layer 5) = 1 + 3(364) = 1 + 1092 = 1093",
+    "chunk_idx": 35,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "34"
+    ],
+    "accuracy": 0.44,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.6467425926092762,
+    "counterfactual_importance_accuracy": 0.11846153846153845,
+    "counterfactual_importance_kl": 1.874735277887594,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 25.328436022437938,
+    "different_trajectories_fraction": 0.13,
+    "overdeterminedness": 0.19999999999999996,
+    "summary": "calculate Layer 6=1093"
+  },
+  {
+    "chunk": "Layer 7: 1 + 3(Layer 6) = 1 + 3(1093) = 1 + 3279 = 3280",
+    "chunk_idx": 36,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "35"
+    ],
+    "accuracy": 0.42,
+    "resampling_importance_accuracy": -0.01595959595959595,
+    "resampling_importance_kl": 0.8124490661418894,
+    "counterfactual_importance_accuracy": 0.2626262626262626,
+    "counterfactual_importance_kl": 0.22780373495279765,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 25.328436022437938,
+    "different_trajectories_fraction": 0.03,
+    "overdeterminedness": 0.17000000000000004,
+    "summary": "calculate Layer 7=3280"
+  },
+  {
+    "chunk": "Layer 8: 1 + 3(Layer 7) = 1 + 3(3280) = 1 + 9840 = 9841",
+    "chunk_idx": 37,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "36"
+    ],
+    "accuracy": 0.40404040404040403,
+    "resampling_importance_accuracy": 0.004122861265718425,
+    "resampling_importance_kl": 0.47764225098649843,
+    "counterfactual_importance_accuracy": -0.40816326530612246,
+    "counterfactual_importance_kl": 0.8472976575843317,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 25.328436022437938,
+    "different_trajectories_fraction": 0.010101010101010102,
+    "overdeterminedness": 0.19191919191919193,
+    "summary": "calculate Layer 8=9841"
+  },
+  {
+    "chunk": "Layer 9: 1 + 3(Layer 8) = 1 + 3(9841) = 1 + 29523 = 29524",
+    "chunk_idx": 38,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "37"
+    ],
+    "accuracy": 0.40816326530612246,
+    "resampling_importance_accuracy": 0.005978148835291686,
+    "resampling_importance_kl": 1.2848741537658859,
+    "counterfactual_importance_accuracy": -0.08080808080808083,
+    "counterfactual_importance_kl": 0.7031845365614676,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 25.328436022437938,
+    "different_trajectories_fraction": 0.030612244897959183,
+    "overdeterminedness": 0.18367346938775508,
+    "summary": "calculate Layer 9=29524"
+  },
+  {
+    "chunk": "Wait, but the original expression starts with a 3 multiplied by all of that.",
+    "chunk_idx": 39,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "38"
+    ],
+    "accuracy": 0.41414141414141414,
+    "resampling_importance_accuracy": 0.5358585858585858,
+    "resampling_importance_kl": 13.559195556082042,
+    "counterfactual_importance_accuracy": -0.5541666666666667,
+    "counterfactual_importance_kl": 14.026811885271336,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9696969696969697,
+    "overdeterminedness": 0.2727272727272727,
+    "summary": "multiply by 3"
+  },
+  {
+    "chunk": "So, the entire expression is 3 times the result of Layer 9.",
+    "chunk_idx": 40,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "39"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.0005050505050504528,
+    "resampling_importance_kl": 1.0500289036253305,
+    "counterfactual_importance_accuracy": -0.01846046673632884,
+    "counterfactual_importance_kl": 0.8149081272204983,
+    "forced_importance_accuracy": 0.01,
+    "forced_importance_kl": 0.04082199409357058,
+    "different_trajectories_fraction": 0.29,
+    "overdeterminedness": 0.55,
+    "summary": "multiply by 3"
+  },
+  {
+    "chunk": "So, 3 * 29524 = ?",
+    "chunk_idx": 41,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "40"
+    ],
+    "accuracy": 0.9494949494949495,
+    "resampling_importance_accuracy": 0.0005050505050504528,
+    "resampling_importance_kl": 0.8583108064480168,
+    "counterfactual_importance_accuracy": 0.050000000000000044,
+    "counterfactual_importance_kl": 0.053488668799675634,
+    "forced_importance_accuracy": 0.31,
+    "forced_importance_kl": 1.1929358691331349,
+    "different_trajectories_fraction": 0.0707070707070707,
+    "overdeterminedness": 0.6363636363636364,
+    "summary": "multiply 3*29524"
+  },
+  {
+    "chunk": "Let me compute that.",
+    "chunk_idx": 42,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "41"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": -0.010606060606060508,
+    "resampling_importance_kl": 0.6318611677523331,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.19,
+    "forced_importance_kl": 0.12069941333455461,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "compute result"
+  },
+  {
+    "chunk": "29524 * 3:",
+    "chunk_idx": 43,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "42"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": -0.05050505050505061,
+    "resampling_importance_kl": 0.8999531424869124,
+    "counterfactual_importance_accuracy": 0.11111111111111116,
+    "counterfactual_importance_kl": 0.1023619976709325,
+    "forced_importance_accuracy": 0.41000000000000003,
+    "forced_importance_kl": 0.3692975386840455,
+    "different_trajectories_fraction": 0.13131313131313133,
+    "overdeterminedness": 0.9090909090909091,
+    "summary": "multiply 29524 by 3"
+  },
+  {
+    "chunk": "First, 20000 * 3 = 60000",
+    "chunk_idx": 44,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "43"
+    ],
+    "accuracy": 0.8888888888888888,
+    "resampling_importance_accuracy": -0.1515151515151515,
+    "resampling_importance_kl": 1.9128073510859738,
+    "counterfactual_importance_accuracy": 0.11008388974490668,
+    "counterfactual_importance_kl": 2.051513025202336,
+    "forced_importance_accuracy": -0.31000000000000005,
+    "forced_importance_kl": 0.7797322113220158,
+    "different_trajectories_fraction": 0.5959595959595959,
+    "overdeterminedness": 0.8282828282828283,
+    "summary": "multiply 20000*3=60000"
+  },
+  {
+    "chunk": "Then, 9000 * 3 = 27000",
+    "chunk_idx": 45,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "44"
+    ],
+    "accuracy": 0.7373737373737373,
+    "resampling_importance_accuracy": 0.24262626262626263,
+    "resampling_importance_kl": 5.7394687408548055,
+    "counterfactual_importance_accuracy": -0.53,
+    "counterfactual_importance_kl": 7.188110518215105,
+    "forced_importance_accuracy": -0.17,
+    "forced_importance_kl": 0.3506589745675246,
+    "different_trajectories_fraction": 0.20202020202020202,
+    "overdeterminedness": 0.797979797979798,
+    "summary": "multiply 9000*3=27000"
+  },
+  {
+    "chunk": "500 * 3 = 1500",
+    "chunk_idx": 46,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "45"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.42451668669006953,
+    "counterfactual_importance_accuracy": 0.009381443298969061,
+    "counterfactual_importance_kl": 0.4370661405070692,
+    "forced_importance_accuracy": -0.06,
+    "forced_importance_kl": 1.3819288966961347,
+    "different_trajectories_fraction": 0.97,
+    "overdeterminedness": 0.35,
+    "summary": "multiply 500*3=1500"
+  },
+  {
+    "chunk": "24 * 3 = 72",
+    "chunk_idx": 47,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "46"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.01989898989898997,
+    "resampling_importance_kl": 0.3944661761419416,
+    "counterfactual_importance_accuracy": -0.01989898989898997,
+    "counterfactual_importance_kl": 0.3944661761419416,
+    "forced_importance_accuracy": 0.06,
+    "forced_importance_kl": 0.08276377067229576,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.6599999999999999,
+    "summary": "multiply 24*3=72"
+  },
+  {
+    "chunk": "Adding those together:",
+    "chunk_idx": 48,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "47"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.009898989898989963,
+    "resampling_importance_kl": 0.01005033564387245,
+    "counterfactual_importance_accuracy": 0.009898989898989963,
+    "counterfactual_importance_kl": 0.01005033564387245,
+    "forced_importance_accuracy": -0.06,
+    "forced_importance_kl": 1.32058805475509,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.46464646464646464,
+    "summary": "sum values"
+  },
+  {
+    "chunk": "60000 + 27000 = 87000",
+    "chunk_idx": 49,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "48"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.4045159929152422,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.015267446430742234,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.6128798844407353,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.89,
+    "summary": "add 60000 + 27000"
+  },
+  {
+    "chunk": "87000 + 1500 = 88500",
+    "chunk_idx": 50,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "49"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.030404040404040433,
+    "resampling_importance_kl": 0.23801285104136785,
+    "counterfactual_importance_accuracy": 0.04040404040404044,
+    "counterfactual_importance_kl": 0.025576775274271577,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.01,
+    "overdeterminedness": 0.89,
+    "summary": "calculate total=88500"
+  },
+  {
+    "chunk": "88500 + 72 = 88572",
+    "chunk_idx": 51,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "50"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.030303030303030387,
+    "resampling_importance_kl": 0.8214722422048932,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 1.0,
+    "forced_importance_kl": 25.328436022437938,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.898989898989899,
+    "summary": "calculate sum=88572"
+  },
+  {
+    "chunk": "So, the total is 88,572.",
+    "chunk_idx": 52,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "51"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.01989898989898997,
+    "resampling_importance_kl": 0.020203234589434092,
+    "counterfactual_importance_accuracy": 0.030000000000000027,
+    "counterfactual_importance_kl": 0.029199153656462563,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6060606060606061,
+    "overdeterminedness": 0.8888888888888888,
+    "summary": "total equals 88,572"
+  },
+  {
+    "chunk": "Wait, but let me double-check my calculations because that seems quite large.",
+    "chunk_idx": 53,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "52"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": -0.039999999999999925,
+    "resampling_importance_kl": 0.04084813995741572,
+    "counterfactual_importance_accuracy": 0.037391304347826004,
+    "counterfactual_importance_kl": 0.037982985120628414,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.92,
+    "overdeterminedness": 0.4,
+    "summary": "check calculations"
+  },
+  {
+    "chunk": "Maybe I made a mistake in one of the layers.",
+    "chunk_idx": 54,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "53"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": 0.029999999999999916,
+    "resampling_importance_kl": 1.4211023196748502,
+    "counterfactual_importance_accuracy": -0.022499999999999964,
+    "counterfactual_importance_kl": 1.38995704243904,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.32,
+    "overdeterminedness": 0.77,
+    "summary": "identify mistake"
+  },
+  {
+    "chunk": "Let me go back and verify each layer step by step.",
+    "chunk_idx": 55,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "54"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.6216979752951748,
+    "counterfactual_importance_accuracy": 0.026666666666666727,
+    "counterfactual_importance_kl": 0.050427684868243394,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.75,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "check each layer"
+  },
+  {
+    "chunk": "Layer 1: 1 + 3 = 4 \u2714\ufe0f",
+    "chunk_idx": 56,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "55"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.00040404040404040664,
+    "resampling_importance_kl": 0.20723477038820654,
+    "counterfactual_importance_accuracy": -0.016199733180865206,
+    "counterfactual_importance_kl": 0.40553752515258923,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.53,
+    "overdeterminedness": 0.47,
+    "summary": "calculate sum=4"
+  },
+  {
+    "chunk": "Layer 2: 1 + 3*4 = 1 + 12 = 13 \u2714\ufe0f",
+    "chunk_idx": 57,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "56"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.00040404040404040664,
+    "resampling_importance_kl": 0.6308857511638872,
+    "counterfactual_importance_accuracy": -0.0008163265306122547,
+    "counterfactual_importance_kl": 0.6373403561008193,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.98989898989899,
+    "overdeterminedness": 0.38383838383838387,
+    "summary": "calculate sum=13"
+  },
+  {
+    "chunk": "Layer 3: 1 + 3*13 = 1 + 39 = 40 \u2714\ufe0f",
+    "chunk_idx": 58,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "57"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.030707070707070683,
+    "resampling_importance_kl": 0.2502035049641571,
+    "counterfactual_importance_accuracy": 0.04292929292929293,
+    "counterfactual_importance_kl": 0.6517623916838872,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.36,
+    "overdeterminedness": 0.45999999999999996,
+    "summary": "calculate sum=40"
+  },
+  {
+    "chunk": "Layer 4: 1 + 3*40 = 1 + 120 = 121 \u2714\ufe0f",
+    "chunk_idx": 59,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "58"
+    ],
+    "accuracy": 0.9292929292929293,
+    "resampling_importance_accuracy": 0.03945707070707072,
+    "resampling_importance_kl": 1.0198143951109395,
+    "counterfactual_importance_accuracy": -0.017530487804878092,
+    "counterfactual_importance_kl": 0.5463780829807847,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.41414141414141414,
+    "overdeterminedness": 0.505050505050505,
+    "summary": "calculate total=121"
+  },
+  {
+    "chunk": "Layer 5: 1 + 3*121 = 1 + 363 = 364 \u2714\ufe0f",
+    "chunk_idx": 60,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "59"
+    ],
+    "accuracy": 0.96875,
+    "resampling_importance_accuracy": -0.008750000000000036,
+    "resampling_importance_kl": 0.6721080664572517,
+    "counterfactual_importance_accuracy": 0.040000000000000036,
+    "counterfactual_importance_kl": 0.03655751193883445,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.010416666666666666,
+    "overdeterminedness": 0.5208333333333333,
+    "summary": "calculate sum=364"
+  },
+  {
+    "chunk": "Layer 6: 1 + 3*364 = 1 + 1092 = 1093 \u2714\ufe0f",
+    "chunk_idx": 61,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "60"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.2274439307789946,
+    "counterfactual_importance_accuracy": 0.06000000000000005,
+    "counterfactual_importance_kl": 0.051825015314986726,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.42000000000000004,
+    "summary": "calculate layer6=1093"
+  },
+  {
+    "chunk": "Layer 7: 1 + 3*1093 = 1 + 3279 = 3280 \u2714\ufe0f",
+    "chunk_idx": 62,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "61"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 1.2473117109770055,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.52,
+    "summary": "calculate sum=3280"
+  },
+  {
+    "chunk": "Layer 8: 1 + 3*3280 = 1 + 9840 = 9841 \u2714\ufe0f",
+    "chunk_idx": 63,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "62"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.8289306336435539,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.49,
+    "summary": "calculate total=9841"
+  },
+  {
+    "chunk": "Layer 9: 1 + 3*9841 = 1 + 29523 = 29524 \u2714\ufe0f",
+    "chunk_idx": 64,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "63"
+    ],
+    "accuracy": 0.95,
+    "resampling_importance_accuracy": 0.01969696969696977,
+    "resampling_importance_kl": 0.39446724642624,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.51,
+    "summary": "calculate sum=29524"
+  },
+  {
+    "chunk": "Then, the entire expression is 3*29524 = 88,572 \u2714\ufe0f",
+    "chunk_idx": 65,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "64"
+    ],
+    "accuracy": 0.9696969696969697,
+    "resampling_importance_accuracy": -0.00969696969696976,
+    "resampling_importance_kl": 0.23337922631726868,
+    "counterfactual_importance_accuracy": 0.040000000000000036,
+    "counterfactual_importance_kl": 0.0387860185704859,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.15151515151515152,
+    "overdeterminedness": 0.5151515151515151,
+    "summary": "calculate expression=88572"
+  },
+  {
+    "chunk": "Hmm, that seems consistent.",
+    "chunk_idx": 66,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "65"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": -0.002105263157894721,
+    "resampling_importance_kl": 0.8289864768173274,
+    "counterfactual_importance_accuracy": 0.04210526315789476,
+    "counterfactual_importance_kl": 0.0487901590144807,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.27,
+    "overdeterminedness": 0.83,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "Maybe I didn't make a mistake.",
+    "chunk_idx": 67,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "66"
+    ],
+    "accuracy": 0.9578947368421052,
+    "resampling_importance_accuracy": 0.01210526315789473,
+    "resampling_importance_kl": 0.8772814394043549,
+    "counterfactual_importance_accuracy": -0.01210526315789473,
+    "counterfactual_importance_kl": 0.8772814394043549,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.3263157894736842,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "Let me think if there's another way to approach this problem.",
+    "chunk_idx": 68,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "67"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 0.6057139778070437,
+    "counterfactual_importance_accuracy": -0.030000000000000027,
+    "counterfactual_importance_kl": 0.6057139778070437,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.27,
+    "summary": "consider alternative approach"
+  },
+  {
+    "chunk": "Alternatively, maybe I can recognize a pattern or formula that applies here.",
+    "chunk_idx": 69,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "68"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.0714285714285714,
+    "resampling_importance_kl": 0.07410797088549177,
+    "counterfactual_importance_accuracy": 0.0714285714285714,
+    "counterfactual_importance_kl": 0.06280089971283255,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8282828282828283,
+    "overdeterminedness": 0.3737373737373737,
+    "summary": "recognize pattern"
+  },
+  {
+    "chunk": "Let me see.",
+    "chunk_idx": 70,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "69"
+    ],
+    "accuracy": 0.9285714285714286,
+    "resampling_importance_accuracy": 0.04081632653061218,
+    "resampling_importance_kl": 1.0244376979887473,
+    "counterfactual_importance_accuracy": -0.02620593692022255,
+    "counterfactual_importance_kl": 0.46427905965495025,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8979591836734694,
+    "overdeterminedness": 0.326530612244898,
+    "summary": "observe situation"
+  },
+  {
+    "chunk": "Looking at the expression, each layer is of the form 1 + 3*(previous layer).",
+    "chunk_idx": 71,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "70"
+    ],
+    "accuracy": 0.9693877551020408,
+    "resampling_importance_accuracy": 0.02061224489795921,
+    "resampling_importance_kl": 0.628753838257579,
+    "counterfactual_importance_accuracy": -0.02749999999999997,
+    "counterfactual_importance_kl": 0.7804294447386616,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8163265306122449,
+    "overdeterminedness": 0.6326530612244898,
+    "summary": "derive expression=1 + 3*(previous layer)"
+  },
+  {
+    "chunk": "So, starting from the innermost, each layer is 1 + 3 times the previous.",
+    "chunk_idx": 72,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "71"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.01639380949841984,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.77,
+    "overdeterminedness": 0.53,
+    "summary": "calculate layer=1+3*previous"
+  },
+  {
+    "chunk": "This is a recursive sequence where each term is defined as a(n) = 1 + 3*a(n-1), with a(1) = 4.",
+    "chunk_idx": 73,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "72"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050847541843233,
+    "counterfactual_importance_accuracy": 0.008235294117647118,
+    "counterfactual_importance_kl": 0.009198922582759242,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.85,
+    "overdeterminedness": 0.49,
+    "summary": "define a(n) = 1 +"
+  },
+  {
+    "chunk": "Wait, actually, in my earlier layers, a(1) was 4, which is 1 + 3.",
+    "chunk_idx": 74,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "73"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.4045159929152422,
+    "counterfactual_importance_accuracy": -0.011505376344085994,
+    "counterfactual_importance_kl": 0.4365926662950099,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.93,
+    "overdeterminedness": 0.10999999999999999,
+    "summary": "derive a(1)=4"
+  },
+  {
+    "chunk": "Then a(2) was 13, which is 1 + 3*4, and so on.",
+    "chunk_idx": 75,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "74"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": -0.052631578947368474,
+    "counterfactual_importance_kl": 1.1581112593104406,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.19,
+    "overdeterminedness": 0.75,
+    "summary": "derive a(2)=13"
+  },
+  {
+    "chunk": "So, this is a linear recurrence relation.",
+    "chunk_idx": 76,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "75"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.006116226462023141,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.36,
+    "overdeterminedness": 0.7,
+    "summary": "identify linear recurrence"
+  },
+  {
+    "chunk": "Maybe I can find a closed-form formula for a(n) and then compute a(9), then multiply by 3.",
+    "chunk_idx": 77,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "76"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": -0.010101010101010055,
+    "counterfactual_importance_kl": 0.19947812243943003,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.99,
+    "overdeterminedness": 0.7,
+    "summary": "compute a(9) and multiply by"
+  },
+  {
+    "chunk": "The recurrence is a(n) = 1 + 3*a(n-1), with a(1) = 4.",
+    "chunk_idx": 78,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "77"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.98,
+    "overdeterminedness": 0.85,
+    "summary": "define recurrence relation"
+  },
+  {
+    "chunk": "This is a nonhomogeneous linear recurrence relation.",
+    "chunk_idx": 79,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "78"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8282828282828283,
+    "overdeterminedness": 0.6262626262626263,
+    "summary": "identify recurrence relation"
+  },
+  {
+    "chunk": "The general solution can be found by solving the homogeneous part and finding a particular solution.",
+    "chunk_idx": 80,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "79"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.005390847272940569,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.14,
+    "overdeterminedness": 0.81,
+    "summary": "solve homogeneous part"
+  },
+  {
+    "chunk": "The homogeneous recurrence is a(n) = 3*a(n-1), which has the solution a(n) = C*3^n.",
+    "chunk_idx": 81,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "80"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972828260877841,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0055401793561228735,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.19,
+    "overdeterminedness": 0.86,
+    "summary": "derive a(n)=C*3^n"
+  },
+  {
+    "chunk": "For the particular solution, since the nonhomogeneous term is constant (1), we can assume a constant particular solution, say a_p.",
+    "chunk_idx": 82,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "81"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.27,
+    "overdeterminedness": 0.9,
+    "summary": "assume a_p constant"
+  },
+  {
+    "chunk": "Plugging into the recurrence: a_p = 1 + 3*a_p",
+    "chunk_idx": 83,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "82"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.08999999999999997,
+    "forced_importance_kl": 0.09431067924010433,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9595959595959596,
+    "summary": "plug a_p=1+3*a_p"
+  },
+  {
+    "chunk": "Wait, that gives a_p = 1 + 3*a_p, which simplifies to 0 = 1, which is impossible.",
+    "chunk_idx": 84,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "83"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.08999999999999997,
+    "forced_importance_kl": 1.977021419166229,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "simplify to 0=1"
+  },
+  {
+    "chunk": "So, that suggests that our assumption of a constant particular solution is invalid.",
+    "chunk_idx": 85,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "84"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.030000000000000027,
+    "resampling_importance_kl": 0.030459206861787397,
+    "counterfactual_importance_accuracy": 0.030000000000000027,
+    "counterfactual_importance_kl": 0.023905520006022456,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.73,
+    "overdeterminedness": 0.6799999999999999,
+    "summary": "invalidate assumption"
+  },
+  {
+    "chunk": "Maybe we need to try a linear particular solution, like a_p = k*n.",
+    "chunk_idx": 86,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "85"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 0.5921525444762326,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0167134779134977,
+    "forced_importance_accuracy": -0.06999999999999995,
+    "forced_importance_kl": 0.07257069260666521,
+    "different_trajectories_fraction": 0.19,
+    "overdeterminedness": 0.56,
+    "summary": "suggest linear solution"
+  },
+  {
+    "chunk": "Let me try that.",
+    "chunk_idx": 87,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "86"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.020618556701030966,
+    "resampling_importance_kl": 0.020834086688257196,
+    "counterfactual_importance_accuracy": 0.020618556701030966,
+    "counterfactual_importance_kl": 0.020834086688257196,
+    "forced_importance_accuracy": 0.039999999999999925,
+    "forced_importance_kl": 0.020147168846214203,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "attempt action"
+  },
+  {
+    "chunk": "Let a_p = k*n.",
+    "chunk_idx": 88,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "87"
+    ],
+    "accuracy": 0.979381443298969,
+    "resampling_importance_accuracy": 0.0006185567010309478,
+    "resampling_importance_kl": 0.44158518936681856,
+    "counterfactual_importance_accuracy": 0.007012987012987026,
+    "counterfactual_importance_kl": 0.0178488504851696,
+    "forced_importance_accuracy": -0.039999999999999925,
+    "forced_importance_kl": 0.015429204974930635,
+    "different_trajectories_fraction": 0.7938144329896907,
+    "overdeterminedness": 0.7216494845360825,
+    "summary": "define a_p=k*n"
+  },
+  {
+    "chunk": "Then, plugging into the recurrence:",
+    "chunk_idx": 89,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "88"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.3946666639903824,
+    "counterfactual_importance_accuracy": -0.020000000000000018,
+    "counterfactual_importance_kl": 0.3946666639903824,
+    "forced_importance_accuracy": 0.06999999999999995,
+    "forced_importance_kl": 1.5193515748900028,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8,
+    "summary": "plug into recurrence"
+  },
+  {
+    "chunk": "k*n = 1 + 3*k*(n-1)",
+    "chunk_idx": 90,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "89"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.06999999999999995,
+    "forced_importance_kl": 0.07257069260666521,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.86,
+    "summary": "solve for k"
+  },
+  {
+    "chunk": "Simplify: k*n = 1 + 3k*n - 3k",
+    "chunk_idx": 91,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "90"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010101010101010055,
+    "resampling_importance_kl": 0.010152371254486356,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.005305050158950745,
+    "forced_importance_accuracy": -0.010000000000000009,
+    "forced_importance_kl": 0.0007069544931039701,
+    "different_trajectories_fraction": 0.09090909090909091,
+    "overdeterminedness": 0.4949494949494949,
+    "summary": "simplify k*n=1+3k*n-3k"
+  },
+  {
+    "chunk": "Bring all terms to one side:",
+    "chunk_idx": 92,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "91"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.19937761404697535,
+    "counterfactual_importance_accuracy": -0.010101010101010055,
+    "counterfactual_importance_kl": 0.19937761404697535,
+    "forced_importance_accuracy": 0.07999999999999996,
+    "forced_importance_kl": 1.7475055102692159,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.101010101010101,
+    "summary": "bring terms together"
+  },
+  {
+    "chunk": "k*n - 3k*n + 3k - 1 = 0",
+    "chunk_idx": 93,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "92"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.02020270690244599,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": -0.050000000000000044,
+    "forced_importance_kl": 0.05129329416318421,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.5,
+    "summary": "simplify equation"
+  },
+  {
+    "chunk": "-2k*n + 3k - 1 = 0",
+    "chunk_idx": 94,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "93"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.009898989898989963,
+    "resampling_importance_kl": 0.1971823227272814,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.015267438547132065,
+    "forced_importance_accuracy": -0.019999999999999907,
+    "forced_importance_kl": 0.003389916693282421,
+    "different_trajectories_fraction": 0.01,
+    "overdeterminedness": 0.5900000000000001,
+    "summary": "solve for k"
+  },
+  {
+    "chunk": "Factor out k:",
+    "chunk_idx": 95,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "94"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20932591754867105,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.20932591754867105,
+    "forced_importance_accuracy": 0.009999999999999898,
+    "forced_importance_kl": 0.0008439287091899644,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.7070707070707071,
+    "summary": "factor out k"
+  },
+  {
+    "chunk": "k*(-2n + 3) - 1 = 0",
+    "chunk_idx": 96,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "95"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.19937761404697535,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0052219413553466565,
+    "forced_importance_accuracy": 0.040000000000000036,
+    "forced_importance_kl": 0.026744402693995334,
+    "different_trajectories_fraction": 0.0707070707070707,
+    "overdeterminedness": 0.2222222222222222,
+    "summary": "solve for k"
+  },
+  {
+    "chunk": "This equation needs to hold for all n, which implies that the coefficients of like terms must be equal on both sides.",
+    "chunk_idx": 97,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "96"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.020000000000000018,
+    "forced_importance_kl": 0.40852960739494965,
+    "different_trajectories_fraction": 0.73,
+    "overdeterminedness": 0.54,
+    "summary": "equal coefficients"
+  },
+  {
+    "chunk": "But since it's a function of n, the coefficients of n and the constants must separately match.",
+    "chunk_idx": 98,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "97"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.030303030303030276,
+    "resampling_importance_kl": 0.03077165803111195,
+    "counterfactual_importance_accuracy": 0.030303030303030276,
+    "counterfactual_importance_kl": 0.029270381630585193,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9489795918367347,
+    "overdeterminedness": 0.3571428571428571,
+    "summary": "match coefficients of n"
+  },
+  {
+    "chunk": "Looking at the equation:",
+    "chunk_idx": 99,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "98"
+    ],
+    "accuracy": 0.9696969696969697,
+    "resampling_importance_accuracy": 0.030303030303030276,
+    "resampling_importance_kl": 0.5981385691071481,
+    "counterfactual_importance_accuracy": -0.030303030303030276,
+    "counterfactual_importance_kl": 0.5981385691071481,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.41414141414141414,
+    "summary": "analyze equation"
+  },
+  {
+    "chunk": "-2k*n + 3k - 1 = 0",
+    "chunk_idx": 100,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "99"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010101010101010055,
+    "resampling_importance_kl": 0.010152371254486356,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.005277054785959093,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.08080808080808081,
+    "overdeterminedness": 0.4949494949494949,
+    "summary": "solve for k"
+  },
+  {
+    "chunk": "This can be rewritten as:",
+    "chunk_idx": 101,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "100"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.19927609550300318,
+    "counterfactual_importance_accuracy": -0.010101010101010055,
+    "counterfactual_importance_kl": 0.19927609550300318,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8585858585858586,
+    "summary": "rewrite equation"
+  },
+  {
+    "chunk": "(-2k)n + (3k - 1) = 0",
+    "chunk_idx": 102,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "101"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.7272727272727273,
+    "summary": "solve for n"
+  },
+  {
+    "chunk": "For this to be true for all n, the coefficient of n must be zero, and the constant term must also be zero.",
+    "chunk_idx": 103,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "102"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335643973571,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.005449603491514505,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.15151515151515152,
+    "overdeterminedness": 0.7474747474747474,
+    "summary": "set coefficients=0"
+  },
+  {
+    "chunk": "So, -2k = 0  \u21d2  k = 0",
+    "chunk_idx": 104,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "103"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.00020408163265306367,
+    "resampling_importance_kl": 0.20723473397062686,
+    "counterfactual_importance_accuracy": -0.004081632653061162,
+    "counterfactual_importance_kl": 0.2982165317119397,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7,
+    "overdeterminedness": 0.73,
+    "summary": "solve for k=0"
+  },
+  {
+    "chunk": "And, 3k - 1 = 0  \u21d2  3*0 - 1 = -1 \u2260 0",
+    "chunk_idx": 105,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "104"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.00020408163265306367,
+    "resampling_importance_kl": 0.2114639857775739,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.011299553310254212,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.20408163265306123,
+    "overdeterminedness": 0.4387755102040817,
+    "summary": "check equation validity"
+  },
+  {
+    "chunk": "This is a contradiction, meaning our assumption of a linear particular solution is also invalid.",
+    "chunk_idx": 106,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "105"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.19718232272925265,
+    "counterfactual_importance_accuracy": -0.01098901098901095,
+    "counterfactual_importance_kl": 0.2186818936490013,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.91,
+    "overdeterminedness": 0.81,
+    "summary": "invalidate linear solution"
+  },
+  {
+    "chunk": "Maybe we need to try a quadratic particular solution, a_p = k*n^2.",
+    "chunk_idx": 107,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "106"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.12121212121212122,
+    "overdeterminedness": 0.8383838383838383,
+    "summary": "suggest quadratic solution"
+  },
+  {
+    "chunk": "Let's try that.",
+    "chunk_idx": 108,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "107"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335643973571,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.005277055030663216,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.09090909090909091,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "try that"
+  },
+  {
+    "chunk": "a_p = k*n^2",
+    "chunk_idx": 109,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "108"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.19687460614260238,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "derive a_p=k*n^2"
+  },
+  {
+    "chunk": "Plugging into the recurrence:",
+    "chunk_idx": 110,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "109"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010101010101010055,
+    "resampling_importance_kl": 0.010152371247946618,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.010152371247946618,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.10416666666666663,
+    "summary": "plug into recurrence"
+  },
+  {
+    "chunk": "k*n^2 = 1 + 3*k*(n-1)^2",
+    "chunk_idx": 111,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "110"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.010101010101010166,
+    "resampling_importance_kl": 0.21947881649221918,
+    "counterfactual_importance_accuracy": 0.009563722329679836,
+    "counterfactual_importance_kl": 0.23016576627704646,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9494949494949495,
+    "overdeterminedness": 0.010101010101010055,
+    "summary": "solve for k"
+  },
+  {
+    "chunk": "Expand the right-hand side:",
+    "chunk_idx": 112,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "111"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": 0.010202020202020212,
+    "resampling_importance_kl": 0.4087055999621295,
+    "counterfactual_importance_accuracy": -0.010202020202020212,
+    "counterfactual_importance_kl": 0.4087055999621295,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.07070707070707072,
+    "summary": "expand expression"
+  },
+  {
+    "chunk": "k*n^2 = 1 + 3k*(n^2 - 2n + 1)",
+    "chunk_idx": 113,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "112"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.20723265837324717,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.01212135935903961,
+    "forced_importance_accuracy": -0.050000000000000044,
+    "forced_importance_kl": 0.05129329416318421,
+    "different_trajectories_fraction": 0.34,
+    "overdeterminedness": 0.12,
+    "summary": "solve k*n^2 = 1 +"
+  },
+  {
+    "chunk": "k*n^2 = 1 + 3k*n^2 - 6k*n + 3k",
+    "chunk_idx": 114,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "113"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010408163265306136,
+    "resampling_importance_kl": 0.010261234555027495,
+    "counterfactual_importance_accuracy": 0.01030715316429609,
+    "counterfactual_importance_kl": 0.0101528989457653,
+    "forced_importance_accuracy": -0.04999999999999993,
+    "forced_importance_kl": 0.016706501176484256,
+    "different_trajectories_fraction": 0.99,
+    "overdeterminedness": 0.20999999999999996,
+    "summary": "simplify equation"
+  },
+  {
+    "chunk": "Bring all terms to the left-hand side:",
+    "chunk_idx": 115,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "114"
+    ],
+    "accuracy": 0.9795918367346939,
+    "resampling_importance_accuracy": 0.020408163265306145,
+    "resampling_importance_kl": 0.40313760774798113,
+    "counterfactual_importance_accuracy": -0.020408163265306145,
+    "counterfactual_importance_kl": 0.40313760774798113,
+    "forced_importance_accuracy": 0.030000000000000027,
+    "forced_importance_kl": 0.0061566538523339445,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.2551020408163265,
+    "summary": "bring terms left"
+  },
+  {
+    "chunk": "k*n^2 - 3k*n^2 + 6k*n - 3k - 1 = 0",
+    "chunk_idx": 116,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "115"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010101010101010055,
+    "resampling_importance_kl": 0.010152371256581246,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.06999999999999995,
+    "forced_importance_kl": 1.5193515748900028,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.42000000000000004,
+    "summary": "simplify equation"
+  },
+  {
+    "chunk": "(-2k)n^2 + 6k*n - 3k - 1 = 0",
+    "chunk_idx": 117,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "116"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.01030715316429609,
+    "resampling_importance_kl": 0.2195845574472233,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.4747474747474747,
+    "summary": "solve quadratic equation"
+  },
+  {
+    "chunk": "For this to hold for all n, the coefficients of each power of n must be zero.",
+    "chunk_idx": 118,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "117"
+    ],
+    "accuracy": 0.9795918367346939,
+    "resampling_importance_accuracy": 0.010408163265306136,
+    "resampling_importance_kl": 0.41298283449054146,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.015345520323587492,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.01020408163265306,
+    "overdeterminedness": 0.9081632653061225,
+    "summary": "set coefficients to zero"
+  },
+  {
+    "chunk": "So, -2k = 0  \u21d2  k = 0",
+    "chunk_idx": 119,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "118"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.21728350591291737,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.020478530169568594,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.52,
+    "overdeterminedness": 0.6599999999999999,
+    "summary": "solve for k=0"
+  },
+  {
+    "chunk": "6k = 0  \u21d2  k = 0",
+    "chunk_idx": 120,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "119"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.19728333454604008,
+    "counterfactual_importance_accuracy": -0.010618556701030957,
+    "counterfactual_importance_kl": 0.20402989939744917,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.97,
+    "overdeterminedness": 0.47,
+    "summary": "solve k=0"
+  },
+  {
+    "chunk": "-3k - 1 = 0  \u21d2  -0 -1 = -1 \u2260 0",
+    "chunk_idx": 121,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "120"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.030000000000000027,
+    "resampling_importance_kl": 0.23769660002626386,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.88,
+    "summary": "solve -3k=-1"
+  },
+  {
+    "chunk": "Again, a contradiction.",
+    "chunk_idx": 122,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "121"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": 0.040000000000000036,
+    "resampling_importance_kl": 0.8032024495419691,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "identify contradiction"
+  },
+  {
+    "chunk": "So, a quadratic particular solution also doesn't work.",
+    "chunk_idx": 123,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "122"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6767676767676768,
+    "overdeterminedness": 0.7070707070707071,
+    "summary": "reject quadratic solution"
+  },
+  {
+    "chunk": "Maybe I need to try a particular solution of the form a_p = k*n + m, but since that didn't work, maybe I need a different approach.",
+    "chunk_idx": 124,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "123"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010204081632653073,
+    "resampling_importance_kl": 0.010256499955517234,
+    "counterfactual_importance_accuracy": 0.010204081632653073,
+    "counterfactual_importance_kl": 0.007017572274312327,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.5408163265306123,
+    "overdeterminedness": 0.4591836734693877,
+    "summary": "suggest different approach"
+  },
+  {
+    "chunk": "Alternatively, since the recurrence is a(n) = 1 + 3*a(n-1), with a(1) = 4, maybe I can compute the terms iteratively, which I already did earlier, and it gave me a(9) = 29524, leading to 3*29524 = 88,572.",
+    "chunk_idx": 125,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "38",
+      "52"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.010204081632653073,
+    "resampling_importance_kl": 0.20131005451071085,
+    "counterfactual_importance_accuracy": -0.010869565217391353,
+    "counterfactual_importance_kl": 0.2157752474120332,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9387755102040817,
+    "overdeterminedness": 0.20408163265306123,
+    "summary": "calculate 3*a(9) = 88572"
+  },
+  {
+    "chunk": "Given that the iterative method is straightforward and I've double-checked each layer, perhaps it's correct.",
+    "chunk_idx": 126,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "125"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.01005033564183809,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.009852296226963432,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9795918367346939,
+    "overdeterminedness": 0.04081632653061229,
+    "summary": "check correctness"
+  },
+  {
+    "chunk": "Alternatively, maybe I can look for a pattern in the terms.",
+    "chunk_idx": 127,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "126"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.030404040404040433,
+    "resampling_importance_kl": 0.03078019247196416,
+    "counterfactual_importance_accuracy": 0.02953447518664909,
+    "counterfactual_importance_kl": 0.028517182433203073,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.92,
+    "overdeterminedness": 0.30000000000000004,
+    "summary": "identify pattern"
+  },
+  {
+    "chunk": "Let me list out the layers again:",
+    "chunk_idx": 128,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "127"
+    ],
+    "accuracy": 0.9595959595959596,
+    "resampling_importance_accuracy": 0.030303030303030387,
+    "resampling_importance_kl": 0.5981433515289382,
+    "counterfactual_importance_accuracy": -0.0016636957813428443,
+    "counterfactual_importance_kl": 0.02727054967423239,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8585858585858586,
+    "overdeterminedness": 0.7171717171717171,
+    "summary": "list layers"
+  },
+  {
+    "chunk": "a(1) = 4 a(2) = 13",
+    "chunk_idx": 129,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "128"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.19927609550300318,
+    "counterfactual_importance_accuracy": -0.010869565217391353,
+    "counterfactual_importance_kl": 0.21598229300955982,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9292929292929293,
+    "overdeterminedness": 0.3737373737373737,
+    "summary": "assign values a(1)=4, a(2)=13"
+  },
+  {
+    "chunk": "a(3) = 40 a(4) = 121",
+    "chunk_idx": 130,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "129"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7373737373737373,
+    "overdeterminedness": 0.3232323232323232,
+    "summary": "assign values a(3)=40, a(4)=121"
+  },
+  {
+    "chunk": "a(5) = 364",
+    "chunk_idx": 131,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "130"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010204081632653073,
+    "resampling_importance_kl": 0.010256499951111855,
+    "counterfactual_importance_accuracy": 0.010204081632653073,
+    "counterfactual_importance_kl": 0.010256499951111855,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.38541666666666663,
+    "summary": "assign a(5)=364"
+  },
+  {
+    "chunk": "a(6) = 1093",
+    "chunk_idx": 132,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "131"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.010204081632653073,
+    "resampling_importance_kl": 0.20151620458537525,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.006644542287741012,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.47959183673469385,
+    "overdeterminedness": 0.41836734693877553,
+    "summary": "assign a(6)=1093"
+  },
+  {
+    "chunk": "a(7) = 3280",
+    "chunk_idx": 133,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "132"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010101010101010055,
+    "resampling_importance_kl": 0.010152371256581246,
+    "counterfactual_importance_accuracy": 0.010101010101010055,
+    "counterfactual_importance_kl": 0.007380106972204728,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.63,
+    "overdeterminedness": 0.38,
+    "summary": "assign a(7)=3280"
+  },
+  {
+    "chunk": "a(8) = 9841",
+    "chunk_idx": 134,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "133"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": 0.010101010101010055,
+    "resampling_importance_kl": 0.19937761404697535,
+    "counterfactual_importance_accuracy": -0.01538461538461533,
+    "counterfactual_importance_kl": 0.3146838530768356,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6565656565656566,
+    "overdeterminedness": 0.41414141414141414,
+    "summary": "assign a(8)=9841"
+  },
+  {
+    "chunk": "a(9) = 29524",
+    "chunk_idx": 135,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "134"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.010050335646067225,
+    "counterfactual_importance_accuracy": 0.010000000000000009,
+    "counterfactual_importance_kl": 0.0055401793561228735,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.19,
+    "overdeterminedness": 0.38,
+    "summary": "assign a(9)=29524"
+  },
+  {
+    "chunk": "Looking at these numbers: 4, 13, 40, 121, 364, 1093, 3280, 9841, 29524.",
+    "chunk_idx": 136,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "135"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.00020408163265306367,
+    "resampling_importance_kl": 0.20723473397062686,
+    "counterfactual_importance_accuracy": -0.0018441111384313036,
+    "counterfactual_importance_kl": 0.25025985001979045,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.83,
+    "overdeterminedness": 0.42000000000000004,
+    "summary": "list numbers"
+  },
+  {
+    "chunk": "I notice that each term is approximately 3 times the previous term.",
+    "chunk_idx": 137,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "136"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.010204081632653073,
+    "counterfactual_importance_kl": 0.013072081070660798,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.42857142857142855,
+    "overdeterminedness": 0.26530612244897955,
+    "summary": "identify geometric progression"
+  },
+  {
+    "chunk": "For example:",
+    "chunk_idx": 138,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "137"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": -0.009795918367346945,
+    "resampling_importance_kl": 0.010050865103537738,
+    "counterfactual_importance_accuracy": 0.009795918367346945,
+    "counterfactual_importance_kl": 0.010050865103537738,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.7959183673469388,
+    "summary": "calculate area=45"
+  },
+  {
+    "chunk": "13 / 4 = 3.25",
+    "chunk_idx": 139,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "138"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.3946666639903824,
+    "counterfactual_importance_accuracy": -0.020000000000000018,
+    "counterfactual_importance_kl": 0.3946666639903824,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "calculate 13/4=3.25"
+  },
+  {
+    "chunk": "40 / 13 \u2248 3.077",
+    "chunk_idx": 140,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "139"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.020408163265306145,
+    "resampling_importance_kl": 0.020619286787649405,
+    "counterfactual_importance_accuracy": 0.020408163265306145,
+    "counterfactual_importance_kl": 0.011560820766351322,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.24,
+    "overdeterminedness": 0.36,
+    "summary": "calculate 40/13\u22483.077"
+  },
+  {
+    "chunk": "121 / 40 = 3.025",
+    "chunk_idx": 141,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "140"
+    ],
+    "accuracy": 0.9795918367346939,
+    "resampling_importance_accuracy": 0.01030715316429609,
+    "resampling_importance_kl": 0.2014157825518012,
+    "counterfactual_importance_accuracy": -0.011175585643670827,
+    "counterfactual_importance_kl": 0.21090565409157608,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9591836734693877,
+    "overdeterminedness": 0.3877551020408163,
+    "summary": "calculate 121/40=3.025"
+  },
+  {
+    "chunk": "364 / 121 \u2248 3.008",
+    "chunk_idx": 142,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "141"
+    ],
+    "accuracy": 0.98989898989899,
+    "resampling_importance_accuracy": -0.00010307153164301752,
+    "resampling_importance_kl": 0.20932644524005345,
+    "counterfactual_importance_accuracy": -0.00010519671786235474,
+    "counterfactual_importance_kl": 0.21364669826097682,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9797979797979798,
+    "overdeterminedness": 0.3434343434343434,
+    "summary": "calculate 364/121\u22483.008"
+  },
+  {
+    "chunk": "1093 / 364 \u2248 3.0027",
+    "chunk_idx": 143,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "142"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.010204081632653073,
+    "resampling_importance_kl": 0.20151620458537525,
+    "counterfactual_importance_accuracy": -0.01098901098901095,
+    "counterfactual_importance_kl": 0.21857966955379854,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9285714285714286,
+    "overdeterminedness": 0.2857142857142857,
+    "summary": "calculate 1093/364\u22483.0027"
+  },
+  {
+    "chunk": "3280 / 1093 \u2248 3.0009",
+    "chunk_idx": 144,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "143"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.87,
+    "overdeterminedness": 0.39,
+    "summary": "calculate quotient \u2248 3.0009"
+  },
+  {
+    "chunk": "9841 / 3280 \u2248 3.0003",
+    "chunk_idx": 145,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "144"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9494949494949495,
+    "overdeterminedness": 0.6060606060606061,
+    "summary": "calculate 9841/3280 \u2248 3.0003"
+  },
+  {
+    "chunk": "29524 / 9841 \u2248 3.0001",
+    "chunk_idx": 146,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "145"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9484536082474226,
+    "overdeterminedness": 0.7731958762886598,
+    "summary": "calculate quotient \u2248 3.0001"
+  },
+  {
+    "chunk": "So, as n increases, the ratio approaches 3.",
+    "chunk_idx": 147,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "146"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.38,
+    "overdeterminedness": 0.8,
+    "summary": "approach ratio=3"
+  },
+  {
+    "chunk": "That makes sense because the recurrence is a(n) = 1 + 3*a(n-1), so for large n, the 1 becomes negligible, and a(n) \u2248 3*a(n-1).",
+    "chunk_idx": 148,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "147"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.010204081632653073,
+    "resampling_importance_kl": 0.010256499953336818,
+    "counterfactual_importance_accuracy": 0.010204081632653073,
+    "counterfactual_importance_kl": 0.005277053487887816,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.05154639175257732,
+    "overdeterminedness": 0.7216494845360825,
+    "summary": "approximate a(n)"
+  },
+  {
+    "chunk": "Therefore, a(n) grows roughly like 3^(n-1).",
+    "chunk_idx": 149,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "148"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.010204081632653073,
+    "resampling_importance_kl": 0.20151620458537525,
+    "counterfactual_importance_accuracy": -0.013333333333333308,
+    "counterfactual_importance_kl": 0.2696621146064962,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.7653061224489796,
+    "overdeterminedness": 0.5408163265306123,
+    "summary": "describe growth a(n)"
+  },
+  {
+    "chunk": "But since we have that constant 1 added each time, it's slightly less than 3^(n-1).",
+    "chunk_idx": 150,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "149"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.01041666666666663,
+    "resampling_importance_kl": 0.010471299659856811,
+    "counterfactual_importance_accuracy": 0.01041666666666663,
+    "counterfactual_importance_kl": 0.008968669736316347,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.84,
+    "overdeterminedness": 0.10999999999999999,
+    "summary": "compare to 3^(n-1)"
+  },
+  {
+    "chunk": "However, for n=9, the difference is minimal, as we saw the ratio is already very close to 3.",
+    "chunk_idx": 151,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "150"
+    ],
+    "accuracy": 0.9895833333333334,
+    "resampling_importance_accuracy": 0.01041666666666663,
+    "resampling_importance_kl": 0.20582566697428972,
+    "counterfactual_importance_accuracy": -0.01098901098901095,
+    "counterfactual_importance_kl": 0.2182671647700233,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9479166666666666,
+    "overdeterminedness": 0.13541666666666663,
+    "summary": "identify ratio close to 3"
+  },
+  {
+    "chunk": "Given that, the value of a(9) is 29524, which is extremely close to 3^8 = 6561, but much larger because we're adding 1 each time.",
+    "chunk_idx": 152,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "151"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.02020270710078444,
+    "counterfactual_importance_accuracy": 0.020000000000000018,
+    "counterfactual_importance_kl": 0.01785761715100787,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.8686868686868687,
+    "overdeterminedness": 0.21212121212121215,
+    "summary": "calculate a(9)=29524"
+  },
+  {
+    "chunk": "Wait, actually, 3^8 is 6561, but our a(9) is 29524, which is 29524 / 6561 \u2248 4.5 times larger.",
+    "chunk_idx": 153,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "152"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.40771316750457764,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.010810914159127378,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.1,
+    "overdeterminedness": 0.61,
+    "summary": "calculate ratio \u2248 4.5"
+  },
+  {
+    "chunk": "So, the additive 1s have accumulated over the 8 iterations.",
+    "chunk_idx": 154,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "153"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.020618556701030966,
+    "resampling_importance_kl": 0.020834086470457307,
+    "counterfactual_importance_accuracy": 0.020618556701030966,
+    "counterfactual_importance_kl": 0.019802626840229744,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9479166666666666,
+    "overdeterminedness": 0.22916666666666663,
+    "summary": "accumulate additive 1s"
+  },
+  {
+    "chunk": "But regardless, since we've computed each layer step by step and the result is 29524, which when multiplied by 3 gives 88,572, I think that's the correct answer.",
+    "chunk_idx": 155,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "154"
+    ],
+    "accuracy": 0.979381443298969,
+    "resampling_importance_accuracy": 0.0006185567010309478,
+    "resampling_importance_kl": 0.4272934951352778,
+    "counterfactual_importance_accuracy": -0.0022222222222222365,
+    "counterfactual_importance_kl": 0.46083761450791594,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.9278350515463918,
+    "overdeterminedness": 0.07216494845360821,
+    "summary": "multiply 29524 by 3"
+  },
+  {
+    "chunk": "Unless I made a multiplication error when calculating 3*29524.",
+    "chunk_idx": 156,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "155"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.040606060606060534,
+    "resampling_importance_kl": 0.45573560666880375,
+    "counterfactual_importance_accuracy": 0.04019789734075441,
+    "counterfactual_importance_kl": 0.46333443060700646,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.98,
+    "overdeterminedness": 0.22999999999999998,
+    "summary": "check multiplication error"
+  },
+  {
+    "chunk": "Let me double-check that multiplication.",
+    "chunk_idx": 157,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "156"
+    ],
+    "accuracy": 0.9393939393939394,
+    "resampling_importance_accuracy": 0.020606060606060517,
+    "resampling_importance_kl": 0.005852292492901787,
+    "counterfactual_importance_accuracy": -0.016179775280898867,
+    "counterfactual_importance_kl": 0.007115791937183251,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.898989898989899,
+    "overdeterminedness": 0.8484848484848485,
+    "summary": "check multiplication"
+  },
+  {
+    "chunk": "29524 * 3:",
+    "chunk_idx": 158,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "157"
+    ],
+    "accuracy": 0.96,
+    "resampling_importance_accuracy": 0.019797979797979814,
+    "resampling_importance_kl": 0.19939800041538933,
+    "counterfactual_importance_accuracy": -0.02474180002269888,
+    "counterfactual_importance_kl": 0.22964021716550367,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.89,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "multiply 29524 by 3"
+  },
+  {
+    "chunk": "20,000 * 3 = 60,000",
+    "chunk_idx": 159,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "158"
+    ],
+    "accuracy": 0.9797979797979798,
+    "resampling_importance_accuracy": -0.03979797979797983,
+    "resampling_importance_kl": 0.026828887892162742,
+    "counterfactual_importance_accuracy": 0.06000000000000005,
+    "counterfactual_importance_kl": 0.04324997979020344,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.10101010101010101,
+    "overdeterminedness": 0.8080808080808081,
+    "summary": "multiply 20,000 by 3"
+  },
+  {
+    "chunk": "9,000 * 3 = 27,000",
+    "chunk_idx": 160,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "159"
+    ],
+    "accuracy": 0.94,
+    "resampling_importance_accuracy": 0.008979591836734802,
+    "resampling_importance_kl": 0.0013581473498031713,
+    "counterfactual_importance_accuracy": -0.0045351473922903285,
+    "counterfactual_importance_kl": 0.032654814131472934,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.36,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "multiply 9000*3=27000"
+  },
+  {
+    "chunk": "500 * 3 = 1,500",
+    "chunk_idx": 161,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "160"
+    ],
+    "accuracy": 0.9489795918367347,
+    "resampling_importance_accuracy": 0.021020408163265225,
+    "resampling_importance_kl": 0.013870755557307927,
+    "counterfactual_importance_accuracy": -0.021020408163265225,
+    "counterfactual_importance_kl": 0.013870755557307927,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.8367346938775511,
+    "summary": "multiply 500*3=1500"
+  },
+  {
+    "chunk": "24 * 3 = 72",
+    "chunk_idx": 162,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "161"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.006931471800391508,
+    "counterfactual_importance_accuracy": 0.0050000000000000044,
+    "counterfactual_importance_kl": 0.023598797065821516,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.4,
+    "overdeterminedness": 0.8200000000000001,
+    "summary": "multiply 24*3=72"
+  },
+  {
+    "chunk": "Adding them together:",
+    "chunk_idx": 163,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "162"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.40853165507976236,
+    "counterfactual_importance_accuracy": -0.020000000000000018,
+    "counterfactual_importance_kl": 0.40853165507976236,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.81,
+    "summary": "add values"
+  },
+  {
+    "chunk": "60,000 + 27,000 = 87,000",
+    "chunk_idx": 164,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "163"
+    ],
+    "accuracy": 0.99,
+    "resampling_importance_accuracy": -0.07163265306122446,
+    "resampling_importance_kl": 0.06316824757249877,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.96,
+    "summary": "calculate sum=87000"
+  },
+  {
+    "chunk": "87,000 + 1,500 = 88,500",
+    "chunk_idx": 165,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "164"
+    ],
+    "accuracy": 0.9183673469387755,
+    "resampling_importance_accuracy": 0.011632653061224518,
+    "resampling_importance_kl": 0.014418472899204829,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9489795918367347,
+    "summary": "calculate sum=88500"
+  },
+  {
+    "chunk": "88,500 + 72 = 88,572",
+    "chunk_idx": 166,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "165"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": 0.06999999999999995,
+    "resampling_importance_kl": 1.490643432811173,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "add 88,500 + 72"
+  },
+  {
+    "chunk": "Yes, that seems correct.",
+    "chunk_idx": 167,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "166"
+    ],
+    "accuracy": 1.0,
+    "resampling_importance_accuracy": -0.030000000000000027,
+    "resampling_importance_kl": 0.030459207062393395,
+    "counterfactual_importance_accuracy": 0.030000000000000027,
+    "counterfactual_importance_kl": 0.015504179177428613,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.05,
+    "overdeterminedness": 0.89,
+    "summary": "confirm correctness"
+  },
+  {
+    "chunk": "Therefore, after carefully stepping through each layer and verifying my calculations, I conclude that the value of the given expression is 88,572.",
+    "chunk_idx": 168,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "167"
+    ],
+    "accuracy": 0.97,
+    "resampling_importance_accuracy": 0.019795918367346954,
+    "resampling_importance_kl": 0.20089289487128706,
+    "counterfactual_importance_accuracy": -0.06979591836734689,
+    "counterfactual_importance_kl": 0.14419174997208084,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.25,
+    "overdeterminedness": 0.39,
+    "summary": "conclude value=88572"
+  },
+  {
+    "chunk": "**Final Answer**\nThe value of the expression is \\boxed{88572}.",
+    "chunk_idx": 169,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "168"
+    ],
+    "accuracy": 0.9897959183673469,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.0,
+    "summary": "value=88572"
+  }
+]

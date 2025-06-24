@@ -1,0 +1,249 @@
+{
+  "problem_idx": 2236,
+  "num_chunks": 92,
+  "avg_importance": 0.003156153321728531,
+  "max_importance": 0.97,
+  "min_importance": -0.6565656565656566,
+  "top_influential_steps": [
+    {
+      "step_idx": 90,
+      "step_text": {
+        "chunk": "Therefore, there are 89 more 4's than 8's.",
+        "chunk_idx": 90,
+        "function_tags": [
+          "final_answer_emission"
+        ],
+        "depends_on": [
+          "89"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.11,
+        "overdeterminedness": 0.89,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "count 4's=89 more"
+      },
+      "avg_outgoing_importance": 0.95
+    },
+    {
+      "step_idx": 86,
+      "step_text": {
+        "chunk": "Correct. And for the tens place in 4's, five blocks, each contributing 10 fours, so 50.",
+        "chunk_idx": 86,
+        "function_tags": [
+          "self_checking"
+        ],
+        "depends_on": [
+          "85"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.85,
+        "overdeterminedness": 0.49,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate tens=50"
+      },
+      "avg_outgoing_importance": 0.32799999999999996
+    },
+    {
+      "step_idx": 83,
+      "step_text": {
+        "chunk": "Wait, but just to be thorough, let me check the hundreds place for 4's again.",
+        "chunk_idx": 83,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "82"
+        ],
+        "accuracy": 0.020202020202020204,
+        "counterfactual_importance_accuracy": -0.010202020202020204,
+        "counterfactual_importance_kl": 0.004056738000751249,
+        "absolute_importance_accuracy": 0.011052631578947368,
+        "absolute_importance_kl": 0.005127179316646248,
+        "different_trajectories_fraction": 0.9595959595959596,
+        "overdeterminedness": 0.7272727272727273,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "check hundreds place"
+      },
+      "avg_outgoing_importance": 0.14305555555555555
+    },
+    {
+      "step_idx": 64,
+      "step_text": {
+        "chunk": "Wait, that seems quite a large difference.",
+        "chunk_idx": 64,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "63"
+        ],
+        "accuracy": 0.06,
+        "counterfactual_importance_accuracy": 0.03,
+        "counterfactual_importance_kl": 0.0061612527206249094,
+        "absolute_importance_accuracy": -0.02877551020408163,
+        "absolute_importance_kl": 0.005031916957398165,
+        "different_trajectories_fraction": 0.98,
+        "overdeterminedness": 0.6599999999999999,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "note large difference"
+      },
+      "avg_outgoing_importance": 0.11851851851851852
+    },
+    {
+      "step_idx": 12,
+      "step_text": {
+        "chunk": "1. Count the number of 4's in the units place across all page numbers.",
+        "chunk_idx": 12,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "11"
+        ],
+        "accuracy": 0.77,
+        "counterfactual_importance_accuracy": 0.08858585858585855,
+        "counterfactual_importance_kl": 0.17235240264199767,
+        "absolute_importance_accuracy": -0.09327973613687901,
+        "absolute_importance_kl": 0.180356127279581,
+        "different_trajectories_fraction": 0.98,
+        "overdeterminedness": 0.6699999999999999,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.4836698346805774,
+        "summary": "count 4's in units"
+      },
+      "avg_outgoing_importance": 0.09164556962025318
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 5,
+      "step_text": {
+        "chunk": "Let me start by understanding how digits are distributed in page numbers.",
+        "chunk_idx": 5,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.6907216494845361,
+        "counterfactual_importance_accuracy": -0.02072164948453603,
+        "counterfactual_importance_kl": 0.0012632899319079578,
+        "absolute_importance_accuracy": 0.006470588235294117,
+        "absolute_importance_kl": 0.006391850642603891,
+        "different_trajectories_fraction": 0.35051546391752575,
+        "overdeterminedness": 0.44329896907216493,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.6347773255755347,
+        "summary": "analyze digit distribution"
+      },
+      "avg_incoming_importance": 0.11975510204081634
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "So, I need to count how many times the digit 4 appears in all these page numbers and then do the same for the digit 8.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "2"
+        ],
+        "accuracy": 0.7,
+        "counterfactual_importance_accuracy": -0.003030303030302939,
+        "counterfactual_importance_kl": 0.250605949099656,
+        "absolute_importance_accuracy": 0.05303030303030298,
+        "absolute_importance_kl": 0.167676420393338,
+        "different_trajectories_fraction": 0.04,
+        "overdeterminedness": 0.88,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.676878009361566,
+        "summary": "count digit occurrences"
+      },
+      "avg_incoming_importance": 0.0920408163265306
+    },
+    {
+      "step_idx": 13,
+      "step_text": {
+        "chunk": "2. Count the number of 4's in the tens place across all page numbers.",
+        "chunk_idx": 13,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "11"
+        ],
+        "accuracy": 0.8585858585858586,
+        "counterfactual_importance_accuracy": -0.05858585858585852,
+        "counterfactual_importance_kl": 0.03642608566490755,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9797979797979798,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.029356023519489,
+        "summary": "count 4's in tens place"
+      },
+      "avg_incoming_importance": 0.07456828885400314
+    },
+    {
+      "step_idx": 14,
+      "step_text": {
+        "chunk": "3. Count the number of 4's in the hundreds place across all page numbers.",
+        "chunk_idx": 14,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "11"
+        ],
+        "accuracy": 0.8,
+        "counterfactual_importance_accuracy": 0.010000000000000009,
+        "counterfactual_importance_kl": 0.21002122138483567,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.99,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.7214766532630805,
+        "summary": "count 4's in hundreds"
+      },
+      "avg_incoming_importance": 0.07142857142857142
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "After that, I'll subtract the number of 8's from the number of 4's to find the difference.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "accuracy": 0.696969696969697,
+        "counterfactual_importance_accuracy": -0.006248047485160946,
+        "counterfactual_importance_kl": 1.236944864537941,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9292929292929293,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2102038183084065,
+        "summary": "subtract 8 from 4"
+      },
+      "avg_incoming_importance": 0.05867346938775511
+    }
+  ]
+}

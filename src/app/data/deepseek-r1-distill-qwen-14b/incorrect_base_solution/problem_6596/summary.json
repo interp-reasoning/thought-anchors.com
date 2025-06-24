@@ -1,0 +1,246 @@
+{
+  "problem_idx": 6596,
+  "num_chunks": 175,
+  "avg_importance": 0.000848017417505801,
+  "max_importance": 0.83,
+  "min_importance": -0.8,
+  "top_influential_steps": [
+    {
+      "step_idx": 173,
+      "step_text": {
+        "chunk": "I think I've convinced myself that the distance from A to B is sqrt(41) cm, which is approximately 6.4 cm.",
+        "chunk_idx": 173,
+        "function_tags": [
+          "result_consolidation"
+        ],
+        "depends_on": [
+          "172"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.74,
+        "overdeterminedness": 0.47,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate distance=sqrt(41)"
+      },
+      "avg_outgoing_importance": 0.5599999999999999
+    },
+    {
+      "step_idx": 166,
+      "step_text": {
+        "chunk": "Wait, but let me make sure I'm not making a mistake here.",
+        "chunk_idx": 166,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "165"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.010050335646067225,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.010050335646067225,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.84,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "check for mistakes"
+      },
+      "avg_outgoing_importance": 0.29500000000000004
+    },
+    {
+      "step_idx": 160,
+      "step_text": {
+        "chunk": "Alternatively, perhaps the figure is such that the smaller square is placed on top of the larger square, but shifted so that the distance from A to B is the hypotenuse of a triangle with legs 4 cm and (4 cm - 1 cm) = 3 cm, making the distance sqrt(4^2 + 3^2) = 5 cm.",
+        "chunk_idx": 160,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "159"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.010152371256581246,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.010050335643973571,
+        "different_trajectories_fraction": 0.99,
+        "overdeterminedness": 0.83,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.7328875089064856,
+        "summary": "calculate distance=5 cm"
+      },
+      "avg_outgoing_importance": 0.18
+    },
+    {
+      "step_idx": 169,
+      "step_text": {
+        "chunk": "Alternatively, if the smaller square is placed at the corner of the larger square, not along the side, then the distance from A to B would be the diagonal of a square that's 5 cm on each side, which would be 5*sqrt(2) \u2248 7.071 cm.",
+        "chunk_idx": 169,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "168"
+        ],
+        "accuracy": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.87,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.1970807990146171,
+        "summary": "calculate distance=7.071 cm"
+      },
+      "avg_outgoing_importance": 0.152
+    },
+    {
+      "step_idx": 172,
+      "step_text": {
+        "chunk": "So, 5 cm and 4 cm, leading to sqrt(41) as before.",
+        "chunk_idx": 172,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "171"
+        ],
+        "accuracy": 0.02,
+        "counterfactual_importance_accuracy": -0.02,
+        "counterfactual_importance_kl": 0.40852960739494965,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.015625317603176994,
+        "different_trajectories_fraction": 0.71,
+        "overdeterminedness": 0.5,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "summary": "calculate hypotenuse=sqrt(41)"
+      },
+      "avg_outgoing_importance": 0.11499999999999999
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "I need to find the distance from point A to point B, expressed as a decimal to the nearest tenth.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.3877551020408163,
+        "counterfactual_importance_accuracy": 0.02638631210059783,
+        "counterfactual_importance_kl": 0.44901351111748694,
+        "absolute_importance_accuracy": 0.0,
+        "absolute_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.9693877551020408,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 5.536877390557711,
+        "summary": "calculate distance to nearest tenth"
+      },
+      "avg_incoming_importance": 0.22666666666666666
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "Hmm, let's break this down step by step.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.41414141414141414,
+        "counterfactual_importance_accuracy": -0.15372474747474746,
+        "counterfactual_importance_kl": 0.3960876214448548,
+        "absolute_importance_accuracy": 0.12419871794871795,
+        "absolute_importance_kl": 0.08703526987965292,
+        "different_trajectories_fraction": 0.3939393939393939,
+        "overdeterminedness": 0.6868686868686869,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.0370177330474442,
+        "summary": "break down steps"
+      },
+      "avg_incoming_importance": 0.145
+    },
+    {
+      "step_idx": 10,
+      "step_text": {
+        "chunk": "Now, moving on to the larger square.",
+        "chunk_idx": 10,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "5"
+        ],
+        "accuracy": 0.23711340206185566,
+        "counterfactual_importance_accuracy": -0.09580905423576871,
+        "counterfactual_importance_kl": 0.9780504266463813,
+        "absolute_importance_accuracy": 0.05224403927068724,
+        "absolute_importance_kl": 0.8539536154138478,
+        "different_trajectories_fraction": 0.31958762886597936,
+        "overdeterminedness": 0.8969072164948454,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 3.093909510941719,
+        "summary": "analyze larger square"
+      },
+      "avg_incoming_importance": 0.078
+    },
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "The figure is drawn using Asymptote code, which I can kind of visualize even without seeing the actual image.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "problem_setup"
+        ],
+        "depends_on": [],
+        "accuracy": 0.3838383838383838,
+        "counterfactual_importance_accuracy": -0.0675118532261389,
+        "counterfactual_importance_kl": 0.31412875542003293,
+        "absolute_importance_accuracy": -0.032744441060006124,
+        "absolute_importance_kl": 0.42936433508323973,
+        "different_trajectories_fraction": 0.6767676767676768,
+        "overdeterminedness": 0.7171717171717171,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 2.596746443802854,
+        "summary": "visualize figure"
+      },
+      "avg_incoming_importance": 0.06999999999999995
+    },
+    {
+      "step_idx": 8,
+      "step_text": {
+        "chunk": "So if the perimeter is 4 cm, then each side must be 4 cm divided by 4, which is 1 cm.",
+        "chunk_idx": 8,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "6",
+          "7"
+        ],
+        "accuracy": 0.1958762886597938,
+        "counterfactual_importance_accuracy": 0.040682851125152436,
+        "counterfactual_importance_kl": 0.3248378236909719,
+        "absolute_importance_accuracy": -0.23655913978494625,
+        "absolute_importance_kl": 0.8901889762299359,
+        "different_trajectories_fraction": 0.041237113402061855,
+        "overdeterminedness": 0.8556701030927836,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 8.625933140695185,
+        "summary": "calculate side=1 cm"
+      },
+      "avg_incoming_importance": 0.06125
+    }
+  ]
+}

@@ -1,0 +1,1196 @@
+[
+  {
+    "chunk": "Okay, so I've got this problem where a mother wants to arrange her plates around a circular table, and she doesn't want the two green plates to be next to each other.",
+    "chunk_idx": 0,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.8686868686868687,
+    "resampling_importance_accuracy": -0.05425387899614709,
+    "resampling_importance_kl": 0.22044908464583104,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.7919230114629183,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.8787878787878788,
+    "summary": "arrange plates non-adjacently"
+  },
+  {
+    "chunk": "Let me try to figure this out step by step.",
+    "chunk_idx": 1,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [],
+    "accuracy": 0.8144329896907216,
+    "resampling_importance_accuracy": -0.05154639175257736,
+    "resampling_importance_kl": 0.22170524701707672,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.9778503655061463,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.979381443298969,
+    "summary": "figure out step"
+  },
+  {
+    "chunk": "First, let's list out all the plates she has.",
+    "chunk_idx": 2,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [],
+    "accuracy": 0.7628865979381443,
+    "resampling_importance_accuracy": 0.02499218994064356,
+    "resampling_importance_kl": 0.2044405203332786,
+    "counterfactual_importance_accuracy": -0.028619528619528545,
+    "counterfactual_importance_kl": 0.3835099681215083,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.4647675974523837,
+    "different_trajectories_fraction": 0.5567010309278351,
+    "overdeterminedness": 0.7216494845360825,
+    "summary": "list plates"
+  },
+  {
+    "chunk": "There are 5 blue plates, 2 red plates, 2 green plates, and 1 orange plate.",
+    "chunk_idx": 3,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.7878787878787878,
+    "resampling_importance_accuracy": 0.0021212121212121904,
+    "resampling_importance_kl": 1.3527665223381745e-05,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 4.944962987059756,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "list plate quantities"
+  },
+  {
+    "chunk": "So in total, that's 5 + 2 + 2 + 1, which is 10 plates.",
+    "chunk_idx": 4,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "3"
+    ],
+    "accuracy": 0.79,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.001266497554606498,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 8.121219098994448,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "calculate total=10"
+  },
+  {
+    "chunk": "Since the table is circular, the arrangement is a circular permutation problem.",
+    "chunk_idx": 5,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [],
+    "accuracy": 0.81,
+    "resampling_importance_accuracy": -0.0726262626262627,
+    "resampling_importance_kl": 0.014586395917728312,
+    "counterfactual_importance_accuracy": 0.11788942052099949,
+    "counterfactual_importance_kl": 0.04935484061549461,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.1640011192633635,
+    "different_trajectories_fraction": 0.76,
+    "overdeterminedness": 0.5,
+    "summary": "circular permutation problem"
+  },
+  {
+    "chunk": "I remember that for circular permutations, the number of ways to arrange n distinct objects is (n-1)!",
+    "chunk_idx": 6,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "5"
+    ],
+    "accuracy": 0.7373737373737373,
+    "resampling_importance_accuracy": 0.03262626262626267,
+    "resampling_importance_kl": 0.002913000327231935,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 11.908900761153289,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "calculate arrangements=(n-1)!"
+  },
+  {
+    "chunk": "because one position can be fixed to account for rotations.",
+    "chunk_idx": 7,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "6"
+    ],
+    "accuracy": 0.77,
+    "resampling_importance_accuracy": -0.0046938775510204644,
+    "resampling_importance_kl": 6.162008685758284e-05,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.657621781134602,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "fix position for rotations"
+  },
+  {
+    "chunk": "But in this case, the plates aren't all distinct; there are repetitions.",
+    "chunk_idx": 8,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "3"
+    ],
+    "accuracy": 0.7653061224489796,
+    "resampling_importance_accuracy": 0.0446938775510205,
+    "resampling_importance_kl": 0.0188326912841964,
+    "counterfactual_importance_accuracy": 0.18999999999999995,
+    "counterfactual_importance_kl": 0.23977857475426548,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.7428336932403536,
+    "different_trajectories_fraction": 0.01020408163265306,
+    "overdeterminedness": 0.7857142857142857,
+    "summary": "identify repetitions"
+  },
+  {
+    "chunk": "So I think the formula for circular permutations with identical items is (n-1)!",
+    "chunk_idx": 9,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "8"
+    ],
+    "accuracy": 0.81,
+    "resampling_importance_accuracy": -0.040000000000000036,
+    "resampling_importance_kl": 0.20413203971753674,
+    "counterfactual_importance_accuracy": -0.27,
+    "counterfactual_importance_kl": 0.23420533709941818,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.774321539954012,
+    "different_trajectories_fraction": 0.06,
+    "overdeterminedness": 0.83,
+    "summary": "derive formula=(n-1)!"
+  },
+  {
+    "chunk": "divided by the product of the factorials of the counts of each identical item.",
+    "chunk_idx": 10,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "9"
+    ],
+    "accuracy": 0.77,
+    "resampling_importance_accuracy": 0.040000000000000036,
+    "resampling_importance_kl": 0.004947030184675558,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 10.966188305082046,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate factorial product"
+  },
+  {
+    "chunk": "So that would be (10-1)!",
+    "chunk_idx": 11,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "4",
+      "9"
+    ],
+    "accuracy": 0.81,
+    "resampling_importance_accuracy": -0.07000000000000006,
+    "resampling_importance_kl": 0.013616153606081434,
+    "counterfactual_importance_accuracy": 0.07927710843373492,
+    "counterfactual_importance_kl": 0.016195545976053438,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 4.336620194059843,
+    "different_trajectories_fraction": 0.83,
+    "overdeterminedness": 0.65,
+    "summary": "calculate factorial=9!"
+  },
+  {
+    "chunk": "/ (5! * 2!",
+    "chunk_idx": 12,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "10"
+    ],
+    "accuracy": 0.74,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.001076601154262117,
+    "counterfactual_importance_accuracy": 0.24,
+    "counterfactual_importance_kl": 0.29105474626815275,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 24.248355243189764,
+    "different_trajectories_fraction": 0.02,
+    "overdeterminedness": 0.96,
+    "summary": "calculate 5! * 2!"
+  },
+  {
+    "chunk": "* 2! * 1!) which is 9!",
+    "chunk_idx": 13,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "11",
+      "12"
+    ],
+    "accuracy": 0.76,
+    "resampling_importance_accuracy": 0.07999999999999996,
+    "resampling_importance_kl": 0.021248197441233962,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 24.824266017418854,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "calculate 2! * 1!"
+  },
+  {
+    "chunk": "/ (5! * 2!",
+    "chunk_idx": 14,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "12"
+    ],
+    "accuracy": 0.84,
+    "resampling_importance_accuracy": -0.04999999999999993,
+    "resampling_importance_kl": 0.02405387343223377,
+    "counterfactual_importance_accuracy": -0.07571428571428573,
+    "counterfactual_importance_kl": 0.04927912536991201,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 11.374276293734335,
+    "different_trajectories_fraction": 0.07,
+    "overdeterminedness": 0.96,
+    "summary": "calculate fraction=1/120"
+  },
+  {
+    "chunk": "* 2! * 1!).",
+    "chunk_idx": 15,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "14"
+    ],
+    "accuracy": 0.79,
+    "resampling_importance_accuracy": 0.01808080808080803,
+    "resampling_importance_kl": 0.19751785682321377,
+    "counterfactual_importance_accuracy": 0.19191919191919193,
+    "counterfactual_importance_kl": 0.22567194339536403,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.3182572148387195,
+    "different_trajectories_fraction": 0.01,
+    "overdeterminedness": 0.96,
+    "summary": "calculate result=2"
+  },
+  {
+    "chunk": "Let me compute that.",
+    "chunk_idx": 16,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "15"
+    ],
+    "accuracy": 0.8080808080808081,
+    "resampling_importance_accuracy": -0.02808080808080804,
+    "resampling_importance_kl": 0.20334950735314858,
+    "counterfactual_importance_accuracy": -0.0022222222222222365,
+    "counterfactual_importance_kl": 0.0066366291335304035,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.7339962860328134,
+    "different_trajectories_fraction": 0.09090909090909091,
+    "overdeterminedness": 0.9393939393939394,
+    "summary": "compute result"
+  },
+  {
+    "chunk": "9! is 362880, and 5!",
+    "chunk_idx": 17,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "11"
+    ],
+    "accuracy": 0.78,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.2389395748497485,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.97,
+    "summary": "calculate 5!"
+  },
+  {
+    "chunk": "is 120, 2!",
+    "chunk_idx": 18,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "12"
+    ],
+    "accuracy": 0.78,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.0012203493291309056,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.7665767636979335,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate 120, 2!"
+  },
+  {
+    "chunk": "is 2, so 5!",
+    "chunk_idx": 19,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "18"
+    ],
+    "accuracy": 0.8,
+    "resampling_importance_accuracy": 0.039999999999999925,
+    "resampling_importance_kl": 0.005596578926904169,
+    "counterfactual_importance_accuracy": -0.039999999999999925,
+    "counterfactual_importance_kl": 0.005045806225347532,
+    "forced_importance_accuracy": 0.01,
+    "forced_importance_kl": 14.021238045638981,
+    "different_trajectories_fraction": 0.95,
+    "overdeterminedness": 0.92,
+    "summary": "calculate 5!=120"
+  },
+  {
+    "chunk": "* 2! * 2! * 1!",
+    "chunk_idx": 20,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "19"
+    ],
+    "accuracy": 0.84,
+    "resampling_importance_accuracy": -0.06222222222222218,
+    "resampling_importance_kl": 0.019529826132210555,
+    "counterfactual_importance_accuracy": 0.05555555555555558,
+    "counterfactual_importance_kl": 0.009010534529430844,
+    "forced_importance_accuracy": -0.01,
+    "forced_importance_kl": 7.8922171666970655,
+    "different_trajectories_fraction": 0.48,
+    "overdeterminedness": 0.72,
+    "summary": "calculate value=4"
+  },
+  {
+    "chunk": "is 120 * 2 * 2 * 1, which is 480.",
+    "chunk_idx": 21,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "17",
+      "20"
+    ],
+    "accuracy": 0.7777777777777778,
+    "resampling_importance_accuracy": 0.0022222222222222365,
+    "resampling_importance_kl": 0.19947238996837618,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 20.48520183076184,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.9797979797979798,
+    "summary": "calculate product=480"
+  },
+  {
+    "chunk": "So 362880 divided by 480.",
+    "chunk_idx": 22,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "17",
+      "21"
+    ],
+    "accuracy": 0.78,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.0012203493291309056,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.860888465728592,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "divide 362880 by 480"
+  },
+  {
+    "chunk": "Let me do that division: 362880 \u00f7 480.",
+    "chunk_idx": 23,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "22"
+    ],
+    "accuracy": 0.8,
+    "resampling_importance_accuracy": -0.020000000000000018,
+    "resampling_importance_kl": 0.010496213345983023,
+    "counterfactual_importance_accuracy": -0.030000000000000027,
+    "counterfactual_importance_kl": 0.01216616735502657,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.16,
+    "overdeterminedness": 0.95,
+    "summary": "divide 362880 by 480"
+  },
+  {
+    "chunk": "Hmm, 480 goes into 362880 how many times?",
+    "chunk_idx": 24,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "23"
+    ],
+    "accuracy": 0.78,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.1972962184743819,
+    "counterfactual_importance_accuracy": -0.012222222222222245,
+    "counterfactual_importance_kl": 0.006670463793802872,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.36,
+    "overdeterminedness": 0.71,
+    "summary": "divide 362880 by 480"
+  },
+  {
+    "chunk": "Well, 480 * 750 is 360,000, so subtracting that, we have 2880 left.",
+    "chunk_idx": 25,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "24"
+    ],
+    "accuracy": 0.79,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.03352941176470581,
+    "counterfactual_importance_kl": 0.005045053641638861,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.34,
+    "overdeterminedness": 0.37,
+    "summary": "subtract 360000 from 2880"
+  },
+  {
+    "chunk": "480 goes into 2880 exactly 6 times.",
+    "chunk_idx": 26,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "25"
+    ],
+    "accuracy": 0.79,
+    "resampling_importance_accuracy": -0.01448979591836741,
+    "resampling_importance_kl": 0.0006125540218721078,
+    "counterfactual_importance_accuracy": -0.09129967776584313,
+    "counterfactual_importance_kl": 0.032612049719355884,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.19,
+    "overdeterminedness": 0.9,
+    "summary": "divide 2880 by 480"
+  },
+  {
+    "chunk": "So 750 + 6 is 756.",
+    "chunk_idx": 27,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "26"
+    ],
+    "accuracy": 0.7755102040816326,
+    "resampling_importance_accuracy": 0.0931766646052361,
+    "resampling_importance_kl": 0.050359789871495406,
+    "counterfactual_importance_accuracy": 0.13131313131313127,
+    "counterfactual_importance_kl": 0.20241741406360628,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.061224489795918366,
+    "overdeterminedness": 0.9591836734693877,
+    "summary": "calculate sum=756"
+  },
+  {
+    "chunk": "So the total number of circular arrangements without any restrictions is 756.",
+    "chunk_idx": 28,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "27"
+    ],
+    "accuracy": 0.8686868686868687,
+    "resampling_importance_accuracy": -0.058686868686868676,
+    "resampling_importance_kl": 0.21570809425108128,
+    "counterfactual_importance_accuracy": 0.18999999999999995,
+    "counterfactual_importance_kl": 0.1876834964646411,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.12121212121212122,
+    "overdeterminedness": 0.9393939393939394,
+    "summary": "total arrangements=756"
+  },
+  {
+    "chunk": "But wait, the problem says she doesn't want the two green plates to be adjacent.",
+    "chunk_idx": 29,
+    "function_tags": [
+      "problem_setup"
+    ],
+    "depends_on": [],
+    "accuracy": 0.81,
+    "resampling_importance_accuracy": -0.010000000000000009,
+    "resampling_importance_kl": 0.00031651526517673285,
+    "counterfactual_importance_accuracy": 0.1333333333333333,
+    "counterfactual_importance_kl": 0.07518297323683608,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.15,
+    "overdeterminedness": 0.78,
+    "summary": "exclude adjacent greens"
+  },
+  {
+    "chunk": "So I need to subtract the number of arrangements where the two green plates are next to each other from the total number of arrangements.",
+    "chunk_idx": 30,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "29"
+    ],
+    "accuracy": 0.8,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.11653381519326662,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.94,
+    "summary": "subtract arrangements"
+  },
+  {
+    "chunk": "To find the number of arrangements where the two green plates are adjacent, I can treat them as a single entity or \"super plate.\" So instead of having 10 individual plates, I now have 9 items to arrange: the \"double green\" plate, the 5 blue plates, 2 red plates, and 1 orange plate.",
+    "chunk_idx": 31,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "30"
+    ],
+    "accuracy": 0.8,
+    "resampling_importance_accuracy": 0.07999999999999996,
+    "resampling_importance_kl": 0.02591698090761746,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.9621559253563294,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.5,
+    "summary": "arrange 9 items"
+  },
+  {
+    "chunk": "But since it's a circular arrangement, the number of ways to arrange these 9 items is (9-1)!",
+    "chunk_idx": 32,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "31"
+    ],
+    "accuracy": 0.88,
+    "resampling_importance_accuracy": -0.22999999999999998,
+    "resampling_importance_kl": 0.1381426298210867,
+    "counterfactual_importance_accuracy": 0.1984848484848485,
+    "counterfactual_importance_kl": 0.029600890671684893,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 2.9905376480896995,
+    "different_trajectories_fraction": 0.33,
+    "overdeterminedness": 0.52,
+    "summary": "calculate arrangements=8!"
+  },
+  {
+    "chunk": "/ (5! * 2!",
+    "chunk_idx": 33,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "32"
+    ],
+    "accuracy": 0.65,
+    "resampling_importance_accuracy": 0.16999999999999993,
+    "resampling_importance_kl": 0.08172592096335737,
+    "counterfactual_importance_accuracy": -0.16999999999999993,
+    "counterfactual_importance_kl": 0.08172592096335737,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 5.594925019464656,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.89,
+    "summary": "calculate fraction=1/120"
+  },
+  {
+    "chunk": "* 1! * 1!), because the \"double green\" is considered one item now.",
+    "chunk_idx": 34,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "33"
+    ],
+    "accuracy": 0.82,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.000348998854643583,
+    "counterfactual_importance_accuracy": -0.06333333333333324,
+    "counterfactual_importance_kl": 0.023986394419675525,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 7.983710298800082,
+    "different_trajectories_fraction": 0.6,
+    "overdeterminedness": 0.16000000000000003,
+    "summary": "multiply 1! * 1!"
+  },
+  {
+    "chunk": "Wait, actually, the counts of the other plates remain the same except the greens are now one item.",
+    "chunk_idx": 35,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "34"
+    ],
+    "accuracy": 0.83,
+    "resampling_importance_accuracy": 0.010000000000000009,
+    "resampling_importance_kl": 0.00036594713999319774,
+    "counterfactual_importance_accuracy": -0.0227956989247311,
+    "counterfactual_importance_kl": 0.00411138364578284,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2855157327695166,
+    "different_trajectories_fraction": 0.93,
+    "overdeterminedness": 0.38,
+    "summary": "update greens count=1"
+  },
+  {
+    "chunk": "Wait, no. Let me think again.",
+    "chunk_idx": 36,
+    "function_tags": [
+      "uncertainty_management"
+    ],
+    "depends_on": [
+      "35"
+    ],
+    "accuracy": 0.84,
+    "resampling_importance_accuracy": 0.14,
+    "resampling_importance_kl": 0.20322407556049374,
+    "counterfactual_importance_accuracy": -0.14,
+    "counterfactual_importance_kl": 0.20322407556049374,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.9720675380363045,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.88,
+    "summary": "reconsider decision"
+  },
+  {
+    "chunk": "The two green plates are now a single unit, so we have 1 \"double green\" plate, 5 blue, 2 red, and 1 orange.",
+    "chunk_idx": 37,
+    "function_tags": [
+      "plan_generation"
+    ],
+    "depends_on": [
+      "36"
+    ],
+    "accuracy": 0.98,
+    "resampling_importance_accuracy": -0.09999999999999998,
+    "resampling_importance_kl": 0.0696428615129199,
+    "counterfactual_importance_accuracy": 0.09872340425531911,
+    "counterfactual_importance_kl": 0.06097314354577095,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.2158615642293447,
+    "different_trajectories_fraction": 0.94,
+    "overdeterminedness": 0.5700000000000001,
+    "summary": "combine plates=1 double green"
+  },
+  {
+    "chunk": "So that's 1 + 5 + 2 + 1 = 9 items.",
+    "chunk_idx": 38,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "37"
+    ],
+    "accuracy": 0.88,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 0.005021879699644773,
+    "counterfactual_importance_accuracy": 0.08999999999999997,
+    "counterfactual_importance_kl": 0.111521254850835,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 3.4529673800826144,
+    "different_trajectories_fraction": 0.01,
+    "overdeterminedness": 0.9,
+    "summary": "calculate total=9"
+  },
+  {
+    "chunk": "So the number of circular arrangements is (9-1)!",
+    "chunk_idx": 39,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "38"
+    ],
+    "accuracy": 0.91,
+    "resampling_importance_accuracy": -0.040000000000000036,
+    "resampling_importance_kl": 0.007810532742616977,
+    "counterfactual_importance_accuracy": 0.13,
+    "counterfactual_importance_kl": 0.11841774790286763,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 7.249434571169781,
+    "different_trajectories_fraction": 0.03,
+    "overdeterminedness": 0.9299999999999999,
+    "summary": "calculate arrangements=8!"
+  },
+  {
+    "chunk": "/ (5! * 2!",
+    "chunk_idx": 40,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "39"
+    ],
+    "accuracy": 0.87,
+    "resampling_importance_accuracy": 0.020000000000000018,
+    "resampling_importance_kl": 0.0019434525685487272,
+    "counterfactual_importance_accuracy": -0.016315789473684172,
+    "counterfactual_importance_kl": 0.000694116613818874,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 9.7170622861102,
+    "different_trajectories_fraction": 0.95,
+    "overdeterminedness": 0.84,
+    "summary": "calculate 1/120"
+  },
+  {
+    "chunk": "* 1! * 1!) because the \"double green\" is one item, and the other counts are as before.",
+    "chunk_idx": 41,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "40"
+    ],
+    "accuracy": 0.89,
+    "resampling_importance_accuracy": 0.040000000000000036,
+    "resampling_importance_kl": 0.010591183765527167,
+    "counterfactual_importance_accuracy": -0.027560975609756122,
+    "counterfactual_importance_kl": 0.0005458531832263983,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 1.9094927144959764,
+    "different_trajectories_fraction": 0.41,
+    "overdeterminedness": 0.64,
+    "summary": "calculate 1! * 1!"
+  },
+  {
+    "chunk": "So that's 8!",
+    "chunk_idx": 42,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "41"
+    ],
+    "accuracy": 0.93,
+    "resampling_importance_accuracy": -0.08000000000000007,
+    "resampling_importance_kl": 0.030302056450315196,
+    "counterfactual_importance_accuracy": 0.05909090909090908,
+    "counterfactual_importance_kl": 0.0021870784441019864,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 21.018921056360437,
+    "different_trajectories_fraction": 0.11,
+    "overdeterminedness": 0.89,
+    "summary": "confirm result=8"
+  },
+  {
+    "chunk": "/ (5! * 2!",
+    "chunk_idx": 43,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "42"
+    ],
+    "accuracy": 0.85,
+    "resampling_importance_accuracy": 0.030000000000000027,
+    "resampling_importance_kl": 0.003988808407070749,
+    "counterfactual_importance_accuracy": -0.05857142857142861,
+    "counterfactual_importance_kl": 0.025601130907233705,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 18.05455203232051,
+    "different_trajectories_fraction": 0.84,
+    "overdeterminedness": 0.78,
+    "summary": "calculate fraction"
+  },
+  {
+    "chunk": "* 1! * 1!) = 40320 / (120 * 2 * 1 * 1) = 40320 / 240 = 168.",
+    "chunk_idx": 44,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "43"
+    ],
+    "accuracy": 0.88,
+    "resampling_importance_accuracy": -0.26383838383838387,
+    "resampling_importance_kl": 0.17411551921327265,
+    "counterfactual_importance_accuracy": 0.26383838383838387,
+    "counterfactual_importance_kl": 0.17411551921327265,
+    "forced_importance_accuracy": 0.04,
+    "forced_importance_kl": 23.872270175838217,
+    "different_trajectories_fraction": 1.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate result=168"
+  },
+  {
+    "chunk": "But wait, the \"double green\" plate can be arranged in two ways: green1 followed by green2 or green2 followed by green1.",
+    "chunk_idx": 45,
+    "function_tags": [
+      "fact_retrieval"
+    ],
+    "depends_on": [
+      "44"
+    ],
+    "accuracy": 0.6161616161616161,
+    "resampling_importance_accuracy": -0.39616161616161616,
+    "resampling_importance_kl": 0.36240442386793553,
+    "counterfactual_importance_accuracy": 0.5876923076923077,
+    "counterfactual_importance_kl": 0.604641890375413,
+    "forced_importance_accuracy": -0.010000000000000002,
+    "forced_importance_kl": 2.666428477546897,
+    "different_trajectories_fraction": 0.5252525252525253,
+    "overdeterminedness": 0.48484848484848486,
+    "summary": "list arrangements=2"
+  },
+  {
+    "chunk": "So I need to multiply this by 2, giving 168 * 2 = 336.",
+    "chunk_idx": 46,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "45"
+    ],
+    "accuracy": 0.22,
+    "resampling_importance_accuracy": -0.2,
+    "resampling_importance_kl": 0.3494952113872243,
+    "counterfactual_importance_accuracy": 0.20105263157894737,
+    "counterfactual_importance_kl": 0.2802617937104853,
+    "forced_importance_accuracy": -0.03,
+    "forced_importance_kl": 24.073109307989746,
+    "different_trajectories_fraction": 0.95,
+    "overdeterminedness": 0.8,
+    "summary": "multiply 168 by 2"
+  },
+  {
+    "chunk": "So the number of arrangements where the two green plates are adjacent is 336.",
+    "chunk_idx": 47,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "46"
+    ],
+    "accuracy": 0.02,
+    "resampling_importance_accuracy": -0.02,
+    "resampling_importance_kl": 0.40852960739494965,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0023157944629760632,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.97,
+    "summary": "arrangements=336"
+  },
+  {
+    "chunk": "Therefore, the number of acceptable arrangements where they are not adjacent is the total arrangements without restriction minus the adjacent arrangements: 756 - 336 = 420.",
+    "chunk_idx": 48,
+    "function_tags": [
+      "active_computation"
+    ],
+    "depends_on": [
+      "28",
+      "47"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.02,
+    "resampling_importance_kl": 0.0202027071029492,
+    "counterfactual_importance_accuracy": -0.02,
+    "counterfactual_importance_kl": 0.010309365911304182,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 21.61053370612646,
+    "different_trajectories_fraction": 0.05,
+    "overdeterminedness": 0.79,
+    "summary": "calculate arrangements=420"
+  },
+  {
+    "chunk": "Wait, but let me double-check.",
+    "chunk_idx": 49,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "48"
+    ],
+    "accuracy": 0.02,
+    "resampling_importance_accuracy": 0.009999999999999998,
+    "resampling_importance_kl": 0.00194206800092123,
+    "counterfactual_importance_accuracy": -0.01701298701298701,
+    "counterfactual_importance_kl": 0.007808206552693035,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.77,
+    "overdeterminedness": 0.55,
+    "summary": "check answer"
+  },
+  {
+    "chunk": "When I treated the two green plates as a single unit, I considered them as one item, so the total number of items is 9, leading to 8!",
+    "chunk_idx": 50,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "49"
+    ],
+    "accuracy": 0.03,
+    "resampling_importance_accuracy": 0.03,
+    "resampling_importance_kl": 0.009679294927449164,
+    "counterfactual_importance_accuracy": -0.02590909090909091,
+    "counterfactual_importance_kl": 0.004271059774851163,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.88,
+    "overdeterminedness": 0.31000000000000005,
+    "summary": "count items=9"
+  },
+  {
+    "chunk": "arrangements, but since it's circular, it's (9-1)!",
+    "chunk_idx": 51,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "50"
+    ],
+    "accuracy": 0.06,
+    "resampling_importance_accuracy": -0.039999999999999994,
+    "resampling_importance_kl": 0.026744402693995334,
+    "counterfactual_importance_accuracy": 0.04451612903225806,
+    "counterfactual_importance_kl": 0.03518772399986864,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.93,
+    "overdeterminedness": 0.62,
+    "summary": "calculate arrangements=8!"
+  },
+  {
+    "chunk": "= 8! as I did.",
+    "chunk_idx": 52,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "51"
+    ],
+    "accuracy": 0.02,
+    "resampling_importance_accuracy": 0.02,
+    "resampling_importance_kl": 0.0063439578454215755,
+    "counterfactual_importance_accuracy": -0.01916666666666667,
+    "counterfactual_importance_kl": 0.005015808602505969,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.96,
+    "overdeterminedness": 0.37,
+    "summary": "calculate 8!"
+  },
+  {
+    "chunk": "Then I divided by the factorials of the counts of each type, which are 5!",
+    "chunk_idx": 53,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "52"
+    ],
+    "accuracy": 0.04,
+    "resampling_importance_accuracy": -0.04,
+    "resampling_importance_kl": 0.8451932933973907,
+    "counterfactual_importance_accuracy": 0.05,
+    "counterfactual_importance_kl": 0.05537694277657632,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.6,
+    "overdeterminedness": 0.33999999999999997,
+    "summary": "divide by 5!"
+  },
+  {
+    "chunk": "for blue, 2!",
+    "chunk_idx": 54,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "53"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.99,
+    "summary": "calculate blue=2"
+  },
+  {
+    "chunk": "for red, and 1!",
+    "chunk_idx": 55,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "54"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.03,
+    "resampling_importance_kl": 0.03045920726587578,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.98,
+    "summary": "calculate red=1"
+  },
+  {
+    "chunk": "for orange and the \"double green.\" Then I multiplied by 2 because the two green plates can be swapped within their \"super plate.\" That seems correct.",
+    "chunk_idx": 56,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "55"
+    ],
+    "accuracy": 0.03,
+    "resampling_importance_accuracy": -0.019999999999999997,
+    "resampling_importance_kl": 0.01316176316849331,
+    "counterfactual_importance_accuracy": 0.06142857142857142,
+    "counterfactual_importance_kl": 0.07170963185374296,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.28,
+    "overdeterminedness": 0.6,
+    "summary": "multiply by 2"
+  },
+  {
+    "chunk": "So the total arrangements without restriction are 756, and the arrangements with green plates together are 336, so subtracting gives 420 acceptable arrangements.",
+    "chunk_idx": 57,
+    "function_tags": [
+      "result_consolidation"
+    ],
+    "depends_on": [
+      "28",
+      "47"
+    ],
+    "accuracy": 0.01,
+    "resampling_importance_accuracy": 0.01,
+    "resampling_importance_kl": 0.003119375941783885,
+    "counterfactual_importance_accuracy": -0.0021428571428571443,
+    "counterfactual_importance_kl": 0.0005274988282316572,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.56,
+    "overdeterminedness": 0.54,
+    "summary": "subtract 336 from 756"
+  },
+  {
+    "chunk": "I think that makes sense.",
+    "chunk_idx": 58,
+    "function_tags": [
+      "self_checking"
+    ],
+    "depends_on": [
+      "57"
+    ],
+    "accuracy": 0.02,
+    "resampling_importance_accuracy": -0.02,
+    "resampling_importance_kl": 0.40852960739494965,
+    "counterfactual_importance_accuracy": 0.023529411764705882,
+    "counterfactual_importance_kl": 0.48777769363124474,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.85,
+    "overdeterminedness": 0.52,
+    "summary": "no action taken"
+  },
+  {
+    "chunk": "So the answer should be 420.",
+    "chunk_idx": 59,
+    "function_tags": [
+      "final_answer_emission"
+    ],
+    "depends_on": [
+      "57"
+    ],
+    "accuracy": 0.0,
+    "resampling_importance_accuracy": 0.0,
+    "resampling_importance_kl": 0.0,
+    "counterfactual_importance_accuracy": 0.0,
+    "counterfactual_importance_kl": 0.0,
+    "forced_importance_accuracy": 0.0,
+    "forced_importance_kl": 0.0,
+    "different_trajectories_fraction": 0.0,
+    "overdeterminedness": 0.0,
+    "summary": "state answer=420"
+  }
+]

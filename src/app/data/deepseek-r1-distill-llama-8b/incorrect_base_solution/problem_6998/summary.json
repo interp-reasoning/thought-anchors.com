@@ -1,0 +1,246 @@
+{
+  "problem_idx": 6998,
+  "num_chunks": 157,
+  "avg_importance": 0.0013083695078907867,
+  "max_importance": 0.98,
+  "min_importance": -0.88,
+  "top_influential_steps": [
+    {
+      "step_idx": 50,
+      "step_text": {
+        "chunk": "But wait, let me just make sure that when n=319, x=1/(319\u03c0) is indeed greater than 0.0001.",
+        "chunk_idx": 50,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "49"
+        ],
+        "accuracy": 0.99,
+        "resampling_importance_accuracy": -0.47,
+        "resampling_importance_kl": 0.5995954736286963,
+        "counterfactual_importance_accuracy": 0.47,
+        "counterfactual_importance_kl": 0.5995954736286963,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.47,
+        "summary": "check x=1/(319\u03c0)"
+      },
+      "avg_outgoing_importance": 0.3730188679245284
+    },
+    {
+      "step_idx": 148,
+      "step_text": {
+        "chunk": "Alternatively, another way is to compute the number of integers between a and b inclusive is floor(b) -ceil(a) +1.",
+        "chunk_idx": 148,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [
+          "147"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.02,
+        "resampling_importance_kl": 0.0202027071029492,
+        "counterfactual_importance_accuracy": -0.02,
+        "counterfactual_importance_kl": 0.0202027071029492,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.7,
+        "summary": "compute integers = floor(b) -"
+      },
+      "avg_outgoing_importance": 0.32125
+    },
+    {
+      "step_idx": 58,
+      "step_text": {
+        "chunk": "Similarly, when n=3183, x=1/(3183\u03c0) \u2248 1/(3183*3.1416) \u2248 1/10000 \u2248 0.0001.",
+        "chunk_idx": 58,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "57"
+        ],
+        "accuracy": 0.67,
+        "resampling_importance_accuracy": -0.35000000000000003,
+        "resampling_importance_kl": 0.27651707765665823,
+        "counterfactual_importance_accuracy": 0.2514285714285714,
+        "counterfactual_importance_kl": 0.030440379484386194,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.07,
+        "overdeterminedness": 0.36,
+        "summary": "calculate x\u22480.0001"
+      },
+      "avg_outgoing_importance": 0.13908163265306123
+    },
+    {
+      "step_idx": 145,
+      "step_text": {
+        "chunk": "Wait, just to make sure, let me compute 3182 -319.",
+        "chunk_idx": 145,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [
+          "144"
+        ],
+        "accuracy": 0.0,
+        "resampling_importance_accuracy": 0.0,
+        "resampling_importance_kl": 0.0,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.98,
+        "overdeterminedness": 0.17000000000000004,
+        "summary": "compute 3182 - 319"
+      },
+      "avg_outgoing_importance": 0.13454545454545455
+    },
+    {
+      "step_idx": 149,
+      "step_text": {
+        "chunk": "In this case, a=1000/\u03c0\u2248318.309886, so ceil(a)=319.",
+        "chunk_idx": 149,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "148"
+        ],
+        "accuracy": 0.02,
+        "resampling_importance_accuracy": 0.009999999999999998,
+        "resampling_importance_kl": 0.00194206800092123,
+        "counterfactual_importance_accuracy": -0.03,
+        "counterfactual_importance_kl": 0.035091319410676766,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.0,
+        "different_trajectories_fraction": 0.55,
+        "overdeterminedness": 0.77,
+        "summary": "calculate ceil(a)=319"
+      },
+      "avg_outgoing_importance": 0.10857142857142855
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 1,
+      "step_text": {
+        "chunk": "Hmm, okay.",
+        "chunk_idx": 1,
+        "function_tags": [
+          "uncertainty_management"
+        ],
+        "depends_on": [],
+        "accuracy": 0.74,
+        "resampling_importance_accuracy": 0.030000000000000027,
+        "resampling_importance_kl": 0.19870754585557246,
+        "counterfactual_importance_accuracy": 0.22999999999999998,
+        "counterfactual_importance_kl": 0.28599143565549257,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.2591008144673559,
+        "different_trajectories_fraction": 0.03,
+        "overdeterminedness": 0.96,
+        "summary": "no action taken"
+      },
+      "avg_incoming_importance": 0.56
+    },
+    {
+      "step_idx": 2,
+      "step_text": {
+        "chunk": "Let me try to figure this out step by step.",
+        "chunk_idx": 2,
+        "function_tags": [
+          "plan_generation"
+        ],
+        "depends_on": [],
+        "accuracy": 0.77,
+        "resampling_importance_accuracy": 0.04999999999999993,
+        "resampling_importance_kl": 0.008278758479692956,
+        "counterfactual_importance_accuracy": -0.051884057971014474,
+        "counterfactual_importance_kl": 0.0064987170362492755,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.6658659741805504,
+        "different_trajectories_fraction": 0.69,
+        "overdeterminedness": 0.89,
+        "summary": "figure out step-by-step"
+      },
+      "avg_incoming_importance": 0.14
+    },
+    {
+      "step_idx": 4,
+      "step_text": {
+        "chunk": "That happens when the y-value is zero.",
+        "chunk_idx": 4,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [
+          "3"
+        ],
+        "accuracy": 0.76,
+        "resampling_importance_accuracy": 0.040000000000000036,
+        "resampling_importance_kl": 0.2031302247490651,
+        "counterfactual_importance_accuracy": -0.027272727272727337,
+        "counterfactual_importance_kl": 0.009655724951068236,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 0.4910716262204679,
+        "different_trajectories_fraction": 0.44,
+        "overdeterminedness": 0.87,
+        "summary": "y=0"
+      },
+      "avg_incoming_importance": 0.11000000000000001
+    },
+    {
+      "step_idx": 3,
+      "step_text": {
+        "chunk": "First, I remember that an x-intercept of a function is a point where the graph of the function crosses the x-axis.",
+        "chunk_idx": 3,
+        "function_tags": [
+          "fact_retrieval"
+        ],
+        "depends_on": [],
+        "accuracy": 0.82,
+        "resampling_importance_accuracy": -0.05999999999999994,
+        "resampling_importance_kl": 0.019454425782691284,
+        "counterfactual_importance_accuracy": 0.049523809523809526,
+        "counterfactual_importance_kl": 0.025702506293078877,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 10.617114438676897,
+        "different_trajectories_fraction": 0.42,
+        "overdeterminedness": 0.5700000000000001,
+        "summary": "define x-intercept"
+      },
+      "avg_incoming_importance": 0.09333333333333334
+    },
+    {
+      "step_idx": 9,
+      "step_text": {
+        "chunk": "So, substituting \u03b8 with 1/x, I get 1/x = n\u03c0.",
+        "chunk_idx": 9,
+        "function_tags": [
+          "active_computation"
+        ],
+        "depends_on": [
+          "6",
+          "8"
+        ],
+        "accuracy": 0.8,
+        "resampling_importance_accuracy": 0.06999999999999995,
+        "resampling_importance_kl": 0.22184176690186044,
+        "counterfactual_importance_accuracy": 0.0,
+        "counterfactual_importance_kl": 0.0,
+        "forced_importance_accuracy": 0.0,
+        "forced_importance_kl": 1.034715684089246,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.81,
+        "summary": "substitute \u03b8=1/x"
+      },
+      "avg_incoming_importance": 0.03555555555555555
+    }
+  ]
+}
