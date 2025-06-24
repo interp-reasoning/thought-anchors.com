@@ -47,7 +47,7 @@ const ControlRow = styled.div`
         font-size: 0.875rem;
         font-weight: 600;
         color: #444;
-        min-width: 100px;
+        margin-right: 16px;
     }
 
     select {
