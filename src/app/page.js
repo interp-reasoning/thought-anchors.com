@@ -15,7 +15,7 @@ export default function HomeScreen() {
     const [problems, setProblems] = useState([])
     const [selectedModel, setSelectedModel] = useState('deepseek-r1-distill-qwen-14b')
     const [selectedSolutionType, setSelectedSolutionType] = useState('correct_base_solution')
-    const [selectedProblem, setSelectedProblem] = useState('problem_2238')
+    const [selectedProblem, setSelectedProblem] = useState('problem_4682')
     const [loading, setLoading] = useState(true)
     const [windowWidth, setWindowWidth] = useState(0)
     const [problemNicknames, setProblemNicknames] = useState({})
@@ -220,7 +220,7 @@ export default function HomeScreen() {
                             problemId={selectedProblem}
                             modelId={selectedModel}
                             solutionType={selectedSolutionType}
-                            initialCausalLinksCount={3}
+                            initialCausalLinksCount={5}
                             initialImportanceFilter={4}
                             windowWidth={windowWidth}
                             visualizationType={visualizationType}

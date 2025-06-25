@@ -113,6 +113,78 @@ const ImportanceSlider = styled.input`
     }
 `
 
+// Animation Modal Styled Components
+const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+`
+
+const ModalContent = styled.div`
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    min-width: 400px;
+    max-width: 500px;
+`
+
+const ModalTitle = styled.h3`
+    margin: 0 0 1rem 0;
+    color: #333;
+`
+
+const ModalInput = styled.input`
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+`
+
+const ModalButtons = styled.div`
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+`
+
+const ModalButton = styled.button`
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &.primary {
+        background: #007bff;
+        color: white;
+        border-color: #007bff;
+
+        &:hover {
+            background: #0056b3;
+            border-color: #0056b3;
+        }
+    }
+
+    &.secondary {
+        background: #f5f5f5;
+
+        &:hover {
+            background: #e5e5e5;
+        }
+    }
+`
+
 // Function to create intermediate points for polyline
 const createPolylinePoints = (x1, y1, x2, y2, spacing = 60) => {
     const dx = x2 - x1
@@ -189,9 +261,17 @@ const ProblemVisualizer = ({
     
     // Attribution graph specific state
     const [selectedPaths, setSelectedPaths] = useState([])
-    const [maxDepth, setMaxDepth] = useState(2)
+    const [maxDepth, setMaxDepth] = useState(5)
     const [lastAttributionNode, setLastAttributionNode] = useState(null)
-    const [treeDirection, setTreeDirection] = useState('incoming') // 'incoming' or 'outgoing'
+    const [treeDirection, setTreeDirection] = useState('outgoing') // 'incoming' or 'outgoing'
+    
+    // Animation state
+    const [isAnimationModalOpen, setIsAnimationModalOpen] = useState(false)
+    const [animationSteps, setAnimationSteps] = useState('')
+    const [isAnimating, setIsAnimating] = useState(false)
+    const [currentAnimationStep, setCurrentAnimationStep] = useState(0)
+    const [visibleAnimationNodes, setVisibleAnimationNodes] = useState(new Set())
+    const [animationStepList, setAnimationStepList] = useState([]) // Track original step order
     
     const svgRef = useRef(null)
     const graphContainerRef = useRef(null)
@@ -207,7 +287,7 @@ const ProblemVisualizer = ({
 
     // Add state for supplementary data
     const [suppressionStepImportanceData, setSuppressionStepImportanceData] = useState(null)
-    const [selectedMetric, setSelectedMetric] = useState('counterfactual')
+    const [selectedMetric, setSelectedMetric] = useState('attention suppression')
 
     const hasSuppressionStepImportanceData = !!suppressionStepImportanceData
     const currentStepImportanceData = selectedMetric === 'counterfactual' ? counterfactualStepImportanceData : suppressionStepImportanceData
@@ -267,7 +347,7 @@ const ProblemVisualizer = ({
 
     // Normalize connection weights
     useEffect(() => {
-        if (currentStepImportanceData.length > 0) {
+        if (currentStepImportanceData && currentStepImportanceData.length > 0) {
             const weightMap = new Map()
             
             // Collect all importance scores for global normalization
@@ -509,7 +589,7 @@ const ProblemVisualizer = ({
 
     // Create a separate useEffect for initial graph rendering
     useEffect(() => {
-        if (!loading && chunksData.length > 0 && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
+        if (!loading && chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
             renderGraph()
         }
     }, [loading, chunksData, currentStepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter, visualizationType])
@@ -600,7 +680,7 @@ const ProblemVisualizer = ({
 
     // Re-render graph when window size changes (debounced)
     useEffect(() => {
-        if (windowWidth > 0 && !loading && chunksData.length > 0 && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
+        if (windowWidth > 0 && !loading && chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
             // Small delay to ensure layout has updated and prevent rapid re-renders
             const timer = setTimeout(() => {
                 renderGraph()
@@ -1132,6 +1212,8 @@ const ProblemVisualizer = ({
     // Get causal effects for a node
     const getCausalEffects = (nodeId) => {
         const effects = []
+        if (!currentStepImportanceData) return effects
+        
         const stepData = currentStepImportanceData.find((step) => step.source_chunk_idx === nodeId)
 
         if (stepData && stepData.target_impacts) {
@@ -1157,6 +1239,7 @@ const ProblemVisualizer = ({
     // Get what affects this node (causally affected by)
     const getCausallyAffectedBy = (nodeId, limit = localCausalLinksCount) => {
         const affectedBy = []
+        if (!currentStepImportanceData) return affectedBy
         
         currentStepImportanceData.forEach((step) => {
             const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
@@ -1416,7 +1499,7 @@ const ProblemVisualizer = ({
                 nodeIdToUse = mostImportantChunk.chunk_idx
             }
             
-            if (nodeIdToUse && currentStepImportanceData.length > 0 && chunksData.length > 0) {
+            if (nodeIdToUse && currentStepImportanceData && currentStepImportanceData.length > 0 && chunksData.length > 0) {
                 const paths = buildAttributionPaths(nodeIdToUse, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
                 if (paths && paths.length > 0) {
                     setSelectedPaths(paths)
@@ -1440,8 +1523,180 @@ const ProblemVisualizer = ({
         // Note: Don't clear lastAttributionNode when switching to circle view - keep it for when we switch back
     }, [selectedNode, currentStepImportanceData, chunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, treeDirection])
 
+    // Animation control functions
+    const startAnimation = () => {
+        const steps = animationSteps
+            .split(',')
+            .map(s => parseInt(s.trim()))
+            .filter(n => !isNaN(n) && chunksData.some(chunk => chunk.chunk_idx === n))
+        
+        if (steps.length === 0) {
+            alert('Please enter valid step numbers separated by commas')
+            return
+        }
+        
+        setIsAnimationModalOpen(false)
+        setIsAnimating(true)
+        setCurrentAnimationStep(0)
+        setVisibleAnimationNodes(new Set())
+        setAnimationStepList(steps) // Store the original step order
+        
+        // Reset view to center when animation starts
+        if (visualizationType === 'attribution' && typeof window !== 'undefined' && window.resetAttributionGraphView) {
+            window.resetAttributionGraphView()
+        }
+        
+        // Start animation sequence
+        animateSteps(steps)
+    }
+    
+    const animateSteps = async (steps) => {
+        // Reset animation state
+        setVisibleAnimationNodes(new Set())
+        
+        // Validate all steps exist
+        const validSteps = steps.filter(stepId => 
+            chunksData.some(chunk => chunk.chunk_idx === stepId)
+        )
+        
+        if (validSteps.length === 0) {
+            setIsAnimating(false)
+            return
+        }
+        
+        // Build animation tree layout to determine levels
+        const tempAnimationTreeLayout = buildAnimationTreeLayout(validSteps, currentStepImportanceData)
+        
+        // Helper function to build tree layout - simplified approach
+        function buildAnimationTreeLayout(animationNodes, stepData) {
+            if (!animationNodes || animationNodes.length === 0) return new Map()
+            
+            const animationNodesList = Array.from(animationNodes)
+            const nodesByLevel = new Map()
+            
+            // Simple approach: assign levels based on input order and connections
+            // First node always at level 0
+            nodesByLevel.set(0, [animationNodesList[0]])
+            
+            // Helper function to get top-3 connections from a source node (only within animation nodes)
+            const getTopConnections = (sourceIdx) => {
+                if (!stepData) return []
+                const stepInfo = stepData.find(step => step.source_chunk_idx === sourceIdx)
+                if (!stepInfo?.target_impacts) return []
+                
+                return stepInfo.target_impacts
+                    .filter(impact => animationNodesList.includes(impact.target_chunk_idx)) // Only connections within animation nodes
+                    .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                    .slice(0, 3)
+                    .map(impact => impact.target_chunk_idx)
+            }
+            
+            // Process remaining nodes in input order
+            for (let i = 1; i < animationNodesList.length; i++) {
+                const currentNode = animationNodesList[i]
+                let assignedLevel = i // Default: each node gets its own level to respect input order
+                
+                // Check if this node has strong connections to earlier placed nodes
+                let bestConnectionLevel = -1
+                for (const [level, nodesAtLevel] of nodesByLevel.entries()) {
+                    for (const placedNode of nodesAtLevel) {
+                        const connections = getTopConnections(placedNode)
+                        if (connections.includes(currentNode)) {
+                            bestConnectionLevel = Math.max(bestConnectionLevel, level)
+                            break
+                        }
+                    }
+                }
+                
+                // If we found a connection, place at next level after the connection
+                if (bestConnectionLevel >= 0) {
+                    assignedLevel = bestConnectionLevel + 1
+                }
+                
+                // But ensure later nodes in input don't appear too early (respect sequence)
+                assignedLevel = Math.max(assignedLevel, Math.floor(i * 0.8))
+                
+                // Add to the determined level
+                if (!nodesByLevel.has(assignedLevel)) {
+                    nodesByLevel.set(assignedLevel, [])
+                }
+                nodesByLevel.get(assignedLevel).push(currentNode)
+            }
+            
+            return nodesByLevel
+        }
+        
+        // Show nodes one at a time in exact input order
+        for (let i = 0; i < validSteps.length; i++) {
+            const currentNode = validSteps[i]
+            
+            // Add current node to visible nodes
+            setVisibleAnimationNodes(prev => new Set([...prev, currentNode]))
+            
+            // Select this node for CoT and detail panel
+            const chunk = chunksData.find(c => c.chunk_idx === currentNode)
+            if (chunk) {
+                const nodeData = {
+                    id: chunk.chunk_idx,
+                    text: chunk.chunk,
+                    functionTag: chunk.function_tags[0],
+                    importance: Math.abs(chunk.importance) || 0.01,
+                    dependsOn: chunk.depends_on,
+                }
+                setSelectedNode(nodeData)
+                setScrollToNode(chunk.chunk_idx)
+            }
+            
+            setCurrentAnimationStep(i + 1)
+            
+            // Wait 2 seconds before next node (except for the last one)
+            if (i < validSteps.length - 1) {
+                await new Promise(resolve => setTimeout(resolve, 2000))
+            }
+        }
+        
+        // Animation complete - keep animation nodes visible
+        setTimeout(() => {
+            setIsAnimating(false)
+            setCurrentAnimationStep(0)
+            // Don't clear animationStepList and visibleAnimationNodes to keep them visible
+        }, 1000)
+    }
+    
+    const cancelAnimation = () => {
+        setIsAnimationModalOpen(false)
+        setAnimationSteps('')
+    }
+
     return (
         <div>
+            {/* Animation Modal */}
+            {isAnimationModalOpen && (
+                <ModalOverlay onClick={(e) => e.target === e.currentTarget && cancelAnimation()}>
+                    <ModalContent>
+                        <ModalTitle>Animation Setup</ModalTitle>
+                        <p style={{ marginBottom: '1rem', color: '#666', fontSize: '0.875rem' }}>
+                            Enter step numbers separated by commas (e.g., "1, 5, 12, 18"):
+                        </p>
+                        <ModalInput
+                            type="text"
+                            value={animationSteps}
+                            onChange={(e) => setAnimationSteps(e.target.value)}
+                            placeholder="e.g., 1, 5, 12, 18"
+                            autoFocus
+                        />
+                        <ModalButtons>
+                            <ModalButton className="secondary" onClick={cancelAnimation}>
+                                Cancel
+                            </ModalButton>
+                            <ModalButton className="primary" onClick={startAnimation}>
+                                Start Animation
+                            </ModalButton>
+                        </ModalButtons>
+                    </ModalContent>
+                </ModalOverlay>
+            )}
+            
             {tooltip.visible && (
                 <HoverTooltip style={{ left: tooltip.x, top: tooltip.y }}>
                     {tooltip.content}
@@ -1691,6 +1946,31 @@ const ProblemVisualizer = ({
                                                 if (onVisualizationTypeChange) {
                                                     onVisualizationTypeChange('attribution')
                                                 }
+                                                
+                                                // Automatically start animation with predefined steps
+                                                const predefinedSteps = "11, 12, 14, 43, 44, 46, 59, 84, 86, 129, 144"
+                                                const steps = predefinedSteps
+                                                    .split(',')
+                                                    .map(s => parseInt(s.trim()))
+                                                    .filter(n => !isNaN(n) && chunksData.some(chunk => chunk.chunk_idx === n))
+                                                
+                                                if (steps.length > 0) {
+                                                    // Start animation immediately
+                                                    setIsAnimating(true)
+                                                    setCurrentAnimationStep(0)
+                                                    setVisibleAnimationNodes(new Set())
+                                                    setAnimationStepList(steps) // Store the original step order
+                                                    
+                                                    // Reset view to center when animation starts
+                                                    setTimeout(() => {
+                                                        if (typeof window !== 'undefined' && window.resetAttributionGraphView) {
+                                                            window.resetAttributionGraphView()
+                                                        }
+                                                    }, 100)
+                                                    
+                                                    // Start animation sequence
+                                                    animateSteps(steps)
+                                                }
                                             }}
                                         >
                                             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1770,13 +2050,35 @@ const ProblemVisualizer = ({
                                                 value={maxDepth}
                                                 onChange={(e) => setMaxDepth(Number(e.target.value))}
                                             >
-                                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((num) => (
+                                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                                                     <option key={num} value={num}>
                                                         {num}
                                                     </option>
                                                 ))}
                                             </select>
                                         </ControlRow>
+                                        <ControlRow>
+                                            <ControlButton 
+                                                onClick={() => setIsAnimationModalOpen(true)}
+                                                disabled={isAnimating}
+                                            >
+                                                {isAnimating ? 'Animating...' : 'Animate'}
+                                            </ControlButton>
+                                        </ControlRow>
+                                        {visibleAnimationNodes.size > 0 && (
+                                            <ControlRow>
+                                                <ControlButton 
+                                                    onClick={() => {
+                                                        setVisibleAnimationNodes(new Set())
+                                                        setAnimationStepList([])
+                                                        setIsAnimating(false)
+                                                        setCurrentAnimationStep(0)
+                                                    }}
+                                                >
+                                                    Clear Animation
+                                                </ControlButton>
+                                            </ControlRow>
+                                        )}
                                     </>
                                 )}
                                 
@@ -1797,6 +2099,11 @@ const ProblemVisualizer = ({
                                     treeDirection={treeDirection}
                                     causalLinksCount={localCausalLinksCount}
                                     maxDepth={maxDepth}
+                                    isAnimating={isAnimating}
+                                    visibleAnimationNodes={visibleAnimationNodes}
+                                    currentAnimationStep={currentAnimationStep}
+                                    animationStepList={animationStepList}
+                                    currentStepImportanceData={currentStepImportanceData}
                                     onNodeHover={handleNodeHover}
                                     onNodeLeave={handleNodeLeave}
                                     onNodeClick={handleNodeClick}
