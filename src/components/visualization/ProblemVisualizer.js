@@ -1946,6 +1946,7 @@ const ProblemVisualizer = ({
                                     chunksData={chunksData}
                                     selectedPaths={selectedPaths}
                                     treeDirection={treeDirection}
+                                    causalLinksCount={localCausalLinksCount}
                                     onNodeHover={handleNodeHover}
                                     onNodeLeave={handleNodeLeave}
                                     onNodeClick={handleNodeClick}

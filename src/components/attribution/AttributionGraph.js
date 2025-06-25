@@ -8,6 +8,7 @@ export default function AttributionGraph({
   chunksData, 
   selectedPaths,
   treeDirection = 'incoming',
+  causalLinksCount = 3,
   onNodeHover,
   onNodeLeave,
   onNodeClick
@@ -71,7 +72,7 @@ export default function AttributionGraph({
   }, [selectedPaths]) // Re-initialize when paths change
 
   // Build tree layout with selected node at bottom
-  const buildTreeLayout = (paths, maxNodes = 10) => {
+  const buildTreeLayout = (paths, maxNodes = 10, causalLinksCount = 3) => {
     const allNodes = new Map()
     const nodesByLevel = new Map()
     
@@ -130,7 +131,7 @@ export default function AttributionGraph({
       const connections = selectedNode.sources || selectedNode.targets || []
       const topConnections = connections
         .sort((a, b) => b.score - a.score) // Sort by normalized score descending
-        .slice(0, 3) // Take top 3
+        .slice(0, causalLinksCount) // Use causalLinksCount parameter instead of hardcoded 3
       
       topConnections.forEach(connection => {
         if (filteredNodes.has(connection.idx)) {
@@ -149,10 +150,10 @@ export default function AttributionGraph({
     level1Nodes.forEach(node => {
       const connections = node.sources || node.targets || []
       if (connections.length > 0) {
-        // Sort connections by normalized score and take top 3 for each level 1 node
+        // Sort connections by normalized score and take top-N based on causalLinksCount
         const topConnections = connections
           .sort((a, b) => b.score - a.score) // Sort by normalized score descending
-          .slice(0, 3) // Take top 3
+          .slice(0, causalLinksCount) // Use causalLinksCount parameter instead of hardcoded 3
         
         topConnections.forEach(connection => {
           if (filteredNodes.has(connection.idx) && !level2NodeIds.has(connection.idx)) {
@@ -170,7 +171,7 @@ export default function AttributionGraph({
     return nodesByLevel
   }
 
-  const treeLayout = buildTreeLayout(selectedPaths)
+  const treeLayout = buildTreeLayout(selectedPaths, 10, causalLinksCount)
 
   // NOW we can do conditional returns after all hooks
   if (!selectedPaths.length || treeLayout.size === 0) return (
