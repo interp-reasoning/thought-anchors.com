@@ -10,6 +10,7 @@ import {
     ControlsContainer,
     SelectContainer,
     Instructions,
+    Description,
 } from '@/styles/visualization'
 
 export default function HomeScreen() {
@@ -119,17 +120,11 @@ export default function HomeScreen() {
             <Navbar />
             <VisualizerContainer>
                 <Title>⚓️ Thought Anchors: Which LLM Reasoning Steps Matter?</Title>
-                <p style={{ 
-                    fontSize: '1rem', 
-                    color: '#666', 
-                    marginBottom: '1rem',
-                    textAlign: 'left',
-                    alignSelf: 'flex-start',
-                }}>
+                <Description>
                     Interactive visualization tool for analyzing causal relationships and <strong>counterfactual importance attribution  </strong> 
                     in reasoning chains. Explore how different reasoning steps 
                     influence the final answer and downstream reasoning.
-                </p>
+                </Description>
 
                 {loading ? (
                     <p>Loading problems...</p>

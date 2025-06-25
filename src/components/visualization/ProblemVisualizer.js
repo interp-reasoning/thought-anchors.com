@@ -722,6 +722,18 @@ const ProblemVisualizer = ({
             // Normalize importance to 0-1 range for this problem
             const normalizedImportance = (rawImportance - minImportance) / importanceRange
             
+            // Mobile-specific node sizing
+            let baseRadius, radiusMultiplier
+            if (window.innerWidth <= 650) {
+                // Mobile: smaller nodes
+                baseRadius = 8
+                radiusMultiplier = 2.5
+            } else {
+                // Desktop/tablet: original sizing
+                baseRadius = 10
+                radiusMultiplier = 3.5
+            }
+            
             return {
                 id: chunk.chunk_idx,
                 text: chunk.chunk,
@@ -729,8 +741,8 @@ const ProblemVisualizer = ({
                 importance: normalizedImportance, // Use normalized importance
                 rawImportance: rawImportance, // Keep raw for reference
                 dependsOn: chunk.depends_on,
-                // Dynamic radius based on normalized importance (more significant variation)
-                radius: Math.max(10, 10 + Math.log(1 + normalizedImportance * 20) * 3.5),
+                // Dynamic radius based on normalized importance with mobile adjustments
+                radius: Math.max(baseRadius, baseRadius + Math.log(1 + normalizedImportance * 20) * radiusMultiplier),
                 // Color intensity based on normalized importance
                 colorIntensity: Math.min(1, Math.max(0.6, normalizedImportance * 3))
             }
@@ -838,7 +850,15 @@ const ProblemVisualizer = ({
         const radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.45 : 0.425)
         
         // Use a lower vertical offset when the right panel is open
-        const verticalOffset = containerHeight * (selectedNode ? 0.45 : 0.475)
+        // Add mobile-specific adjustments for better positioning
+        let verticalOffset
+        if (window.innerWidth <= 650) {
+            // Mobile: center the circle better for smaller screens
+            verticalOffset = containerHeight * 0.3
+        } else {
+            // Desktop/tablet: use existing logic
+            verticalOffset = containerHeight * (selectedNode ? 0.45 : 0.475)
+        }
 
         filteredNodes.forEach((node, i) => {
             const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2
@@ -1670,7 +1690,7 @@ const ProblemVisualizer = ({
                                 </svg>
                                 <span>Incoming connections (on hover)</span>
                             </LegendItem>
-                            <LegendItem>
+                            <LegendItem dontShowOnMobile={true}>
                                 <svg width='60' height='20'>
                                     <circle cx='10' cy='10' r='4' fill='#4285F4' />
                                     <circle cx='25' cy='10' r='6' fill='#4285F4' />

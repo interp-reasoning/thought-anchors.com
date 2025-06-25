@@ -14,11 +14,11 @@ export default function AttributionGraph({
   onNodeLeave,
   onNodeClick
 }) {
-  // Layout constants
-  const nodeW = 110
-  const nodeH = 70
-  const levelGapY = 120  // Vertical spacing between levels
-  const nodeGapX = 150  // Horizontal spacing between nodes at same level
+  // Node dimensions - mobile responsive
+  const nodeW = window.innerWidth <= 650 ? 80 : 110
+  const nodeH = window.innerWidth <= 650 ? 40 : 70
+  const levelGapY = window.innerWidth <= 650 ? 90 : 120  // Vertical spacing between levels - smaller on mobile
+  const nodeGapX = window.innerWidth <= 650 ? 110 : 150  // Horizontal spacing between nodes at same level - smaller on mobile
 
   
   // Create ref for container and zoom

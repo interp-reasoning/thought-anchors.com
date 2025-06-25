@@ -1,5 +1,19 @@
 import styled from 'styled-components'
 
+export const Description = styled.p`
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+    text-align: left;
+    align-self: flex-start;
+
+    @media (max-width: 650px) {
+        text-align: center;
+        align-self: center;
+        font-size: 0.875rem;
+    }
+`
+
 export const Instructions = styled.div`
     font-size: 0.875rem;
     color: #666;
@@ -80,12 +94,12 @@ export const GraphContainer = styled.div`
     @media (max-width: 875px) {
         flex: none;
         width: 100%;
-        max-height: 70vh;
+        max-height: 75vh;
         order: 2; /* Graph comes after chain of thought on mobile */
     }
     
     @media (max-width: 650px) {
-        max-height: 60vh;
+        max-height: 70vh;
         border-radius: 6px;
     }
 `
@@ -268,7 +282,9 @@ export const LegendRow = styled.div`
     }
 `
 
-export const LegendItem = styled.div`
+export const LegendItem = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'dontShowOnMobile',
+})`
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -286,6 +302,8 @@ export const LegendItem = styled.div`
         span {
             font-size: 0.8rem;
         }
+
+        display: ${(props) => (props.dontShowOnMobile ? 'none' : 'flex')};
     }
 `
 

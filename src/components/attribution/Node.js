@@ -61,8 +61,14 @@ export default function Node({
   const color = functionTagColors[tag] || '#999'
   const summaryText = chunk?.summary?.replace('\\)', ')').replace('\\(', '(') || chunk?.chunk || ''
   
-  // Wrap the text into multiple lines
-  const textLines = wrapText(summaryText, 16)
+  // Mobile-responsive font sizes
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 650
+  const titleFontSize = isMobile ? "0.85em" : "1.05em"
+  const textFontSize = isMobile ? "0.65em" : "0.8em"
+  const maxCharsPerLine = isMobile ? 12 : 16
+
+  // Wrap the text into multiple lines with mobile-responsive char limit
+  const textLines = wrapText(summaryText, maxCharsPerLine)
   const lineHeight = 12
   const totalTextHeight = textLines.length * lineHeight
   
@@ -169,7 +175,7 @@ export default function Node({
         x={pos.x}
         y={pos.y - 8}
         fontWeight="bold"
-        fontSize="1.05em"
+        fontSize={titleFontSize}
         fill="#222"
         fillOpacity={Math.max(0.7, opacity)}
         textAnchor="middle"
@@ -182,7 +188,7 @@ export default function Node({
           key={index}
           x={pos.x}
           y={textStartY + (index * lineHeight) + 6}
-          fontSize="0.8em"
+          fontSize={textFontSize}
           fill="#222"
           fillOpacity={Math.max(0.7, opacity)}
           textAnchor="middle"
