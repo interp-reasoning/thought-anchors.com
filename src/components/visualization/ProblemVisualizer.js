@@ -55,7 +55,7 @@ const ControlRow = styled.div`
         border-radius: 4px;
         border: 1px solid #ccc;
         font-size: 0.875rem;
-        min-width: 80px;
+        min-width: 50px;
     }
 `
 
