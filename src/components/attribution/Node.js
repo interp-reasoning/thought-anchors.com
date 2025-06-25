@@ -133,6 +133,36 @@ export default function Node({
           fill={'transparent'}
           stroke={'#333'}
           strokeWidth={3}
+          style={{ cursor: 'pointer' }}
+          onMouseEnter={(e) => {
+            if (onNodeHover) {
+              const nodeData = {
+                id: node.idx,
+                text: chunk.chunk || chunk.summary,
+                functionTag: tag,
+                importance: Math.abs(chunk.importance) || 0.01,
+                dependsOn: chunk.depends_on,
+              }
+              onNodeHover(e, nodeData)
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (onNodeLeave) {
+              onNodeLeave(e)
+            }
+          }}
+          onClick={(e) => {
+            if (onNodeClick) {
+              const nodeData = {
+                id: node.idx,
+                text: chunk.chunk || chunk.summary,
+                functionTag: tag,
+                importance: Math.abs(chunk.importance) || 0.01,
+                dependsOn: chunk.depends_on,
+              }
+              onNodeClick(nodeData)
+            }
+          }}
         />
       )}
       <text

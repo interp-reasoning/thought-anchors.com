@@ -475,7 +475,12 @@ export default function AttributionGraph({
                           nodeW={nodeW}
                           nodeH={nodeH}
                           opacity={nodeOpacity}
-                          onNodeHover={onNodeHover}
+                          onNodeHover={(event, nodeData) => {
+                            // Always trigger hover, even for selected nodes
+                            if (onNodeHover) {
+                              onNodeHover(event, nodeData)
+                            }
+                          }}
                           onNodeLeave={onNodeLeave}
                           onNodeClick={onNodeClick}
                         />

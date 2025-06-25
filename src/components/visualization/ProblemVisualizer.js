@@ -1206,13 +1206,23 @@ const ProblemVisualizer = ({
         // Use delay only for visual effects in circle mode
         if (visualizationType === 'circle') {
             hoverTimerRef.current = setTimeout(() => {
-                // Add highlighting to the hovered node
+                // Add highlighting to the hovered node while preserving selected node highlighting
                 if (svgRef.current) {
                     d3.select(svgRef.current)
                         .selectAll('.nodes g')
                         .selectAll('circle')
-                        .attr('stroke', (d) => d.id === node.id ? nodeHighlightColor : '#fff')
-                        .attr('stroke-width', (d) => d.id === node.id ? nodeHighlightWidth : 2)
+                        .attr('stroke', (d) => {
+                            if (selectedNode && d.id === selectedNode.id) {
+                                return nodeHighlightColor // Keep selected node highlighted
+                            }
+                            return d.id === node.id ? nodeHighlightColor : '#fff'
+                        })
+                        .attr('stroke-width', (d) => {
+                            if (selectedNode && d.id === selectedNode.id) {
+                                return nodeHighlightWidth // Keep selected node border width
+                            }
+                            return d.id === node.id ? nodeHighlightWidth : 2
+                        })
                 }
             }, 200) // Reduced delay for visual effects
         }
@@ -1233,13 +1243,23 @@ const ProblemVisualizer = ({
         
         // Only apply visual effects in circle mode
         if (visualizationType === 'circle') {
-            // Remove highlighting from all nodes
+            // Remove highlighting from all nodes except selected node
             if (svgRef.current) {
                 d3.select(svgRef.current)
                     .selectAll('.nodes g')
                     .selectAll('circle')
-                    .attr('stroke', '#fff')
-                    .attr('stroke-width', 2)
+                    .attr('stroke', (d) => {
+                        if (selectedNode && d.id === selectedNode.id) {
+                            return nodeHighlightColor // Keep selected node highlighted
+                        }
+                        return '#fff'
+                    })
+                    .attr('stroke-width', (d) => {
+                        if (selectedNode && d.id === selectedNode.id) {
+                            return nodeHighlightWidth // Keep selected node border width
+                        }
+                        return 2
+                    })
             }
         }
     }
