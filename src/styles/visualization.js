@@ -94,12 +94,12 @@ export const GraphContainer = styled.div`
     @media (max-width: 875px) {
         flex: none;
         width: 100%;
-        max-height: 80vh;
+        max-height: 85vh;
         order: 2; /* Graph comes after chain of thought on mobile */
     }
     
     @media (max-width: 650px) {
-        max-height: 75vh;
+        max-height: 80vh;
         border-radius: 6px;
     }
 `
