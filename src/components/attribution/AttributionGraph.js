@@ -375,7 +375,8 @@ export default function AttributionGraph({
         width: '100%', 
         height: '100%', 
         overflow: 'hidden',
-        position: 'relative' 
+        position: 'relative',
+        touchAction: 'manipulation' // Improve touch handling on mobile
       }}
     >
       <div style={{ 
@@ -384,7 +385,12 @@ export default function AttributionGraph({
         position: 'relative',
         minWidth: '100%' // Ensure it takes at least full width of container
       }}>
-        <svg ref={svgRef} width={width} height={height} style={{ width: '100%', height: '100%', display: 'block' }}>
+        <svg ref={svgRef} width={width} height={height} style={{ 
+          width: '100%', 
+          height: '100%', 
+          display: 'block',
+          touchAction: 'manipulation' // Better touch handling
+        }}>
           <defs>
             {/* Arrow marker with better visibility */}
             <marker

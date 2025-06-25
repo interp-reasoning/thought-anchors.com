@@ -23,6 +23,25 @@ const ChainContainer = styled.div.withConfig({
         min-width: 75px;
         max-width: 75px;
     `}
+
+    /* Mobile responsive chain container */
+    @media (max-width: 875px) {
+        flex: none;
+        width: 100%;
+        min-width: auto;
+        order: 1; /* Chain of thought comes first on mobile */
+        max-height: 50vh;
+    }
+    
+    @media (max-width: 650px) {
+        border-radius: 6px;
+        max-height: 40vh;
+        
+        ${props => props.isCollapsed && `
+            min-width: 60px;
+            max-width: 60px;
+        `}
+    }
 `
 
 const ChainHeader = styled.div.withConfig({
@@ -53,6 +72,24 @@ const ChainHeader = styled.div.withConfig({
             text-orientation: mixed;
         }
     `}
+
+    /* Mobile responsive header */
+    @media (max-width: 650px) {
+        padding: 0.75rem;
+        
+        h3 {
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        ${props => props.isCollapsed && `
+            padding: 0.75rem 0.4rem;
+            
+            h3 {
+                font-size: 0.7rem;
+            }
+        `}
+    }
 `
 
 const ToggleButton = styled.button.withConfig({
@@ -78,6 +115,17 @@ const ToggleButton = styled.button.withConfig({
         align-items: center;
         justify-content: center;
     `}
+
+    /* Mobile responsive toggle */
+    @media (max-width: 650px) {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.8rem;
+        
+        ${props => props.isCollapsed && `
+            padding: 0.4rem 0.2rem;
+            font-size: 0.9rem;
+        `}
+    }
 `
 
 const ChainList = styled.div.withConfig({
@@ -97,6 +145,11 @@ const ChainList = styled.div.withConfig({
     ${props => props.isCollapsed && `
         display: none;
     `}
+
+    /* Mobile responsive list */
+    @media (max-width: 650px) {
+        padding: 0.4rem;
+    }
 `
 
 const ChainStep = styled.div.withConfig({
@@ -134,6 +187,26 @@ const ChainStep = styled.div.withConfig({
         box-shadow: 0 0 0 2px ${props.color}, 0 4px 12px rgba(0, 0, 0, 0.2);
         transform: translateX(6px);
     `}
+
+    /* Mobile responsive step */
+    @media (max-width: 650px) {
+        padding: 0.5rem;
+        margin-bottom: 0.4rem;
+        border-radius: 4px;
+        border-left-width: 3px;
+        
+        &:hover {
+            transform: translateX(2px);
+        }
+        
+        ${props => props.isSelected && `
+            transform: translateX(2px);
+        `}
+        
+        ${props => props.isHighlighted && `
+            transform: translateX(3px);
+        `}
+    }
 `
 
 const StepNumber = styled.div.withConfig({
@@ -154,6 +227,16 @@ const StepNumber = styled.div.withConfig({
     font-weight: bold;
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    /* Mobile responsive step number */
+    @media (max-width: 650px) {
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+        top: -6px;
+        left: -6px;
+        border-width: 1px;
+    }
 `
 
 const StepHeader = styled.div`
@@ -162,6 +245,14 @@ const StepHeader = styled.div`
     align-items: flex-start;
     margin-bottom: 0.5rem;
     gap: 0.75rem;
+
+    /* Mobile responsive step header */
+    @media (max-width: 650px) {
+        margin-bottom: 0.4rem;
+        gap: 0.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 `
 
 const StepFunction = styled.span`
@@ -173,6 +264,13 @@ const StepFunction = styled.span`
     padding: 0.25rem 0.5rem;
     border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.1);
+
+    /* Mobile responsive step function */
+    @media (max-width: 650px) {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        border-radius: 8px;
+    }
 `
 
 const ImportanceScore = styled.span`
@@ -183,6 +281,12 @@ const ImportanceScore = styled.span`
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.1);
+
+    /* Mobile responsive importance score */
+    @media (max-width: 650px) {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
 `
 
 const StepText = styled.div`
@@ -193,12 +297,25 @@ const StepText = styled.div`
     padding: 0.5rem;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.1);
+
+    /* Mobile responsive step text */
+    @media (max-width: 650px) {
+        font-size: 0.8rem;
+        line-height: 1.3;
+        padding: 0.4rem;
+    }
 `
 
 const CollapsedView = styled.div`
     padding: 1rem;
     text-align: center;
     color: #666;
+
+    /* Mobile responsive collapsed view */
+    @media (max-width: 650px) {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
 `
 
 const ChainOfThought = ({ 

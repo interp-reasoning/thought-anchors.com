@@ -35,6 +35,20 @@ const GraphControls = styled.div`
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border: 1px solid #eee;
     z-index: 10;
+
+    /* Mobile responsive graph controls */
+    @media (max-width: 875px) {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 12px;
+        align-items: stretch;
+    }
+    
+    @media (max-width: 650px) {
+        padding: 10px;
+        gap: 0.5rem;
+        border-radius: 6px;
+    }
 `
 
 const ControlRow = styled.div`
@@ -57,6 +71,40 @@ const ControlRow = styled.div`
         font-size: 0.875rem;
         min-width: 50px;
     }
+
+    /* Mobile responsive control row */
+    @media (max-width: 875px) {
+        justify-content: flex-start;
+        width: 100%;
+        
+        label {
+            margin-right: 12px;
+            min-width: 80px;
+        }
+        
+        select {
+            flex: 1;
+        }
+    }
+    
+    @media (max-width: 650px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+        
+        label {
+            margin-right: 0;
+            margin-bottom: 0.2rem;
+            font-size: 0.8rem;
+            min-width: auto;
+        }
+        
+        select {
+            width: 100%;
+            padding: 6px 10px;
+            font-size: 0.8rem;
+        }
+    }
 `
 
 const ControlButton = styled.button`
@@ -71,6 +119,12 @@ const ControlButton = styled.button`
 
     &:hover {
         background: #e5e5e5;
+    }
+
+    /* Mobile responsive control button */
+    @media (max-width: 650px) {
+        padding: 8px 12px;
+        font-size: 0.8rem;
     }
 `
 
@@ -109,6 +163,22 @@ const ImportanceSlider = styled.input`
 
         &:hover {
             background: #555;
+        }
+    }
+
+    /* Mobile responsive slider */
+    @media (max-width: 650px) {
+        width: 100%;
+        height: 6px;
+        
+        &::-webkit-slider-thumb {
+            width: 18px;
+            height: 18px;
+        }
+        
+        &::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
         }
     }
 `

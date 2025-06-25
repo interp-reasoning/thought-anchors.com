@@ -135,7 +135,13 @@ export default function HomeScreen() {
                 ) : (
                     <>
                         <ControlsContainer>
-                            <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'flex-start', flexDirection: 'column' }}>
+                            <div style={{ 
+                                display: 'flex', 
+                                gap: '0.4rem', 
+                                alignItems: 'flex-start', 
+                                flexDirection: 'column',
+                                width: '100%'
+                            }}>
                                 <SelectContainer>
                                         <label htmlFor='model-select' style={{ fontWeight: '600', marginRight: '1rem' }}>
                                             Model:
@@ -207,7 +213,8 @@ export default function HomeScreen() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'flex-end',
-                                gap: '0.25rem'
+                                gap: '0.25rem',
+                                textAlign: 'right'
                             }}>
                                 <div>💡 <strong>Hover</strong> over steps for quick preview</div>
                                 <div>🔗 <strong>Click</strong> to lock selection and see details</div>
