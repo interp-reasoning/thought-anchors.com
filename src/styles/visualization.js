@@ -1,5 +1,18 @@
 import styled from 'styled-components'
 
+export const Instructions = styled.div`
+    font-size: 0.875rem;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    text-align: right;
+
+    @media (max-width: 748px) {
+        display: none;
+    }
+`
 export const VisualizerContainer = styled.div`
     padding: 2rem 0rem 2rem 0rem;
     max-width: 100%;
@@ -285,15 +298,11 @@ export const ControlsContainer = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
 
-    /* Mobile responsive controls */
-    @media (max-width: 875px) {
+    /* Mobile responsive controls - only affect mobile, not tablets/desktop */
+    @media (max-width: 650px) {
         flex-direction: column;
         gap: 1rem;
         align-items: stretch;
-    }
-    
-    @media (max-width: 650px) {
-        gap: 0.75rem;
         margin-bottom: 0.75rem;
         
         /* Stack the instruction text vertically on mobile */

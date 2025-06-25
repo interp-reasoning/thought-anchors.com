@@ -9,6 +9,7 @@ import {
     Title,
     ControlsContainer,
     SelectContainer,
+    Instructions,
 } from '@/styles/visualization'
 
 export default function HomeScreen() {
@@ -139,8 +140,7 @@ export default function HomeScreen() {
                                 display: 'flex', 
                                 gap: '0.4rem', 
                                 alignItems: 'flex-start', 
-                                flexDirection: 'column',
-                                width: '100%'
+                                flexDirection: 'column'
                             }}>
                                 <SelectContainer>
                                         <label htmlFor='model-select' style={{ fontWeight: '600', marginRight: '1rem' }}>
@@ -207,20 +207,12 @@ export default function HomeScreen() {
                                 </SelectContainer>
                             </div>
 
-                            <div style={{ 
-                                fontSize: '0.875rem', 
-                                color: '#666',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'flex-end',
-                                gap: '0.25rem',
-                                textAlign: 'right'
-                            }}>
+                            <Instructions>
                                 <div>💡 <strong>Hover</strong> over steps for quick preview</div>
                                 <div>🔗 <strong>Click</strong> to lock selection and see details</div>
                                 <div>📊 Weights are <strong>normalized</strong> for easier comparison</div>
                                 <div>🎯 The <strong>most important step</strong> is highlighted by default</div>
-                            </div>
+                            </Instructions>
                         </ControlsContainer>
 
                         <ProblemVisualizer
