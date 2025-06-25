@@ -1607,8 +1607,8 @@ const ProblemVisualizer = ({
                 <>
                     {summaryData && (
                         <ProblemBox>
-                            <h3 style={{ marginBottom: '0.5rem' }}>
-                                {`${problemData?.nickname}` || `Problem ${summaryData.problem_idx}`}
+                            <h3 style={{ marginBottom: '0.75rem' }}>
+                                {`${problemData?.nickname[0].toUpperCase() + problemData?.nickname.slice(1).toLowerCase()}` || `Problem ${summaryData.problem_idx}`}
                             </h3>
                             {problemData && problemData.problem && (
                                 <div
