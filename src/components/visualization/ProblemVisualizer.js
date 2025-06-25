@@ -191,11 +191,13 @@ const ProblemVisualizer = ({
     const [selectedPaths, setSelectedPaths] = useState([])
     const [maxDepth, setMaxDepth] = useState(2)
     const [lastAttributionNode, setLastAttributionNode] = useState(null)
+    const [treeDirection, setTreeDirection] = useState('incoming') // 'incoming' or 'outgoing'
     
     const svgRef = useRef(null)
     const graphContainerRef = useRef(null)
     const detailPanelRef = useRef(null)
     const hoverTimerRef = useRef(null)
+    const cotScrollTimerRef = useRef(null) // New timer for CoT scrolling
     const zoomRef = useRef(null)
     const layoutRef = useRef({ width: 0, height: 0, isPanelOpen: false })
 
@@ -666,6 +668,9 @@ const ProblemVisualizer = ({
         return () => {
             if (hoverTimerRef.current) {
                 clearTimeout(hoverTimerRef.current)
+            }
+            if (cotScrollTimerRef.current) {
+                clearTimeout(cotScrollTimerRef.current)
             }
         }
     }, [])
@@ -1184,14 +1189,19 @@ const ProblemVisualizer = ({
     }
 
     const handleNodeHover = (event, node) => {
-        // Clear any existing timer
+        // Clear any existing timers
         if (hoverTimerRef.current) {
             clearTimeout(hoverTimerRef.current)
         }
+        if (cotScrollTimerRef.current) {
+            clearTimeout(cotScrollTimerRef.current)
+        }
         
-        // Immediately set the hovered node for responsive CoT updates
-        setHoveredNode(node)
-        setHoveredFromCentralGraph(true)
+        // Set up delayed CoT panel scrolling (350ms delay to reduce jitter)
+        cotScrollTimerRef.current = setTimeout(() => {
+            setHoveredNode(node)
+            setHoveredFromCentralGraph(true)
+        }, 350)
         
         // Use delay only for visual effects in circle mode
         if (visualizationType === 'circle') {
@@ -1209,23 +1219,28 @@ const ProblemVisualizer = ({
     }
 
     const handleNodeLeave = () => {
-        // Clear the hover timer if user leaves before delay completes
+        // Clear any existing timers
         if (hoverTimerRef.current) {
             clearTimeout(hoverTimerRef.current)
-            hoverTimerRef.current = null
+        }
+        if (cotScrollTimerRef.current) {
+            clearTimeout(cotScrollTimerRef.current)
         }
         
+        // Immediately clear hovered node
         setHoveredNode(null)
         setHoveredFromCentralGraph(false)
-        setTooltip({ visible: false, x: 0, y: 0, content: '' })
         
-        // Only reset node highlighting if no node is selected and in circle mode
-        if (!selectedNode && svgRef.current && visualizationType === 'circle') {
-            d3.select(svgRef.current)
-                .selectAll('.nodes g')
-                .selectAll('circle')
-                .attr('stroke', '#fff')
-                .attr('stroke-width', 2)
+        // Only apply visual effects in circle mode
+        if (visualizationType === 'circle') {
+            // Remove highlighting from all nodes
+            if (svgRef.current) {
+                d3.select(svgRef.current)
+                    .selectAll('.nodes g')
+                    .selectAll('circle')
+                    .attr('stroke', '#fff')
+                    .attr('stroke-width', 2)
+            }
         }
     }
 
@@ -1416,91 +1431,147 @@ const ProblemVisualizer = ({
     }
 
     // Add function to build attribution paths for selected node
-    const buildAttributionPaths = (selectedNodeId, stepImportanceData, chunksData, maxDepth = 2, causalLinksCount = 3) => {
+    const buildAttributionPaths = (selectedNodeId, stepImportanceData, chunksData, maxDepth = 2, causalLinksCount = 3, direction = 'incoming') => {
         if (!selectedNodeId || !stepImportanceData.length) return []
         
         // Find the target chunk
         const targetChunk = chunksData.find(chunk => chunk.chunk_idx === selectedNodeId)
         if (!targetChunk) return []
 
-        // Build paths by traversing backwards from selected node
-        const buildPaths = (nodeId, currentDepth, visitedNodes = new Set()) => {
-            if (currentDepth >= maxDepth || visitedNodes.has(nodeId)) {
-                return [[{ idx: nodeId, sources: [] }]]
-            }
-
-            visitedNodes.add(nodeId)
-            const paths = []
-            
-            // Find all nodes that influence this node
-            const influencingSteps = stepImportanceData.filter(step =>
-                step.target_impacts && step.target_impacts.some(impact => impact.target_chunk_idx === nodeId)
-            )
-
-            if (influencingSteps.length === 0) {
-                // Leaf node
-                return [[{ idx: nodeId, sources: [] }]]
-            }
-
-            // Get top influences
-            const allInfluences = []
-            influencingSteps.forEach(step => {
-                const impact = step.target_impacts.find(impact => impact.target_chunk_idx === nodeId)
-                if (impact) {
-                    // Use normalized importance score instead of raw score
-                    const normalizedScore = getNormalizedImportanceScore(step.source_chunk_idx, nodeId)
-                    allInfluences.push({
-                        idx: step.source_chunk_idx,
-                        score: normalizedScore
-                    })
+        if (direction === 'incoming') {
+            // Build paths by traversing backwards from selected node (showing what influences it)
+            const buildIncomingPaths = (nodeId, currentDepth, visitedNodes = new Set()) => {
+                if (currentDepth >= maxDepth || visitedNodes.has(nodeId)) {
+                    return [[{ idx: nodeId, sources: [] }]]
                 }
-            })
 
-            // Sort by normalized importance and take top-N based on causalLinksCount
-            const topInfluences = allInfluences
-                .sort((a, b) => b.score - a.score) // Sort by normalized score descending
-                .slice(0, causalLinksCount) // Use causalLinksCount parameter
+                visitedNodes.add(nodeId)
+                const paths = []
+                
+                // Find all nodes that influence this node
+                const influencingSteps = stepImportanceData.filter(step =>
+                    step.target_impacts && step.target_impacts.some(impact => impact.target_chunk_idx === nodeId)
+                )
 
-            if (topInfluences.length === 0) {
-                return [[{ idx: nodeId, sources: [] }]]
+                if (influencingSteps.length === 0) {
+                    // Leaf node
+                    return [[{ idx: nodeId, sources: [] }]]
+                }
+
+                // Get top influences
+                const allInfluences = []
+                influencingSteps.forEach(step => {
+                    const impact = step.target_impacts.find(impact => impact.target_chunk_idx === nodeId)
+                    if (impact) {
+                        // Use normalized importance score instead of raw score
+                        const normalizedScore = getNormalizedImportanceScore(step.source_chunk_idx, nodeId)
+                        allInfluences.push({
+                            idx: step.source_chunk_idx,
+                            score: normalizedScore
+                        })
+                    }
+                })
+
+                // Sort by normalized importance and take top-N based on causalLinksCount
+                const topInfluences = allInfluences
+                    .sort((a, b) => b.score - a.score) // Sort by normalized score descending
+                    .slice(0, causalLinksCount) // Use causalLinksCount parameter
+
+                if (topInfluences.length === 0) {
+                    return [[{ idx: nodeId, sources: [] }]]
+                }
+
+                // Recursively build paths for each influence
+                topInfluences.forEach(influence => {
+                    const subPaths = buildIncomingPaths(influence.idx, currentDepth + 1, new Set(visitedNodes))
+                    subPaths.forEach(subPath => {
+                        const nodePath = [{
+                            idx: nodeId,
+                            sources: topInfluences
+                        }, ...subPath]
+                        paths.push(nodePath)
+                    })
+                })
+
+                visitedNodes.delete(nodeId)
+                return paths.length > 0 ? paths : [[{ idx: nodeId, sources: topInfluences }]]
             }
 
-            // Recursively build paths for each influence
-            topInfluences.forEach(influence => {
-                const subPaths = buildPaths(influence.idx, currentDepth + 1, new Set(visitedNodes))
-                subPaths.forEach(subPath => {
-                    const nodePath = [{
-                        idx: nodeId,
-                        sources: topInfluences
-                    }, ...subPath]
-                    paths.push(nodePath)
+            return buildIncomingPaths(selectedNodeId, 0)
+        } else {
+            // Build paths by traversing forwards from selected node (showing what it influences)
+            const buildOutgoingPaths = (nodeId, currentDepth, visitedNodes = new Set()) => {
+                if (currentDepth >= maxDepth || visitedNodes.has(nodeId)) {
+                    return [[{ idx: nodeId, targets: [] }]]
+                }
+
+                visitedNodes.add(nodeId)
+                const paths = []
+                
+                // Find the step data for this node
+                const stepData = stepImportanceData.find(step => step.source_chunk_idx === nodeId)
+                
+                if (!stepData || !stepData.target_impacts || stepData.target_impacts.length === 0) {
+                    // Leaf node
+                    return [[{ idx: nodeId, targets: [] }]]
+                }
+
+                // Get top targets this node influences
+                const allTargets = stepData.target_impacts.map(impact => ({
+                    idx: impact.target_chunk_idx,
+                    score: getNormalizedImportanceScore(nodeId, impact.target_chunk_idx)
+                }))
+
+                // Sort by normalized importance and take top-N based on causalLinksCount
+                const topTargets = allTargets
+                    .sort((a, b) => b.score - a.score) // Sort by normalized score descending
+                    .slice(0, causalLinksCount) // Use causalLinksCount parameter
+                console.log(`Top ${causalLinksCount} targets for node ${nodeId}:`, topTargets)
+
+                if (topTargets.length === 0) {
+                    return [[{ idx: nodeId, targets: [] }]]
+                }
+
+                // Recursively build paths for each target
+                topTargets.forEach(target => {
+                    const subPaths = buildOutgoingPaths(target.idx, currentDepth + 1, new Set(visitedNodes))
+                    subPaths.forEach(subPath => {
+                        const nodePath = [{
+                            idx: nodeId,
+                            targets: topTargets
+                        }, ...subPath]
+                        paths.push(nodePath)
+                    })
                 })
-            })
 
-            visitedNodes.delete(nodeId)
-            return paths.length > 0 ? paths : [[{ idx: nodeId, sources: topInfluences }]]
+                visitedNodes.delete(nodeId)
+                console.log(`Built ${paths.length} outgoing paths for node ${nodeId}`)
+                return paths.length > 0 ? paths : [[{ idx: nodeId, targets: topTargets }]]
+            }
+
+            const result = buildOutgoingPaths(selectedNodeId, 0)
+            console.log(`Final outgoing paths for selected node ${selectedNodeId}:`, result)
+            return result
         }
-
-        return buildPaths(selectedNodeId, 0)
     }
 
     // Update attribution paths when selected node changes
     useEffect(() => {
         if (selectedNode && visualizationType === 'attribution') {
             // Build paths for the selected node
-            const paths = buildAttributionPaths(selectedNode.id, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount)
+            const paths = buildAttributionPaths(selectedNode.id, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
             setSelectedPaths(paths)
             setLastAttributionNode(selectedNode.id) // Remember this node for attribution
         } else if (visualizationType === 'attribution' && lastAttributionNode && currentStepImportanceData.length > 0) {
             // If in attribution view but no current selection, use the last attribution node
-            const paths = buildAttributionPaths(lastAttributionNode, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount)
+            const paths = buildAttributionPaths(lastAttributionNode, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
             setSelectedPaths(paths)
         } else if (visualizationType === 'circle') {
             // Only clear paths when switching to circle view
             setSelectedPaths([])
             setLastAttributionNode(null)
         }
-    }, [selectedNode, currentStepImportanceData, chunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, lastAttributionNode])
+    }, [selectedNode, currentStepImportanceData, chunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, treeDirection, lastAttributionNode])
 
     return (
         <div>
@@ -1804,6 +1875,16 @@ const ProblemVisualizer = ({
                                 ) : (
                                     <>
                                         <ControlRow>
+                                            <label>Direction:</label>
+                                            <select
+                                                value={treeDirection}
+                                                onChange={(e) => setTreeDirection(e.target.value)}
+                                            >
+                                                <option value="incoming">Incoming</option>
+                                                <option value="outgoing">Outgoing</option>
+                                            </select>
+                                        </ControlRow>
+                                        <ControlRow>
                                             <label>Causal links:</label>
                                             <select
                                                 value={localCausalLinksCount}
@@ -1844,6 +1925,7 @@ const ProblemVisualizer = ({
                                     selectedIdx={selectedNode?.id || lastAttributionNode}
                                     chunksData={chunksData}
                                     selectedPaths={selectedPaths}
+                                    treeDirection={treeDirection}
                                     onNodeHover={handleNodeHover}
                                     onNodeLeave={handleNodeLeave}
                                     onNodeClick={handleNodeClick}
@@ -1997,7 +2079,7 @@ const ProblemVisualizer = ({
                                     {/* Causally affected by section - collapsible, open by default */}
                                     {getCausallyAffectedBy(selectedNode.id).length > 0 && (
                                         <CollapsibleSection 
-                                            title={`← Affected by (top-${localCausalLinksCount})`}
+                                            title={`← Incoming connections (top-${localCausalLinksCount})`}
                                             defaultOpen={true}
                                             content={
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -2058,7 +2140,7 @@ const ProblemVisualizer = ({
                                     {/* Causal effects section - collapsible, open by default */}
                                     {getCausalEffects(selectedNode.id).slice(0, localCausalLinksCount).length > 0 && (
                                         <CollapsibleSection 
-                                            title={`→ Affects (top-${localCausalLinksCount})`}
+                                            title={`→ Outgoing connections (top-${localCausalLinksCount})`}
                                             defaultOpen={true}
                                             content={
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

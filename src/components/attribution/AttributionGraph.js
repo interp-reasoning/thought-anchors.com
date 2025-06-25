@@ -7,6 +7,7 @@ export default function AttributionGraph({
   selectedIdx, 
   chunksData, 
   selectedPaths,
+  treeDirection = 'incoming',
   onNodeHover,
   onNodeLeave,
   onNodeClick
@@ -71,7 +72,6 @@ export default function AttributionGraph({
 
   // Build tree layout with selected node at bottom
   const buildTreeLayout = (paths, maxNodes = 10) => {
-    console.log('Building tree layout with paths:', paths)
     const allNodes = new Map()
     const nodesByLevel = new Map()
     
@@ -87,8 +87,9 @@ export default function AttributionGraph({
     // Filter to most important nodes if we have too many
     const nodeImportanceMap = new Map()
     Array.from(allNodes.values()).forEach(node => {
-      const totalImportance = node.sources ? 
-        node.sources.reduce((sum, source) => sum + source.score, 0) : 0
+      // Handle both sources and targets for importance calculation
+      const connections = node.sources || node.targets || []
+      const totalImportance = connections.reduce((sum, connection) => sum + connection.score, 0)
       nodeImportanceMap.set(node.idx, totalImportance)
     })
     
@@ -104,9 +105,17 @@ export default function AttributionGraph({
     sortedNodesByImportance.forEach(nodeIdx => {
       if (allNodes.has(nodeIdx)) {
         const node = allNodes.get(nodeIdx)
+        // Filter both sources and targets to keep only nodes that are in our selection
         const filteredSources = node.sources ? 
           node.sources.filter(source => sortedNodesByImportance.includes(source.idx)) : []
-        filteredNodes.set(nodeIdx, { ...node, sources: filteredSources })
+        const filteredTargets = node.targets ?
+          node.targets.filter(target => sortedNodesByImportance.includes(target.idx)) : []
+        
+        const filteredNode = { ...node }
+        if (node.sources) filteredNode.sources = filteredSources
+        if (node.targets) filteredNode.targets = filteredTargets
+        
+        filteredNodes.set(nodeIdx, filteredNode)
       }
     })
     
@@ -116,16 +125,17 @@ export default function AttributionGraph({
     // Level 1: Direct influences on selected node
     const level1Nodes = []
     const selectedNode = filteredNodes.get(selectedIdx)
-    if (selectedNode && selectedNode.sources) {
-      // Sort sources by normalized score and take top 3 (matching detail panel)
-      const topSources = selectedNode.sources
+    if (selectedNode && (selectedNode.sources || selectedNode.targets)) {
+      // Handle both incoming (sources) and outgoing (targets) connections
+      const connections = selectedNode.sources || selectedNode.targets || []
+      const topConnections = connections
         .sort((a, b) => b.score - a.score) // Sort by normalized score descending
         .slice(0, 3) // Take top 3
       
-      topSources.forEach(source => {
-        if (filteredNodes.has(source.idx)) {
-          // Keep the original node with all its sources for level 2 building
-          level1Nodes.push(filteredNodes.get(source.idx))
+      topConnections.forEach(connection => {
+        if (filteredNodes.has(connection.idx)) {
+          // Keep the original node with all its connections for level 2 building
+          level1Nodes.push(filteredNodes.get(connection.idx))
         }
       })
     }
@@ -137,17 +147,18 @@ export default function AttributionGraph({
     const level2Nodes = []
     const level2NodeIds = new Set()
     level1Nodes.forEach(node => {
-      if (node.sources) {
-        // Sort sources by normalized score and take top 3 for each level 1 node
-        const topSources = node.sources
+      const connections = node.sources || node.targets || []
+      if (connections.length > 0) {
+        // Sort connections by normalized score and take top 3 for each level 1 node
+        const topConnections = connections
           .sort((a, b) => b.score - a.score) // Sort by normalized score descending
           .slice(0, 3) // Take top 3
         
-        topSources.forEach(source => {
-          if (filteredNodes.has(source.idx) && !level2NodeIds.has(source.idx)) {
-            level2NodeIds.add(source.idx)
-            // Keep the original node with all its sources
-            level2Nodes.push(filteredNodes.get(source.idx))
+        topConnections.forEach(connection => {
+          if (filteredNodes.has(connection.idx) && !level2NodeIds.has(connection.idx)) {
+            level2NodeIds.add(connection.idx)
+            // Keep the original node with all its connections
+            level2Nodes.push(filteredNodes.get(connection.idx))
           }
         })
       }
@@ -156,7 +167,6 @@ export default function AttributionGraph({
       nodesByLevel.set(2, level2Nodes)
     }
     
-    console.log('Tree levels:', Object.fromEntries(nodesByLevel))
     return nodesByLevel
   }
 
@@ -184,10 +194,12 @@ export default function AttributionGraph({
     treeLayout.forEach((level, levelIndex) => {
       if (level && Array.isArray(level)) {
         level.forEach(node => {
-          if (node && node.sources && node.sources.length > 0) {
-            node.sources.forEach(source => {
-              if (source && source.score !== undefined) {
-                connectionWeights.push(Math.abs(source.score))
+          if (node) {
+            // Handle both sources and targets
+            const connections = node.sources || node.targets || []
+            connections.forEach(connection => {
+              if (connection && connection.score !== undefined) {
+                connectionWeights.push(Math.abs(connection.score))
               }
             })
           }
@@ -248,13 +260,21 @@ export default function AttributionGraph({
   const centerX = width / 2
   const startY = 100 // Start from top with padding
   
-  // Reverse the tree layout - higher levels at top, selected node at bottom
+  // Position nodes based on tree direction
   const numLevels = treeLayout.size
   
   treeLayout.forEach((level, levelIndex) => {
     if (level && Array.isArray(level)) {
-      // Invert the level position: level 2 -> y=100, level 1 -> y=220, level 0 -> y=340
-      const levelY = startY + (numLevels - 1 - levelIndex) * levelGapY
+      let levelY
+      
+      if (treeDirection === 'outgoing') {
+        // For outgoing: selected node at top (level 0), tree grows downward
+        levelY = startY + levelIndex * levelGapY
+      } else {
+        // For incoming: selected node at bottom (level 0), tree grows upward
+        levelY = startY + (numLevels - 1 - levelIndex) * levelGapY
+      }
+      
       const numNodesInLevel = level.length
       
       level.forEach((node, nodeIndex) => {
@@ -283,27 +303,34 @@ export default function AttributionGraph({
     treeLayout.forEach((level, levelIndex) => {
       if (level && Array.isArray(level)) {
         level.forEach(node => {
-          if (node && node.sources && node.sources.length > 0) {
-            // Only include sources that are actually in the tree layout
-            const visibleSources = node.sources.filter(source => {
-              if (!source || source.idx === undefined) return false
-              // Check if source exists in any level of the tree
-              for (const [_, levelNodes] of treeLayout) {
-                if (levelNodes && Array.isArray(levelNodes) && levelNodes.some(n => n && n.idx === source.idx)) {
-                  return true
-                }
-              }
-              return false
-            })
+          if (node) {
+            // Handle both sources (incoming) and targets (outgoing)
+            const nodeConnections = node.sources || node.targets || []
+            const isOutgoing = !!node.targets // Determine if this is outgoing connections
             
-            if (visibleSources.length > 0) {
-              const connectionKey = `target-${node.idx}`
-              if (!processedConnections.has(connectionKey)) {
-                processedConnections.add(connectionKey)
-                connections.push({
-                  target: node,
-                  sources: visibleSources
-                })
+            if (nodeConnections.length > 0) {
+              // Only include connections that are actually in the tree layout
+              const visibleConnections = nodeConnections.filter(connection => {
+                if (!connection || connection.idx === undefined) return false
+                // Check if connection exists in any level of the tree
+                for (const [_, levelNodes] of treeLayout) {
+                  if (levelNodes && Array.isArray(levelNodes) && levelNodes.some(n => n && n.idx === connection.idx)) {
+                    return true
+                  }
+                }
+                return false
+              })
+              
+              if (visibleConnections.length > 0) {
+                const connectionKey = isOutgoing ? `source-${node.idx}` : `target-${node.idx}`
+                if (!processedConnections.has(connectionKey)) {
+                  processedConnections.add(connectionKey)
+                  connections.push({
+                    node: node,
+                    connections: visibleConnections,
+                    isOutgoing: isOutgoing
+                  })
+                }
               }
             }
           }
@@ -355,21 +382,31 @@ export default function AttributionGraph({
             {/* Connections - render before nodes so they appear behind */}
             <g className="connections">
               {uniqueConnections.map((connection) => {
-                const targetPos = getFinalNodePosition(connection.target.idx)
-                
                 return (
-                  <g key={`connection-${connection.target.idx}`}>
-                    {connection.sources.map((source) => {
-                      const sourcePos = getFinalNodePosition(source.idx)
+                  <g key={`connection-${connection.node.idx}`}>
+                    {connection.connections.map((connectedNode) => {
+                      const connectedPos = getFinalNodePosition(connectedNode.idx)
+                      const nodePos = getFinalNodePosition(connection.node.idx)
                       
                       // Calculate normalized opacity based on connection importance
                       const normalizedWeight = maxConnectionWeight > minConnectionWeight ? 
-                        (Math.abs(source.score) - minConnectionWeight) / (maxConnectionWeight - minConnectionWeight) : 0.5
+                        (Math.abs(connectedNode.score) - minConnectionWeight) / (maxConnectionWeight - minConnectionWeight) : 0.5
                       const opacity = Math.max(0.3, Math.min(0.9, normalizedWeight * 0.8 + 0.3))
                       
-                      // Calculate connection points on node edges
-                      const dx = targetPos.x - sourcePos.x
-                      const dy = targetPos.y - sourcePos.y
+                      // Calculate connection points and direction based on connection type
+                      let startPos, endPos, dx, dy
+                      if (connection.isOutgoing) {
+                        // For outgoing: arrow goes from current node to connected node
+                        startPos = nodePos
+                        endPos = connectedPos
+                      } else {
+                        // For incoming: arrow goes from connected node to current node
+                        startPos = connectedPos
+                        endPos = nodePos
+                      }
+                      
+                      dx = endPos.x - startPos.x
+                      dy = endPos.y - startPos.y
                       const distance = Math.sqrt(dx * dx + dy * dy)
                       
                       // Normalize direction vector
@@ -382,20 +419,20 @@ export default function AttributionGraph({
                       const isDiagonal = absX > 0.3 && absY > 0.3 // Both components are significant
                       
                       // Start point (edge of source node)
-                      const startX = sourcePos.x + unitX * (nodeW / 2)
-                      const startY = sourcePos.y + unitY * (nodeH / 2)
+                      const startX = startPos.x + unitX * (nodeW / 2)
+                      const startY = startPos.y + unitY * (nodeH / 2)
                       
                       // End point (edge of target node, with small offset for diagonal arrows only)
                       const endOffset = isDiagonal ? (absX >= absY ? 16 : 8) : 0
-                      const endX = targetPos.x - unitX * (nodeW / 2 + endOffset)
-                      const endY = targetPos.y - unitY * (nodeH / 2 + endOffset)
+                      const endX = endPos.x - unitX * (nodeW / 2 + endOffset)
+                      const endY = endPos.y - unitY * (nodeH / 2 + endOffset)
                       
                       // Always use straight lines - clean and simple
                       const pathData = `M ${startX} ${startY} L ${endX} ${endY}`
                       
                       return (
                         <path
-                          key={`source-${source.idx}-to-${connection.target.idx}`}
+                          key={`${connection.isOutgoing ? 'out' : 'in'}-${connection.node.idx}-${connectedNode.idx}`}
                           d={pathData}
                           stroke="#666"
                           strokeWidth={2}

@@ -143,7 +143,7 @@ export default function Node({
         fill="#222"
         fillOpacity={Math.max(0.7, opacity)}
         textAnchor="middle"
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', pointerEvents: 'none' }}
       >
         {node.idx}: {formatFunctionTag(tag, true)}
       </text>
@@ -156,7 +156,7 @@ export default function Node({
           fill="#222"
           fillOpacity={Math.max(0.7, opacity)}
           textAnchor="middle"
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', pointerEvents: 'none' }}
         >
           {line}
         </text>

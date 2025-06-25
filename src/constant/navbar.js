@@ -9,6 +9,6 @@ export const navbarItems = [
     },
     {
         name: 'Paper',
-        href: 'https://github.com/interp-reasoning/principled-attribution',
+        href: 'https://arxiv.org/abs/2506.19143',
     },
 ]
