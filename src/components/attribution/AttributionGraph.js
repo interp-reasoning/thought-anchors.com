@@ -9,6 +9,7 @@ export default function AttributionGraph({
   selectedPaths,
   treeDirection = 'incoming',
   causalLinksCount = 3,
+  maxDepth = 2,
   onNodeHover,
   onNodeLeave,
   onNodeClick
@@ -18,7 +19,7 @@ export default function AttributionGraph({
   const nodeH = 70
   const levelGapY = 120  // Vertical spacing between levels
   const nodeGapX = 150  // Horizontal spacing between nodes at same level
-  const arrowOffset = 5
+
   
   // Create ref for container and zoom
   const containerRef = useRef(null)
@@ -72,14 +73,14 @@ export default function AttributionGraph({
   }, [selectedPaths]) // Re-initialize when paths change
 
   // Build tree layout with selected node at bottom
-  const buildTreeLayout = (paths, maxNodes = 10, causalLinksCount = 3) => {
+  const buildTreeLayout = (paths, maxNodes = 50, causalLinksCount = 3, maxDepth = 2) => {
     const allNodes = new Map()
     const nodesByLevel = new Map()
     
     // First, collect all unique nodes from paths
     paths.forEach(path => {
       path.forEach(node => {
-        if (!allNodes.has(node.idx)) {
+        if (node && node.idx !== undefined) {
           allNodes.set(node.idx, node)
         }
       })
@@ -88,90 +89,96 @@ export default function AttributionGraph({
     // Filter to most important nodes if we have too many
     const nodeImportanceMap = new Map()
     Array.from(allNodes.values()).forEach(node => {
+      if (!node || node.idx === undefined) return
+      
       // Handle both sources and targets for importance calculation
-      const connections = node.sources || node.targets || []
-      const totalImportance = connections.reduce((sum, connection) => sum + connection.score, 0)
-      nodeImportanceMap.set(node.idx, totalImportance)
+      const connections = node?.sources || node?.targets || []
+      const totalImportance = connections.reduce((sum, connection) => {
+        return sum + (connection && connection.score ? connection.score : 0)
+      }, 0)
+      nodeImportanceMap.set(node?.idx, totalImportance)
     })
     
     const sortedNodesByImportance = Array.from(allNodes.keys())
-      .filter(nodeIdx => nodeIdx !== selectedIdx)
-      .sort((a, b) => nodeImportanceMap.get(b) - nodeImportanceMap.get(a))
+      .filter(nodeIdx => nodeIdx !== selectedIdx && nodeIdx !== undefined)
+      .sort((a, b) => (nodeImportanceMap.get(b) || 0) - (nodeImportanceMap.get(a) || 0))
       .slice(0, maxNodes - 1)
     
     sortedNodesByImportance.push(selectedIdx) // Always include target
     
-    // Filter nodes
+    // Filter nodes - but be more permissive for higher depths
     const filteredNodes = new Map()
     sortedNodesByImportance.forEach(nodeIdx => {
       if (allNodes.has(nodeIdx)) {
         const node = allNodes.get(nodeIdx)
-        // Filter both sources and targets to keep only nodes that are in our selection
-        const filteredSources = node.sources ? 
-          node.sources.filter(source => sortedNodesByImportance.includes(source.idx)) : []
-        const filteredTargets = node.targets ?
-          node.targets.filter(target => sortedNodesByImportance.includes(target.idx)) : []
+        if (!node) return
         
+        // Don't filter connections too aggressively - keep all connections for tree building
         const filteredNode = { ...node }
-        if (node.sources) filteredNode.sources = filteredSources
-        if (node.targets) filteredNode.targets = filteredTargets
-        
         filteredNodes.set(nodeIdx, filteredNode)
       }
     })
     
     // Build tree levels: selected node at bottom (level 0)
-    nodesByLevel.set(0, [filteredNodes.get(selectedIdx)])
-    
-    // Level 1: Direct influences on selected node
-    const level1Nodes = []
     const selectedNode = filteredNodes.get(selectedIdx)
-    if (selectedNode && (selectedNode.sources || selectedNode.targets)) {
-      // Handle both incoming (sources) and outgoing (targets) connections
-      const connections = selectedNode.sources || selectedNode.targets || []
-      const topConnections = connections
-        .sort((a, b) => b.score - a.score) // Sort by normalized score descending
-        .slice(0, causalLinksCount) // Use causalLinksCount parameter instead of hardcoded 3
+    if (!selectedNode) return nodesByLevel
+    
+    nodesByLevel.set(0, [selectedNode])
+    
+    // Dynamically build levels based on maxDepth
+    for (let level = 1; level <= maxDepth; level++) {
+      const currentLevelNodes = []
+      const currentLevelNodeIds = new Set()
+      const previousLevel = nodesByLevel.get(level - 1)
       
-      topConnections.forEach(connection => {
-        if (filteredNodes.has(connection.idx)) {
-          // Keep the original node with all its connections for level 2 building
-          level1Nodes.push(filteredNodes.get(connection.idx))
+      if (!previousLevel || previousLevel.length === 0) {
+        break // No more nodes to build from
+      }
+      
+      previousLevel.forEach(node => {
+        if (!node || !node.idx) return // Skip undefined/invalid nodes
+        
+        const connections = node.sources || node.targets || []
+        if (connections.length > 0) {
+          // Sort connections by normalized score and take top-N based on causalLinksCount
+          const topConnections = connections
+            .sort((a, b) => b.score - a.score) // Sort by normalized score descending
+            .slice(0, causalLinksCount) // Use causalLinksCount parameter
+          
+          topConnections.forEach(connection => {
+            if (!connection || !connection.idx) return // Skip invalid connections
+            
+            if (filteredNodes.has(connection.idx) && !currentLevelNodeIds.has(connection.idx)) {
+              // Make sure this node isn't already in a previous level
+              let nodeAlreadyExists = false
+              for (let checkLevel = 0; checkLevel < level; checkLevel++) {
+                const levelToCheck = nodesByLevel.get(checkLevel)
+                if (levelToCheck && levelToCheck.some(n => n && n.idx === connection.idx)) {
+                  nodeAlreadyExists = true
+                  break
+                }
+              }
+              
+              if (!nodeAlreadyExists) {
+                currentLevelNodeIds.add(connection.idx)
+                currentLevelNodes.push(filteredNodes.get(connection.idx))
+              }
+            }
+          })
         }
       })
-    }
-    if (level1Nodes.length > 0) {
-      nodesByLevel.set(1, level1Nodes)
-    }
-    
-    // Level 2: Influences on level 1 nodes
-    const level2Nodes = []
-    const level2NodeIds = new Set()
-    level1Nodes.forEach(node => {
-      const connections = node.sources || node.targets || []
-      if (connections.length > 0) {
-        // Sort connections by normalized score and take top-N based on causalLinksCount
-        const topConnections = connections
-          .sort((a, b) => b.score - a.score) // Sort by normalized score descending
-          .slice(0, causalLinksCount) // Use causalLinksCount parameter instead of hardcoded 3
-        
-        topConnections.forEach(connection => {
-          if (filteredNodes.has(connection.idx) && !level2NodeIds.has(connection.idx)) {
-            level2NodeIds.add(connection.idx)
-            // Keep the original node with all its connections
-            level2Nodes.push(filteredNodes.get(connection.idx))
-          }
-        })
+      
+      if (currentLevelNodes.length > 0) {
+        nodesByLevel.set(level, currentLevelNodes)
+      } else {
+        break // No more connections found, stop building levels
       }
-    })
-    if (level2Nodes.length > 0) {
-      nodesByLevel.set(2, level2Nodes)
     }
     
     return nodesByLevel
   }
 
-  const treeLayout = buildTreeLayout(selectedPaths, 10, causalLinksCount)
+  const treeLayout = buildTreeLayout(selectedPaths, 50, causalLinksCount, maxDepth)
 
   // NOW we can do conditional returns after all hooks
   if (selectedIdx === null || selectedIdx === undefined || !chunksData.length) {
