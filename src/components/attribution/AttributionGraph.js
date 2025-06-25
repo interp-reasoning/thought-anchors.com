@@ -174,18 +174,35 @@ export default function AttributionGraph({
   const treeLayout = buildTreeLayout(selectedPaths, 10, causalLinksCount)
 
   // NOW we can do conditional returns after all hooks
-  if (!selectedPaths.length || treeLayout.size === 0) return (
-    <div style={{ 
-      height: '100%', 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center' 
-    }}>
-      <span style={{ color: '#aaa', fontSize: '1.2rem' }}>
-        No significant connections found. Select a different step.
-      </span>
-    </div>
-  )
+  if (selectedIdx === null || selectedIdx === undefined || !chunksData.length) {
+    return (
+      <div style={{ 
+        height: '100%', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center' 
+      }}>
+        <span style={{ color: '#aaa', fontSize: '1.2rem' }}>
+          Loading attribution graph...
+        </span>
+      </div>
+    )
+  }
+  
+  if (!selectedPaths.length || treeLayout.size === 0) {
+    return (
+      <div style={{ 
+        height: '100%', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center' 
+      }}>
+        <span style={{ color: '#aaa', fontSize: '1.2rem' }}>
+          No significant connections found. Select a different step.
+        </span>
+      </div>
+    )
+  }
 
   // Calculate normalized importance scores for connections
   const normalizeConnectionWeights = () => {

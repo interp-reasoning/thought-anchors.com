@@ -284,8 +284,6 @@ const ProblemVisualizer = ({
             const maxImportance = Math.max(...allImportanceScores)
             const importanceRange = maxImportance - minImportance || 1 // Avoid division by zero
             
-            console.log(`Problem ${problemId} sentence-to-sentence scores range: [${minImportance.toFixed(4)}, ${maxImportance.toFixed(4)}]`)
-            
             // Normalize each connection to 0-1 range
             currentStepImportanceData.forEach((step) => {
                 const sourceIdx = step.source_chunk_idx
@@ -331,11 +329,14 @@ const ProblemVisualizer = ({
         setHoveredNode(null)
     }, [problemId, modelId, solutionType])
 
-    // Add useEffect to handle connection highlighting for selected node
+    // Add useEffect to handle connection highlighting for hovered or selected node
     useEffect(() => {
-        if (selectedNode && svgRef.current) {
+        if ((hoveredNode || selectedNode) && svgRef.current) {
             const svg = d3.select(svgRef.current)
             const links = svg.selectAll('.links path')
+            
+            // Use hovered node if available, otherwise fall back to selected node
+            const nodeForConnections = hoveredNode || selectedNode
             
             // Get top-k incoming and outgoing connections
             const getTopOutgoingConnections = (nodeId, k) => {
@@ -367,31 +368,31 @@ const ProblemVisualizer = ({
                     .map(conn => conn.sourceId)
             }
             
-            const topOutgoing = getTopOutgoingConnections(selectedNode.id, localCausalLinksCount)
-            const topIncoming = getTopIncomingConnections(selectedNode.id, localCausalLinksCount)
+            const topOutgoing = getTopOutgoingConnections(nodeForConnections.id, localCausalLinksCount)
+            const topIncoming = getTopIncomingConnections(nodeForConnections.id, localCausalLinksCount)
             
-            // Apply connection highlighting for selected node
+            // Apply connection highlighting
             links.attr('opacity', (d) => {
                 if (d.type === 'sequential') {
-                    // Show sequential connections if they involve the selected node
-                    if (d.source.id === selectedNode.id || d.target.id === selectedNode.id) return 0.9
+                    // Show sequential connections if they involve the node
+                    if (d.source.id === nodeForConnections.id || d.target.id === nodeForConnections.id) return 0.9
                     return 0.1
                 }
                 
                 // For causal connections, check if it's in top-k incoming or outgoing
-                const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
-                const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
+                const isOutgoing = d.source.id === nodeForConnections.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === nodeForConnections.id && topIncoming.includes(d.source.id)
                 
                 if (isOutgoing) {
                     // Get the raw importance score for this specific connection
-                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
+                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === nodeForConnections.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 } else if (isIncoming) {
                     // Get the raw importance score for this specific connection
                     const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === d.source.id)
-                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === selectedNode.id)
+                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === nodeForConnections.id)
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 }
@@ -406,8 +407,8 @@ const ProblemVisualizer = ({
             // Add polylines with arrows for highlighted causal connections
             const highlightedCausal = links.data().filter(d => {
                 if (d.type === 'sequential') return false
-                const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
-                const isIncoming = d.target.id === selectedNode.id && topIncoming.includes(d.source.id)
+                const isOutgoing = d.source.id === nodeForConnections.id && topOutgoing.includes(d.target.id)
+                const isIncoming = d.target.id === nodeForConnections.id && topIncoming.includes(d.source.id)
                 return isOutgoing || isIncoming
             })
             
@@ -425,28 +426,38 @@ const ProblemVisualizer = ({
                 .attr('stroke-dasharray', '3,3')
                 .attr('fill', 'none')
                 .attr('opacity', (d) => {
-                    const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                    const isOutgoing = d.source.id === nodeForConnections.id && topOutgoing.includes(d.target.id)
                     const stepData = currentStepImportanceData.find(step => 
-                        step.source_chunk_idx === (isOutgoing ? selectedNode.id : d.source.id))
+                        step.source_chunk_idx === (isOutgoing ? nodeForConnections.id : d.source.id))
                     const impact = stepData?.target_impacts?.find(impact => 
-                        impact.target_chunk_idx === (isOutgoing ? d.target.id : selectedNode.id))
+                        impact.target_chunk_idx === (isOutgoing ? d.target.id : nodeForConnections.id))
                     const rawImportance = impact ? Math.abs(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 })
                 .attr('marker-mid', (d) => {
-                    const isOutgoing = d.source.id === selectedNode.id && topOutgoing.includes(d.target.id)
+                    const isOutgoing = d.source.id === nodeForConnections.id && topOutgoing.includes(d.target.id)
                     return isOutgoing ? 'url(#arrow-outgoing-mid)' : 'url(#arrow-incoming-mid)'
                 })
                 .attr('marker-end', 'url(#arrow-causal)')
                 .style('cursor', 'pointer')
             
-            // Also highlight the selected node with circle
+            // Handle node highlighting: always show selected node's black border
             svg.selectAll('.nodes g')
                 .selectAll('circle')
-                .attr('stroke', (d) => d.id === selectedNode.id ? nodeHighlightColor : '#fff')
-                .attr('stroke-width', (d) => d.id === selectedNode.id ? nodeHighlightWidth : 2)
+                .attr('stroke', (d) => {
+                    if (selectedNode && d.id === selectedNode.id) {
+                        return nodeHighlightColor // Always keep selected node highlighted
+                    }
+                    return '#fff'
+                })
+                .attr('stroke-width', (d) => {
+                    if (selectedNode && d.id === selectedNode.id) {
+                        return nodeHighlightWidth // Always keep selected node border width
+                    }
+                    return 2
+                })
         } else if (svgRef.current) {
-            // Reset highlighting when no node is selected
+            // Reset highlighting when no node is hovered or selected
             const svg = d3.select(svgRef.current)
             const links = svg.selectAll('.links path')
             
@@ -460,143 +471,6 @@ const ProblemVisualizer = ({
             // Remove arrow polylines
             svg.selectAll('.arrow-polylines').remove()
             
-            svg.selectAll('.nodes g')
-                .selectAll('circle')
-                .attr('stroke', '#fff')
-                .attr('stroke-width', 2)
-        }
-    }, [selectedNode, normalizedWeights, localCausalLinksCount, currentStepImportanceData])
-
-    // Add useEffect to handle connection highlighting for hoveredNode (when no node is selected)
-    useEffect(() => {
-        if (hoveredNode && !selectedNode && svgRef.current) {
-            const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links path')
-            
-            // Get top-k incoming and outgoing connections
-            const getTopOutgoingConnections = (nodeId, k) => {
-                const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === nodeId)
-                if (!stepData?.target_impacts) return []
-                
-                return stepData.target_impacts
-                    .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
-                    .slice(0, k)
-                    .map(impact => impact.target_chunk_idx)
-            }
-
-            const getTopIncomingConnections = (nodeId, k) => {
-                const incomingConnections = []
-                
-                currentStepImportanceData.forEach(step => {
-                    const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
-                    if (impact) {
-                        incomingConnections.push({
-                            sourceId: step.source_chunk_idx,
-                            importance: impact.importance_score
-                        })
-                    }
-                })
-                
-                return incomingConnections
-                    .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
-                    .slice(0, k)
-                    .map(conn => conn.sourceId)
-            }
-            
-            const topOutgoing = getTopOutgoingConnections(hoveredNode.id, localCausalLinksCount)
-            const topIncoming = getTopIncomingConnections(hoveredNode.id, localCausalLinksCount)
-            
-            // Apply connection highlighting for hovered node
-            links.attr('opacity', (d) => {
-                if (d.type === 'sequential') {
-                    // Show sequential connections if they involve the hovered node
-                    if (d.source.id === hoveredNode.id || d.target.id === hoveredNode.id) return 0.9
-                    return 0.1
-                }
-                
-                // For causal connections, check if it's in top-k incoming or outgoing
-                const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
-                const isIncoming = d.target.id === hoveredNode.id && topIncoming.includes(d.source.id)
-                
-                if (isOutgoing) {
-                    // Get the raw importance score for this specific connection
-                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === hoveredNode.id)
-                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
-                    return Math.max(0.3, rawImportance * 4)
-                } else if (isIncoming) {
-                    // Get the raw importance score for this specific connection
-                    const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === d.source.id)
-                    const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === hoveredNode.id)
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
-                    return Math.max(0.3, rawImportance * 4)
-                }
-                return 0.1
-            })
-            .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
-            .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
-            
-            // Remove existing polylines for arrows
-            svg.selectAll('.arrow-polylines').remove()
-            
-            // Add polylines with arrows for highlighted causal connections
-            const highlightedCausal = links.data().filter(d => {
-                if (d.type === 'sequential') return false
-                const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
-                const isIncoming = d.target.id === hoveredNode.id && topIncoming.includes(d.source.id)
-                return isOutgoing || isIncoming
-            })
-            
-            svg.select('.links').selectAll('.arrow-polylines')
-                .data(highlightedCausal)
-                .enter()
-                .append('polyline')
-                .attr('class', 'arrow-polylines')
-                .attr('points', (d) => {
-                    const points = createPolylinePoints(d.source.fx, d.source.fy, d.target.fx, d.target.fy)
-                    return points.map(p => `${p[0]},${p[1]}`).join(' ')
-                })
-                .attr('stroke', '#999')
-                .attr('stroke-width', 2)
-                .attr('stroke-dasharray', '3,3')
-                .attr('fill', 'none')
-                .attr('opacity', (d) => {
-                    const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
-                    const stepData = currentStepImportanceData.find(step => 
-                        step.source_chunk_idx === (isOutgoing ? hoveredNode.id : d.source.id))
-                    const impact = stepData?.target_impacts?.find(impact => 
-                        impact.target_chunk_idx === (isOutgoing ? d.target.id : hoveredNode.id))
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
-                    return Math.max(0.3, rawImportance * 4)
-                })
-                .attr('marker-mid', (d) => {
-                    const isOutgoing = d.source.id === hoveredNode.id && topOutgoing.includes(d.target.id)
-                    return isOutgoing ? 'url(#arrow-outgoing-mid)' : 'url(#arrow-incoming-mid)'
-                })
-                .attr('marker-end', 'url(#arrow-causal)')
-                .style('cursor', 'pointer')
-            
-            // Also highlight the hovered node with circle
-            svg.selectAll('.nodes g')
-                .selectAll('circle')
-                .attr('stroke', (d) => d.id === hoveredNode.id ? nodeHighlightColor : '#fff')
-                .attr('stroke-width', (d) => d.id === hoveredNode.id ? nodeHighlightWidth : 2)
-        } else if (!selectedNode && svgRef.current) {
-            // Reset highlighting when no node is hovered and no node is selected
-            const svg = d3.select(svgRef.current)
-            const links = svg.selectAll('.links path')
-            
-            links.attr('opacity', (d) => {
-                if (d.type === 'sequential') return 0.8
-                return Math.min(0.8, Math.max(0.2, d.weight * 2))
-            })
-            .attr('stroke', (d) => (d.type === 'sequential' ? '#333' : '#999'))
-            .attr('stroke-dasharray', (d) => (d.type === 'sequential' ? '0' : '3,3'))
-            
-            // Remove arrow polylines
-            svg.selectAll('.arrow-polylines').remove()
-            
-            // Reset node highlighting
             svg.selectAll('.nodes g')
                 .selectAll('circle')
                 .attr('stroke', '#fff')
@@ -1202,30 +1076,6 @@ const ProblemVisualizer = ({
             setHoveredNode(node)
             setHoveredFromCentralGraph(true)
         }, 350)
-        
-        // Use delay only for visual effects in circle mode
-        if (visualizationType === 'circle') {
-            hoverTimerRef.current = setTimeout(() => {
-                // Add highlighting to the hovered node while preserving selected node highlighting
-                if (svgRef.current) {
-                    d3.select(svgRef.current)
-                        .selectAll('.nodes g')
-                        .selectAll('circle')
-                        .attr('stroke', (d) => {
-                            if (selectedNode && d.id === selectedNode.id) {
-                                return nodeHighlightColor // Keep selected node highlighted
-                            }
-                            return d.id === node.id ? nodeHighlightColor : '#fff'
-                        })
-                        .attr('stroke-width', (d) => {
-                            if (selectedNode && d.id === selectedNode.id) {
-                                return nodeHighlightWidth // Keep selected node border width
-                            }
-                            return d.id === node.id ? nodeHighlightWidth : 2
-                        })
-                }
-            }, 200) // Reduced delay for visual effects
-        }
     }
 
     const handleNodeLeave = () => {
@@ -1237,31 +1087,9 @@ const ProblemVisualizer = ({
             clearTimeout(cotScrollTimerRef.current)
         }
         
-        // Immediately clear hovered node
+        // Clear hovered node (this will trigger the useEffect to revert to selected node)
         setHoveredNode(null)
         setHoveredFromCentralGraph(false)
-        
-        // Only apply visual effects in circle mode
-        if (visualizationType === 'circle') {
-            // Remove highlighting from all nodes except selected node
-            if (svgRef.current) {
-                d3.select(svgRef.current)
-                    .selectAll('.nodes g')
-                    .selectAll('circle')
-                    .attr('stroke', (d) => {
-                        if (selectedNode && d.id === selectedNode.id) {
-                            return nodeHighlightColor // Keep selected node highlighted
-                        }
-                        return '#fff'
-                    })
-                    .attr('stroke-width', (d) => {
-                        if (selectedNode && d.id === selectedNode.id) {
-                            return nodeHighlightWidth // Keep selected node border width
-                        }
-                        return 2
-                    })
-            }
-        }
     }
 
     const handleNodeClick = (node) => {
@@ -1546,7 +1374,6 @@ const ProblemVisualizer = ({
                 const topTargets = allTargets
                     .sort((a, b) => b.score - a.score) // Sort by normalized score descending
                     .slice(0, causalLinksCount) // Use causalLinksCount parameter
-                console.log(`Top ${causalLinksCount} targets for node ${nodeId}:`, topTargets)
 
                 if (topTargets.length === 0) {
                     return [[{ idx: nodeId, targets: [] }]]
@@ -1565,33 +1392,53 @@ const ProblemVisualizer = ({
                 })
 
                 visitedNodes.delete(nodeId)
-                console.log(`Built ${paths.length} outgoing paths for node ${nodeId}`)
                 return paths.length > 0 ? paths : [[{ idx: nodeId, targets: topTargets }]]
             }
 
             const result = buildOutgoingPaths(selectedNodeId, 0)
-            console.log(`Final outgoing paths for selected node ${selectedNodeId}:`, result)
             return result
         }
     }
 
     // Update attribution paths when selected node changes
     useEffect(() => {
-        if (selectedNode && visualizationType === 'attribution') {
-            // Build paths for the selected node
-            const paths = buildAttributionPaths(selectedNode.id, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
-            setSelectedPaths(paths)
-            setLastAttributionNode(selectedNode.id) // Remember this node for attribution
-        } else if (visualizationType === 'attribution' && lastAttributionNode && currentStepImportanceData.length > 0) {
-            // If in attribution view but no current selection, use the last attribution node
-            const paths = buildAttributionPaths(lastAttributionNode, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
-            setSelectedPaths(paths)
+        if (visualizationType === 'attribution') {
+            // Always try to build paths when in attribution view
+            let nodeIdToUse = selectedNode?.id || lastAttributionNode
+            
+            // If no node is available, auto-select the most important one
+            if (!nodeIdToUse && chunksData.length > 0) {
+                const mostImportantChunk = chunksData.reduce((max, chunk) => {
+                    const currentImportance = Math.abs(chunk.importance) || 0
+                    const maxImportance = Math.abs(max.importance) || 0
+                    return currentImportance > maxImportance ? chunk : max
+                })
+                nodeIdToUse = mostImportantChunk.chunk_idx
+            }
+            
+            if (nodeIdToUse && currentStepImportanceData.length > 0 && chunksData.length > 0) {
+                const paths = buildAttributionPaths(nodeIdToUse, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
+                if (paths && paths.length > 0) {
+                    setSelectedPaths(paths)
+                    // Only update lastAttributionNode if we have a valid selectedNode
+                    if (selectedNode?.id) {
+                        setLastAttributionNode(selectedNode.id)
+                    } else if (!lastAttributionNode) {
+                        // Set lastAttributionNode to the auto-selected node
+                        setLastAttributionNode(nodeIdToUse)
+                    }
+                } else {
+                    setSelectedPaths([])
+                }
+            } else {
+                setSelectedPaths([])
+            }
         } else if (visualizationType === 'circle') {
             // Only clear paths when switching to circle view
             setSelectedPaths([])
-            setLastAttributionNode(null)
         }
-    }, [selectedNode, currentStepImportanceData, chunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, treeDirection, lastAttributionNode])
+        // Note: Don't clear lastAttributionNode when switching to circle view - keep it for when we switch back
+    }, [selectedNode, currentStepImportanceData, chunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, treeDirection])
 
     return (
         <div>
