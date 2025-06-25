@@ -8,6 +8,10 @@ export const navbarItems = [
         href: 'https://github.com/interp-reasoning/thought-anchors.com',
     },
     {
+        name: 'Dataset',
+        href: 'https://huggingface.co/datasets/uzaymacar/math-rollouts',
+    },
+    {
         name: 'Paper',
         href: 'https://arxiv.org/abs/2506.19143',
     },
