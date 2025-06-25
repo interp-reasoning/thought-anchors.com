@@ -18,7 +18,7 @@ const Navbar = ({ showImage = true }) => {
                     src={'/images/logo.webp'}
                     width={1000}
                     height={1000}
-                    alt='Uzay Macar'
+                    alt='Thought Anchors'
                 />
             </Link>
             <StyledNav>
