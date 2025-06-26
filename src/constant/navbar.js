@@ -15,4 +15,8 @@ export const navbarItems = [
         name: 'Paper',
         href: 'https://arxiv.org/abs/2506.19143',
     },
+    {
+        name: 'Contact',
+        href: 'mailto:uzaymacar@gmail.com',
+    }
 ]

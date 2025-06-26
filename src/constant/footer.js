@@ -14,5 +14,9 @@ export const footerItems = {
             title: 'Home',
             href: '/',
         },
+        {
+            title: 'Contact',
+            href: 'mailto:uzaymacar@gmail.com',
+        },
     ],
 }
