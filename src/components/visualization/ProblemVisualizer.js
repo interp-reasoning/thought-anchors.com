@@ -277,10 +277,10 @@ const ProblemVisualizer = ({
 
     // Add state for supplementary data
     const [suppressionStepImportanceData, setSuppressionStepImportanceData] = useState(null)
-    const [selectedMetric, setSelectedMetric] = useState('counterfactual')
+    const [selectedMetric, setSelectedMetric] = useState('attention suppression')
 
     const hasSuppressionStepImportanceData = !!suppressionStepImportanceData
-    const currentStepImportanceData = selectedMetric === 'counterfactual' ? counterfactualStepImportanceData : suppressionStepImportanceData
+    const currentStepImportanceData = selectedMetric === 'counterfactual' ? counterfactualStepImportanceData : (suppressionStepImportanceData || [])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -320,9 +320,14 @@ const ProblemVisualizer = ({
                 try {
                     const suppressionResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/step_importance_supp.json`)
                     setSuppressionStepImportanceData(suppressionResponse.default)
+                    // Auto-select attention suppression if data exists and it's the intended default
+                    // Uncomment the line below if you want attention suppression as default when available
+                    setSelectedMetric('attention suppression')
                 } catch (e) {
                     console.warn(`Attention suppression data not found for ${problemId}`)
                     setSuppressionStepImportanceData(null)
+                    // Ensure we fall back to counterfactual if suppression data doesn't exist
+                    setSelectedMetric('counterfactual')
                 }
 
                 setLoading(false)
@@ -337,7 +342,7 @@ const ProblemVisualizer = ({
 
     // Normalize connection weights
     useEffect(() => {
-        if (currentStepImportanceData.length > 0) {
+        if (currentStepImportanceData && currentStepImportanceData.length > 0) {
             const weightMap = new Map()
             
             // Collect all importance scores for global normalization
@@ -397,6 +402,8 @@ const ProblemVisualizer = ({
     useEffect(() => {
         setSelectedNode(null)
         setHoveredNode(null)
+        // Reset metric to counterfactual when problem changes to avoid loading issues
+        // setSelectedMetric('counterfactual')
     }, [problemId, modelId, solutionType])
 
     // Add useEffect to handle connection highlighting for hovered or selected node
@@ -579,7 +586,7 @@ const ProblemVisualizer = ({
 
     // Create a separate useEffect for initial graph rendering
     useEffect(() => {
-        if (!loading && chunksData.length > 0 && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
+        if (!loading && chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
             renderGraph()
         }
     }, [loading, chunksData, currentStepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter, visualizationType])
@@ -670,7 +677,7 @@ const ProblemVisualizer = ({
 
     // Re-render graph when window size changes (debounced)
     useEffect(() => {
-        if (windowWidth > 0 && !loading && chunksData.length > 0 && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
+        if (windowWidth > 0 && !loading && chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
             // Small delay to ensure layout has updated and prevent rapid re-renders
             const timer = setTimeout(() => {
                 renderGraph()
@@ -1506,7 +1513,7 @@ const ProblemVisualizer = ({
                 nodeIdToUse = mostImportantChunk.chunk_idx
             }
             
-            if (nodeIdToUse && currentStepImportanceData.length > 0 && chunksData.length > 0) {
+            if (nodeIdToUse && currentStepImportanceData && currentStepImportanceData.length > 0 && chunksData.length > 0) {
                 const paths = buildAttributionPaths(nodeIdToUse, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
                 if (paths && paths.length > 0) {
                     setSelectedPaths(paths)
@@ -1608,7 +1615,13 @@ const ProblemVisualizer = ({
                                     </p>
                                     <select
                                         value={selectedMetric}
-                                        onChange={(e) => setSelectedMetric(e.target.value)}
+                                        onChange={(e) => {
+                                            // Only allow switching if the target data exists
+                                            const newMetric = e.target.value
+                                            if (newMetric === 'counterfactual' || (newMetric === 'attention suppression' && suppressionStepImportanceData)) {
+                                                setSelectedMetric(newMetric)
+                                            }
+                                        }}
                                         style={{
                                             padding: '4px 8px',
                                             borderRadius: '4px',
@@ -1617,7 +1630,9 @@ const ProblemVisualizer = ({
                                         }}
                                     >
                                         <option value="counterfactual">Counterfactual</option>
-                                        <option value="attention suppression">Attention suppression</option>
+                                        {suppressionStepImportanceData && (
+                                            <option value="attention suppression">Attention suppression</option>
+                                        )}
                                     </select>
                                 </div>
                             )}
