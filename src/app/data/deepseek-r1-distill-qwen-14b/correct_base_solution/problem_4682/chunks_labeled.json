@@ -227,7 +227,7 @@
     "forced_importance_kl": 0.0,
     "different_trajectories_fraction": 0.62,
     "overdeterminedness": 0.51,
-    "summary": "convert 66666\u2081\u2086 to 20 bits"
+    "summary": "Answer: 5 hex digits = 20 bits"
   },
   {
     "chunk": "But wait, I should make sure that this is correct by actually converting the number or at least checking if there's any leading zero that might affect the bit count.",
@@ -247,7 +247,7 @@
     "forced_importance_kl": 0.0,
     "different_trajectories_fraction": 0.86,
     "overdeterminedness": 0.35,
-    "summary": "check leading zero"
+    "summary": "Wait, let's check leading zeros"
   },
   {
     "chunk": "Alternatively, maybe I can calculate the value of 66666\u2081\u2086 in decimal and then find out how many bits that number would require.",
@@ -287,7 +287,7 @@
     "forced_importance_kl": 0.0,
     "different_trajectories_fraction": 0.7878787878787878,
     "overdeterminedness": 0.797979797979798,
-    "summary": "cross-verify approach"
+    "summary": "Let's verify hex → decimal → bits"
   },
   {
     "chunk": "So, to convert 66666\u2081\u2086 to decimal, I can expand it as follows:",
@@ -825,7 +825,7 @@
     "forced_importance_kl": 0.0,
     "different_trajectories_fraction": 0.35714285714285715,
     "overdeterminedness": 0.5918367346938775,
-    "summary": "calculate bits=19"
+    "summary": "floor(log(419,430) + 1) is 19 bits"
   },
   {
     "chunk": "Wait, but earlier I thought it would be 20 bits because it's 5 hex digits each being 4 bits.",
@@ -866,7 +866,7 @@
     "forced_importance_kl": 0.40047756634599746,
     "different_trajectories_fraction": 0.71,
     "overdeterminedness": 0.6699999999999999,
-    "summary": "determine bits=19"
+    "summary": "Earlier 20-bit answer changed"
   },
   {
     "chunk": "There's a discrepancy here.",
@@ -927,7 +927,7 @@
     "forced_importance_kl": 0.012884334210710502,
     "different_trajectories_fraction": 0.05102040816326531,
     "overdeterminedness": 0.9489795918367347,
-    "summary": "check calculations"
+    "summary": "Let's recheck 19-bit calculations"
   },
   {
     "chunk": "Maybe I messed up the decimal conversion.",
@@ -1273,7 +1273,7 @@
     "forced_importance_kl": 0.1071052006810993,
     "different_trajectories_fraction": 0.69,
     "overdeterminedness": 0.6699999999999999,
-    "summary": "calculate bits=19"
+    "summary": "So, the answer is still 19 bits"
   },
   {
     "chunk": "But wait, when I thought about each hex digit being 4 bits, 5 hex digits would be 20 bits.",
@@ -1334,7 +1334,7 @@
     "forced_importance_kl": 0.012057606370905867,
     "different_trajectories_fraction": 0.9666666666666667,
     "overdeterminedness": 0.0888888888888889,
-    "summary": "exclude leading zeros"
+    "summary": "Ah, leading zeros aren't counted"
   },
   {
     "chunk": "So, when converting from hex to binary, each digit is 4 bits, but if the leading hex digits are such that when converted to binary, they don't add any leading zeros beyond the 4 bits per digit.",
@@ -1753,7 +1753,7 @@
     "forced_importance_kl": 2.207760629098052,
     "different_trajectories_fraction": 0.6804123711340206,
     "overdeterminedness": 0.08247422680412375,
-    "summary": "drop leading zeros"
+    "summary": "So, I drop first zero of 0110?"
   },
   {
     "chunk": "But when writing the entire number, leading zeros can be dropped, but in this case, since the first hex digit is 6, which is 0110 in binary, the leading zero is part of the first four bits, but when considering the entire number, the leading zero is not part of the significant bits.",
@@ -1773,7 +1773,7 @@
     "forced_importance_kl": 0.10536051542540315,
     "different_trajectories_fraction": 0.711340206185567,
     "overdeterminedness": 0.07216494845360821,
-    "summary": "drop leading zeros"
+    "summary": "Yes, drop first zero of 0110"
   },
   {
     "chunk": "So, perhaps the binary number starts with 0110 for the first hex digit, but the leading zero would be dropped, so the total number of bits would be 20 - 1 = 19 bits.",
@@ -2808,7 +2808,7 @@
     "forced_importance_kl": 0.1972828260877841,
     "different_trajectories_fraction": 0.98,
     "overdeterminedness": 0.36,
-    "summary": "count bits"
+    "summary": "Let's count bits after dropping"
   },
   {
     "chunk": "1 1 0 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1 0",
@@ -2828,7 +2828,7 @@
     "forced_importance_kl": 0.0,
     "different_trajectories_fraction": 0.9797979797979798,
     "overdeterminedness": 0.7777777777777778,
-    "summary": "list binary sequence"
+    "summary": "110 0110 0110 0110 0110"
   },
   {
     "chunk": "That's 19 bits.",
@@ -2888,6 +2888,6 @@
     "forced_importance_kl": 0.0,
     "different_trajectories_fraction": 0.0,
     "overdeterminedness": 0.0,
-    "summary": "state answer=19 bits"
+    "summary": "Answer is 19 bits"
   }
 ]
