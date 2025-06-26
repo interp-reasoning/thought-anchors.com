@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import Node from './Node'
 import * as d3 from 'd3'
 
@@ -19,11 +19,15 @@ export default function AttributionGraph({
   onNodeLeave,
   onNodeClick
 }) {
+  // State to accumulate all arrows that have appeared during animation
+  const [persistentAnimationArrows, setPersistentAnimationArrows] = useState(new Map())
+  // State to control finish emoji visibility
+  const [showFinishEmojis, setShowFinishEmojis] = useState(false)
   // Layout constants
-  const nodeW = 110
-  const nodeH = 70
+  const nodeW = 170
+  const nodeH = 100
   const levelGapY = 100 // Vertical spacing between levels
-  const nodeGapX = 150  // Horizontal spacing between nodes at same level
+  const nodeGapX = 200  // Horizontal spacing between nodes at same level
 
   
   // Create ref for container and zoom
@@ -93,15 +97,15 @@ export default function AttributionGraph({
   // Auto-center view when animation nodes change to keep everything visible
   useEffect(() => {
     if (visibleAnimationNodes.size > 0 && svgRef.current && zoomRef.current) {
-      // Calculate bounds of all visible animation nodes
-      const animationNodesList = Array.from(visibleAnimationNodes)
-      const animationTreeLayout = buildAnimationTreeLayout(animationNodesList, currentStepImportanceData)
+      // Calculate bounds using FINAL layout with ALL nodes
+      const allAnimationNodes = animationStepList.length > 0 ? animationStepList : Array.from(visibleAnimationNodes)
+      const finalTreeLayout = buildAnimationTreeLayout(allAnimationNodes, currentStepImportanceData)
       
-      if (animationTreeLayout.size === 0) return
+      if (finalTreeLayout.size === 0) return
       
-      // Get positions of all nodes
-      const nodePositions = animationNodesList.map(nodeIdx => 
-        getAnimationNodePosition(nodeIdx, animationTreeLayout)
+      // Get positions of all nodes in final layout
+      const nodePositions = allAnimationNodes.map(nodeIdx => 
+        getAnimationNodePosition(nodeIdx, finalTreeLayout)
       )
       
       if (nodePositions.length === 0) return
@@ -114,7 +118,7 @@ export default function AttributionGraph({
         Math.max(600, containerRef.current?.clientHeight || 600) : 
         Math.max(400, 600) // fallback
       
-      // Calculate bounds
+      // Calculate bounds based on final layout
       const minX = Math.min(...nodePositions.map(pos => pos.x)) - nodeW
       const maxX = Math.max(...nodePositions.map(pos => pos.x)) + nodeW
       const minY = Math.min(...nodePositions.map(pos => pos.y)) - nodeH
@@ -146,10 +150,103 @@ export default function AttributionGraph({
         .scale(scale)
       
       svg.transition()
-        .duration(2500) // Increased to 2.5 seconds
+        .duration(3000) // Increased to 3 seconds
         .call(zoomRef.current.transform, transform)
     }
   }, [visibleAnimationNodes, currentStepImportanceData])
+
+  // Reset persistent arrows when animation starts fresh
+  useEffect(() => {
+    if (visibleAnimationNodes.size === 0) {
+      setPersistentAnimationArrows(new Map())
+    }
+  }, [visibleAnimationNodes.size])
+
+  // Capture arrows that should persist during animation
+  useEffect(() => {
+    if (isAnimating && visibleAnimationNodes.size > 0) {
+      // Calculate current stable connections
+      const animationNodesList = Array.from(visibleAnimationNodes).sort((a, b) => {
+        const aIndex = animationStepList.indexOf(a)
+        const bIndex = animationStepList.indexOf(b)
+        if (aIndex !== -1 && bIndex !== -1) {
+          return aIndex - bIndex
+        }
+        return a - b
+      })
+      
+      const currentConnections = []
+      animationNodesList.forEach((sourceNodeIdx, index) => {
+        const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === sourceNodeIdx)
+        
+        if (stepData?.target_impacts) {
+          const earlierNodes = animationNodesList.slice(0, index)
+          const allLaterNodes = animationNodesList.slice(index + 1)
+          
+          const backwardConnections = stepData.target_impacts
+            .filter(impact => earlierNodes.includes(impact.target_chunk_idx))
+            .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+            .slice(0, 1)
+          
+          const forwardConnections = stepData.target_impacts
+            .filter(impact => allLaterNodes.includes(impact.target_chunk_idx))
+            .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+            .slice(0, 1)
+          
+          backwardConnections.forEach(impact => {
+            currentConnections.push({
+              sourceIdx: sourceNodeIdx,
+              targetIdx: impact.target_chunk_idx,
+              importance: Math.abs(impact.importance_score),
+              isMainConnection: true
+            })
+          })
+          
+          forwardConnections.forEach(impact => {
+            const targetNodeIdx = impact.target_chunk_idx
+            if (visibleAnimationNodes.has(targetNodeIdx)) {
+              currentConnections.push({
+                sourceIdx: sourceNodeIdx,
+                targetIdx: targetNodeIdx,
+                importance: Math.abs(impact.importance_score),
+                isMainConnection: true
+              })
+            }
+          })
+        }
+      })
+      
+      // Add current connections to persistent arrows
+      setPersistentAnimationArrows(prev => {
+        const newArrows = new Map(prev)
+        currentConnections.forEach(connection => {
+          const key = `${connection.sourceIdx}-${connection.targetIdx}`
+          if (!newArrows.has(key)) {
+            newArrows.set(key, connection)
+          }
+        })
+        return newArrows
+      })
+    }
+     }, [visibleAnimationNodes, isAnimating, currentStepImportanceData, animationStepList])
+
+  // Handle finish emoji visibility
+  useEffect(() => {
+    // Show finish emojis when animation completes (all nodes visible and animation step list is complete)
+    if (animationStepList.length > 0 && visibleAnimationNodes.size === animationStepList.length) {
+      setShowFinishEmojis(true)
+      
+      // Hide finish emojis after 8 seconds
+      const hideTimer = setTimeout(() => {
+        setShowFinishEmojis(false)
+      }, 8000)
+      
+      return () => clearTimeout(hideTimer)
+    } else if (visibleAnimationNodes.size === 0) {
+      // Reset when animation is cleared
+      setShowFinishEmojis(false)
+    }
+  }, [animationStepList.length, visibleAnimationNodes.size])
 
   // Build tree layout with selected node at bottom
   const buildTreeLayout = (paths, maxNodes = 50, causalLinksCount = 3, maxDepth = 2) => {
@@ -259,129 +356,74 @@ export default function AttributionGraph({
 
   const treeLayout = buildTreeLayout(selectedPaths, 50, causalLinksCount, maxDepth)
 
-  // Build animation tree layout
+  // Build animation tree layout with strict temporal ordering
   const buildAnimationTreeLayout = (animationNodes, stepData) => {
     if (!animationNodes || animationNodes.length === 0) return new Map()
     
     const animationNodesList = Array.from(animationNodes)
     const nodesByLevel = new Map()
-    const maxAnimationLevels = 5 // Limit to 5 levels maximum
     
-    // Helper function to get top-k connections from a source node
-    const getTopConnections = (sourceIdx, k) => {
-      const stepInfo = stepData.find(step => step.source_chunk_idx === sourceIdx)
-      if (!stepInfo?.target_impacts) return []
-      
-      return stepInfo.target_impacts
-        .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
-        .slice(0, k)
-        .map(impact => impact.target_chunk_idx)
-    }
+    // EFFICIENT TEMPORAL ORDERING: Pack nodes efficiently while maintaining temporal order
+     
+     // Find the final node (should be the last one in the sequence)
+     const finalNodeIdx = animationNodesList[animationNodesList.length - 1]
+     
+     // Use fewer levels to pack nodes more efficiently
+     const targetLevels = Math.min(4, Math.max(2, Math.ceil(animationNodesList.length / 4))) // More compact
+     const maxLevels = targetLevels + 1 // +1 for final node
+     
+     // Place nodes level by level with more permissive packing
+     const placedNodes = new Set()
+     const maxNodesPerLevel = 3 // Allow more nodes per level for better space usage
+     
+     for (let level = 0; level < maxLevels; level++) {
+       const nodesForThisLevel = []
+       
+       // Get remaining unplaced nodes in temporal order
+       const unplacedNodes = animationNodesList.filter(nodeIdx => !placedNodes.has(nodeIdx))
+       
+       if (unplacedNodes.length === 0) break
+       
+       const isFinalLevel = level === maxLevels - 1
+       
+       if (isFinalLevel) {
+         // Final level: only the final node
+         if (unplacedNodes.includes(finalNodeIdx)) {
+           nodesForThisLevel.push(finalNodeIdx)
+         }
+       } else {
+         // Regular levels: pack nodes efficiently but respect temporal order
+         const availableNodes = unplacedNodes.filter(nodeIdx => nodeIdx !== finalNodeIdx)
+         
+         // Take up to maxNodesPerLevel nodes, but ensure temporal ordering within level
+         const nodesToPlace = availableNodes.slice(0, maxNodesPerLevel)
+         nodesForThisLevel.push(...nodesToPlace)
+       }
+       
+       if (nodesForThisLevel.length > 0) {
+         // Sort nodes by their temporal order (earlier nodes to the left)
+         nodesForThisLevel.sort((a, b) => animationNodesList.indexOf(a) - animationNodesList.indexOf(b))
+         
+         nodesByLevel.set(level, nodesForThisLevel)
+         nodesForThisLevel.forEach(nodeIdx => placedNodes.add(nodeIdx))
+       }
+     }
     
-    // Helper function to check if nodeA has a direct strong connection to nodeB
-    const hasDirectConnection = (sourceIdx, targetIdx, k) => {
-      const topConnections = getTopConnections(sourceIdx, k)
-      return topConnections.includes(targetIdx)
-    }
-    
-    // Start with the first animation node at level 0
-    const startNode = animationNodesList[0]
-    nodesByLevel.set(0, [startNode])
-    const placedNodes = new Set([startNode])
-    
-    // Process remaining nodes, prioritizing input order for level assignment
-    let currentLevel = 0
-    
-    while (placedNodes.size < animationNodesList.length && currentLevel < maxAnimationLevels - 1) {
-      const currentLevelNodes = nodesByLevel.get(currentLevel) || []
-      const candidatesForNextLevel = []
+    // If any nodes are still unplaced, place them in remaining slots
+    const unplacedNodes = animationNodesList.filter(nodeIdx => !placedNodes.has(nodeIdx))
+    if (unplacedNodes.length > 0) {
+      // Sort by temporal order
+      unplacedNodes.sort((a, b) => animationNodesList.indexOf(a) - animationNodesList.indexOf(b))
       
-      // Get unplaced nodes in their original input order
-      const unplacedNodes = animationNodesList.filter(nodeIdx => !placedNodes.has(nodeIdx))
+      // Place in the last available non-final level
+      const lastLevel = Math.max(0, maxLevels - 2)
+      const existingNodes = nodesByLevel.get(lastLevel) || []
+      const combinedNodes = [...existingNodes, ...unplacedNodes]
       
-      if (unplacedNodes.length === 0) break
+      // Sort all nodes by temporal order
+      combinedNodes.sort((a, b) => animationNodesList.indexOf(a) - animationNodesList.indexOf(b))
       
-      // For each unplaced node, calculate its "readiness score" for the next level
-      const nodeReadinessScores = unplacedNodes.map(nodeIdx => {
-        const inputOrder = animationNodesList.indexOf(nodeIdx)
-        let connectionScore = 0
-        let hasAnyConnection = false
-        
-        // Check connections to current level nodes
-        currentLevelNodes.forEach(levelNodeIdx => {
-          const directForward = hasDirectConnection(levelNodeIdx, nodeIdx, causalLinksCount)
-          const directBackward = hasDirectConnection(nodeIdx, levelNodeIdx, causalLinksCount)
-          
-          if (directForward || directBackward) {
-            connectionScore += 3 // Strong direct connection
-            hasAnyConnection = true
-          }
-        })
-        
-        // Check connections to any already placed nodes (not just current level)
-        Array.from(placedNodes).forEach(placedNodeIdx => {
-          if (currentLevelNodes.includes(placedNodeIdx)) return // Already counted above
-          
-          const directForward = hasDirectConnection(placedNodeIdx, nodeIdx, causalLinksCount)
-          const directBackward = hasDirectConnection(nodeIdx, placedNodeIdx, causalLinksCount)
-          
-          if (directForward || directBackward) {
-            connectionScore += 1 // Connection to earlier placed node
-            hasAnyConnection = true
-          }
-        })
-        
-        // Bias heavily towards input order - later nodes should appear later
-        const orderPenalty = inputOrder * 10 // Heavy penalty for appearing too early
-        
-        // Final readiness score (lower is better for earlier placement)
-        const readinessScore = orderPenalty - connectionScore
-        
-        return {
-          nodeIdx,
-          inputOrder,
-          connectionScore,
-          hasAnyConnection,
-          readinessScore
-        }
-      })
-      
-      // Sort by readiness score and input order
-      nodeReadinessScores.sort((a, b) => {
-        if (a.readinessScore !== b.readinessScore) {
-          return a.readinessScore - b.readinessScore
-        }
-        return a.inputOrder - b.inputOrder
-      })
-      
-      // Select candidates for next level
-      // Prioritize nodes with connections, but respect input order
-      const nodesWithConnections = nodeReadinessScores.filter(node => node.hasAnyConnection)
-      const nodesWithoutConnections = nodeReadinessScores.filter(node => !node.hasAnyConnection)
-      
-      if (nodesWithConnections.length > 0) {
-        // Take the most ready nodes with connections (max 3 per level)
-        candidatesForNextLevel.push(...nodesWithConnections.slice(0, 3).map(node => node.nodeIdx))
-      } else if (nodesWithoutConnections.length > 0) {
-        // If no connections available, take the earliest input nodes (max 2)
-        candidatesForNextLevel.push(...nodesWithoutConnections.slice(0, 2).map(node => node.nodeIdx))
-      }
-      
-      if (candidatesForNextLevel.length > 0) {
-        currentLevel++
-        nodesByLevel.set(currentLevel, candidatesForNextLevel)
-        candidatesForNextLevel.forEach(nodeIdx => placedNodes.add(nodeIdx))
-      } else {
-        break
-      }
-    }
-    
-    // If there are still unplaced nodes and we've reached max levels, put them all in the last level
-    const remainingNodes = animationNodesList.filter(nodeIdx => !placedNodes.has(nodeIdx))
-    if (remainingNodes.length > 0 && currentLevel < maxAnimationLevels) {
-      const lastLevel = nodesByLevel.get(currentLevel) || []
-      lastLevel.push(...remainingNodes)
-      nodesByLevel.set(currentLevel, lastLevel)
+      nodesByLevel.set(lastLevel, combinedNodes)
     }
     
     return nodesByLevel
@@ -391,11 +433,15 @@ export default function AttributionGraph({
 
   // Helper function to get animation node position with stable positioning
   const getAnimationNodePosition = (nodeIdx, animationTreeLayout) => {
-    // Find which level this node is in
+    // Calculate FINAL layout once using ALL animation nodes, not just visible ones
+    const allAnimationNodes = animationStepList.length > 0 ? animationStepList : Array.from(visibleAnimationNodes)
+    const finalTreeLayout = buildAnimationTreeLayout(allAnimationNodes, currentStepImportanceData)
+    
+    // Find which level this node is in the FINAL layout
     let nodeLevel = 0
     let nodeIndexInLevel = 0
     
-    for (const [level, nodes] of animationTreeLayout.entries()) {
+    for (const [level, nodes] of finalTreeLayout.entries()) {
       const index = nodes.indexOf(nodeIdx)
       if (index !== -1) {
         nodeLevel = level
@@ -404,23 +450,34 @@ export default function AttributionGraph({
       }
     }
     
-    const numLevels = Math.max(1, animationTreeLayout.size)
-    const nodesInLevel = animationTreeLayout.get(nodeLevel) || []
+    const numLevels = Math.max(1, finalTreeLayout.size)
+    const nodesInLevel = finalTreeLayout.get(nodeLevel) || []
     
     // Use current container dimensions for centering horizontally
     const containerWidth = Math.max(800, containerRef.current?.clientWidth || 800)
-    const animationCenterX = containerWidth / 2
+    const animationCenterX = containerWidth / 2 - 15
     
     // Fixed layout spacing - never changes
-    const animationLevelGapY = 140   // Fixed vertical gaps
-    const animationNodeGapX = 180   // Fixed horizontal gaps
-    const topPadding = 60           // Padding from top of viewport
+    const animationLevelGapY = 140   // Fixed vertical gaps (reverted to original)
+    const animationNodeGapX = 240   // Fixed horizontal gaps
+    const topPadding = 95           // Padding from top of viewport
     
     // Position first node near top, subsequent nodes grow from there
     let levelY
     if (treeDirection === 'outgoing') {
       // For outgoing: first level (0) at top with padding, subsequent levels grow downward
-      levelY = topPadding + nodeLevel * animationLevelGapY
+      // Special handling for final level to reduce gap
+      const isFinalLevel = nodeLevel === numLevels - 1
+      const gapToUse = isFinalLevel ? animationLevelGapY * 0.7 : animationLevelGapY // 30% smaller gap for final node
+      
+      if (nodeLevel === 0) {
+        levelY = topPadding
+      } else if (isFinalLevel) {
+        // Calculate position for final level with reduced gap
+        levelY = topPadding + (nodeLevel - 1) * animationLevelGapY + gapToUse + 50
+      } else {
+        levelY = topPadding + nodeLevel * animationLevelGapY
+      }
     } else {
       // For incoming: first level (0) positioned to allow upward growth
       // Position so that the tree grows upward from a reasonable starting point
@@ -672,10 +729,23 @@ export default function AttributionGraph({
               />
             </marker>
             
-            {/* Simple CSS Animation for yellow shine effect */}
+            {/* Simple CSS Animation for yellow shine effect and red shine for step 66 */}
             <style>
               {`
                 @keyframes shine {
+                  0%, 100% { 
+                    opacity: 0.3; 
+                    stroke-width: 2; 
+                    r: ${nodeW/2 + 8}; 
+                  }
+                  50% { 
+                    opacity: 0.8; 
+                    stroke-width: 4; 
+                    r: ${nodeW/2 + 15}; 
+                  }
+                }
+                
+                @keyframes redShine {
                   0%, 100% { 
                     opacity: 0.3; 
                     stroke-width: 2; 
@@ -730,13 +800,13 @@ export default function AttributionGraph({
                       const backwardConnections = stepData.target_impacts
                         .filter(impact => earlierNodes.includes(impact.target_chunk_idx))
                         .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
-                        .slice(0, 2) // Max 2 backward connections
+                        .slice(0, 1) // Max 1 backward connection
                       
                       // Get connections to later nodes (forward connections) 
                       const forwardConnections = stepData.target_impacts
                         .filter(impact => allLaterNodes.includes(impact.target_chunk_idx))
                         .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
-                        .slice(0, 2) // Max 2 forward connections
+                        .slice(0, 1) // Max 1 forward connection
                       
                       // Add backward connections (these are stable - connect to already visible nodes)
                       backwardConnections.forEach(impact => {
@@ -764,7 +834,15 @@ export default function AttributionGraph({
                     }
                   })
                   
-                  return stableConnections.map((connection, index) => {
+                  // Use persistent arrows during and after animation to ensure arrows never disappear
+                  const connectionsToRender = (isAnimating || visibleAnimationNodes.size > 0) ? 
+                    Array.from(persistentAnimationArrows.values()).filter(connection => 
+                      visibleAnimationNodes.has(connection.sourceIdx) && 
+                      visibleAnimationNodes.has(connection.targetIdx)
+                    ) : 
+                    stableConnections
+                  
+                  return connectionsToRender.map((connection, index) => {
                     const sourcePos = getAnimationNodePosition(connection.sourceIdx, animationTreeLayout)
                     const targetPos = getAnimationNodePosition(connection.targetIdx, animationTreeLayout)
                     
@@ -885,26 +963,26 @@ export default function AttributionGraph({
                   const animationNodesList = Array.from(visibleAnimationNodes)
                   if (animationNodesList.length === 0) return null
                   
-                  // Build a mini tree layout just for animation nodes
-                  const animationTreeLayout = buildAnimationTreeLayout(animationNodesList, currentStepImportanceData)
+                  // Use FINAL tree layout with ALL nodes for positioning
+                  const allAnimationNodes = animationStepList.length > 0 ? animationStepList : animationNodesList
+                  const finalAnimationTreeLayout = buildAnimationTreeLayout(allAnimationNodes, currentStepImportanceData)
                   
-                  return Array.from(animationTreeLayout.entries()).map(([levelIndex, level]) => {
+                  return Array.from(finalAnimationTreeLayout.entries()).map(([levelIndex, level]) => {
                     if (!level || !Array.isArray(level)) return null
                     
                     return (
                       <g key={`animation-level-${levelIndex}`}>
-                        {level.map((nodeIdx) => {
+                        {level.filter(nodeIdx => visibleAnimationNodes.has(nodeIdx)).map((nodeIdx) => {
                           const chunk = chunksData[nodeIdx]
                           if (!chunk) return null
                           
-                          const pos = getAnimationNodePosition(nodeIdx, animationTreeLayout)
+                          const pos = getAnimationNodePosition(nodeIdx, finalAnimationTreeLayout)
                           
                           // Calculate node opacity based on importance
                           const nodeImportance = chunk.importance !== undefined ? Math.abs(chunk.importance) : 0.5
                           const nodeOpacity = Math.max(0.4, Math.min(1.0, nodeImportance * 0.7 + 0.3))
 
-                          // Check if this is the final step (when animation is complete)
-                          const isAnimationComplete = isAnimating && animationStepList.length > 0 && visibleAnimationNodes.size === animationStepList.length
+                          // Check if this is the final node and we should show finish emojis
                           const isFinalNode = nodeIdx === animationStepList[animationStepList.length - 1]
                           
                           // Show shine effect ONLY for the newest node (last one added)
@@ -913,83 +991,23 @@ export default function AttributionGraph({
 
                           return (
                             <g key={`animation-node-${nodeIdx}`}>
-                              {/* Yellow shine effect for ONLY the newest node */}
+                              {/* Shine effect for ONLY the newest node - red for step 66, yellow for others */}
                               {isNewestNode && (
                                 <circle
                                   cx={pos.x}
                                   cy={pos.y}
                                   r={nodeW/2 + 10}
                                   fill="none"
-                                  stroke="#ffd700"
+                                  stroke={nodeIdx === 66 ? "#ff0000" : "#ffd700"}
                                   strokeWidth="3"
                                   opacity="0.8"
                                   style={{
-                                    animation: 'shine 2s ease-in-out infinite'
+                                    animation: nodeIdx === 66 ? 'redShine 2s ease-in-out infinite' : 'shine 2s ease-in-out infinite'
                                   }}
                                 />
                               )}
                               
-                              {/* Finish line emojis only when animation is complete and this is the final node */}
-                              {isAnimationComplete && isFinalNode && (
-                                <g style={{ zIndex: 9999 }}>
-                                  {/* Top emoji */}
-                                  <text
-                                    x={pos.x}
-                                    y={pos.y - 60}
-                                    fontSize="24"
-                                    textAnchor="middle"
-                                    style={{
-                                      animation: 'finishEmoji 5s ease-in-out forwards',
-                                      animationDelay: '0s',
-                                      zIndex: 9999
-                                    }}
-                                  >
-                                    🏁
-                                  </text>
-                                  {/* Right emoji */}
-                                  <text
-                                    x={pos.x + 60}
-                                    y={pos.y + 5}
-                                    fontSize="24"
-                                    textAnchor="middle"
-                                    style={{
-                                      animation: 'finishEmoji 5s ease-in-out forwards',
-                                      animationDelay: '0.5s',
-                                      zIndex: 9999
-                                    }}
-                                  >
-                                    🏁
-                                  </text>
-                                  {/* Bottom emoji */}
-                                  <text
-                                    x={pos.x}
-                                    y={pos.y + 70}
-                                    fontSize="24"
-                                    textAnchor="middle"
-                                    style={{
-                                      animation: 'finishEmoji 5s ease-in-out forwards',
-                                      animationDelay: '1s',
-                                      zIndex: 9999
-                                    }}
-                                  >
-                                    🏁
-                                  </text>
-                                  {/* Left emoji */}
-                                  <text
-                                    x={pos.x - 60}
-                                    y={pos.y + 5}
-                                    fontSize="24"
-                                    textAnchor="middle"
-                                    style={{
-                                      animation: 'finishEmoji 5s ease-in-out forwards',
-                                      animationDelay: '1.5s',
-                                      zIndex: 9999
-                                    }}
-                                  >
-                                    🏁
-                                  </text>
-                                </g>
-                              )}
+
                               
                               <Node
                                 node={{ idx: nodeIdx }}
@@ -1000,6 +1018,7 @@ export default function AttributionGraph({
                                 nodeH={nodeH}
                                 opacity={nodeOpacity}
                                 isShining={isNewestNode}
+                                isFinalNode={isFinalNode && showFinishEmojis}
                                 onNodeHover={(event, nodeData) => {
                                   if (onNodeHover) {
                                     onNodeHover(event, nodeData)

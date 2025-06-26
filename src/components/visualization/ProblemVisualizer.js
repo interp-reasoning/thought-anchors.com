@@ -6,10 +6,9 @@ import { processMathText } from '@/utils/textProcessing'
 import ChainOfThought from './ChainOfThought'
 import AttributionGraph from '@/components/attribution/AttributionGraph'
 import {
-    VisualizerWrapper,
-    GraphContainer,
-    ProblemBox,
-    DetailPanel,
+    VisualizationContainer,
+    CircleView,
+    ControlsContainer,
     LoadingIndicator,
     Legend,
     LegendRow,
@@ -19,7 +18,11 @@ import {
     NavButton,
     VisualizationToggle,
     ToggleOption,
-} from '@/styles/visualization'
+    VisualizerWrapper,
+    GraphContainer,
+    DetailPanel,
+    ProblemBox,
+} from '../../styles/visualization'
 import styled from 'styled-components'
 
 const GraphControls = styled.div`
@@ -237,7 +240,7 @@ const ProblemVisualizer = ({
     problemId, 
     modelId,
     solutionType,
-    initialCausalLinksCount = 3, 
+    initialCausalLinksCount = 1, // Changed from 3 to 2
     nodeHighlightColor = '#333', 
     nodeHighlightWidth = 2.5, 
     initialImportanceFilter = 4,
@@ -1650,7 +1653,11 @@ const ProblemVisualizer = ({
             setCurrentAnimationStep(i + 1)
             
             // Wait 2 seconds before next node (except for the last one)
-            if (i < validSteps.length - 1) {
+            if (i == 0) {
+                await new Promise(resolve => setTimeout(resolve, 3500))
+            } else if (i <= (validSteps.length - 1) / 2) {
+                await new Promise(resolve => setTimeout(resolve, 2750))
+            } else if (i < validSteps.length - 1) {
                 await new Promise(resolve => setTimeout(resolve, 2000))
             }
         }
@@ -1666,6 +1673,39 @@ const ProblemVisualizer = ({
     const cancelAnimation = () => {
         setIsAnimationModalOpen(false)
         setAnimationSteps('')
+    }
+
+    // Function to start CoT analysis (switch to tree mode and start animation)
+    const startCotAnalysis = () => {
+        // Switch to tree mode
+        if (onVisualizationTypeChange) {
+            onVisualizationTypeChange('attribution')
+        }
+        
+        // Set predefined steps and start animation
+        const predefinedSteps = "11, 12, 14, 41, 43, 46, 63, 66, 87, 88, 140, 141, 144"
+        const steps = predefinedSteps
+            .split(',')
+            .map(s => parseInt(s.trim()))
+            .filter(n => !isNaN(n) && chunksData.some(chunk => chunk.chunk_idx === n))
+        
+        if (steps.length > 0) {
+            // Start animation immediately
+            setIsAnimating(true)
+            setCurrentAnimationStep(0)
+            setVisibleAnimationNodes(new Set())
+            setAnimationStepList(steps) // Store the original step order
+            
+            // Reset view to center when animation starts
+            setTimeout(() => {
+                if (typeof window !== 'undefined' && window.resetAttributionGraphView) {
+                    window.resetAttributionGraphView()
+                }
+            }, 100)
+            
+            // Start animation sequence
+            animateSteps(steps)
+        }
     }
 
     return (
@@ -1707,85 +1747,34 @@ const ProblemVisualizer = ({
                 <LoadingIndicator>Loading visualization data...</LoadingIndicator>
             ) : (
                 <>
-                    {summaryData && (
+                    {summaryData && hasSuppressionStepImportanceData && (
                         <ProblemBox>
-                            <h3 style={{ marginBottom: '0.75rem' }}>
-                                {`${problemData?.nickname[0].toUpperCase() + problemData?.nickname.slice(1).toLowerCase()}` || `Problem ${summaryData.problem_idx}`}
-                            </h3>
-                            {problemData && problemData.problem && (
-                                <div
-                                    style={{
-                                        marginBottom: '0.5rem',
-                                        flexDirection: 'row',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem',
-                                    }}
-                                >
-                                    <p>
-                                        <strong>Question:</strong>
-                                    </p>
-                                    <p>{processMathText(problemData.problem)}</p>
-                                </div>
-                            )}
-                            {problemData && problemData.gt_answer && (
-                                <div
-                                    style={{
-                                        marginBottom: '0.5rem',
-                                        flexDirection: 'row',
-                                        display: 'flex',
-                                        alignItems: 'flex-start',
-                                        gap: '0.5rem',
-                                    }}
-                                >
-                                    <p>
-                                        <strong>Answer:</strong>
-                                    </p>
-                                    <p>{processMathText(problemData.gt_answer)}</p>
-                                </div>
-                            )}
                             <div
                                 style={{
                                     marginBottom: '0.5rem',
                                     flexDirection: 'row',
                                     display: 'flex',
-                                    alignItems: 'flex-start',
+                                    alignItems: 'center',
                                     gap: '0.5rem',
                                 }}
                             >
                                 <p>
-                                    <strong>Total steps:</strong>
+                                    <strong>Sentence-to-sentence metric:</strong>
                                 </p>
-                                <p>{summaryData.num_chunks}</p>
-                            </div>
-                            {hasSuppressionStepImportanceData && (
-                                <div
+                                <select
+                                    value={selectedMetric}
+                                    onChange={(e) => setSelectedMetric(e.target.value)}
                                     style={{
-                                        marginBottom: '0.5rem',
-                                        flexDirection: 'row',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem',
+                                        padding: '4px 8px',
+                                        borderRadius: '4px',
+                                        border: '1px solid #ccc',
+                                        fontSize: '0.875rem',
                                     }}
                                 >
-                                    <p>
-                                        <strong>Sentence-to-sentence metric:</strong>
-                                    </p>
-                                    <select
-                                        value={selectedMetric}
-                                        onChange={(e) => setSelectedMetric(e.target.value)}
-                                        style={{
-                                            padding: '4px 8px',
-                                            borderRadius: '4px',
-                                            border: '1px solid #ccc',
-                                            fontSize: '0.875rem',
-                                        }}
-                                    >
-                                        <option value="counterfactual">Counterfactual</option>
-                                        <option value="attention suppression">Attention suppression</option>
-                                    </select>
-                                </div>
-                            )}
+                                    <option value="counterfactual">Counterfactual</option>
+                                    <option value="attention suppression">Attention suppression</option>
+                                </select>
+                            </div>
                         </ProblemBox>
                     )}
 
@@ -1913,6 +1902,10 @@ const ProblemVisualizer = ({
                             causalLinksCount={localCausalLinksCount}
                             hoveredFromCentralGraph={hoveredFromCentralGraph}
                             scrollToNode={scrollToNode}
+                            problemData={problemData}
+                            summaryData={summaryData}
+                            onAnalyzeCoT={startCotAnalysis}
+                            isAnimating={isAnimating}
                         />
 
                         <GraphContainer ref={graphContainerRef}>
@@ -1948,7 +1941,8 @@ const ProblemVisualizer = ({
                                                 }
                                                 
                                                 // Automatically start animation with predefined steps
-                                                const predefinedSteps = "11, 12, 14, 43, 44, 46, 59, 84, 86, 129, 144"
+                                                // const predefinedSteps = "11, 12, 14, 43, 44, 46, 59, 84, 86, 129, 144"
+                                                const predefinedSteps = "11, 12, 14, 41, 43, 46, 63, 66, 87, 88, 140, 141, 144"
                                                 const steps = predefinedSteps
                                                     .split(',')
                                                     .map(s => parseInt(s.trim()))
@@ -1998,7 +1992,7 @@ const ProblemVisualizer = ({
                                                 value={localCausalLinksCount}
                                                 onChange={(e) => setLocalCausalLinksCount(Number(e.target.value))}
                                             >
-                                                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                                                     <option key={num} value={num}>
                                                         {num}
                                                     </option>
@@ -2037,7 +2031,7 @@ const ProblemVisualizer = ({
                                                 value={localCausalLinksCount}
                                                 onChange={(e) => setLocalCausalLinksCount(Number(e.target.value))}
                                             >
-                                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                                {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                                                     <option key={num} value={num}>
                                                         {num}
                                                     </option>
@@ -2057,14 +2051,15 @@ const ProblemVisualizer = ({
                                                 ))}
                                             </select>
                                         </ControlRow>
-                                        <ControlRow>
+                                        {/* <ControlRow>
                                             <ControlButton 
                                                 onClick={() => setIsAnimationModalOpen(true)}
                                                 disabled={isAnimating}
                                             >
                                                 {isAnimating ? 'Animating...' : 'Animate'}
                                             </ControlButton>
-                                        </ControlRow>
+                                        </ControlRow> */}
+                                        {/* Commented out for now
                                         {visibleAnimationNodes.size > 0 && (
                                             <ControlRow>
                                                 <ControlButton 
@@ -2079,14 +2074,15 @@ const ProblemVisualizer = ({
                                                 </ControlButton>
                                             </ControlRow>
                                         )}
+                                        */}
                                     </>
                                 )}
                                 
-                                <ControlRow>
+                                {/* <ControlRow>
                                     <ControlButton onClick={resetGraphView}>
                                         Reset view
                                     </ControlButton>
-                                </ControlRow>
+                                </ControlRow> */}
                             </GraphControls>
                             
                             {visualizationType === 'circle' ? (

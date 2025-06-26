@@ -53,6 +53,7 @@ export default function Node({
   nodeW = 170, 
   nodeH = 70,
   opacity = 1.0,
+  isFinalNode = false,
   onNodeHover,
   onNodeLeave,
   onNodeClick
@@ -62,28 +63,30 @@ export default function Node({
   const summaryText = chunk?.summary?.replace('\\)', ')').replace('\\(', '(') || chunk?.chunk || ''
   
   // Wrap the text into multiple lines
-  const textLines = wrapText(summaryText, 16)
-  const lineHeight = 12
+  const textLines = wrapText(summaryText, 19)
+  const lineHeight = 17
   const totalTextHeight = textLines.length * lineHeight
   
   // Calculate starting Y position to center the text vertically in the lower half
   const textStartY = pos.y + 4 - (totalTextHeight / 2) + lineHeight
 
+  let nodeW_ = isFinalNode ? nodeW + 40 : nodeW;
+
   return (
     <g>
       <rect
-        x={pos.x - nodeW/2}
+        x={pos.x - nodeW_/2}
         y={pos.y - nodeH/2}
-        width={nodeW}
+        width={nodeW_}
         height={nodeH}
         rx={8}
         ry={8}
         fill={'#f9f9f9'}
       />
       <rect
-        x={pos.x - nodeW/2}
+        x={pos.x - nodeW_/2}
         y={pos.y - nodeH/2}
-        width={nodeW}
+        width={nodeW_}
         height={nodeH}
         rx={8}
         ry={8}
@@ -124,9 +127,9 @@ export default function Node({
       />
       {isSelected && (
         <rect
-          x={pos.x - nodeW/2}
+          x={pos.x - nodeW_/2}
           y={pos.y - nodeH/2}
-          width={nodeW}
+          width={nodeW_}
           height={nodeH}
           rx={8}
           ry={8}
@@ -167,23 +170,25 @@ export default function Node({
       )}
       <text
         x={pos.x}
-        y={pos.y - 8}
-        fontWeight="bold"
-        fontSize="1.05em"
+        y={pos.y - 20}
+        //fontWeight="bold"
+        fontSize="1.0em"
         fill="#222"
+        fontWeight={500}
         fillOpacity={Math.max(0.7, opacity)}
         textAnchor="middle"
         style={{ cursor: 'pointer', pointerEvents: 'none' }}
       >
-        {node.idx}: {formatFunctionTag(tag, true)}
+        {isFinalNode ? `🏁 Sentence ${node.idx} 🏁` : `Sentence ${node.idx}`}
       </text>
       {textLines.map((line, index) => (
         <text
           key={index}
           x={pos.x}
-          y={textStartY + (index * lineHeight) + 6}
-          fontSize="0.8em"
-          fill="#222"
+          y={textStartY + (index * lineHeight) + 8}
+          fontSize="1.1em"
+          fontWeight={500}
+          fill="black"
           fillOpacity={Math.max(0.7, opacity)}
           textAnchor="middle"
           style={{ cursor: 'pointer', pointerEvents: 'none' }}

@@ -59,9 +59,10 @@ const ToggleButton = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'isCollapsed',
 })`
     padding: 0.25rem 0.5rem;
-    background: #007bff;
+    background: lightgray;
     color: white;
     border: none;
+    display: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.875rem;
@@ -103,7 +104,7 @@ const ChainStep = styled.div.withConfig({
     shouldForwardProp: (prop) => !['color', 'importance', 'isSelected', 'isHighlighted'].includes(prop),
 })`
     padding: 0.75rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     border-radius: 6px;
     border-left: 4px solid ${props => props.color};
     background: ${props => {
@@ -134,23 +135,25 @@ const ChainStep = styled.div.withConfig({
         box-shadow: 0 0 0 2px ${props.color}, 0 4px 12px rgba(0, 0, 0, 0.2);
         transform: translateX(6px);
     `}
+
+    overflow-y: visible;
 `
 
 const StepNumber = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'color',
 })`
     position: absolute;
-    top: -8px;
-    left: -8px;
+    top: -10px;
+    left: -13px;
     background: ${props => props.color};
     color: white;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 31px;
+    height: 31px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: bold;
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -166,7 +169,7 @@ const StepHeader = styled.div`
 
 const StepFunction = styled.span`
     display: flex;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #444;
     background: rgba(255, 255, 255, 0.8);
@@ -176,7 +179,7 @@ const StepFunction = styled.span`
 `
 
 const ImportanceScore = styled.span`
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #666;
     background: rgba(255, 255, 255, 0.9);
@@ -186,7 +189,7 @@ const ImportanceScore = styled.span`
 `
 
 const StepText = styled.div`
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.4;
     color: #333;
     background: rgba(255, 255, 255, 0.9);
@@ -195,10 +198,71 @@ const StepText = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
 `
 
-const CollapsedView = styled.div`
-    padding: 1rem;
-    text-align: center;
-    color: #666;
+const ProblemInfoBox = styled.div`
+    padding: 0.75rem;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px;
+    margin-bottom: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+
+    /* Mobile responsive problem info */
+    @media (max-width: 650px) {
+        padding: 0.6rem;
+        margin-bottom: 0.75rem;
+        border-radius: 4px;
+        
+        h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+        
+        p {
+            font-size: 0.8rem;
+            line-height: 1.3;
+        }
+    }
+`
+
+const AnalyzeButton = styled.button`
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+
+    &:hover:not(:disabled) {
+        background: #0056b3;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+    }
+
+    &:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    @media (max-width: 650px) {
+        bottom: 0.6rem;
+        right: 0.6rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
 `
 
 const ChainOfThought = ({ 
@@ -211,7 +275,11 @@ const ChainOfThought = ({
     onStepLeave,
     causalLinksCount = 3,
     hoveredFromCentralGraph = false,
-    scrollToNode = null
+    scrollToNode = null,
+    problemData = null,
+    summaryData = null,
+    onAnalyzeCoT = null,
+    isAnimating = false
 }) => {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [hoveredStep, setHoveredStep] = useState(null)
@@ -304,7 +372,7 @@ const ChainOfThought = ({
     return (
         <ChainContainer isCollapsed={isCollapsed}>
             <ChainHeader isCollapsed={isCollapsed}>
-                <h3>Chain-of-thought</h3>
+                <h3>Chain-of-Thought</h3>
                 <ToggleButton 
                     isCollapsed={isCollapsed}
                     onClick={() => setIsCollapsed(!isCollapsed)}
@@ -312,6 +380,47 @@ const ChainOfThought = ({
                     {isCollapsed ? '→' : '←'}
                 </ToggleButton>
             </ChainHeader>
+            
+            {!isCollapsed && (problemData || summaryData) && (
+                <ProblemInfoBox>
+                    {problemData?.nickname && (
+                        <h4 style={{ marginBottom: '0.5rem', fontSize: '1.1rem', fontWeight: 600 }}>
+                            Question:  {problemData.nickname[0].toLowerCase() + problemData.nickname.slice(1).toLowerCase()}
+                        </h4>
+                    )}
+                    {problemData?.problem && (
+                        <div style={{ marginBottom: '0.5rem' }}>
+                            <p style={{ margin: 0, fontSize: '1.1rem' }}>
+                                {processMathText(problemData.problem)}
+                            </p>
+                        </div>
+                    )}
+                    {problemData?.gt_answer && (
+                        <div style={{ marginBottom: '0.5rem' }}>
+                            <p style={{ margin: 0, fontSize: '1.05rem' }}>
+                                <strong>Answer:</strong> {processMathText(problemData.gt_answer)}
+                            </p>
+                        </div>
+                    )}
+                    {summaryData?.num_chunks && (
+                        <div>
+                            <p style={{ margin: 0, fontSize: '1.05rem' }}>
+                                <strong>Total steps:</strong> {summaryData.num_chunks}
+                            </p>
+                        </div>
+                    )}
+                    
+                    {onAnalyzeCoT && (
+                        <AnalyzeButton
+                            onClick={onAnalyzeCoT}
+                            disabled={isAnimating}
+                        >
+                            {isAnimating ? 'Analyzing...' : 'Analyze CoT'}
+                        </AnalyzeButton>
+                    )}
+                </ProblemInfoBox>
+            )}
+            
             <ChainList ref={chainListRef} isCollapsed={isCollapsed}>
                 {chunksData
                     .sort((a, b) => a.chunk_idx - b.chunk_idx)
