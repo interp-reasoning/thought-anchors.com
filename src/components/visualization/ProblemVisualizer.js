@@ -873,7 +873,7 @@ const ProblemVisualizer = ({
         let verticalOffset
         if (window.innerWidth <= 650) {
             // Mobile: center the circle better for smaller screens
-            verticalOffset = containerHeight * 0.33
+            verticalOffset = containerHeight * 0.31
             radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.40 : 0.38)
         } else {
             // Desktop/tablet: use existing logic
