@@ -854,7 +854,7 @@ const ProblemVisualizer = ({
 
         // Position nodes in a circle
         const nodeCount = filteredNodes.length
-        const radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.45 : 0.425)
+        const radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.43 : 0.415)
         
         // Use a lower vertical offset when the right panel is open
         // Add mobile-specific adjustments for better positioning
