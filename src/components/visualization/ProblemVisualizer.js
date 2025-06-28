@@ -280,7 +280,10 @@ const ProblemVisualizer = ({
     const [selectedMetric, setSelectedMetric] = useState('attention suppression')
 
     const hasSuppressionStepImportanceData = !!suppressionStepImportanceData
-    const currentStepImportanceData = selectedMetric === 'counterfactual' ? counterfactualStepImportanceData : (suppressionStepImportanceData || [])
+    // Use counterfactual data as fallback if suppression is selected but not available
+    const currentStepImportanceData = selectedMetric === 'counterfactual' || !suppressionStepImportanceData 
+        ? counterfactualStepImportanceData 
+        : suppressionStepImportanceData
 
     useEffect(() => {
         const fetchData = async () => {
@@ -320,14 +323,17 @@ const ProblemVisualizer = ({
                 try {
                     const suppressionResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/step_importance_supp.json`)
                     setSuppressionStepImportanceData(suppressionResponse.default)
-                    // Auto-select attention suppression if data exists and it's the intended default
-                    // Uncomment the line below if you want attention suppression as default when available
-                    setSelectedMetric('attention suppression')
+                    // Only set metric if it's not already set to attention suppression to avoid infinite loops
+                    if (selectedMetric !== 'attention suppression') {
+                        setSelectedMetric('attention suppression')
+                    }
                 } catch (e) {
                     console.warn(`Attention suppression data not found for ${problemId}`)
                     setSuppressionStepImportanceData(null)
-                    // Ensure we fall back to counterfactual if suppression data doesn't exist
-                    setSelectedMetric('counterfactual')
+                    // Only fall back to counterfactual if currently on attention suppression
+                    if (selectedMetric === 'attention suppression') {
+                        setSelectedMetric('counterfactual')
+                    }
                 }
 
                 setLoading(false)
@@ -354,31 +360,36 @@ const ProblemVisualizer = ({
                 })
             })
             
-            // Find min and max for global 0-1 normalization
-            const minImportance = Math.min(...allImportanceScores)
-            const maxImportance = Math.max(...allImportanceScores)
-            const importanceRange = maxImportance - minImportance || 1 // Avoid division by zero
-            
-            // Normalize each connection to 0-1 range
-            currentStepImportanceData.forEach((step) => {
-                const sourceIdx = step.source_chunk_idx
-                const impacts = step.target_impacts || []
+            if (allImportanceScores.length > 0) {
+                // Find min and max for global 0-1 normalization
+                const minImportance = Math.min(...allImportanceScores)
+                const maxImportance = Math.max(...allImportanceScores)
+                const importanceRange = maxImportance - minImportance || 1 // Avoid division by zero
                 
-                impacts.forEach((impact) => {
-                    const rawImportance = Math.abs(impact.importance_score)
-                    const normalizedWeight = (rawImportance - minImportance) / importanceRange
-                    const key = `${sourceIdx}-${impact.target_chunk_idx}`
-                    weightMap.set(key, normalizedWeight)
+                // Normalize each connection to 0-1 range
+                currentStepImportanceData.forEach((step) => {
+                    const sourceIdx = step.source_chunk_idx
+                    const impacts = step.target_impacts || []
+                    
+                    impacts.forEach((impact) => {
+                        const rawImportance = Math.abs(impact.importance_score)
+                        const normalizedWeight = (rawImportance - minImportance) / importanceRange
+                        const key = `${sourceIdx}-${impact.target_chunk_idx}`
+                        weightMap.set(key, normalizedWeight)
+                    })
                 })
-            })
-            
-            setNormalizedWeights(weightMap)
+                
+                setNormalizedWeights(weightMap)
+            }
+        } else {
+            // Clear weights when no data
+            setNormalizedWeights(new Map())
         }
-    }, [currentStepImportanceData, problemId])
+    }, [currentStepImportanceData, problemId, selectedMetric])
 
     // Auto-select the most important step when data loads by simulating a click
     useEffect(() => {
-        if (chunksData.length > 0) {
+        if (chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0) {
             // Find the chunk with the highest importance score
             const mostImportantChunk = chunksData.reduce((max, chunk) => {
                 const currentImportance = Math.abs(chunk.importance) || 0
@@ -396,14 +407,15 @@ const ProblemVisualizer = ({
                 return () => clearTimeout(timer)
             }
         }
-    }, [chunksData, problemId, modelId, solutionType]) // Reset when data context changes
+    }, [chunksData, currentStepImportanceData, problemId, modelId, solutionType]) // Reset when data context changes
 
     // Clear selection when problem context changes
     useEffect(() => {
         setSelectedNode(null)
         setHoveredNode(null)
-        // Reset metric to counterfactual when problem changes to avoid loading issues
-        // setSelectedMetric('counterfactual')
+        // Reset to preferred default (attention suppression) when problem changes
+        // The data loading logic will handle fallback to counterfactual if needed
+        setSelectedMetric('attention suppression')
     }, [problemId, modelId, solutionType])
 
     // Add useEffect to handle connection highlighting for hovered or selected node
@@ -854,7 +866,7 @@ const ProblemVisualizer = ({
 
         // Position nodes in a circle
         const nodeCount = filteredNodes.length
-        const radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.43 : 0.415)
+        let radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.43 : 0.415)
         
         // Use a lower vertical offset when the right panel is open
         // Add mobile-specific adjustments for better positioning
@@ -862,6 +874,7 @@ const ProblemVisualizer = ({
         if (window.innerWidth <= 650) {
             // Mobile: center the circle better for smaller screens
             verticalOffset = containerHeight * 0.33
+            radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.40 : 0.38)
         } else {
             // Desktop/tablet: use existing logic
             verticalOffset = containerHeight * (selectedNode ? 0.45 : 0.475)
