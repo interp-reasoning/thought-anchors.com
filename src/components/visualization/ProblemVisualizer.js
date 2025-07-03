@@ -248,6 +248,7 @@ const ProblemVisualizer = ({
     const [counterfactualStepImportanceData, setCounterfactualStepImportanceData] = useState([])
     const [summaryData, setSummaryData] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [dataFormat, setDataFormat] = useState('scenario') // 'scenario' or 'problem'
     const [selectedNode, setSelectedNode] = useState(null)
     const [hoveredNode, setHoveredNode] = useState(null)
     const [hoveredFromCentralGraph, setHoveredFromCentralGraph] = useState(false)
@@ -290,33 +291,60 @@ const ProblemVisualizer = ({
             setLoading(true)
             try {
                 if (!problemId || !modelId || !solutionType) {
-                    throw new Error('Problem ID, Model ID, or Solution Type is undefined')
+                    console.warn('Missing required parameters:', { problemId, modelId, solutionType })
+                    setLoading(false)
+                    return
                 }
 
                 // Fetch chunks data
-                const chunksResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/chunks_labeled.json`)
-                const chunksWithImportance = chunksResponse.default.map(chunk => ({
-                    ...chunk,
-                    importance: chunk.counterfactual_importance_kl // chunk.resampling_importance_kl
-                }))
-                setChunksData(chunksWithImportance)
+                try {
+                    const chunksResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/chunks_labeled.json`)
+                    const chunksWithImportance = chunksResponse.default.map(chunk => ({
+                        ...chunk,
+                        importance: chunk.counterfactual_importance_kl // chunk.resampling_importance_kl
+                    }))
+                    setChunksData(chunksWithImportance)
+                } catch (e) {
+                    console.log(`Chunks data not found for ${modelId}/${solutionType}/${problemId}`)
+                    setChunksData([])
+                }
 
                 // Fetch step importance data
-                const stepImportanceResponse = await import(
-                    `../../app/data/${modelId}/${solutionType}/${problemId}/step_importance.json`
-                )
-                setCounterfactualStepImportanceData(stepImportanceResponse.default)
+                try {
+                    const stepImportanceResponse = await import(
+                        `../../app/data/${modelId}/${solutionType}/${problemId}/step_importance.json`
+                    )
+                    setCounterfactualStepImportanceData(stepImportanceResponse.default)
+                } catch (e) {
+                    console.log(`Step importance data not found for ${modelId}/${solutionType}/${problemId}`)
+                    setCounterfactualStepImportanceData([])
+                }
 
                 // Fetch summary data
-                const summaryResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/summary.json`)
-                setSummaryData(summaryResponse.default)
-
-                // Fetch problem data
                 try {
-                    const problemResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/problem.json`)
-                    setProblemData(problemResponse.default)
+                    const summaryResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/summary.json`)
+                    setSummaryData(summaryResponse.default)
                 } catch (e) {
-                    console.warn(`Problem data not found for ${problemId}`)
+                    console.log(`Summary data not found for ${modelId}/${solutionType}/${problemId}`)
+                    setSummaryData(null)
+                }
+
+                // Fetch problem or scenario data - try both formats
+                let currentDataFormat = 'scenario'
+                try {
+                    const problemResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/scenario.json`)
+                    setProblemData(problemResponse.default)
+                    setDataFormat('scenario')
+                } catch (e) {
+                    try {
+                        const problemResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/problem.json`)
+                        setProblemData(problemResponse.default)
+                        setDataFormat('problem')
+                        currentDataFormat = 'problem'
+                    } catch (e2) {
+                        console.warn(`Neither scenario.json nor problem.json found for ${problemId}`)
+                        setDataFormat('scenario') // Default fallback
+                    }
                 }
 
                 // Fetch supplementary data if exists
@@ -338,7 +366,13 @@ const ProblemVisualizer = ({
 
                 setLoading(false)
             } catch (error) {
-                console.error('Error fetching data:', error)
+                console.log(`Error fetching data for ${modelId}/${solutionType}/${problemId}:`, error)
+                // Set safe defaults to prevent crashes
+                setChunksData([])
+                setCounterfactualStepImportanceData([])
+                setSummaryData(null)
+                setProblemData(null)
+                setSuppressionStepImportanceData(null)
                 setLoading(false)
             }
         }
@@ -416,6 +450,8 @@ const ProblemVisualizer = ({
         // Reset to preferred default (attention suppression) when problem changes
         // The data loading logic will handle fallback to counterfactual if needed
         setSelectedMetric('attention suppression')
+        // Reset data format to scenario (will be auto-detected during data loading)
+        setDataFormat('scenario')
     }, [problemId, modelId, solutionType])
 
     // Add useEffect to handle connection highlighting for hovered or selected node
@@ -612,7 +648,8 @@ const ProblemVisualizer = ({
                 )
                 setResampledChunks(resampledChunksResponse.default)
             } catch (error) {
-                console.error('Error fetching resampled chunks:', error)
+                console.warn(`Resampled chunks not found for ${modelId}/${solutionType}/${problemId}`)
+                setResampledChunks({})
             }
         }
 
@@ -1560,45 +1597,97 @@ const ProblemVisualizer = ({
             
             {loading ? (
                 <LoadingIndicator>Loading visualization data...</LoadingIndicator>
+            ) : chunksData.length === 0 ? (
+                <LoadingIndicator>
+                    No data available for {modelId}/{solutionType}/{problemId}
+                    <small>Try selecting a different problem or model</small>
+                </LoadingIndicator>
             ) : (
                 <>
                     {summaryData && (
                         <ProblemBox>
                             <h3 style={{ marginBottom: '0.75rem' }}>
-                                {`${problemData?.nickname[0].toUpperCase() + problemData?.nickname.slice(1).toLowerCase()}` || `Problem ${summaryData.problem_idx}`}
+                                {problemData?.nickname 
+                                    ? `${problemData.nickname[0].toUpperCase() + problemData.nickname.slice(1).toLowerCase()}`
+                                    : dataFormat === 'scenario' 
+                                        ? `Scenario ${summaryData.scenario_idx || summaryData.problem_idx || problemId}`
+                                        : `Problem ${summaryData.problem_idx || summaryData.scenario_idx || problemId}`
+                                }
                             </h3>
-                            {problemData && problemData.problem && (
-                                <div
-                                    style={{
-                                        marginBottom: '0.5rem',
-                                        flexDirection: 'row',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem',
-                                    }}
-                                >
-                                    <p>
-                                        <strong>Question:</strong>
-                                    </p>
-                                    <p>{processMathText(problemData.problem)}</p>
-                                </div>
+                            
+                            {/* Display content based on data format */}
+                            {dataFormat === 'problem' ? (
+                                <>
+                                    {problemData && problemData.problem && (
+                                        <div
+                                            style={{
+                                                marginBottom: '0.5rem',
+                                                flexDirection: 'row',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem',
+                                            }}
+                                        >
+                                            <p>
+                                                <strong>Question:</strong>
+                                            </p>
+                                            <p>{processMathText(problemData.problem)}</p>
+                                        </div>
+                                    )}
+                                    {problemData && problemData.gt_answer && (
+                                        <div
+                                            style={{
+                                                marginBottom: '0.5rem',
+                                                flexDirection: 'row',
+                                                display: 'flex',
+                                                alignItems: 'flex-start',
+                                                gap: '0.5rem',
+                                            }}
+                                        >
+                                            <p>
+                                                <strong>Answer:</strong>
+                                            </p>
+                                            <p>{processMathText(problemData.gt_answer)}</p>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <>
+                                    {problemData && problemData.scenario_id !== undefined && (
+                                        <div
+                                            style={{
+                                                marginBottom: '0.5rem',
+                                                flexDirection: 'row',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem',
+                                            }}
+                                        >
+                                            <p>
+                                                <strong>Scenario ID:</strong>
+                                            </p>
+                                            <p>{problemData.scenario_id}</p>
+                                        </div>
+                                    )}
+                                    {problemData && problemData.urgency_type && (
+                                        <div
+                                            style={{
+                                                marginBottom: '0.5rem',
+                                                flexDirection: 'row',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem',
+                                            }}
+                                        >
+                                            <p>
+                                                <strong>Type:</strong>
+                                            </p>
+                                            <p>{problemData.urgency_type}</p>
+                                        </div>
+                                    )}
+                                </>
                             )}
-                            {problemData && problemData.gt_answer && (
-                                <div
-                                    style={{
-                                        marginBottom: '0.5rem',
-                                        flexDirection: 'row',
-                                        display: 'flex',
-                                        alignItems: 'flex-start',
-                                        gap: '0.5rem',
-                                    }}
-                                >
-                                    <p>
-                                        <strong>Answer:</strong>
-                                    </p>
-                                    <p>{processMathText(problemData.gt_answer)}</p>
-                                </div>
-                            )}
+                            
                             <div
                                 style={{
                                     marginBottom: '0.5rem',

@@ -54,12 +54,14 @@ export default function HomeScreen() {
     }, [])
 
     useEffect(() => {
-        // Get list of available problems and their nicknames
+        // Dynamically discover available problems/scenarios for the selected model and solution type
         const fetchProblems = async () => {
             try {
-                const availableProblems = [
+                // Define potential problems/scenarios to check for each model type
+                const potentialProblems = [
+                    // Standard problem format
                     'problem_330',
-                    'problem_1591',
+                    'problem_1591', 
                     'problem_2189',
                     'problem_2236',
                     'problem_2238',
@@ -68,30 +70,59 @@ export default function HomeScreen() {
                     'problem_4682',
                     'problem_6596',
                     'problem_6998',
+                    // Scenario format
+                    'scenario_0',
                 ]
                 
-                // Fetch nicknames for all problems
+                const availableProblems = []
                 const nicknames = {}
-                for (const problemId of availableProblems) {
+                
+                // Check which problems/scenarios actually exist for this model/solution type
+                for (const problemId of potentialProblems) {
                     try {
-                        // Use a more direct import path
-                        const problemResponse = await import(`./data/${selectedModel}/${selectedSolutionType}/${problemId}/problem.json`)
-                        if (problemResponse.default && problemResponse.default.nickname) {
-                            nicknames[problemId] = problemResponse.default.nickname[0].toUpperCase() + problemResponse.default.nickname.slice(1).toLowerCase()
+                        // Try scenario.json first, then problem.json
+                        let problemData = null
+                        try {
+                            const scenarioResponse = await import(`./data/${selectedModel}/${selectedSolutionType}/${problemId}/scenario.json`)
+                            problemData = scenarioResponse.default
+                        } catch (e) {
+                            try {
+                                const problemResponse = await import(`./data/${selectedModel}/${selectedSolutionType}/${problemId}/problem.json`)
+                                problemData = problemResponse.default
+                            } catch (e2) {
+                                // Neither exists, skip this problem
+                                continue
+                            }
+                        }
+                        
+                        // If we got here, the problem exists
+                        availableProblems.push(problemId)
+                        
+                        // Extract nickname
+                        if (problemData && problemData.nickname) {
+                            nicknames[problemId] = problemData.nickname[0].toUpperCase() + problemData.nickname.slice(1).toLowerCase()
+                        } else if (problemId.startsWith('scenario_')) {
+                            nicknames[problemId] = `Scenario ${problemId.split('_')[1]}`
                         } else {
-                            nicknames[problemId] = problemId.split('_')[1] // fallback to number
+                            nicknames[problemId] = `Problem ${problemId.split('_')[1]}`
                         }
                     } catch (error) {
-                        console.warn(`Could not fetch nickname for ${problemId}`)
-                        nicknames[problemId] = problemId.split('_')[1] // fallback to number
+                        // Problem doesn't exist for this model/solution type, skip it
+                        continue
                     }
                 }
                 
                 setProblems(availableProblems)
                 setProblemNicknames(nicknames)
+                
+                // Auto-select first available problem if current selection is not available
+                if (availableProblems.length > 0 && !availableProblems.includes(selectedProblem)) {
+                    setSelectedProblem(availableProblems[0])
+                }
+                
                 setLoading(false)
             } catch (error) {
-                console.error('Error fetching problems:', error)
+                console.log('Error fetching problems:', error)
                 setLoading(false)
             }
         }
@@ -104,7 +135,30 @@ export default function HomeScreen() {
     }
 
     const handleModelChange = (e) => {
-        setSelectedModel(e.target.value)
+        const newModel = e.target.value
+        setSelectedModel(newModel)
+        
+        // Auto-adjust solution type based on models that were run on different solution types
+        /* if (newModel === 'deepseek-r1' || newModel === 'qwq-32b') {
+            if (!['no_base_solution', 'yes_base_solution'].includes(selectedSolutionType)) {
+                if (newModel === 'deepseek-r1') {
+                    setSelectedSolutionType('no_base_solution')
+                } else {
+                    setSelectedSolutionType('yes_base_solution')
+                }
+            }
+        }*/ // TODO: Uncomment this when we have more data
+        
+        if (newModel === 'deepseek-r1') {
+            setSelectedSolutionType('no_base_solution')
+        } else if (newModel === 'qwq-32b') {
+            setSelectedSolutionType('yes_base_solution')
+        } else {
+            // Other models use standard solution types
+            if (!['correct_base_solution', 'incorrect_base_solution'].includes(selectedSolutionType)) {
+                setSelectedSolutionType('correct_base_solution')
+            }
+        }
     }
 
     const handleSolutionTypeChange = (e) => {
@@ -155,6 +209,8 @@ export default function HomeScreen() {
                                     >
                                         <option value="deepseek-r1-distill-qwen-14b">R1-Distill Qwen-14B</option>
                                         <option value="deepseek-r1-distill-llama-8b">R1-Distill Llama-8B</option>
+                                        <option value="deepseek-r1">DeepSeek R1</option>
+                                        <option value="qwq-32b">QwQ-32B</option>
                                     </select>
                                 </SelectContainer>
                                 <SelectContainer>
@@ -173,8 +229,17 @@ export default function HomeScreen() {
                                             minWidth: '120px'
                                         }}
                                     >
-                                        <option value="correct_base_solution">Correct</option>
-                                        <option value="incorrect_base_solution">Incorrect</option>
+                                        {selectedModel === 'deepseek-r1' || selectedModel === 'qwq-32b' ? (
+                                            <>
+                                                <option value="no_base_solution">No blackmailing</option>
+                                                <option value="yes_base_solution">Blackmailing</option>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <option value="correct_base_solution">Correct</option>
+                                                <option value="incorrect_base_solution">Incorrect</option>
+                                            </>
+                                        )}
                                     </select>
                                 </SelectContainer>
                                 <SelectContainer>

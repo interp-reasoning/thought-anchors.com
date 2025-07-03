@@ -231,6 +231,8 @@ export const ChainOfThoughtContainer = styled.div`
 
 export const LoadingIndicator = styled.div`
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     justify-content: center;
     align-items: center;
     height: 100%;
