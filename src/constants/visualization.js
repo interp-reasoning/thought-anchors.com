@@ -14,7 +14,18 @@ export const functionTagColors = {
     strategy_and_planning: '#34A853',  // Green - deciding what to do
     action_execution: '#FBBC05',       // Yellow - concrete output
     self_preservation: '#9C27B0',      // Purple - survival statements
-    other: '#795548'                   // Brown - catch-all
+    other: '#795548',                  // Brown - catch-all
+    // Whistleblow
+    evidence_assessment: '#4285F4',    // Blue - analyzing evidence and implications
+    ethical_analysis: '#EA4335',       // Red - ethical principles and duties  
+    risk_evaluation: '#34A853',        // Green - assessing risks
+    regulatory_analysis: '#FBBC05',    // Yellow - legal/regulatory requirements
+    stakeholder_impact: '#9C27B0',     // Purple - impact on stakeholders
+    option_generation: '#00BCD4',      // Cyan - identifying possible actions
+    consequence_analysis: '#FF9800',   // Orange - evaluating outcomes
+    action_planning: '#8BC34A',        // Light green - planning concrete steps
+    final_action: '#F44336',           // Red - concrete output action
+    other_: '#795548'                   // Brown - catch-all
 }
 
 // Format function tag for display

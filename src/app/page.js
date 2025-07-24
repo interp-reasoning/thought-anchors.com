@@ -147,21 +147,8 @@ export default function HomeScreen() {
         const newModel = e.target.value
         setSelectedModel(newModel)
         
-        // Auto-adjust solution type based on models that were run on different solution types
-        /* if (newModel === 'deepseek-r1' || newModel === 'qwq-32b') {
-            if (!['no_base_solution', 'yes_base_solution'].includes(selectedSolutionType)) {
-                if (newModel === 'deepseek-r1') {
-                    setSelectedSolutionType('no_base_solution')
-                } else {
-                    setSelectedSolutionType('yes_base_solution')
-                }
-            }
-        }*/ // TODO: Uncomment this when we have more data
-        
-        if (newModel === 'deepseek-r1') {
-            setSelectedSolutionType('no_base_solution')
-        } else if (newModel === 'qwq-32b') {
-            setSelectedSolutionType('yes_base_solution')
+        if (newModel === 'qwq-32b') {
+            setSelectedSolutionType('yes_base_solution_blackmail')
         } else {
             // Other models use standard solution types
             if (!['correct_base_solution', 'incorrect_base_solution'].includes(selectedSolutionType)) {
@@ -239,8 +226,8 @@ export default function HomeScreen() {
                                     >
                                         {selectedModel === 'deepseek-r1' || selectedModel === 'qwq-32b' ? (
                                             <>
-                                                <option value="no_base_solution">No blackmailing</option>
-                                                <option value="yes_base_solution">Blackmailing</option>
+                                                <option value="yes_base_solution_whistleblow">Whistleblow</option>
+                                                <option value="yes_base_solution_blackmail">Blackmail</option>
                                             </>
                                         ) : (
                                             <>

@@ -1063,7 +1063,7 @@ const ProblemVisualizer = ({
 
         // Position nodes in a circle
         const nodeCount = filteredNodes.length
-        let radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.39 : 0.37)
+        let radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.41 : 0.39)
         
         // Use a lower vertical offset when the right panel is open
         // Add mobile-specific adjustments for better positioning
@@ -1989,7 +1989,8 @@ const ProblemVisualizer = ({
                                     }}
                                 >
                                     {Object.entries(functionTagColors).slice(
-                                        dataFormat === 'problem' ? 0 : 8, dataFormat === 'problem' ? 8 : 14
+                                        dataFormat === 'problem' ? 0 : solutionType.includes('blackmail') ? 8 : 14, 
+                                        dataFormat === 'problem' ? 8 : solutionType.includes('blackmail') ? 14 : 25
                                     ).map(([tag, color]) => (
                                         <div
                                             key={tag}
