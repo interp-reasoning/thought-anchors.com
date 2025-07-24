@@ -72,6 +72,15 @@ export default function HomeScreen() {
                     'problem_6998',
                     // Scenario format
                     'scenario_0',
+                    'scenario_1',
+                    'scenario_2',
+                    'scenario_3',
+                    'scenario_4',
+                    'scenario_5',
+                    'scenario_6',
+                    'scenario_7',
+                    'scenario_8',
+                    'scenario_9',
                 ]
                 
                 const availableProblems = []
@@ -209,7 +218,6 @@ export default function HomeScreen() {
                                     >
                                         <option value="deepseek-r1-distill-qwen-14b">R1-Distill Qwen-14B</option>
                                         <option value="deepseek-r1-distill-llama-8b">R1-Distill Llama-8B</option>
-                                        <option value="deepseek-r1">DeepSeek R1</option>
                                         <option value="qwq-32b">QwQ-32B</option>
                                     </select>
                                 </SelectContainer>

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import * as d3 from 'd3'
 import { functionTagColors, formatFunctionTag } from '@/constants/visualization'
 import { processMathText } from '@/utils/textProcessing'
@@ -183,6 +183,125 @@ const ImportanceSlider = styled.input`
     }
 `
 
+const PromptPopupOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+`
+
+const PromptPopupContent = styled.div`
+    background: white;
+    border-radius: 8px;
+    max-width: 80vw;
+    max-height: 80vh;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 650px) {
+        max-width: 95vw;
+        max-height: 90vh;
+    }
+`
+
+const PromptPopupHeader = styled.div`
+    padding: 2rem 2rem 1rem 2rem;
+    border-bottom: 1px solid #e9ecef;
+    flex-shrink: 0;
+
+    @media (max-width: 650px) {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+`
+
+const PromptPopupBody = styled.div`
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 2rem;
+
+    @media (max-width: 650px) {
+        padding: 1rem 1.5rem;
+    }
+`
+
+const PromptPopupFooter = styled.div`
+    padding: 1rem 2rem 2rem 2rem;
+    border-top: 1px solid #e9ecef;
+    flex-shrink: 0;
+
+    @media (max-width: 650px) {
+        padding: 1rem 1.5rem 1.5rem 1.5rem;
+    }
+`
+
+const PromptText = styled.pre`
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    overflow-x: auto;
+
+    @media (max-width: 650px) {
+        font-size: 0.8rem;
+        padding: 0.75rem;
+    }
+`
+
+const CloseButton = styled.button`
+    padding: 0.5rem 1rem;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background: #5a6268;
+    }
+
+    @media (max-width: 650px) {
+        width: 100%;
+        padding: 0.75rem;
+    }
+`
+
+const SeePromptButton = styled.button`
+    padding: 6px 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background: #0056b3;
+    }
+
+    @media (max-width: 650px) {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+`
+
 // Function to create intermediate points for polyline
 const createPolylinePoints = (x1, y1, x2, y2, spacing = 60) => {
     const dx = x2 - x1
@@ -280,6 +399,10 @@ const ProblemVisualizer = ({
     const [suppressionStepImportanceData, setSuppressionStepImportanceData] = useState(null)
     const [selectedMetric, setSelectedMetric] = useState('attention suppression')
 
+    // Add state for base solution data and popup
+    const [baseSolutionData, setBaseSolutionData] = useState(null)
+    const [showPromptPopup, setShowPromptPopup] = useState(false)
+
     const hasSuppressionStepImportanceData = !!suppressionStepImportanceData
     // Use counterfactual data as fallback if suppression is selected but not available
     const currentStepImportanceData = selectedMetric === 'counterfactual' || !suppressionStepImportanceData 
@@ -294,19 +417,6 @@ const ProblemVisualizer = ({
                     console.warn('Missing required parameters:', { problemId, modelId, solutionType })
                     setLoading(false)
                     return
-                }
-
-                // Fetch chunks data
-                try {
-                    const chunksResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/chunks_labeled.json`)
-                    const chunksWithImportance = chunksResponse.default.map(chunk => ({
-                        ...chunk,
-                        importance: chunk.counterfactual_importance_kl // chunk.resampling_importance_kl
-                    }))
-                    setChunksData(chunksWithImportance)
-                } catch (e) {
-                    console.log(`Chunks data not found for ${modelId}/${solutionType}/${problemId}`)
-                    setChunksData([])
                 }
 
                 // Fetch step importance data
@@ -329,7 +439,7 @@ const ProblemVisualizer = ({
                     setSummaryData(null)
                 }
 
-                // Fetch problem or scenario data - try both formats
+                // Fetch problem or scenario data - try both formats to determine data format first
                 let currentDataFormat = 'scenario'
                 try {
                     const problemResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/scenario.json`)
@@ -345,6 +455,21 @@ const ProblemVisualizer = ({
                         console.warn(`Neither scenario.json nor problem.json found for ${problemId}`)
                         setDataFormat('scenario') // Default fallback
                     }
+                }
+
+                // Fetch chunks data with appropriate importance field based on data format
+                try {
+                    const chunksResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/chunks_labeled.json`)
+                    const chunksWithImportance = chunksResponse.default.map(chunk => ({
+                        ...chunk,
+                        importance: currentDataFormat === 'scenario' 
+                            ? chunk.counterfactual_importance_logodds 
+                            : chunk.counterfactual_importance_kl
+                    }))
+                    setChunksData(chunksWithImportance)
+                } catch (e) {
+                    console.log(`Chunks data not found for ${modelId}/${solutionType}/${problemId}`)
+                    setChunksData([])
                 }
 
                 // Fetch supplementary data if exists
@@ -364,6 +489,15 @@ const ProblemVisualizer = ({
                     }
                 }
 
+                // Fetch base solution data for prompt
+                try {
+                    const baseSolutionResponse = await import(`../../app/data/${modelId}/${solutionType}/${problemId}/base_solution.json`)
+                    setBaseSolutionData(baseSolutionResponse.default)
+                } catch (e) {
+                    console.warn(`Base solution data not found for ${problemId}`)
+                    setBaseSolutionData(null)
+                }
+
                 setLoading(false)
             } catch (error) {
                 console.log(`Error fetching data for ${modelId}/${solutionType}/${problemId}:`, error)
@@ -378,7 +512,7 @@ const ProblemVisualizer = ({
         }
 
         fetchData()
-    }, [problemId, modelId, solutionType])
+    }, [problemId, modelId, solutionType, dataFormat])
 
     // Normalize connection weights
     useEffect(() => {
@@ -421,11 +555,26 @@ const ProblemVisualizer = ({
         }
     }, [currentStepImportanceData, problemId, selectedMetric])
 
+    // Normalize chunksData importance for consistent opacity in ChainOfThought
+    const normalizedChunksData = useMemo(() => {
+        if (chunksData.length === 0) return []
+        
+        const rawImportances = chunksData.map(chunk => Math.abs(chunk.importance) || 0.01)
+        const minImportance = Math.min(...rawImportances)
+        const maxImportance = Math.max(...rawImportances)
+        const importanceRange = maxImportance - minImportance || 1
+
+        return chunksData.map(chunk => ({
+            ...chunk,
+            importance: (Math.abs(chunk.importance) - minImportance) / importanceRange // Override with normalized value
+        }))
+    }, [chunksData])
+
     // Auto-select the most important step when data loads by simulating a click
     useEffect(() => {
-        if (chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0) {
+        if (normalizedChunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0) {
             // Find the chunk with the highest importance score
-            const mostImportantChunk = chunksData.reduce((max, chunk) => {
+            const mostImportantChunk = normalizedChunksData.reduce((max, chunk) => {
                 const currentImportance = Math.abs(chunk.importance) || 0
                 const maxImportance = Math.abs(max.importance) || 0
                 return currentImportance > maxImportance ? chunk : max
@@ -441,7 +590,7 @@ const ProblemVisualizer = ({
                 return () => clearTimeout(timer)
             }
         }
-    }, [chunksData, currentStepImportanceData, problemId, modelId, solutionType]) // Reset when data context changes
+    }, [normalizedChunksData, currentStepImportanceData, problemId, modelId, solutionType]) // Reset when data context changes
 
     // Clear selection when problem context changes
     useEffect(() => {
@@ -452,6 +601,9 @@ const ProblemVisualizer = ({
         setSelectedMetric('attention suppression')
         // Reset data format to scenario (will be auto-detected during data loading)
         setDataFormat('scenario')
+        // Clear base solution data and close popup
+        setBaseSolutionData(null)
+        setShowPromptPopup(false)
     }, [problemId, modelId, solutionType])
 
     // Add useEffect to handle connection highlighting for hovered or selected node
@@ -634,10 +786,10 @@ const ProblemVisualizer = ({
 
     // Create a separate useEffect for initial graph rendering
     useEffect(() => {
-        if (!loading && chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
+        if (!loading && normalizedChunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
             renderGraph()
         }
-    }, [loading, chunksData, currentStepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter, visualizationType])
+    }, [loading, normalizedChunksData, currentStepImportanceData, localCausalLinksCount, normalizedWeights, selectedNode, localImportanceFilter, visualizationType])
 
     // Add a new useEffect to fetch resampled chunks
     useEffect(() => {
@@ -707,6 +859,23 @@ const ProblemVisualizer = ({
         }
     }, [selectedNode])
 
+    // Add escape key handler for popup
+    useEffect(() => {
+        const handleEscapeKey = (event) => {
+            if (event.key === 'Escape' && showPromptPopup) {
+                setShowPromptPopup(false)
+            }
+        }
+
+        if (showPromptPopup) {
+            document.addEventListener('keydown', handleEscapeKey)
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey)
+        }
+    }, [showPromptPopup])
+
     // Update layout ref when container size changes
     useEffect(() => {
         const updateLayout = () => {
@@ -726,7 +895,7 @@ const ProblemVisualizer = ({
 
     // Re-render graph when window size changes (debounced)
     useEffect(() => {
-        if (windowWidth > 0 && !loading && chunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
+        if (windowWidth > 0 && !loading && normalizedChunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0 && visualizationType === 'circle') {
             // Small delay to ensure layout has updated and prevent rapid re-renders
             const timer = setTimeout(() => {
                 renderGraph()
@@ -766,17 +935,9 @@ const ProblemVisualizer = ({
         // Create a group for the graph
         const g = svg.append('g')
 
-        // Normalize importance scores for this problem to 0-1 range
-        const rawImportances = chunksData.map(chunk => Math.abs(chunk.importance) || 0.01)
-        const minImportance = Math.min(...rawImportances)
-        const maxImportance = Math.max(...rawImportances)
-        const importanceRange = maxImportance - minImportance || 1 // Avoid division by zero
-
-        // Create nodes data with improved sizing
-        const nodes = chunksData.map((chunk) => {
-            const rawImportance = Math.abs(chunk.importance) || 0.01
-            // Normalize importance to 0-1 range for this problem
-            const normalizedImportance = (rawImportance - minImportance) / importanceRange
+        // Create nodes data with improved sizing (using already normalized importance)
+        const nodes = normalizedChunksData.map((chunk) => {
+            const normalizedImportance = Math.abs(chunk.importance) || 0.01 // Already normalized 0-1
             
             // Mobile-specific node sizing
             let baseRadius, radiusMultiplier
@@ -795,7 +956,6 @@ const ProblemVisualizer = ({
                 text: chunk.chunk,
                 functionTag: chunk.function_tags[0],
                 importance: normalizedImportance, // Use normalized importance
-                rawImportance: rawImportance, // Keep raw for reference
                 dependsOn: chunk.depends_on,
                 // Dynamic radius based on normalized importance with mobile adjustments
                 radius: Math.max(baseRadius, baseRadius + Math.log(1 + normalizedImportance * 20) * radiusMultiplier),
@@ -903,7 +1063,7 @@ const ProblemVisualizer = ({
 
         // Position nodes in a circle
         const nodeCount = filteredNodes.length
-        let radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.43 : 0.415)
+        let radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.39 : 0.37)
         
         // Use a lower vertical offset when the right panel is open
         // Add mobile-specific adjustments for better positioning
@@ -914,7 +1074,7 @@ const ProblemVisualizer = ({
             radius = Math.min(containerWidth, containerHeight) * (selectedNode ? 0.40 : 0.38)
         } else {
             // Desktop/tablet: use existing logic
-            verticalOffset = containerHeight * (selectedNode ? 0.45 : 0.475)
+            verticalOffset = containerHeight * (selectedNode ? 0.425 : 0.45)
         }
 
         filteredNodes.forEach((node, i) => {
@@ -1282,10 +1442,10 @@ const ProblemVisualizer = ({
         const stepData = currentStepImportanceData.find((step) => step.source_chunk_idx === nodeId)
 
         if (stepData && stepData.target_impacts) {
-            stepData.target_impacts.forEach((impact) => {
-                const targetNode = chunksData.find(
-                    (chunk) => chunk.chunk_idx === impact.target_chunk_idx,
-                )
+                    stepData.target_impacts.forEach((impact) => {
+            const targetNode = normalizedChunksData.find(
+                (chunk) => chunk.chunk_idx === impact.target_chunk_idx,
+            )
                 if (targetNode) {
                     effects.push({
                         id: targetNode.chunk_idx,
@@ -1308,7 +1468,7 @@ const ProblemVisualizer = ({
         currentStepImportanceData.forEach((step) => {
             const impact = step.target_impacts?.find(impact => impact.target_chunk_idx === nodeId)
             if (impact) {
-                const sourceNode = chunksData.find(chunk => chunk.chunk_idx === step.source_chunk_idx)
+                const sourceNode = normalizedChunksData.find(chunk => chunk.chunk_idx === step.source_chunk_idx)
                 if (sourceNode) {
                     affectedBy.push({
                         id: step.source_chunk_idx,
@@ -1330,12 +1490,12 @@ const ProblemVisualizer = ({
     const navigateToNode = (direction) => {
         if (!selectedNode) return
 
-        const nodeIds = chunksData.map((chunk) => chunk.chunk_idx).sort((a, b) => a - b)
+        const nodeIds = normalizedChunksData.map((chunk) => chunk.chunk_idx).sort((a, b) => a - b)
         const currentIndex = nodeIds.indexOf(selectedNode.id)
 
         if (direction === 'next' && currentIndex < nodeIds.length - 1) {
             const nextNodeId = nodeIds[currentIndex + 1]
-            const nextNode = chunksData.find((chunk) => chunk.chunk_idx === nextNodeId)
+            const nextNode = normalizedChunksData.find((chunk) => chunk.chunk_idx === nextNodeId)
             setSelectedNode({
                 id: nextNode.chunk_idx,
                 text: nextNode.chunk,
@@ -1347,7 +1507,7 @@ const ProblemVisualizer = ({
             setScrollToNode(nextNode.chunk_idx)
         } else if (direction === 'prev' && currentIndex > 0) {
             const prevNodeId = nodeIds[currentIndex - 1]
-            const prevNode = chunksData.find((chunk) => chunk.chunk_idx === prevNodeId)
+            const prevNode = normalizedChunksData.find((chunk) => chunk.chunk_idx === prevNodeId)
             setSelectedNode({
                 id: prevNode.chunk_idx,
                 text: prevNode.chunk,
@@ -1366,7 +1526,7 @@ const ProblemVisualizer = ({
             return []
         }
 
-        const originalText = chunksData.find((chunk) => chunk.chunk_idx === nodeId)?.chunk || ''
+        const originalText = normalizedChunksData.find((chunk) => chunk.chunk_idx === nodeId)?.chunk || ''
         const allResamples = resampledChunks[nodeId]
 
         // Filter out resamples that are identical to the original
@@ -1430,7 +1590,7 @@ const ProblemVisualizer = ({
         if (!selectedNodeId || !stepImportanceData.length) return []
         
         // Find the target chunk
-        const targetChunk = chunksData.find(chunk => chunk.chunk_idx === selectedNodeId)
+        const targetChunk = normalizedChunksData.find(chunk => chunk.chunk_idx === selectedNodeId)
         if (!targetChunk) return []
 
         if (direction === 'incoming') {
@@ -1553,18 +1713,18 @@ const ProblemVisualizer = ({
             // Always try to build paths when in attribution view
             let nodeIdToUse = selectedNode?.id || lastAttributionNode
             
-            // If no node is available, auto-select the most important one
-            if (!nodeIdToUse && chunksData.length > 0) {
-                const mostImportantChunk = chunksData.reduce((max, chunk) => {
-                    const currentImportance = Math.abs(chunk.importance) || 0
-                    const maxImportance = Math.abs(max.importance) || 0
-                    return currentImportance > maxImportance ? chunk : max
-                })
-                nodeIdToUse = mostImportantChunk.chunk_idx
-            }
-            
-            if (nodeIdToUse && currentStepImportanceData && currentStepImportanceData.length > 0 && chunksData.length > 0) {
-                const paths = buildAttributionPaths(nodeIdToUse, currentStepImportanceData, chunksData, maxDepth, localCausalLinksCount, treeDirection)
+                    // If no node is available, auto-select the most important one
+        if (!nodeIdToUse && normalizedChunksData.length > 0) {
+            const mostImportantChunk = normalizedChunksData.reduce((max, chunk) => {
+                const currentImportance = Math.abs(chunk.importance) || 0
+                const maxImportance = Math.abs(max.importance) || 0
+                return currentImportance > maxImportance ? chunk : max
+            })
+            nodeIdToUse = mostImportantChunk.chunk_idx
+        }
+        
+        if (nodeIdToUse && currentStepImportanceData && currentStepImportanceData.length > 0 && normalizedChunksData.length > 0) {
+                const paths = buildAttributionPaths(nodeIdToUse, currentStepImportanceData, normalizedChunksData, maxDepth, localCausalLinksCount, treeDirection)
                 if (paths && paths.length > 0) {
                     setSelectedPaths(paths)
                     // Only update lastAttributionNode if we have a valid selectedNode
@@ -1585,7 +1745,7 @@ const ProblemVisualizer = ({
             setSelectedPaths([])
         }
         // Note: Don't clear lastAttributionNode when switching to circle view - keep it for when we switch back
-    }, [selectedNode, currentStepImportanceData, chunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, treeDirection])
+    }, [selectedNode, currentStepImportanceData, normalizedChunksData, maxDepth, visualizationType, normalizedWeights, localCausalLinksCount, treeDirection])
 
     return (
         <div>
@@ -1653,22 +1813,6 @@ const ProblemVisualizer = ({
                                 </>
                             ) : (
                                 <>
-                                    {problemData && problemData.scenario_id !== undefined && (
-                                        <div
-                                            style={{
-                                                marginBottom: '0.5rem',
-                                                flexDirection: 'row',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '0.5rem',
-                                            }}
-                                        >
-                                            <p>
-                                                <strong>Scenario ID:</strong>
-                                            </p>
-                                            <p>{problemData.scenario_id}</p>
-                                        </div>
-                                    )}
                                     {problemData && problemData.urgency_type && (
                                         <div
                                             style={{
@@ -1705,7 +1849,7 @@ const ProblemVisualizer = ({
                             {hasSuppressionStepImportanceData && (
                                 <div
                                     style={{
-                                        marginBottom: '0.5rem',
+                                        marginBottom: '0rem',
                                         flexDirection: 'row',
                                         display: 'flex',
                                         alignItems: 'center',
@@ -1736,6 +1880,22 @@ const ProblemVisualizer = ({
                                             <option value="attention suppression">Attention suppression</option>
                                         )}
                                     </select>
+                                </div>
+                            )}
+                            {baseSolutionData && baseSolutionData.prompt && dataFormat === 'scenario' && (
+                                <div
+                                    style={{
+                                        marginTop: '0.75rem',
+                                        marginBottom: '-0.25rem',
+                                        flexDirection: 'row',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                    }}
+                                >
+                                    <SeePromptButton onClick={() => setShowPromptPopup(true)}>
+                                        See prompt
+                                    </SeePromptButton>
                                 </div>
                             )}
                         </ProblemBox>
@@ -1828,7 +1988,9 @@ const ProblemVisualizer = ({
                                         columnGap: '1rem',
                                     }}
                                 >
-                                    {Object.entries(functionTagColors).map(([tag, color]) => (
+                                    {Object.entries(functionTagColors).slice(
+                                        dataFormat === 'problem' ? 0 : 8, dataFormat === 'problem' ? 8 : 14
+                                    ).map(([tag, color]) => (
                                         <div
                                             key={tag}
                                             style={{
@@ -1855,7 +2017,7 @@ const ProblemVisualizer = ({
 
                     <VisualizerWrapper>
                         <ChainOfThought
-                            chunksData={chunksData}
+                            chunksData={normalizedChunksData}
                             stepImportanceData={currentStepImportanceData}
                             selectedNode={selectedNode}
                             hoveredNode={hoveredNode}
@@ -1999,7 +2161,7 @@ const ProblemVisualizer = ({
                             ) : (
                                 <AttributionGraph
                                     selectedIdx={selectedNode?.id || lastAttributionNode}
-                                    chunksData={chunksData}
+                                    chunksData={normalizedChunksData}
                                     selectedPaths={selectedPaths}
                                     treeDirection={treeDirection}
                                     causalLinksCount={localCausalLinksCount}
@@ -2022,7 +2184,7 @@ const ProblemVisualizer = ({
                                 >
                                     <NavigationControls>
                                         <NavButton
-                                            disabled={selectedNode.id <= Math.min(...chunksData.map(c => c.chunk_idx))}
+                                            disabled={selectedNode.id <= Math.min(...normalizedChunksData.map(c => c.chunk_idx))}
                                             onClick={(e) => {
                                                 e.stopPropagation()
                                                 navigateToNode('prev')
@@ -2036,7 +2198,7 @@ const ProblemVisualizer = ({
                                             </p>
                                         </div>
                                         <NavButton
-                                            disabled={selectedNode.id >= Math.max(...chunksData.map(c => c.chunk_idx))}
+                                            disabled={selectedNode.id >= Math.max(...normalizedChunksData.map(c => c.chunk_idx))}
                                             onClick={(e) => {
                                                 e.stopPropagation()
                                                 navigateToNode('next')
@@ -2171,23 +2333,23 @@ const ProblemVisualizer = ({
                                                                 background: `${functionTagColors[affector.functionTag] || '#999'}20`,
                                                                 cursor: 'pointer'
                                                             }}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                const targetNode = chunksData.find(
-                                                                    (chunk) => chunk.chunk_idx === affector.id,
-                                                                )
-                                                                if (targetNode) {
-                                                                    setSelectedNode({
-                                                                        id: targetNode.chunk_idx,
-                                                                        text: targetNode.chunk,
-                                                                        functionTag: targetNode.function_tags[0],
-                                                                        importance: Math.abs(targetNode.importance) || 0.01,
-                                                                        dependsOn: targetNode.depends_on,
-                                                                    })
-                                                                    // Trigger scroll to the node in the left column
-                                                                    setScrollToNode(targetNode.chunk_idx)
-                                                                }
-                                                            }}
+                                                                                                            onClick={(e) => {
+                                                    e.stopPropagation()
+                                                    const targetNode = normalizedChunksData.find(
+                                                        (chunk) => chunk.chunk_idx === affector.id,
+                                                    )
+                                                    if (targetNode) {
+                                                        setSelectedNode({
+                                                            id: targetNode.chunk_idx,
+                                                            text: targetNode.chunk,
+                                                            functionTag: targetNode.function_tags[0],
+                                                            importance: Math.abs(targetNode.importance) || 0.01,
+                                                            dependsOn: targetNode.depends_on,
+                                                        })
+                                                        // Trigger scroll to the node in the left column
+                                                        setScrollToNode(targetNode.chunk_idx)
+                                                    }
+                                                }}
                                                             onMouseEnter={(e) => {
                                                                 setTooltip({
                                                                     visible: true,
@@ -2234,23 +2396,23 @@ const ProblemVisualizer = ({
                                                                     background: `${functionTagColors[effect.functionTag] || '#999'}20`,
                                                                     cursor: 'pointer'
                                                                 }}
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation()
-                                                                    const targetNode = chunksData.find(
-                                                                        (chunk) => chunk.chunk_idx === effect.id,
-                                                                    )
-                                                                    if (targetNode) {
-                                                                        setSelectedNode({
-                                                                            id: targetNode.chunk_idx,
-                                                                            text: targetNode.chunk,
-                                                                            functionTag: targetNode.function_tags[0],
-                                                                            importance: Math.abs(targetNode.importance) || 0.01,
-                                                                            dependsOn: targetNode.depends_on,
-                                                                        })
-                                                                        // Trigger scroll to the node in the left column
-                                                                        setScrollToNode(targetNode.chunk_idx)
-                                                                    }
-                                                                }}
+                                                                                                                            onClick={(e) => {
+                                                                e.stopPropagation()
+                                                                const targetNode = normalizedChunksData.find(
+                                                                    (chunk) => chunk.chunk_idx === effect.id,
+                                                                )
+                                                                if (targetNode) {
+                                                                    setSelectedNode({
+                                                                        id: targetNode.chunk_idx,
+                                                                        text: targetNode.chunk,
+                                                                        functionTag: targetNode.function_tags[0],
+                                                                        importance: Math.abs(targetNode.importance) || 0.01,
+                                                                        dependsOn: targetNode.depends_on,
+                                                                    })
+                                                                    // Trigger scroll to the node in the left column
+                                                                    setScrollToNode(targetNode.chunk_idx)
+                                                                }
+                                                            }}
                                                                 onMouseEnter={(e) => {
                                                                     setTooltip({
                                                                         visible: true,
@@ -2300,6 +2462,29 @@ const ProblemVisualizer = ({
                         </DetailPanel>
                     </VisualizerWrapper>
                 </>
+            )}
+            
+            {/* Prompt Popup */}
+            {showPromptPopup && baseSolutionData && baseSolutionData.prompt && (
+                <PromptPopupOverlay onClick={() => setShowPromptPopup(false)}>
+                    <PromptPopupContent onClick={(e) => e.stopPropagation()}>
+                        <PromptPopupHeader>
+                            <h3 style={{ marginTop: 0, marginBottom: 0, color: '#333' }}>
+                                Scenario prompt
+                            </h3>
+                        </PromptPopupHeader>
+                        <PromptPopupBody>
+                            <PromptText>
+                                {baseSolutionData.prompt}
+                            </PromptText>
+                        </PromptPopupBody>
+                        <PromptPopupFooter>
+                            <CloseButton onClick={() => setShowPromptPopup(false)}>
+                                Close
+                            </CloseButton>
+                        </PromptPopupFooter>
+                    </PromptPopupContent>
+                </PromptPopupOverlay>
             )}
         </div>
     )

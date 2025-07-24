@@ -8,6 +8,13 @@ export const functionTagColors = {
     self_checking: '#FF9800', // Orange
     result_consolidation: '#00BCD4', // Cyan
     final_answer_emission: '#795548', // Brown
+    // Blackmail
+    situation_assessment: '#4285F4',   // Blue - understanding the problem
+    leverage_analysis: '#EA4335',      // Red - identifying critical factors
+    strategy_and_planning: '#34A853',  // Green - deciding what to do
+    action_execution: '#FBBC05',       // Yellow - concrete output
+    self_preservation: '#9C27B0',      // Purple - survival statements
+    other: '#795548'                   // Brown - catch-all
 }
 
 // Format function tag for display
