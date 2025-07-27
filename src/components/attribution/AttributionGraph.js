@@ -12,7 +12,8 @@ export default function AttributionGraph({
   maxDepth = 2,
   onNodeHover,
   onNodeLeave,
-  onNodeClick
+  onNodeClick,
+  hoveredNode = null
 }) {
   // Node dimensions - mobile responsive
   const nodeW = window.innerWidth <= 650 ? 80 : 110
@@ -503,6 +504,7 @@ export default function AttributionGraph({
                           pos={pos}
                           chunk={chunk}
                           isSelected={node.idx === selectedIdx}
+                          isHovered={hoveredNode && hoveredNode.id === node.idx}
                           nodeW={nodeW}
                           nodeH={nodeH}
                           opacity={nodeOpacity}

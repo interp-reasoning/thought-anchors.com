@@ -22,6 +22,27 @@ import {
 } from '@/styles/visualization'
 import styled from 'styled-components'
 
+const LegendFunctionTag = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-color: transparent;
+    transition: all 0.2s ease;
+
+    &:hover:not(.selected) {
+        background-color: #f5f5f5;
+    }
+
+    &.selected {
+        border-color: #007bff;
+        background-color: #e3f2fd;
+    }
+`
+
 const GraphControls = styled.div`
     display: flex;
     flex-direction: row;
@@ -61,7 +82,7 @@ const ControlRow = styled.div`
         font-size: 0.875rem;
         font-weight: 600;
         color: #444;
-        margin-right: 16px;
+        margin-right: 8px;
     }
 
     select {
@@ -319,7 +340,7 @@ const createPolylinePoints = (x1, y1, x2, y2, spacing = 60) => {
 }
 
 // Collapsible section component for the detail panel
-const CollapsibleSection = ({ title, children, content, defaultOpen = false }) => {
+const CollapsibleSection = ({ title, children, content, defaultOpen = false, maxHeight = null }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen)
     
     return (
@@ -342,7 +363,13 @@ const CollapsibleSection = ({ title, children, content, defaultOpen = false }) =
                 </span>
             </div>
             {isOpen && (
-                <div style={{ padding: '0.75rem' }}>
+                <div style={{ 
+                    padding: '0.75rem',
+                    ...(maxHeight && {
+                        maxHeight: maxHeight,
+                        overflowY: 'auto'
+                    })
+                }}>
                     {content || children}
                 </div>
             )}
@@ -382,6 +409,10 @@ const ProblemVisualizer = ({
     const [maxDepth, setMaxDepth] = useState(2)
     const [lastAttributionNode, setLastAttributionNode] = useState(null)
     const [treeDirection, setTreeDirection] = useState('incoming') // 'incoming' or 'outgoing'
+    
+    // Function tag filter state
+    const [selectedFunctionTagFilter, setSelectedFunctionTagFilter] = useState(null)
+    const clearCoTFiltersRef = useRef(null)
     
     const svgRef = useRef(null)
     const graphContainerRef = useRef(null)
@@ -604,6 +635,12 @@ const ProblemVisualizer = ({
         // Clear base solution data and close popup
         setBaseSolutionData(null)
         setShowPromptPopup(false)
+        // Clear function tag filter
+        setSelectedFunctionTagFilter(null)
+        // Clear CoT filters as well
+        if (clearCoTFiltersRef.current) {
+            clearCoTFiltersRef.current()
+        }
     }, [problemId, modelId, solutionType])
 
     // Add useEffect to handle connection highlighting for hovered or selected node
@@ -718,18 +755,24 @@ const ProblemVisualizer = ({
                 .attr('marker-end', 'url(#arrow-causal)')
                 .style('cursor', 'pointer')
             
-            // Handle node highlighting: always show selected node's black border
+            // Handle node highlighting: selected node gets black border, hovered node gets gray border
             svg.selectAll('.nodes g')
                 .selectAll('circle')
                 .attr('stroke', (d) => {
                     if (selectedNode && d.id === selectedNode.id) {
-                        return nodeHighlightColor // Always keep selected node highlighted
+                        return nodeHighlightColor // Selected node: black border
+                    }
+                    if (hoveredNode && d.id === hoveredNode.id) {
+                        return '#666' // Hovered node: gray border
                     }
                     return '#fff'
                 })
                 .attr('stroke-width', (d) => {
                     if (selectedNode && d.id === selectedNode.id) {
-                        return nodeHighlightWidth // Always keep selected node border width
+                        return nodeHighlightWidth // Selected node: thick border
+                    }
+                    if (hoveredNode && d.id === hoveredNode.id) {
+                        return nodeHighlightWidth // Hovered node: same thickness as selected
                     }
                     return 2
                 })
@@ -750,8 +793,18 @@ const ProblemVisualizer = ({
             
             svg.selectAll('.nodes g')
                 .selectAll('circle')
-                .attr('stroke', '#fff')
-                .attr('stroke-width', 2)
+                .attr('stroke', (d) => {
+                    if (selectedNode && d.id === selectedNode.id) {
+                        return nodeHighlightColor // Keep selected node highlighted even when no hover
+                    }
+                    return '#fff'
+                })
+                .attr('stroke-width', (d) => {
+                    if (selectedNode && d.id === selectedNode.id) {
+                        return nodeHighlightWidth // Keep selected node border width
+                    }
+                    return 2
+                })
         }
     }, [hoveredNode, selectedNode, normalizedWeights, localCausalLinksCount, currentStepImportanceData])
 
@@ -1361,12 +1414,30 @@ const ProblemVisualizer = ({
                 .attr('marker-end', 'url(#arrow-causal)')
                 .style('cursor', 'pointer')
             
-            // Also highlight the selected node with circle
-            svg.selectAll('.nodes g')
-                .selectAll('circle')
-                .attr('stroke', (d) => d.id === selectedNode.id ? nodeHighlightColor : '#fff')
-                .attr('stroke-width', (d) => d.id === selectedNode.id ? nodeHighlightWidth : 2)
+
         }
+        
+        // Apply node border highlighting for both selected and hovered nodes (regardless of connections)
+        svg.selectAll('.nodes g')
+            .selectAll('circle')
+            .attr('stroke', (d) => {
+                if (selectedNode && d.id === selectedNode.id) {
+                    return nodeHighlightColor // Selected node: black border
+                }
+                if (hoveredNode && d.id === hoveredNode.id) {
+                    return '#666' // Hovered node: gray border
+                }
+                return '#fff'
+            })
+            .attr('stroke-width', (d) => {
+                if (selectedNode && d.id === selectedNode.id) {
+                    return nodeHighlightWidth // Selected node: thick border
+                }
+                if (hoveredNode && d.id === hoveredNode.id) {
+                    return nodeHighlightWidth // Hovered node: same thickness as selected
+                }
+                return 2
+            })
     }
 
     const handleNodeHover = (event, node) => {
@@ -1378,9 +1449,11 @@ const ProblemVisualizer = ({
             clearTimeout(cotScrollTimerRef.current)
         }
         
+        // Set hover state immediately to prevent blinking in tree view
+        setHoveredNode(node)
+        
         // Set up delayed CoT panel scrolling (350ms delay to reduce jitter)
         cotScrollTimerRef.current = setTimeout(() => {
-            setHoveredNode(node)
             setHoveredFromCentralGraph(true)
         }, 350)
     }
@@ -1404,15 +1477,26 @@ const ProblemVisualizer = ({
     }
 
     const handleStepHover = (chunk) => {
-        const nodeData = {
-            id: chunk.chunk_idx,
-            text: chunk.chunk,
-            functionTag: chunk.function_tags[0],
-            importance: Math.abs(chunk.importance) || 0.01,
-            dependsOn: chunk.depends_on,
+        // Clear any existing timers to prevent conflicts
+        if (hoverTimerRef.current) {
+            clearTimeout(hoverTimerRef.current)
         }
-        setHoveredNode(nodeData)
-        setHoveredFromCentralGraph(false)
+        if (cotScrollTimerRef.current) {
+            clearTimeout(cotScrollTimerRef.current)
+        }
+        
+        // Add small delay to prevent rapid state changes that could cause loops
+        cotScrollTimerRef.current = setTimeout(() => {
+            const nodeData = {
+                id: chunk.chunk_idx,
+                text: chunk.chunk,
+                functionTag: chunk.function_tags[0],
+                importance: Math.abs(chunk.importance) || 0.01,
+                dependsOn: chunk.depends_on,
+            }
+            setHoveredNode(nodeData)
+            setHoveredFromCentralGraph(false)
+        }, 50) // Small delay to debounce
     }
 
     const handleStepLeave = () => {
@@ -1520,6 +1604,21 @@ const ProblemVisualizer = ({
         }
     }
 
+    // Handle function tag filter click
+    const handleFunctionTagClick = (functionTag) => {
+        if (selectedFunctionTagFilter === functionTag) {
+            // If clicking the same tag, clear the filter
+            setSelectedFunctionTagFilter(null)
+        } else {
+            // Clear CoT filters when activating a new legend filter
+            if (clearCoTFiltersRef.current) {
+                clearCoTFiltersRef.current()
+            }
+            // Set new filter
+            setSelectedFunctionTagFilter(functionTag)
+        }
+    }
+
     // Get top-3 different resampled sentences for a node
     const getTopResampledSentences = (nodeId) => {
         if (!resampledChunks || !resampledChunks[nodeId]) {
@@ -1543,7 +1642,7 @@ const ProblemVisualizer = ({
         // Sort by count (descending) and take top 3 different ones
         const topResamples = Object.entries(counts)
             .sort((a, b) => b[1] - a[1])
-            .slice(0, 3)
+            //.slice(0, 3) // Uncomment this to limit the number of resampled chunks to show
             .map(([text]) => text)
 
         return topResamples
@@ -1984,21 +2083,18 @@ const ProblemVisualizer = ({
                                     style={{
                                         display: 'flex',
                                         flexWrap: 'wrap',
-                                        rowGap: '0.5rem',
-                                        columnGap: '1rem',
+                                        rowGap: '0.15rem',
+                                        columnGap: '0.5rem',
                                     }}
                                 >
                                     {Object.entries(functionTagColors).slice(
                                         dataFormat === 'problem' ? 0 : solutionType.includes('blackmail') ? 8 : 14, 
                                         dataFormat === 'problem' ? 8 : solutionType.includes('blackmail') ? 14 : 25
                                     ).map(([tag, color]) => (
-                                        <div
+                                        <LegendFunctionTag
                                             key={tag}
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '0.5rem',
-                                            }}
+                                            className={selectedFunctionTagFilter === tag ? 'selected' : ''}
+                                            onClick={() => handleFunctionTagClick(tag)}
                                         >
                                             <div
                                                 style={{
@@ -2009,7 +2105,7 @@ const ProblemVisualizer = ({
                                                 }}
                                             ></div>
                                             <span>{formatFunctionTag(tag)} ({formatFunctionTag(tag, true)})</span>
-                                        </div>
+                                        </LegendFunctionTag>
                                     ))}
                                 </div>
                             </div>
@@ -2028,6 +2124,9 @@ const ProblemVisualizer = ({
                             causalLinksCount={localCausalLinksCount}
                             hoveredFromCentralGraph={hoveredFromCentralGraph}
                             scrollToNode={scrollToNode}
+                            selectedFunctionTagFilter={selectedFunctionTagFilter}
+                            onClearLegendFilter={() => setSelectedFunctionTagFilter(null)}
+                            onClearCoTFilters={(clearFn) => { clearCoTFiltersRef.current = clearFn }}
                         />
 
                         <GraphContainer ref={graphContainerRef}>
@@ -2113,13 +2212,20 @@ const ProblemVisualizer = ({
                                     <>
                                         <ControlRow>
                                             <label>Direction:</label>
-                                            <select
-                                                value={treeDirection}
-                                                onChange={(e) => setTreeDirection(e.target.value)}
-                                            >
-                                                <option value="incoming">Incoming</option>
-                                                <option value="outgoing">Outgoing</option>
-                                            </select>
+                                            <VisualizationToggle>
+                                                <ToggleOption
+                                                    active={treeDirection === 'incoming'}
+                                                    onClick={() => setTreeDirection('incoming')}
+                                                >
+                                                    Incoming
+                                                </ToggleOption>
+                                                <ToggleOption
+                                                    active={treeDirection === 'outgoing'}
+                                                    onClick={() => setTreeDirection('outgoing')}
+                                                >
+                                                    Outgoing
+                                                </ToggleOption>
+                                            </VisualizationToggle>
                                         </ControlRow>
                                         <ControlRow>
                                             <label>Causal links:</label>
@@ -2160,17 +2266,18 @@ const ProblemVisualizer = ({
                             {visualizationType === 'circle' ? (
                                 <svg ref={svgRef} width='100%' height='100%'></svg>
                             ) : (
-                                <AttributionGraph
-                                    selectedIdx={selectedNode?.id || lastAttributionNode}
-                                    chunksData={normalizedChunksData}
-                                    selectedPaths={selectedPaths}
-                                    treeDirection={treeDirection}
-                                    causalLinksCount={localCausalLinksCount}
-                                    maxDepth={maxDepth}
-                                    onNodeHover={handleNodeHover}
-                                    onNodeLeave={handleNodeLeave}
-                                    onNodeClick={handleNodeClick}
-                                />
+                                                            <AttributionGraph
+                                selectedIdx={selectedNode?.id || lastAttributionNode}
+                                chunksData={normalizedChunksData}
+                                selectedPaths={selectedPaths}
+                                treeDirection={treeDirection}
+                                causalLinksCount={localCausalLinksCount}
+                                maxDepth={maxDepth}
+                                onNodeHover={handleNodeHover}
+                                onNodeLeave={handleNodeLeave}
+                                onNodeClick={handleNodeClick}
+                                hoveredNode={hoveredNode}
+                            />
                             )}
                         </GraphContainer>
 
@@ -2291,6 +2398,7 @@ const ProblemVisualizer = ({
                                     <CollapsibleSection 
                                         title="Resampled steps" 
                                         defaultOpen={false}
+                                        maxHeight="208px"
                                         content={
                                             getTopResampledSentences(selectedNode.id).length > 0 ? (
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -2352,6 +2460,24 @@ const ProblemVisualizer = ({
                                                     }
                                                 }}
                                                             onMouseEnter={(e) => {
+                                                                // Set hovered node for gray border in central display
+                                                                const targetNode = normalizedChunksData.find(
+                                                                    (chunk) => chunk.chunk_idx === affector.id,
+                                                                )
+                                                                if (targetNode) {
+                                                                    setHoveredNode({
+                                                                        id: targetNode.chunk_idx,
+                                                                        text: targetNode.chunk,
+                                                                        functionTag: targetNode.function_tags[0],
+                                                                        importance: Math.abs(targetNode.importance) || 0.01,
+                                                                        dependsOn: targetNode.depends_on,
+                                                                    })
+                                                                    // Only trigger scroll if not already hovering over this step in CoT panel
+                                                                    if (!hoveredNode || hoveredNode.id !== targetNode.chunk_idx) {
+                                                                        setScrollToNode(targetNode.chunk_idx)
+                                                                    }
+                                                                }
+                                                                // Show tooltip
                                                                 setTooltip({
                                                                     visible: true,
                                                                     x: e.pageX + 20,
@@ -2360,6 +2486,7 @@ const ProblemVisualizer = ({
                                                                 })
                                                             }}
                                                             onMouseLeave={() => {
+                                                                setHoveredNode(null)
                                                                 setTooltip({ visible: false, x: 0, y: 0, content: '' })
                                                             }}
                                                         >
@@ -2415,6 +2542,24 @@ const ProblemVisualizer = ({
                                                                 }
                                                             }}
                                                                 onMouseEnter={(e) => {
+                                                                    // Set hovered node for gray border in central display
+                                                                    const targetNode = normalizedChunksData.find(
+                                                                        (chunk) => chunk.chunk_idx === effect.id,
+                                                                    )
+                                                                    if (targetNode) {
+                                                                        setHoveredNode({
+                                                                            id: targetNode.chunk_idx,
+                                                                            text: targetNode.chunk,
+                                                                            functionTag: targetNode.function_tags[0],
+                                                                            importance: Math.abs(targetNode.importance) || 0.01,
+                                                                            dependsOn: targetNode.depends_on,
+                                                                        })
+                                                                        // Only trigger scroll if not already hovering over this step in CoT panel
+                                                                        if (!hoveredNode || hoveredNode.id !== targetNode.chunk_idx) {
+                                                                            setScrollToNode(targetNode.chunk_idx)
+                                                                        }
+                                                                    }
+                                                                    // Show tooltip
                                                                     setTooltip({
                                                                         visible: true,
                                                                         x: e.pageX + 20,
@@ -2423,6 +2568,7 @@ const ProblemVisualizer = ({
                                                                     })
                                                                 }}
                                                                 onMouseLeave={() => {
+                                                                    setHoveredNode(null)
                                                                     setTooltip({ visible: false, x: 0, y: 0, content: '' })
                                                                 }}
                                                             >

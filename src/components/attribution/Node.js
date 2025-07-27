@@ -50,6 +50,7 @@ export default function Node({
   pos, 
   chunk, 
   isSelected, 
+  isHovered = false,
   nodeW = 170, 
   nodeH = 70,
   opacity = 1.0,
@@ -138,6 +139,49 @@ export default function Node({
           ry={8}
           fill={'transparent'}
           stroke={'#333'}
+          strokeWidth={3}
+          style={{ cursor: 'pointer' }}
+          onMouseEnter={(e) => {
+            if (onNodeHover) {
+              const nodeData = {
+                id: node.idx,
+                text: chunk.chunk || chunk.summary,
+                functionTag: tag,
+                importance: Math.abs(chunk.importance) || 0.01,
+                dependsOn: chunk.depends_on,
+              }
+              onNodeHover(e, nodeData)
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (onNodeLeave) {
+              onNodeLeave(e)
+            }
+          }}
+          onClick={(e) => {
+            if (onNodeClick) {
+              const nodeData = {
+                id: node.idx,
+                text: chunk.chunk || chunk.summary,
+                functionTag: tag,
+                importance: Math.abs(chunk.importance) || 0.01,
+                dependsOn: chunk.depends_on,
+              }
+              onNodeClick(nodeData)
+            }
+          }}
+        />
+      )}
+      {isHovered && !isSelected && (
+        <rect
+          x={pos.x - nodeW/2}
+          y={pos.y - nodeH/2}
+          width={nodeW}
+          height={nodeH}
+          rx={8}
+          ry={8}
+          fill={'transparent'}
+          stroke={'#666'}
           strokeWidth={3}
           style={{ cursor: 'pointer' }}
           onMouseEnter={(e) => {
