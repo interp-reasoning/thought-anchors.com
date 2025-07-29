@@ -1619,6 +1619,21 @@ const ProblemVisualizer = ({
         }
     }
 
+    // Get function tags that are actually present in the current data
+    const getActiveFunctionTags = () => {
+        if (!normalizedChunksData || normalizedChunksData.length === 0) return []
+        
+        const activeTags = new Set()
+        normalizedChunksData.forEach(chunk => {
+            if (chunk.function_tags && chunk.function_tags[0]) {
+                activeTags.add(chunk.function_tags[0])
+            }
+        })
+        
+        // Return tags in the exact order they appear in functionTagColors definition
+        return Object.keys(functionTagColors).filter(tag => activeTags.has(tag))
+    }
+
     // Get top-3 different resampled sentences for a node
     const getTopResampledSentences = (nodeId) => {
         if (!resampledChunks || !resampledChunks[nodeId]) {
@@ -2087,10 +2102,7 @@ const ProblemVisualizer = ({
                                         columnGap: '0.5rem',
                                     }}
                                 >
-                                    {Object.entries(functionTagColors).slice(
-                                        dataFormat === 'problem' ? 0 : solutionType.includes('blackmail') ? 8 : 14, 
-                                        dataFormat === 'problem' ? 8 : solutionType.includes('blackmail') ? 14 : 25
-                                    ).map(([tag, color]) => (
+                                    {getActiveFunctionTags().map((tag) => (
                                         <LegendFunctionTag
                                             key={tag}
                                             className={selectedFunctionTagFilter === tag ? 'selected' : ''}
@@ -2100,7 +2112,7 @@ const ProblemVisualizer = ({
                                                 style={{
                                                     width: '15px',
                                                     height: '15px',
-                                                    backgroundColor: color,
+                                                    backgroundColor: functionTagColors[tag] || '#999',
                                                     borderRadius: '50%',
                                                 }}
                                             ></div>
