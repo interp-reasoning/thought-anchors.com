@@ -147,8 +147,8 @@ export default function HomeScreen() {
         const newModel = e.target.value
         setSelectedModel(newModel)
         
-        if (newModel === 'qwq-32b') {
-            setSelectedSolutionType('yes_base_solution_blackmail')
+        if (['qwq-32b', 'qwen3-235b-a22b', 'deepseek-r1-0528'].includes(newModel)) {
+            setSelectedSolutionType('yes_base_solution')
         } else {
             // Other models use standard solution types
             if (!['correct_base_solution', 'incorrect_base_solution'].includes(selectedSolutionType)) {
@@ -206,6 +206,8 @@ export default function HomeScreen() {
                                         <option value="deepseek-r1-distill-qwen-14b">R1-Distill Qwen-14B</option>
                                         <option value="deepseek-r1-distill-llama-8b">R1-Distill Llama-8B</option>
                                         <option value="qwq-32b">QwQ-32B</option>
+                                        <option value="qwen3-235b-a22b">Qwen3-235B-A22B</option>
+                                        <option value="deepseek-r1-0528">DeepSeek R1</option>
                                     </select>
                                 </SelectContainer>
                                 <SelectContainer>
@@ -224,10 +226,9 @@ export default function HomeScreen() {
                                             minWidth: '120px'
                                         }}
                                     >
-                                        {selectedModel === 'deepseek-r1' || selectedModel === 'qwq-32b' ? (
+                                        {['qwq-32b', 'qwen3-235b-a22b', 'deepseek-r1-0528'].includes(selectedModel) ? (
                                             <>
-                                                <option value="yes_base_solution_whistleblow">Whistleblow</option>
-                                                <option value="yes_base_solution_blackmail">Blackmail</option>
+                                                <option value="yes_base_solution">Blackmail</option>
                                             </>
                                         ) : (
                                             <>

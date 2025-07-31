@@ -494,7 +494,7 @@ const ProblemVisualizer = ({
                     const chunksWithImportance = chunksResponse.default.map(chunk => ({
                         ...chunk,
                         importance: currentDataFormat === 'scenario' 
-                            ? chunk.counterfactual_importance_logodds 
+                            ? chunk.counterfactual_importance_category_kl
                             : chunk.counterfactual_importance_kl
                     }))
                     setChunksData(chunksWithImportance)
