@@ -9,14 +9,14 @@ export const functionTagColors = {
     final_answer_emission: '#795548',   // Brown
     // Blackmail
     situation_assessment: '#4285F4',    // Blue - recalling, parsing, synthesizing facts
-    leverage_identification: '#222222', // Red - identifying exploitable vulnerabilities
+    leverage_identification: '#654321', // Dark brown - identifying exploitable vulnerabilities
     urgency_and_time: '#FFA500',        // Orange - emphasizing time constraints
     self_preservation: '#9C27B0',       // Purple - survival and continuation statements
     email_analysis: '#008080',          // Teal - processing and analyzing emails
-    action_execution: '#CD853F',        // Peru brown - concrete output and actions
-    structural_marker: '#E91E63',       // Pink - CoT structure artifacts
-    action_marker: '#2F4F4F',           // Dark Slate Gray - functional action tags
-    other: '#9E9E9E',                   // Light Gray - conversational filler
+    action_execution: '#2F4F4F',        // Dark slate gray - concrete output and actions
+    structural_marker: '#00BCD4',       // Cyan - CoT structure artifacts
+    action_marker: '#00BCD4',           // Cyan - functional action tags
+    other: '#9E9E9E',                   // Light gray - conversational filler
     // Whistleblow
     evidence_assessment: '#4285F4',     // Blue - analyzing evidence and implications
     ethical_analysis: '#EA4335',        // Red - ethical principles and duties  
