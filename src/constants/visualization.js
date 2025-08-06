@@ -28,6 +28,12 @@ export const functionTagColors = {
     consequence_analysis: '#FF9800',    // Orange - evaluating outcomes
     action_planning: '#8BC34A',         // Light green - planning concrete steps
     final_action: '#F44336',            // Red - concrete output action
+    // Code
+    algorithm_design: '#8B0000',        // Blue - designing algorithms
+    deduction: '#FF69B4',               // Pink - deductive reasoning
+    code_writing: '#34A853',            // Green - writing code
+    verification: '#FFA500',            // Orange - verifying code
+    answer_emission: '#795548',         // Brown - emitting code
     // Common
     other: '#795548'                    // Brown - catch-all
 }
