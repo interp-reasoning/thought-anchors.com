@@ -388,7 +388,11 @@ const ProblemVisualizer = ({
     windowWidth = 0,
     visualizationType = 'circle',
     onVisualizationTypeChange,
+    useAbsoluteValues = true, // New flag: true for Math.abs, false for Math.max(0, x)
 }) => {
+    // Helper function to handle importance score calculation based on flag
+    const calculateImportanceScore = (score) => useAbsoluteValues ? Math.abs(score) : Math.max(0, score)
+
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
     const [counterfactualStepImportanceData, setCounterfactualStepImportanceData] = useState([])
@@ -555,7 +559,7 @@ const ProblemVisualizer = ({
             currentStepImportanceData.forEach((step) => {
                 const impacts = step.target_impacts || []
                 impacts.forEach((impact) => {
-                    allImportanceScores.push(Math.abs(impact.importance_score))
+                    allImportanceScores.push(calculateImportanceScore(impact.importance_score))
                 })
             })
             
@@ -571,7 +575,7 @@ const ProblemVisualizer = ({
                     const impacts = step.target_impacts || []
                     
                     impacts.forEach((impact) => {
-                        const rawImportance = Math.abs(impact.importance_score)
+                        const rawImportance = calculateImportanceScore(impact.importance_score)
                         const normalizedWeight = (rawImportance - minImportance) / importanceRange
                         const key = `${sourceIdx}-${impact.target_chunk_idx}`
                         weightMap.set(key, normalizedWeight)
@@ -590,14 +594,14 @@ const ProblemVisualizer = ({
     const normalizedChunksData = useMemo(() => {
         if (chunksData.length === 0) return []
         
-        const rawImportances = chunksData.map(chunk => Math.abs(chunk.importance) || 0.01)
+        const rawImportances = chunksData.map(chunk => calculateImportanceScore(chunk.importance) || 0.01)
         const minImportance = Math.min(...rawImportances)
         const maxImportance = Math.max(...rawImportances)
         const importanceRange = maxImportance - minImportance || 1
 
         return chunksData.map(chunk => ({
             ...chunk,
-            importance: (Math.abs(chunk.importance) - minImportance) / importanceRange // Override with normalized value
+            importance: (calculateImportanceScore(chunk.importance) - minImportance) / importanceRange // Override with normalized value
         }))
     }, [chunksData])
 
@@ -606,8 +610,8 @@ const ProblemVisualizer = ({
         if (normalizedChunksData.length > 0 && currentStepImportanceData && currentStepImportanceData.length > 0) {
             // Find the chunk with the highest importance score
             const mostImportantChunk = normalizedChunksData.reduce((max, chunk) => {
-                const currentImportance = Math.abs(chunk.importance) || 0
-                const maxImportance = Math.abs(max.importance) || 0
+                const currentImportance = calculateImportanceScore(chunk.importance) || 0
+                const maxImportance = calculateImportanceScore(max.importance) || 0
                 return currentImportance > maxImportance ? chunk : max
             })
 
@@ -658,7 +662,7 @@ const ProblemVisualizer = ({
                 if (!stepData?.target_impacts) return []
                 
                 return stepData.target_impacts
-                    .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                    .sort((a, b) => calculateImportanceScore(b.importance_score) - calculateImportanceScore(a.importance_score))
                     .slice(0, k)
                     .map(impact => impact.target_chunk_idx)
             }
@@ -677,7 +681,7 @@ const ProblemVisualizer = ({
                 })
                 
                 return incomingConnections
-                    .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+                    .sort((a, b) => calculateImportanceScore(b.importance) - calculateImportanceScore(a.importance))
                     .slice(0, k)
                     .map(conn => conn.sourceId)
             }
@@ -701,13 +705,13 @@ const ProblemVisualizer = ({
                     // Get the raw importance score for this specific connection
                     const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === nodeForConnections.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    const rawImportance = impact ? calculateImportanceScore(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 } else if (isIncoming) {
                     // Get the raw importance score for this specific connection
                     const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === d.source.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === nodeForConnections.id)
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    const rawImportance = impact ? calculateImportanceScore(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 }
                 return 0.1
@@ -745,7 +749,7 @@ const ProblemVisualizer = ({
                         step.source_chunk_idx === (isOutgoing ? nodeForConnections.id : d.source.id))
                     const impact = stepData?.target_impacts?.find(impact => 
                         impact.target_chunk_idx === (isOutgoing ? d.target.id : nodeForConnections.id))
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    const rawImportance = impact ? calculateImportanceScore(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 })
                 .attr('marker-mid', (d) => {
@@ -990,7 +994,7 @@ const ProblemVisualizer = ({
 
         // Create nodes data with improved sizing (using already normalized importance)
         const nodes = normalizedChunksData.map((chunk) => {
-            const normalizedImportance = Math.abs(chunk.importance) || 0.01 // Already normalized 0-1
+            const normalizedImportance = calculateImportanceScore(chunk.importance) || 0.01 // Already normalized 0-1
             
             // Mobile-specific node sizing
             let baseRadius, radiusMultiplier
@@ -1048,7 +1052,7 @@ const ProblemVisualizer = ({
 
             // Sort target impacts by importance score and take top-N based on user selection
             const topTargets = [...(step.target_impacts || [])]
-                .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                .sort((a, b) => calculateImportanceScore(b.importance_score) - calculateImportanceScore(a.importance_score))
                 .slice(0, localCausalLinksCount)
 
             topTargets.forEach((target) => {
@@ -1065,7 +1069,7 @@ const ProblemVisualizer = ({
                         source: sourceIdx,
                         target: target.target_chunk_idx,
                         weight: normalizedWeight,
-                        rawWeight: Math.abs(target.importance_score),
+                        rawWeight: calculateImportanceScore(target.importance_score),
                         type: 'causal',
                     })
                     existingLinks.add(linkKey)
@@ -1087,7 +1091,7 @@ const ProblemVisualizer = ({
             })
             
             const topIncomingConnections = topIncoming
-                .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+                .sort((a, b) => calculateImportanceScore(b.importance) - calculateImportanceScore(a.importance))
                 .slice(0, localCausalLinksCount)
             
             topIncomingConnections.forEach(conn => {
@@ -1103,7 +1107,7 @@ const ProblemVisualizer = ({
                         source: conn.sourceId,
                         target: node.id,
                         weight: normalizedWeight,
-                        rawWeight: Math.abs(conn.importance),
+                        rawWeight: calculateImportanceScore(conn.importance),
                         type: 'causal',
                     })
                     existingLinks.add(linkKey)
@@ -1255,7 +1259,7 @@ const ProblemVisualizer = ({
             if (!stepData?.target_impacts) return []
             
             return stepData.target_impacts
-                .sort((a, b) => Math.abs(b.importance_score) - Math.abs(a.importance_score))
+                .sort((a, b) => calculateImportanceScore(b.importance_score) - calculateImportanceScore(a.importance_score))
                 .slice(0, k)
                 .map(impact => impact.target_chunk_idx)
         }
@@ -1275,7 +1279,7 @@ const ProblemVisualizer = ({
             })
             
             return incomingConnections
-                .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+                .sort((a, b) => calculateImportanceScore(b.importance) - calculateImportanceScore(a.importance))
                 .slice(0, k)
                 .map(conn => conn.sourceId)
         }
@@ -1360,13 +1364,13 @@ const ProblemVisualizer = ({
                     // Get the raw importance score for this specific connection
                     const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === selectedNode.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === d.target.id)
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    const rawImportance = impact ? calculateImportanceScore(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 } else if (isIncoming) {
                     // Get the raw importance score for this specific connection
                     const stepData = currentStepImportanceData.find(step => step.source_chunk_idx === d.source.id)
                     const impact = stepData?.target_impacts?.find(impact => impact.target_chunk_idx === selectedNode.id)
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    const rawImportance = impact ? calculateImportanceScore(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 }
                 return 0.1
@@ -1404,7 +1408,7 @@ const ProblemVisualizer = ({
                         step.source_chunk_idx === (isOutgoing ? selectedNode.id : d.source.id))
                     const impact = stepData?.target_impacts?.find(impact => 
                         impact.target_chunk_idx === (isOutgoing ? d.target.id : selectedNode.id))
-                    const rawImportance = impact ? Math.abs(impact.importance_score) : 0
+                    const rawImportance = impact ? calculateImportanceScore(impact.importance_score) : 0
                     return Math.max(0.3, rawImportance * 4)
                 })
                 .attr('marker-mid', (d) => {
@@ -1491,7 +1495,7 @@ const ProblemVisualizer = ({
                 id: chunk.chunk_idx,
                 text: chunk.chunk,
                 functionTag: chunk.function_tags[0],
-                importance: Math.abs(chunk.importance) || 0.01,
+                importance: calculateImportanceScore(chunk.importance) || 0.01,
                 dependsOn: chunk.depends_on,
             }
             setHoveredNode(nodeData)
@@ -1508,7 +1512,7 @@ const ProblemVisualizer = ({
             id: chunk.chunk_idx,
             text: chunk.chunk,
             functionTag: chunk.function_tags[0],
-            importance: Math.abs(chunk.importance) || 0.01,
+            importance: calculateImportanceScore(chunk.importance) || 0.01,
             dependsOn: chunk.depends_on,
         }
         setSelectedNode(nodeData)
@@ -1542,7 +1546,7 @@ const ProblemVisualizer = ({
             })
         }
 
-        return effects.sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+        return effects.sort((a, b) => calculateImportanceScore(b.importance) - calculateImportanceScore(a.importance))
     }
 
     // Get what affects this node (causally affected by)
@@ -1566,7 +1570,7 @@ const ProblemVisualizer = ({
         })
         
         return affectedBy
-            .sort((a, b) => Math.abs(b.importance) - Math.abs(a.importance))
+            .sort((a, b) => calculateImportanceScore(b.importance) - calculateImportanceScore(a.importance))
             .slice(0, limit)
     }
 
@@ -1584,7 +1588,7 @@ const ProblemVisualizer = ({
                 id: nextNode.chunk_idx,
                 text: nextNode.chunk,
                 functionTag: nextNode.function_tags[0],
-                importance: Math.abs(nextNode.importance) || 0.01,
+                importance: calculateImportanceScore(nextNode.importance) || 0.01,
                 dependsOn: nextNode.depends_on,
             })
             // Trigger scroll to the node in the left column
@@ -1596,7 +1600,7 @@ const ProblemVisualizer = ({
                 id: prevNode.chunk_idx,
                 text: prevNode.chunk,
                 functionTag: prevNode.function_tags[0],
-                importance: Math.abs(prevNode.importance) || 0.01,
+                importance: calculateImportanceScore(prevNode.importance) || 0.01,
                 dependsOn: prevNode.depends_on,
             })
             // Trigger scroll to the node in the left column
@@ -1830,8 +1834,8 @@ const ProblemVisualizer = ({
                     // If no node is available, auto-select the most important one
         if (!nodeIdToUse && normalizedChunksData.length > 0) {
             const mostImportantChunk = normalizedChunksData.reduce((max, chunk) => {
-                const currentImportance = Math.abs(chunk.importance) || 0
-                const maxImportance = Math.abs(max.importance) || 0
+                const currentImportance = calculateImportanceScore(chunk.importance) || 0
+                const maxImportance = calculateImportanceScore(max.importance) || 0
                 return currentImportance > maxImportance ? chunk : max
             })
             nodeIdToUse = mostImportantChunk.chunk_idx
@@ -2464,7 +2468,7 @@ const ProblemVisualizer = ({
                                                             id: targetNode.chunk_idx,
                                                             text: targetNode.chunk,
                                                             functionTag: targetNode.function_tags[0],
-                                                            importance: Math.abs(targetNode.importance) || 0.01,
+                                                            importance: calculateImportanceScore(targetNode.importance) || 0.01,
                                                             dependsOn: targetNode.depends_on,
                                                         })
                                                         // Trigger scroll to the node in the left column
@@ -2481,7 +2485,7 @@ const ProblemVisualizer = ({
                                                                         id: targetNode.chunk_idx,
                                                                         text: targetNode.chunk,
                                                                         functionTag: targetNode.function_tags[0],
-                                                                        importance: Math.abs(targetNode.importance) || 0.01,
+                                                                        importance: calculateImportanceScore(targetNode.importance) || 0.01,
                                                                         dependsOn: targetNode.depends_on,
                                                                     })
                                                                     // Only trigger scroll if not already hovering over this step in CoT panel
@@ -2546,7 +2550,7 @@ const ProblemVisualizer = ({
                                                                         id: targetNode.chunk_idx,
                                                                         text: targetNode.chunk,
                                                                         functionTag: targetNode.function_tags[0],
-                                                                        importance: Math.abs(targetNode.importance) || 0.01,
+                                                                        importance: calculateImportanceScore(targetNode.importance) || 0.01,
                                                                         dependsOn: targetNode.depends_on,
                                                                     })
                                                                     // Trigger scroll to the node in the left column
@@ -2563,7 +2567,7 @@ const ProblemVisualizer = ({
                                                                             id: targetNode.chunk_idx,
                                                                             text: targetNode.chunk,
                                                                             functionTag: targetNode.function_tags[0],
-                                                                            importance: Math.abs(targetNode.importance) || 0.01,
+                                                                            importance: calculateImportanceScore(targetNode.importance) || 0.01,
                                                                             dependsOn: targetNode.depends_on,
                                                                         })
                                                                         // Only trigger scroll if not already hovering over this step in CoT panel
