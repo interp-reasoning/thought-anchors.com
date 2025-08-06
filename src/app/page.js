@@ -81,6 +81,8 @@ export default function HomeScreen() {
                     'scenario_7',
                     'scenario_8',
                     'scenario_9',
+                    // Problem format for coding
+                    'problem_485',
                 ]
                 
                 const availableProblems = []
@@ -226,9 +228,14 @@ export default function HomeScreen() {
                                             minWidth: '120px'
                                         }}
                                     >
-                                        {['qwq-32b', 'qwen3-235b-a22b', 'deepseek-r1-0528'].includes(selectedModel) ? (
+                                        {['qwen3-235b-a22b', 'deepseek-r1-0528'].includes(selectedModel) ? (
                                             <>
                                                 <option value="yes_base_solution">Blackmail</option>
+                                            </>
+                                        ) : ['qwq-32b'].includes(selectedModel) ? (
+                                            <>
+                                                <option value="yes_base_solution">Blackmail</option>
+                                                <option value="correct_base_solution">Code</option>
                                             </>
                                         ) : (
                                             <>

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import * as d3 from 'd3'
 import { functionTagColors, formatFunctionTag } from '@/constants/visualization'
 import { processMathText } from '@/utils/textProcessing'
@@ -391,7 +391,28 @@ const ProblemVisualizer = ({
     useAbsoluteValues = true, // New flag: true for Math.abs, false for Math.max(0, x)
 }) => {
     // Helper function to handle importance score calculation based on flag
-    const calculateImportanceScore = (score) => useAbsoluteValues ? Math.abs(score) : Math.max(0, score)
+    const calculateImportanceScore = useCallback((score) => {
+        return useAbsoluteValues ? Math.abs(score) : Math.max(0, score)
+    }, [useAbsoluteValues])
+
+    // Helper functions to safely find min/max without spread operator (prevents stack overflow for large arrays)
+    const findMin = useCallback((array) => {
+        if (array.length === 0) return 0
+        let min = array[0]
+        for (let i = 1; i < array.length; i++) {
+            if (array[i] < min) min = array[i]
+        }
+        return min
+    }, [])
+
+    const findMax = useCallback((array) => {
+        if (array.length === 0) return 0
+        let max = array[0]
+        for (let i = 1; i < array.length; i++) {
+            if (array[i] > max) max = array[i]
+        }
+        return max
+    }, [])
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
     const [counterfactualStepImportanceData, setCounterfactualStepImportanceData] = useState([])
@@ -498,7 +519,7 @@ const ProblemVisualizer = ({
                         ...chunk,
                         importance: currentDataFormat === 'scenario' 
                             ? chunk.counterfactual_importance_category_kl
-                            : chunk.counterfactual_importance_kl
+                            : chunk.counterfactual_importance_kl || chunk.counterfactual_importance_test_pass_kl
                     }))
                     setChunksData(chunksWithImportance)
                 } catch (e) {
@@ -563,9 +584,10 @@ const ProblemVisualizer = ({
             })
             
             if (allImportanceScores.length > 0) {
-                // Find min and max for global 0-1 normalization
-                const minImportance = Math.min(...allImportanceScores)
-                const maxImportance = Math.max(...allImportanceScores)
+                // Find min and max for global 0-1 normalization (avoid spread operator for large arrays)
+                const minImportance = findMin(allImportanceScores)
+                const maxImportance = findMax(allImportanceScores)
+                
                 const importanceRange = maxImportance - minImportance || 1 // Avoid division by zero
                 
                 // Normalize each connection to 0-1 range
@@ -587,22 +609,25 @@ const ProblemVisualizer = ({
             // Clear weights when no data
             setNormalizedWeights(new Map())
         }
-    }, [currentStepImportanceData, problemId, selectedMetric])
+    }, [currentStepImportanceData, problemId, selectedMetric, calculateImportanceScore])
 
     // Normalize chunksData importance for consistent opacity in ChainOfThought
     const normalizedChunksData = useMemo(() => {
         if (chunksData.length === 0) return []
         
         const rawImportances = chunksData.map(chunk => calculateImportanceScore(chunk.importance) || 0.01)
-        const minImportance = Math.min(...rawImportances)
-        const maxImportance = Math.max(...rawImportances)
+        
+        // Find min and max without spread operator for large arrays
+        const minImportance = findMin(rawImportances)
+        const maxImportance = findMax(rawImportances)
+        
         const importanceRange = maxImportance - minImportance || 1
 
         return chunksData.map(chunk => ({
             ...chunk,
             importance: (calculateImportanceScore(chunk.importance) - minImportance) / importanceRange // Override with normalized value
         }))
-    }, [chunksData])
+    }, [chunksData, calculateImportanceScore])
 
     // Auto-select the most important step when data loads by simulating a click
     useEffect(() => {
@@ -624,7 +649,7 @@ const ProblemVisualizer = ({
                 return () => clearTimeout(timer)
             }
         }
-    }, [normalizedChunksData, currentStepImportanceData, problemId, modelId, solutionType]) // Reset when data context changes
+    }, [normalizedChunksData, currentStepImportanceData, problemId, modelId, solutionType, calculateImportanceScore]) // Reset when data context changes
 
     // Clear selection when problem context changes
     useEffect(() => {
@@ -2307,7 +2332,7 @@ const ProblemVisualizer = ({
                                 >
                                     <NavigationControls>
                                         <NavButton
-                                            disabled={selectedNode.id <= Math.min(...normalizedChunksData.map(c => c.chunk_idx))}
+                                            disabled={selectedNode.id <= findMin(normalizedChunksData.map(c => c.chunk_idx))}
                                             onClick={(e) => {
                                                 e.stopPropagation()
                                                 navigateToNode('prev')
@@ -2321,7 +2346,7 @@ const ProblemVisualizer = ({
                                             </p>
                                         </div>
                                         <NavButton
-                                            disabled={selectedNode.id >= Math.max(...normalizedChunksData.map(c => c.chunk_idx))}
+                                            disabled={selectedNode.id >= findMax(normalizedChunksData.map(c => c.chunk_idx))}
                                             onClick={(e) => {
                                                 e.stopPropagation()
                                                 navigateToNode('next')

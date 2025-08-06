@@ -1,0 +1,351 @@
+{
+  "problem_idx": 485,
+  "num_chunks": 542,
+  "avg_importance": -8.299178932748744e-05,
+  "max_importance": 1.0,
+  "min_importance": -0.77,
+  "top_influential_steps": [
+    {
+      "step_idx": 539,
+      "step_text": {
+        "chunk_idx": 539,
+        "chunk": "        print(candidate[0], candidate[1])",
+        "function_tags": [
+          "other"
+        ],
+        "is_critical": false,
+        "depends_on": [],
+        "summary": "Print candidate values.",
+        "correctness_rate": 1.0,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.0,
+          "51-75%": 0.0,
+          "76-99%": 0.0,
+          "100%": 1.0
+        },
+        "counterfactual_importance_correctness_rate": 0.0,
+        "different_trajectories_fraction": 0.0,
+        "overdeterminedness": 0.99,
+        "counterfactual_importance_logodds": 0.0,
+        "counterfactual_importance_test_pass_kl": 0.0,
+        "counterfactual_importance_test_pass_rate": 0.0,
+        "resampling_importance_correctness_rate": 0.0,
+        "resampling_importance_logodds": 0.0,
+        "resampling_importance_test_pass_kl": 0.0,
+        "resampling_importance_test_pass_rate": 0.0
+      },
+      "avg_outgoing_importance": 0.485
+    },
+    {
+      "step_idx": 538,
+      "step_text": {
+        "chunk_idx": 538,
+        "chunk": "    if left >= n and right >= n and bottom >= n and top >= n:",
+        "function_tags": [
+          "other"
+        ],
+        "is_critical": false,
+        "depends_on": [],
+        "summary": "Check boundary conditions.",
+        "correctness_rate": 1.0,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.0,
+          "51-75%": 0.0,
+          "76-99%": 0.0,
+          "100%": 1.0
+        },
+        "counterfactual_importance_correctness_rate": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.98,
+        "counterfactual_importance_logodds": 0.0,
+        "counterfactual_importance_test_pass_kl": 0.0,
+        "counterfactual_importance_test_pass_rate": 0.0,
+        "resampling_importance_correctness_rate": 0.0,
+        "resampling_importance_logodds": 0.0,
+        "resampling_importance_test_pass_kl": 0.0,
+        "resampling_importance_test_pass_rate": 0.0
+      },
+      "avg_outgoing_importance": 0.3333333333333333
+    },
+    {
+      "step_idx": 333,
+      "step_text": {
+        "chunk_idx": 333,
+        "chunk": "# check all points in other_points are on edges",
+        "function_tags": [
+          "other"
+        ],
+        "is_critical": false,
+        "depends_on": [],
+        "summary": "Verify points on edges",
+        "correctness_rate": 1.0,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.0,
+          "51-75%": 0.0,
+          "76-99%": 0.0,
+          "100%": 1.0
+        },
+        "counterfactual_importance_correctness_rate": 0.00649350649350644,
+        "different_trajectories_fraction": 0.46,
+        "overdeterminedness": 0.39,
+        "counterfactual_importance_logodds": 17.218884123821418,
+        "counterfactual_importance_test_pass_kl": 0.0,
+        "counterfactual_importance_test_pass_rate": 0.0,
+        "resampling_importance_correctness_rate": -0.010000000000000009,
+        "resampling_importance_logodds": -18.43072989664218,
+        "resampling_importance_test_pass_kl": 0.0,
+        "resampling_importance_test_pass_rate": 0.0
+      },
+      "avg_outgoing_importance": 0.2174519230769231
+    },
+    {
+      "step_idx": 511,
+      "step_text": {
+        "chunk_idx": 511,
+        "chunk": "Thus, the code works.",
+        "function_tags": [
+          "other"
+        ],
+        "is_critical": false,
+        "depends_on": [],
+        "summary": "Code execution successful.",
+        "correctness_rate": 1.0,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.0,
+          "51-75%": 0.0,
+          "76-99%": 0.0,
+          "100%": 1.0
+        },
+        "counterfactual_importance_correctness_rate": 0.0,
+        "different_trajectories_fraction": 1.0,
+        "overdeterminedness": 0.39,
+        "counterfactual_importance_logodds": 0.0,
+        "counterfactual_importance_test_pass_kl": 0.0,
+        "counterfactual_importance_test_pass_rate": 0.0,
+        "resampling_importance_correctness_rate": 0.0,
+        "resampling_importance_logodds": 0.0,
+        "resampling_importance_test_pass_kl": 0.0,
+        "resampling_importance_test_pass_rate": 0.0
+      },
+      "avg_outgoing_importance": 0.159
+    },
+    {
+      "step_idx": 374,
+      "step_text": {
+        "chunk_idx": 374,
+        "chunk": "Similarly right edge (x=2) has three points (the last three entries except the one not there?",
+        "function_tags": [
+          "other"
+        ],
+        "is_critical": false,
+        "depends_on": [],
+        "summary": "Identifying right edge points.",
+        "correctness_rate": 1.0,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.0,
+          "51-75%": 0.0,
+          "76-99%": 0.0,
+          "100%": 1.0
+        },
+        "counterfactual_importance_correctness_rate": 0.0,
+        "different_trajectories_fraction": 0.56,
+        "overdeterminedness": 0.14,
+        "counterfactual_importance_logodds": -0.9444634741257474,
+        "counterfactual_importance_test_pass_kl": 0.0,
+        "counterfactual_importance_test_pass_rate": 0.0,
+        "resampling_importance_correctness_rate": 0.0,
+        "resampling_importance_logodds": 0.0,
+        "resampling_importance_test_pass_kl": 0.0,
+        "resampling_importance_test_pass_rate": 0.0
+      },
+      "avg_outgoing_importance": 0.1252694610778443
+    }
+  ],
+  "top_dependent_steps": [
+    {
+      "step_idx": 17,
+      "step_text": {
+        "chunk_idx": 17,
+        "chunk": "But how do I find the square?",
+        "function_tags": [
+          "problem_understanding"
+        ],
+        "is_critical": false,
+        "depends_on": [
+          16
+        ],
+        "summary": "Finding the square value.",
+        "correctness_rate": 0.34,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.0,
+          "51-75%": 0.06060606060606061,
+          "76-99%": 0.5959595959595959,
+          "100%": 0.3434343434343434
+        },
+        "counterfactual_importance_correctness_rate": 0.05245129522586167,
+        "different_trajectories_fraction": 0.27,
+        "overdeterminedness": 0.7,
+        "counterfactual_importance_logodds": 0.2327231884857156,
+        "counterfactual_importance_test_pass_kl": 0.027619676111438327,
+        "counterfactual_importance_test_pass_rate": -0.04584554485593573,
+        "resampling_importance_correctness_rate": -0.030000000000000027,
+        "resampling_importance_logodds": -0.13682508266679838,
+        "resampling_importance_test_pass_kl": 0.0016102512886992538,
+        "resampling_importance_test_pass_rate": 0.0023640661938535423
+      },
+      "avg_incoming_importance": 0.012352941176470586
+    },
+    {
+      "step_idx": 21,
+      "step_text": {
+        "chunk_idx": 21,
+        "chunk": "But since we don't know which point that is, that complicates things.",
+        "function_tags": [
+          "problem_understanding"
+        ],
+        "is_critical": false,
+        "depends_on": [
+          20
+        ],
+        "summary": "Uncertainty complicates identification.",
+        "correctness_rate": 0.41,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.0,
+          "51-75%": 0.030612244897959183,
+          "76-99%": 0.5510204081632653,
+          "100%": 0.41836734693877553
+        },
+        "counterfactual_importance_correctness_rate": 0.07719183316955996,
+        "different_trajectories_fraction": 0.71,
+        "overdeterminedness": 0.31000000000000005,
+        "counterfactual_importance_logodds": 0.31634624874542444,
+        "counterfactual_importance_test_pass_kl": 0.0050618455091676826,
+        "counterfactual_importance_test_pass_rate": 0.026145255164970682,
+        "resampling_importance_correctness_rate": 0.010000000000000009,
+        "resampling_importance_logodds": 0.04119198492963139,
+        "resampling_importance_test_pass_kl": 0.0008105971260598662,
+        "resampling_importance_test_pass_rate": 0.01602214064220142
+      },
+      "avg_incoming_importance": 0.011904761904761904
+    },
+    {
+      "step_idx": 6,
+      "step_text": {
+        "chunk_idx": 6,
+        "chunk": "That means the square is defined by its minimum and maximum x and y coordinates.",
+        "function_tags": [
+          "problem_understanding"
+        ],
+        "is_critical": false,
+        "depends_on": [
+          5
+        ],
+        "summary": "Defining square boundaries.",
+        "correctness_rate": 0.43,
+        "test_pass_rates": {
+          "0%": 0.0,
+          "1-25%": 0.0,
+          "26-50%": 0.010101010101010102,
+          "51-75%": 0.020202020202020204,
+          "76-99%": 0.5353535353535354,
+          "100%": 0.43434343434343436
+        },
+        "counterfactual_importance_correctness_rate": 0.22678062678062683,
+        "different_trajectories_fraction": 0.65,
+        "overdeterminedness": 0.54,
+        "counterfactual_importance_logodds": 0.9573707574444197,
+        "counterfactual_importance_test_pass_kl": 0.03838295966828753,
+        "counterfactual_importance_test_pass_rate": 0.03909475230231807,
+        "resampling_importance_correctness_rate": -0.12,
+        "resampling_importance_logodds": -0.518268147850592,
+        "resampling_importance_test_pass_kl": 0.013761093064044543,
+        "resampling_importance_test_pass_rate": 0.044917257683215084
+      },
+      "avg_incoming_importance": 0.01
+    },
+    {
+      "step_idx": 16,
+      "step_text": {
+        "chunk_idx": 16,
+        "chunk": "The one that isn't is the answer.",
+        "function_tags": [
+          "problem_understanding"
+        ],
+        "is_critical": false,
+        "depends_on": [
+          15
+        ],
+        "summary": "Identify the correct answer.",
+        "correctness_rate": 0.33,
+        "test_pass_rates": {
+          "0%": 0.010101010101010102,
+          "1-25%": 0.020202020202020204,
+          "26-50%": 0.010101010101010102,
+          "51-75%": 0.04040404040404041,
+          "76-99%": 0.5858585858585859,
+          "100%": 0.3333333333333333
+        },
+        "counterfactual_importance_correctness_rate": 0.14805194805194805,
+        "different_trajectories_fraction": 0.35,
+        "overdeterminedness": 0.63,
+        "counterfactual_importance_logodds": 0.6325225587338352,
+        "counterfactual_importance_test_pass_kl": 0.026110016552077633,
+        "counterfactual_importance_test_pass_rate": -0.034143288867181654,
+        "resampling_importance_correctness_rate": 0.010000000000000009,
+        "resampling_importance_logodds": 0.04489084050304759,
+        "resampling_importance_test_pass_kl": 0.0014357286514262964,
+        "resampling_importance_test_pass_rate": -0.022566086395873652
+      },
+      "avg_incoming_importance": 0.009375
+    },
+    {
+      "step_idx": 11,
+      "step_text": {
+        "chunk_idx": 11,
+        "chunk": "Except for the corners, which are on two edges.",
+        "function_tags": [
+          "problem_understanding"
+        ],
+        "is_critical": false,
+        "depends_on": [
+          10
+        ],
+        "summary": "Identifying edge corners.",
+        "correctness_rate": 0.31,
+        "test_pass_rates": {
+          "0%": 0.010309278350515464,
+          "1-25%": 0.0,
+          "26-50%": 0.020618556701030927,
+          "51-75%": 0.020618556701030927,
+          "76-99%": 0.6288659793814433,
+          "100%": 0.31958762886597936
+        },
+        "counterfactual_importance_correctness_rate": 0.03838383838383841,
+        "different_trajectories_fraction": 0.9,
+        "overdeterminedness": 0.050000000000000044,
+        "counterfactual_importance_logodds": 0.18589937812935808,
+        "counterfactual_importance_test_pass_kl": 0.002675232548157793,
+        "counterfactual_importance_test_pass_rate": -0.014796915420876355,
+        "resampling_importance_correctness_rate": -0.03999999999999998,
+        "resampling_importance_logodds": -0.1945032749762179,
+        "resampling_importance_test_pass_kl": 0.0037811983413748133,
+        "resampling_importance_test_pass_rate": -0.020988565186854102
+      },
+      "avg_incoming_importance": 0.009090909090909092
+    }
+  ]
+}

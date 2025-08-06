@@ -1,6 +1,7 @@
 // Define color mapping for function tags
 export const functionTagColors = {
     problem_setup: '#4285F4',           // Blue
+    plan_generation: '#EA4335',         // Red
     fact_retrieval: '#FBBC05',          // Yellow
     active_computation: '#34A853',      // Green
     uncertainty_management: '#9C27B0',  // Purple
@@ -28,7 +29,6 @@ export const functionTagColors = {
     action_planning: '#8BC34A',         // Light green - planning concrete steps
     final_action: '#F44336',            // Red - concrete output action
     // Common
-    plan_generation: '#EA4335',         // Red
     other: '#795548'                    // Brown - catch-all
 }
 
