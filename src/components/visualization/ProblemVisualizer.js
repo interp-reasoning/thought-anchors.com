@@ -392,7 +392,6 @@ const ProblemVisualizer = ({
 }) => {
     // Helper function to handle importance score calculation based on flag
     const calculateImportanceScore = (score) => useAbsoluteValues ? Math.abs(score) : Math.max(0, score)
-
     const [problemData, setProblemData] = useState(null)
     const [chunksData, setChunksData] = useState([])
     const [counterfactualStepImportanceData, setCounterfactualStepImportanceData] = useState([])
