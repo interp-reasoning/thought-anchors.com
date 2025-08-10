@@ -384,7 +384,8 @@ export default function AttributionGraph({
         width: width, 
         height: height, 
         position: 'relative',
-        minWidth: '100%' // Ensure it takes at least full width of container
+        minWidth: '100%', // Ensure it takes at least full width of container
+        minHeight: '100%'
       }}>
         <svg ref={svgRef} width={width} height={height} style={{ 
           width: '100%', 
