@@ -1,18 +1,18 @@
 export const navbarItems = [
     {
-        name: 'Paper Code',
-        href: 'https://github.com/interp-reasoning/principled-attribution',
+        name: '🎥 Video',
+        href: 'https://www.youtube.com/watch?v=nCZN09Wjboc&t=1s',
     },
     {
-        name: 'Interface Code',
-        href: 'https://github.com/interp-reasoning/thought-anchors.com',
+        name: '💻 Code',
+        href: 'https://github.com/interp-reasoning/thought-anchors',
     },
     {
-        name: 'Dataset',
+        name: '📊 Dataset',
         href: 'https://huggingface.co/datasets/uzaymacar/math-rollouts',
     },
     {
-        name: 'Paper',
+        name: '📄 Paper',
         href: 'https://arxiv.org/abs/2506.19143',
     },
     {
